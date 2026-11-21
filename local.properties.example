@@ -1,3 +1,0 @@
-# 复制本文件为 local.properties，按本机 Android SDK 路径填写；local.properties 不入库。
-# Copy this file to local.properties and point it at your local Android SDK.
-sdk.dir=/path/to/Android/sdk
