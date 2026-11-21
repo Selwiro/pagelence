@@ -44,6 +44,13 @@ data class BookProgress(
     val lastReadAt: String? = null,
     /** Resume point for the last opened unit; null for older states. */
     val reader: ReaderPosition? = null,
+    /**
+     * When the reader finished the whole book, ISO-8601 UTC. Added on v2 as an
+     * optional field, so documents written before T139 decode it as `null`.
+     * Cleared if the book stops being complete; the shelf sorts finished books
+     * by it (books finished before the field existed fall back to `lastReadAt`).
+     */
+    val finishedAt: String? = null,
 )
 
 /** CEFR band used by self-assessment, placement tests and the level defaults. */
@@ -172,7 +179,13 @@ interface ReadingProfileRepository {
  * read-unit count stays identical.
  */
 object ProgressSemantics {
-    /** Drop ids the book no longer has and collapse duplicates, keeping order. */
+    /**
+     * Drop ids the book no longer has and collapse duplicates, keeping order.
+     *
+     * A stored [BookProgress.finishedAt] only survives when the sanitised unit
+     * set still covers the book: a hand-edited document that removed a unit is
+     * treated as "in progress" again instead of claiming a stale finish date.
+     */
     fun restore(saved: BookProgress?, index: ContentIndex): BookProgress {
         val bookId = index.book.id
         if (saved == null) return BookProgress(bookId = bookId)
@@ -181,30 +194,64 @@ object ProgressSemantics {
         for (unitId in saved.readUnitIds) {
             if (unitId in index.unitIds) seen += unitId
         }
+        val readUnitIds = seen.toList()
         return BookProgress(
             bookId = bookId,
             paragraphId = paragraphId,
-            readUnitIds = seen.toList(),
+            readUnitIds = readUnitIds,
             lastReadAt = saved.lastReadAt,
             reader = saved.reader?.takeIf { it.unitId in index.unitIds },
+            finishedAt = saved.finishedAt?.takeIf { isComplete(readUnitIds, index) },
         )
     }
 
-    /** Mark [unitId] read and move to the next unit, like the Web reader. */
-    fun advance(progress: BookProgress, index: ContentIndex, unitId: String): BookProgress {
+    /**
+     * Mark [unitId] read and move to the next unit, like the Web reader.
+     *
+     * [now] is the completion timestamp, or `null` for a passive save that must
+     * not stamp a finish (a resume point written while browsing). Incomplete
+     * books always lose [BookProgress.finishedAt].
+     */
+    fun advance(
+        progress: BookProgress,
+        index: ContentIndex,
+        unitId: String,
+        now: String?,
+    ): BookProgress {
         val unit = index.unit(unitId) ?: return progress
         val next = index.nextUnit(unitId)
-        return progress.copy(
+        val moved = progress.copy(
             readUnitIds = (progress.readUnitIds + unit.id).distinct(),
             paragraphId = next?.paragraphs?.firstOrNull()?.id ?: progress.paragraphId,
             reader = null,
         )
+        return stamped(moved, index, now)
     }
 
     /** Mark a unit read without moving the position ("今天读到这里"). */
-    fun markUnitRead(progress: BookProgress, index: ContentIndex, unitId: String): BookProgress {
+    fun markUnitRead(
+        progress: BookProgress,
+        index: ContentIndex,
+        unitId: String,
+        now: String?,
+    ): BookProgress {
         if (unitId !in index.unitIds) return progress
-        return progress.copy(readUnitIds = (progress.readUnitIds + unitId).distinct())
+        val marked = progress.copy(readUnitIds = (progress.readUnitIds + unitId).distinct())
+        return stamped(marked, index, now)
+    }
+
+    /**
+     * Keep the first finish date, set [now] on a fresh completion, and clear it
+     * whenever the unit set no longer covers the book.
+     */
+    private fun stamped(progress: BookProgress, index: ContentIndex, now: String?): BookProgress {
+        val complete = isComplete(progress, index)
+        val finishedAt = when {
+            !complete -> null
+            progress.finishedAt != null -> progress.finishedAt
+            else -> now
+        }
+        return if (finishedAt == progress.finishedAt) progress else progress.copy(finishedAt = finishedAt)
     }
 
     fun setPosition(progress: BookProgress, index: ContentIndex, paragraphId: String): BookProgress {
@@ -216,7 +263,14 @@ object ProgressSemantics {
         progress.readUnitIds.count { it in index.unitIds }
 
     fun isComplete(progress: BookProgress, index: ContentIndex): Boolean =
-        index.units.isNotEmpty() && readUnitCount(progress, index) == index.units.size
+        isComplete(progress.readUnitIds, index)
+
+    private fun isComplete(readUnitIds: List<String>, index: ContentIndex): Boolean =
+        index.units.isNotEmpty() && readUnitIds.count { it in index.unitIds } == index.units.size
+
+    /** True when a save changed a book from "in progress" to "finished". */
+    fun justFinished(before: BookProgress, after: BookProgress): Boolean =
+        before.finishedAt == null && after.finishedAt != null
 }
 
 /** Storage contract for progress; Room implements this in the app modules. */

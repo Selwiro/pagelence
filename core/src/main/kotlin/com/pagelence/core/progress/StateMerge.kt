@@ -32,6 +32,7 @@ data class MergeResult(
  * | field | rule |
  * |---|---|
  * | `readUnitIds` | set union, local order first |
+ * | `finishedAt` | earliest non-null finish date; cleared on load when the union is incomplete |
  * | `paragraphId` / `reader` / `lastReadAt` | side with the later `lastReadAt` |
  * | `wordCards` | tombstone wins over any live copy; else later `updatedAt` |
  * | `dailyActivity` | per-day max, union of dates (`DailyActivityRules`) |
@@ -150,9 +151,27 @@ object StateMerge {
         }
         val newer = if (remoteIsNewer) remote else local
         // Union keeps every finished unit; the newer side decides where the
-        // reader resumes and which `lastReadAt` travels on.
+        // reader resumes and which `lastReadAt` travels on. The finish date is
+        // the earliest non-null of both sides: a device that finished the book
+        // earlier must not lose that date to a later sync. A union that no
+        // longer covers the book is cleared when the app loads it
+        // (`ProgressSemantics.restore`), because the merge itself has no book.
         val readUnits = (local.readUnitIds + remote.readUnitIds).distinct()
-        return newer.copy(readUnitIds = readUnits)
+        return newer.copy(
+            readUnitIds = readUnits,
+            finishedAt = earliest(local.finishedAt, remote.finishedAt),
+        )
+    }
+
+    /** Earliest parseable timestamp; an unparseable side is ignored. */
+    private fun earliest(first: String?, second: String?): String? {
+        val a = instant(first)
+        val b = instant(second)
+        return when {
+            a == null -> second
+            b == null -> first
+            else -> if (a.isAfter(b)) second else first
+        }
     }
 
     private fun mergeCards(local: List<WordCard>, remote: List<WordCard>): CardMerge {

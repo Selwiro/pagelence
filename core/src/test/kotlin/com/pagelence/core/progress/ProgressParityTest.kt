@@ -18,6 +18,7 @@ import kotlin.test.assertTrue
  * replays the same sequences through [ProgressSemantics].
  */
 class ProgressParityTest {
+    private val NOW = "2026-11-21T10:00:00Z"
     private val repository = FileContentRepository(ContentFixtures.contentDir)
     private val fixture: Fixture = PagelenceJson.decodeFromString(
         ContentFixtures.resource("parity/progress-parity.json"),
@@ -36,7 +37,7 @@ class ProgressParityTest {
         val index = assertNotNull(repository.index(fixture.bookId))
         var progress = BookProgress(bookId = fixture.bookId)
         for (step in fixture.sequential) {
-            progress = ProgressSemantics.advance(progress, index, step.after)
+            progress = ProgressSemantics.advance(progress, index, step.after, NOW)
             assertEquals(
                 step.readUnitCount,
                 ProgressSemantics.readUnitCount(progress, index),
@@ -55,7 +56,7 @@ class ProgressParityTest {
         for ((order, steps) in orders) {
             var progress = BookProgress(bookId = fixture.bookId)
             for (step in steps) {
-                progress = ProgressSemantics.advance(progress, index, step.after)
+                progress = ProgressSemantics.advance(progress, index, step.after, NOW)
                 assertEquals(
                     step.readUnitCount,
                     ProgressSemantics.readUnitCount(progress, index),

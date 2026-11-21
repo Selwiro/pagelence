@@ -28,6 +28,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -45,13 +46,18 @@ import com.pagelence.uim3.components.ReadingProgressBar
 import com.pagelence.uim3.model.BookUi
 import com.pagelence.uim3.model.LibraryUiState
 
-/** 书库：Material 3 大标题随滚动收起，书卡展示进度与续读入口。 */
+/**
+ * 书库：Material 3 大标题随滚动收起。书分两组——「在读」继续读，
+ * 「已读完」保留位置、显示读完日期，并可直接再读一遍。
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibraryScreen(
     strings: Strings,
     state: LibraryUiState,
     onOpenBook: (String) -> Unit,
+    onOpenBookDetail: (String) -> Unit,
+    onReread: (String) -> Unit,
     onOpenSettings: () -> Unit,
     onOpenProfile: () -> Unit,
     modifier: Modifier = Modifier,
@@ -99,7 +105,7 @@ fun LibraryScreen(
                 modifier = Modifier.fillMaxSize().padding(padding),
             )
 
-            state.books.isEmpty() -> EmptyState(
+            state.books.isEmpty() && state.finished.isEmpty() -> EmptyState(
                 icon = Icons.AutoMirrored.Filled.List,
                 title = strings.emptyShelf,
                 body = strings.emptyShelfHint,
@@ -119,8 +125,24 @@ fun LibraryScreen(
                         modifier = Modifier.padding(bottom = 4.dp),
                     )
                 }
-                items(state.books, key = { it.id }) { book ->
-                    BookCard(strings, book, onOpenBook)
+                if (state.books.isNotEmpty()) {
+                    if (state.finished.isNotEmpty()) {
+                        item(key = "section-reading") { ShelfSectionLabel(strings.shelfReading) }
+                    }
+                    items(state.books, key = { "reading-${it.id}" }) { book ->
+                        ReadingBookCard(strings, book, onOpenBook)
+                    }
+                }
+                if (state.finished.isNotEmpty()) {
+                    item(key = "section-finished") { ShelfSectionLabel(strings.shelfFinished) }
+                    items(state.finished, key = { "finished-${it.id}" }) { book ->
+                        FinishedBookCard(
+                            strings = strings,
+                            book = book,
+                            onOpen = { onOpenBookDetail(book.id) },
+                            onReread = { onReread(book.id) },
+                        )
+                    }
                 }
             }
         }
@@ -128,7 +150,17 @@ fun LibraryScreen(
 }
 
 @Composable
-private fun BookCard(strings: Strings, book: BookUi, onOpenBook: (String) -> Unit) {
+private fun ShelfSectionLabel(text: String) {
+    Text(
+        text,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(top = 6.dp),
+    )
+}
+
+@Composable
+private fun ReadingBookCard(strings: Strings, book: BookUi, onOpenBook: (String) -> Unit) {
     val progress = if (book.unitCount == 0) 0f else book.readUnits.toFloat() / book.unitCount
     ElevatedCard(
         onClick = { onOpenBook(book.id) },
@@ -136,39 +168,7 @@ private fun BookCard(strings: Strings, book: BookUi, onOpenBook: (String) -> Uni
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(18.dp)) {
-            Row {
-                BookCover(
-                    title = book.coverTitle,
-                    author = book.author,
-                    seed = book.id,
-                    monogram = book.monogram,
-                    cover = rememberCoverPainter(book.coverPath),
-                    modifier = Modifier.width(76.dp),
-                )
-                Spacer(Modifier.width(16.dp))
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        book.title,
-                        style = MaterialTheme.typography.titleLarge,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        book.subtitle,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                    Spacer(Modifier.height(10.dp))
-                    ReadingProgressBar(progress)
-                    Spacer(Modifier.height(6.dp))
-                    Text(
-                        strings.readUnits.format(book.readUnits, book.unitCount),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
+            BookHeader(strings, book, progress)
             Spacer(Modifier.height(14.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(modifier = Modifier.weight(1f)) {
@@ -184,10 +184,10 @@ private fun BookCard(strings: Strings, book: BookUi, onOpenBook: (String) -> Uni
                 }
                 Button(onClick = { onOpenBook(book.id) }) {
                     Text(
-                        when {
-                            book.finished -> strings.finishBook
-                            book.readUnits > 0 || book.readingUnitTitle != null -> strings.continueReading
-                            else -> strings.startReading
+                        if (book.readUnits > 0 || book.readingUnitTitle != null) {
+                            strings.continueReading
+                        } else {
+                            strings.startReading
                         },
                     )
                     Spacer(Modifier.width(6.dp))
@@ -199,5 +199,97 @@ private fun BookCard(strings: Strings, book: BookUi, onOpenBook: (String) -> Uni
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun FinishedBookCard(
+    strings: Strings,
+    book: BookUi,
+    onOpen: () -> Unit,
+    onReread: () -> Unit,
+) {
+    ElevatedCard(
+        onClick = onOpen,
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(modifier = Modifier.padding(18.dp)) {
+            BookHeader(strings, book, progress = 1f)
+            Spacer(Modifier.height(14.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(modifier = Modifier.weight(1f)) {
+                    book.finishedOn?.let { date ->
+                        Text(
+                            strings.finishedDate.format(date),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+                Button(onClick = onReread) {
+                    Text(strings.readAgain)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun BookHeader(strings: Strings, book: BookUi, progress: Float) {
+    Row {
+        BookCover(
+            title = book.coverTitle,
+            author = book.author,
+            seed = book.id,
+            monogram = book.monogram,
+            cover = rememberCoverPainter(book.coverPath),
+            modifier = Modifier.width(76.dp),
+        )
+        Spacer(Modifier.width(16.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    book.title,
+                    style = MaterialTheme.typography.titleLarge,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false),
+                )
+                if (book.finished) {
+                    Spacer(Modifier.width(8.dp))
+                    FinishedBadge(strings.shelfFinished)
+                }
+            }
+            Spacer(Modifier.height(4.dp))
+            Text(
+                book.subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(10.dp))
+            ReadingProgressBar(progress)
+            Spacer(Modifier.height(6.dp))
+            Text(
+                strings.readUnits.format(book.readUnits, book.unitCount),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+private fun FinishedBadge(text: String) {
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        color = MaterialTheme.colorScheme.primaryContainer,
+    ) {
+        Text(
+            text,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+        )
     }
 }

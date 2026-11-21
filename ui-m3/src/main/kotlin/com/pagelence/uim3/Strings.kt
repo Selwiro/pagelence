@@ -68,6 +68,18 @@ interface Strings {
     val nextUnitGuide: String
     val previousUnitGrammar: String
     val finishBook: String
+    val shelfReading: String
+    val shelfFinished: String
+    val finishedDate: String
+    val readAgain: String
+    val finishedTitle: String
+    val finishedSubtitle: String
+    val finishedUnitsLabel: String
+    val finishedWordsLabel: String
+    val finishedCardsLabel: String
+    val finishedSummary: String
+    val backToShelf: String
+    val browseStore: String
     val language: String
     val languageZh: String
     val languageEn: String

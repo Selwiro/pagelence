@@ -74,6 +74,7 @@ import com.pagelence.uim3.model.BuiltInBookUi
 import com.pagelence.uim3.model.BookChapterUi
 import com.pagelence.uim3.model.BookDetailUi
 import com.pagelence.uim3.model.BookUi
+import com.pagelence.uim3.model.FinishedBookUi
 import com.pagelence.uim3.model.GrammarDetailUi
 import com.pagelence.uim3.model.GrammarExampleUi
 import com.pagelence.uim3.model.GrammarPointUi
@@ -149,6 +150,7 @@ enum class Screen {
     ABOUT_LICENSES,
     BOOK_DETAIL,
     BOOK_INFO,
+    BOOK_FINISHED,
 }
 
 /** Four bottom-bar destinations; each keeps its own screen stack. */
@@ -188,6 +190,8 @@ data class AppUiState(
     val assessment: AssessmentUiState = AssessmentUiState(),
     /** Opened from a store card; null while loading or after leaving the page. */
     val bookDetail: BookDetailUi? = null,
+    /** The page shown right after the last unit; null everywhere else. */
+    val finishedBook: FinishedBookUi? = null,
     val speechAvailable: Boolean = false,
     val readerExitConfirm: Boolean = false,
     /** The level prompt is open; nothing has been written to `state.json` yet. */
@@ -334,20 +338,27 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val shelfIds = graph.preferences.preferences().shelfBookIds.toSet()
         val entries = graph.content.library().mapNotNull { summary ->
             val bookIndex = graph.content.index(summary.id) ?: return@mapNotNull null
-            val progress = graph.progress.progress(summary.id)
+            val saved = graph.progress.progress(summary.id)
+            // Sanitise on load: unknown unit ids and a stale finish date (for
+            // example after a hand-edited document) must not keep a book in
+            // the finished group. `save` is a no-op when nothing changed.
+            val progress = ProgressSemantics.restore(saved, bookIndex)
+            if (progress != saved) graph.progress.save(progress)
             val ui = toBookUi(bookIndex, progress, strings, language)
             LibraryEntry(
                 bookId = ui.id,
                 readUnits = ui.readUnits,
                 hasResume = ui.readingUnitTitle != null,
                 finished = ui.finished,
+                lastReadAt = progress.lastReadAt,
+                finishedAt = progress.finishedAt,
             ) to ui
         }
-        val visible = LibraryRules.visible(entries.map { it.first }, shelfIds)
-            .map { it.bookId }
-            .toSet()
+        val sections = LibraryRules.sections(entries.map { it.first }, shelfIds)
+        val byId = entries.associate { it.first.bookId to it.second }
         return LibraryUiState(
-            books = entries.filter { it.first.bookId in visible }.map { it.second },
+            books = sections.reading.mapNotNull { byId[it.bookId] },
+            finished = sections.finished.mapNotNull { byId[it.bookId] },
             loading = false,
         )
     }
@@ -409,22 +420,18 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     /** Back within the current tab; at a tab root the system handles Back. */
     fun back() {
         graph.speech.stop()
-        val current = _ui.value.screen
-        val next = popScreen() ?: return
-        val leavingReader = current == Screen.READER
-        if (leavingReader) {
-            _ui.value.reader?.let { saveReaderPosition(it, immediate = true) }
-            pendingPanel = null
-            wordSelection = WordSelectionState.clear()
+        if (_ui.value.screen == Screen.READER) {
+            leaveReader()
+            return
         }
+        val next = popScreen() ?: return
         _ui.update {
             it.copy(
                 screen = next,
                 readerExitConfirm = false,
-                reader = if (leavingReader) null else it.reader,
+                finishedBook = null,
             )
         }
-        if (leavingReader) refreshLibrary()
     }
 
     fun openBook(bookId: String) = openBookAt(bookId, unitId = null)
@@ -512,12 +519,41 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         graph.speech.stop()
         pendingPanel = null
         wordSelection = WordSelectionState.clear()
-        back()
-        if (_ui.value.screen == Screen.READER) {
-            _ui.update { it.copy(screen = rootScreen(it.tab), reader = null) }
+        if (_ui.value.screen == Screen.READER) leaveReader() else back()
+    }
+
+    /**
+     * Leave the reader. Saving on the last unit's grammar page is the third
+     * finish path: the book becomes complete and the ending page replaces the
+     * reader instead of dropping straight back to the shelf.
+     */
+    private fun leaveReader() {
+        val reader = _ui.value.reader
+        val bookIndex = index
+        val saved = reader?.let { graph.progress.progress(it.bookId) }
+        // The passive save on entering the grammar page already marks the unit
+        // read, so completeness alone cannot tell whether the ending was shown.
+        // The finish date is the transition marker: null before the first
+        // completion, kept on every later re-read.
+        val completes = reader != null && bookIndex != null && saved != null &&
+            reader.resumePhase == ReaderPhase.GRAMMAR &&
+            bookIndex.nextUnit(reader.unitId) == null &&
+            saved.finishedAt == null
+        if (reader == null || bookIndex == null || !completes) {
+            _ui.value.reader?.let { saveReaderPosition(it, immediate = true) }
+            val next = popScreen() ?: rootScreen(_ui.value.tab)
+            _ui.update { it.copy(screen = next, reader = null, readerExitConfirm = false) }
             refreshLibrary()
-        } else if (_ui.value.reader != null) {
-            _ui.update { it.copy(reader = null) }
+            return
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            progressWriteLock.withLock {
+                persistReaderSavePoint(
+                    savePointOf(reader, answers = quizAnswers, submitted = quizSubmitted),
+                    now = Instant.now().toString(),
+                )
+            }
+            showFinished(reader.bookId, fromReader = true)
         }
     }
 
@@ -632,6 +668,8 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             ?: title.zh.orEmpty().ifBlank { title.en.orEmpty() }.ifBlank { bookId }.take(1)
         val catalogBook = catalog?.book
         val strings = stringsFor(language)
+        val savedProgress = graph.progress.progress(bookId)
+        val progress = index?.let { ProgressSemantics.restore(savedProgress, it) } ?: savedProgress
         return BookDetailUi(
             bookId = bookId,
             title = titleFor(title, language),
@@ -665,7 +703,10 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 ?.takeIf { language == UiLanguage.ZH },
             creatorLicense = summary?.licenses?.creator?.let { it.name ?: it.type },
             onShelf = bookId in prefs.shelfBookIds,
-            readUnits = index?.let { ProgressSemantics.readUnitCount(graph.progress.progress(bookId), it) } ?: 0,
+            readUnits = index?.let { ProgressSemantics.readUnitCount(progress, it) } ?: 0,
+            finished = index != null && index.units.isNotEmpty() &&
+                ProgressSemantics.isComplete(progress, index),
+            finishedOn = formatDate(progress.finishedAt),
             coverPath = graph.content.coverPath(bookId),
         )
     }
@@ -1698,8 +1739,14 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         readerSaveJob?.cancel()
     }
 
-    /** Write one resume point with the answers captured at schedule time. */
-    private fun persistReaderSavePoint(point: ReaderSavePoint) {
+    /**
+     * Write one resume point with the answers captured at schedule time.
+     *
+     * [now] is passed only when the caller is finishing the unit (leaving the
+     * reader or moving on); a page turn or quiz answer passes null so browsing
+     * the last grammar page never stamps a finish date.
+     */
+    private fun persistReaderSavePoint(point: ReaderSavePoint, now: String? = null) {
         // A save from the previous book may still be queued after a switch.
         val bookIndex = index?.takeIf { it.book.id == point.bookId } ?: return
         val stored = graph.progress.progress(point.bookId)
@@ -1721,7 +1768,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         )
         val wasRead = point.unitId in current.readUnitIds
         val next = if (grammarReached) {
-            ProgressSemantics.markUnitRead(current, bookIndex, point.unitId)
+            ProgressSemantics.markUnitRead(current, bookIndex, point.unitId, now)
         } else {
             current
         }
@@ -1833,17 +1880,28 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val bookIndex = index ?: return
         clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
+            var justFinished = false
             val advanced = progressWriteLock.withLock {
                 val current = graph.progress.progress(reader.bookId)
                 val wasRead = reader.unitId in current.readUnitIds
-                val next = ProgressSemantics.advance(current, bookIndex, reader.unitId)
+                val next = ProgressSemantics.advance(
+                    current,
+                    bookIndex,
+                    reader.unitId,
+                    Instant.now().toString(),
+                )
                 graph.progress.save(next)
                 if (!wasRead) graph.profile.recordCompletedUnit(today())
+                justFinished = ProgressSemantics.justFinished(current, next)
                 next
+            }
+            if (justFinished) {
+                showFinished(reader.bookId, fromReader = true)
+                return@launch
             }
             val next = bookIndex.nextUnit(reader.unitId)
             if (next == null) {
-                withContext(Dispatchers.Main) { finishBook() }
+                withContext(Dispatchers.Main) { leaveReader() }
                 return@launch
             }
             quizAnswers = emptyMap()
@@ -1894,28 +1952,151 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
     }
 
-    private fun finishBook() {
-        graph.speech.stop()
-        clearPendingReaderSave()
-        pendingPanel = null
-        wordSelection = WordSelectionState.clear()
-        val next = popScreen() ?: rootScreen(_ui.value.tab)
-        _ui.update { it.copy(screen = next, reader = null, readerExitConfirm = false) }
-        refreshLibrary()
-    }
-
     fun stopHere() {
         val reader = _ui.value.reader ?: return
         val bookIndex = index ?: return
         clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
+            var justFinished = false
             progressWriteLock.withLock {
                 val current = graph.progress.progress(reader.bookId)
                 val wasRead = reader.unitId in current.readUnitIds
-                graph.progress.save(ProgressSemantics.markUnitRead(current, bookIndex, reader.unitId))
+                val next = ProgressSemantics.markUnitRead(
+                    current,
+                    bookIndex,
+                    reader.unitId,
+                    Instant.now().toString(),
+                )
+                graph.progress.save(next)
                 if (!wasRead) graph.profile.recordCompletedUnit(today())
+                justFinished = ProgressSemantics.justFinished(current, next)
             }
-            withContext(Dispatchers.Main) { finishBook() }
+            if (justFinished) showFinished(reader.bookId, fromReader = true)
+        }
+    }
+
+    // --- finished book ----------------------------------------------------
+
+    /** Build and show the ending page; from the reader it replaces that screen. */
+    private suspend fun showFinished(bookId: String, fromReader: Boolean) {
+        val finished = buildFinishedBook(bookId)
+        if (finished == null) {
+            if (fromReader) leaveReaderWithoutFinishing()
+            return
+        }
+        val profile = buildProfile()
+        withContext(Dispatchers.Main) {
+            graph.speech.stop()
+            clearPendingReaderSave()
+            pendingPanel = null
+            wordSelection = WordSelectionState.clear()
+            val stack = currentStack()
+            if (fromReader && stack.lastOrNull() == Screen.READER) stack.removeAt(stack.lastIndex)
+            if (stack.lastOrNull() != Screen.BOOK_FINISHED) stack.add(Screen.BOOK_FINISHED)
+            _ui.update {
+                it.copy(
+                    screen = Screen.BOOK_FINISHED,
+                    reader = null,
+                    readerExitConfirm = false,
+                    finishedBook = finished,
+                    profile = profile,
+                )
+            }
+        }
+        refreshLibrary()
+    }
+
+    private fun leaveReaderWithoutFinishing() {
+        _ui.value.reader?.let { saveReaderPosition(it, immediate = true) }
+        val next = popScreen() ?: rootScreen(_ui.value.tab)
+        _ui.update { it.copy(screen = next, reader = null, readerExitConfirm = false) }
+        refreshLibrary()
+    }
+
+    private fun buildFinishedBook(bookId: String): FinishedBookUi? {
+        val bookIndex = graph.content.index(bookId) ?: return null
+        val saved = graph.progress.progress(bookId)
+        val progress = ProgressSemantics.restore(saved, bookIndex)
+        if (progress != saved) graph.progress.save(progress)
+        val language = uiLanguage(graph.preferences.preferences())
+        val book = bookIndex.book
+        return FinishedBookUi(
+            bookId = book.id,
+            title = titleFor(book.title, language),
+            coverTitle = book.title.en ?: book.title.zh ?: book.id,
+            monogram = (book.title.zh ?: book.title.en ?: book.id).take(1),
+            author = book.author,
+            unitCount = bookIndex.units.size,
+            wordCount = bookIndex.stats().words,
+            cardCount = graph.cards.list(book.id).size,
+            finishedOn = formatDate(progress.finishedAt),
+            coverPath = graph.content.coverPath(book.id),
+        )
+    }
+
+    /** Re-open the ending page from a book's detail page. */
+    fun openFinishedSummary() {
+        val detail = _ui.value.bookDetail ?: return
+        viewModelScope.launch(Dispatchers.IO) { showFinished(detail.bookId, fromReader = false) }
+    }
+
+    /** Leave the ending page for the shelf, wherever the book was opened from. */
+    fun backToShelf() {
+        val stack = currentStack()
+        if (stack.lastOrNull() == Screen.BOOK_FINISHED) stack.removeAt(stack.lastIndex)
+        if (_ui.value.tab == MainTab.SHELF) {
+            // A detail page may sit under the ending page; the button promises
+            // the shelf itself, not one page back.
+            while (stack.size > 1) stack.removeAt(stack.lastIndex)
+            _ui.update {
+                it.copy(screen = Screen.LIBRARY, finishedBook = null, readerExitConfirm = false)
+            }
+            refreshLibrary()
+        } else {
+            _ui.update { it.copy(finishedBook = null, readerExitConfirm = false) }
+            selectTab(MainTab.SHELF)
+        }
+    }
+
+    /** Leave the ending page for the store. */
+    fun openStoreFromFinished() {
+        val stack = currentStack()
+        if (stack.lastOrNull() == Screen.BOOK_FINISHED) stack.removeAt(stack.lastIndex)
+        if (_ui.value.tab == MainTab.STORE) {
+            _ui.update {
+                it.copy(
+                    screen = stack.lastOrNull() ?: Screen.STORE,
+                    finishedBook = null,
+                    readerExitConfirm = false,
+                )
+            }
+        } else {
+            _ui.update { it.copy(finishedBook = null, readerExitConfirm = false) }
+            selectTab(MainTab.STORE)
+        }
+    }
+
+    /**
+     * Start over from the first unit while keeping everything already read and
+     * the original finish date: the shelf stays in "已读完", "我的" does not move.
+     */
+    fun rereadBook(bookId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val bookIndex = graph.content.index(bookId) ?: return@launch
+            val first = bookIndex.units.firstOrNull() ?: return@launch
+            val stored = graph.progress.progress(bookId)
+            graph.progress.save(
+                stored.copy(
+                    paragraphId = first.paragraphs.firstOrNull()?.id,
+                    reader = null,
+                ),
+            )
+            withContext(Dispatchers.Main) {
+                val stack = currentStack()
+                if (stack.lastOrNull() == Screen.BOOK_FINISHED) stack.removeAt(stack.lastIndex)
+                _ui.update { it.copy(finishedBook = null) }
+                openBookAt(bookId, unitId = first.id)
+            }
         }
     }
 
@@ -2449,6 +2630,14 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private fun parseInstant(value: String): Instant? =
         runCatching { Instant.parse(value) }.getOrNull()
 
+    /** Local `yyyy-MM-dd` for a stored ISO instant; null when absent/unparseable. */
+    private fun formatDate(value: String?): String? {
+        val instant = value?.let(::parseInstant) ?: return null
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            .withZone(ZoneId.systemDefault())
+            .format(instant)
+    }
+
     private fun formatSyncTime(value: String?): String {
         val instant = value?.let(::parseInstant) ?: return "—"
         return DateTimeFormatter.ofPattern("MM-dd HH:mm")
@@ -2483,6 +2672,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             readUnits = read,
             readingUnitTitle = readingUnit?.title?.let { titleFor(it, language) },
             finished = bookIndex.units.isNotEmpty() && read == bookIndex.units.size,
+            finishedOn = formatDate(progress.finishedAt),
             coverPath = graph.content.coverPath(book.id),
         )
     }

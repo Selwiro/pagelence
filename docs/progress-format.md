@@ -3,9 +3,9 @@
 状态：**冻结于 2026-11-19**。`schemaVersion` 为 2。Kotlin 实现在
 `com.pagelence.core.progress`、`com.pagelence.core.wordcards`、`com.pagelence.core.prefs`。
 
-2026-11-20在 v2 上追加两个向后兼容的可选字段：单本进度的 `reader`（单元续读点）和
-偏好的 `readerLayoutChosen`（是否明确选过阅读方式）。旧文档没有这两个字段时按默认解码；
-`readingState` 的版本号不变。
+2026-11-20 在 v2 上追加两个向后兼容的可选字段：单本进度的 `reader`（单元续读点）和
+偏好的 `readerLayoutChosen`（是否明确选过阅读方式）。2026-11-22（T139）再追加单本进度的
+`finishedAt`（读完时间）。旧文档没有这些字段时按默认解码；`readingState` 的版本号不变。
 
 一份 `state.json` 同时承担：本地保存、导出/导入、WebDAV 同步。三处共用同一个序列化器
 （`ReadingStateCodec`），不另写格式。
@@ -21,6 +21,7 @@
       "paragraphId": "chapter-01-p005",
       "readUnitIds": ["chapter-01-u01", "chapter-01-u02"],
       "lastReadAt": "2026-11-19T01:00:00Z",
+      "finishedAt": null,
       "reader": {
         "unitId": "chapter-01-u02",
         "phase": "text",
@@ -71,6 +72,7 @@
 | `readUnitIds` | 是 | 已读单元集合，**只增**；顺序保留首次读完的顺序 |
 | `lastReadAt` | 否 | 本书最后一次写进度的 UTC 时间；保留用于排序与同步 |
 | `reader` | 否 | 最后一个打开单元的续读点，见下一节；旧状态没有此字段，按各自默认重新开始 |
+| `finishedAt` | 否 | 读完全书的时间，ISO-8601 UTC；未读完或旧文档为 `null`。由 T139 追加，v2 内不升版本 |
 
 ### 续读点 `ReaderPosition`
 
@@ -88,7 +90,9 @@
 
 - 丢弃书中不存在的 `paragraphId` 与单元 id；
 - 去重，保留首次出现的顺序；
-- 全书读完时保留最后位置，不清空。
+- 全书读完时保留最后位置，不清空；
+- `finishedAt` 只在清洗后的单元集合仍覆盖全书时保留，否则置 `null`（手工删掉一个单元
+  后，书回到「在读」）。
 
 阅读推进（`ProgressSemantics.advance`）与 Web 版一致：
 
@@ -98,6 +102,17 @@
 
 「今天读到这里」用 `markUnitRead`：只标记已读，不移动位置。只有单元此前未读时，
 调用方才记一次「完成单元」，避免重复计数。
+
+**完成与 `finishedAt`**：`advance` 与 `markUnitRead` 都接受一个 `now` 参数。
+
+- 单元集合覆盖全书且 `finishedAt` 为空时写入 `now`；已有非空值则保留第一次的时间，
+  重读、同步都不会改写它；
+- 单元集合不再覆盖全书时置 `null`；
+- `now = null` 表示这次写入只是续读点保存（翻页、答题、进入语法页），不写完成时间。
+  只有离开最后一个单元的语法页、或点「继续下一段 / 读完全书」这类显式推进才传 `now`。
+
+`ProgressSemantics.justFinished(before, after)` 判断「本次写入是否从在读变为读完」，
+App 用它决定是否进入读完页，不使用「是否已读完」判断，避免重读时重复弹出。
 
 **已读单元数** = `readUnitIds` 与书本单元集合的交集大小。Web 与本工程的算法各自
 独立的对照由 `core/src/test/resources/parity/progress-parity.json` 固定：该文件由
@@ -227,7 +242,9 @@
   上限 5 MB，损坏文件或更高 `schemaVersion` 在写库前拒绝。
 - 合并后再写回，写回是单事务；服务端 412 表示需要重新合并。
 - 两端都有同一 `bookId` 时才合并该书：`readUnitIds` 取并集（保留本地顺序，远端新增项
-  按远端顺序追加）；`paragraphId` 与 `lastReadAt` 取 `lastReadAt` 较晚的一端。
+  按远端顺序追加）；`paragraphId` 与 `lastReadAt` 取 `lastReadAt` 较晚的一端；
+  `finishedAt` 取两端**最早的非空值**（谁先读完用谁的时间）。合并本身拿不到书本单元数，
+  并集若不完整，App 在下次加载时由 `ProgressSemantics.restore` 把 `finishedAt` 置空。
 - `dailyActivity`：按日 max，见第四节。
 - `wordCards`：按 `id` 合并；任一端是墓碑即取墓碑（不复活），否则 `updatedAt` 较晚者胜。
 - 等级：`levelUpdatedAt` 较晚者胜；相同则保留本机。

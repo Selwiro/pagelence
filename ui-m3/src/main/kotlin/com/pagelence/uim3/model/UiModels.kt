@@ -32,12 +32,17 @@ data class BookUi(
     val readUnits: Int,
     val readingUnitTitle: String?,
     val finished: Boolean,
+    /** Display date of the finish, e.g. `2026-11-21`; null for old finishes. */
+    val finishedOn: String? = null,
     /** Package `cover.jpg`; null falls back to the typographic cover. */
     val coverPath: String? = null,
 )
 
 data class LibraryUiState(
+    /** Books in progress, newest read first. */
     val books: List<BookUi> = emptyList(),
+    /** Finished books, newest finish first; finishing never removes a book. */
+    val finished: List<BookUi> = emptyList(),
     val loading: Boolean = true,
     val error: String? = null,
 )
@@ -102,6 +107,30 @@ data class BookDetailUi(
     val creatorLicense: String? = null,
     val onShelf: Boolean,
     val readUnits: Int,
+    /** Complete: every unit was read at least once. */
+    val finished: Boolean = false,
+    /** Display date of the finish, e.g. `2026-11-21`; null for old finishes. */
+    val finishedOn: String? = null,
+    val coverPath: String?,
+)
+
+/**
+ * The page shown after the last unit of a book: one small ending, then the
+ * book's numbers and the ways back into the shelf.
+ */
+data class FinishedBookUi(
+    val bookId: String,
+    val title: String,
+    val coverTitle: String,
+    val monogram: String,
+    val author: String?,
+    val unitCount: Int,
+    /** Words of the original text, counted from the book itself. */
+    val wordCount: Int,
+    /** Words the reader collected from this book, tombstones excluded. */
+    val cardCount: Int,
+    /** Display date of the finish; null for a book finished before T139. */
+    val finishedOn: String?,
     val coverPath: String?,
 )
 

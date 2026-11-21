@@ -67,6 +67,8 @@ fun BookOverviewScreen(
     onBack: () -> Unit,
     onToggleShelf: () -> Unit,
     onRead: () -> Unit,
+    onReread: () -> Unit,
+    onOpenFinished: () -> Unit,
     onDownload: (String?) -> Unit,
     onOpenInfo: () -> Unit,
     onOpenChapter: (BookChapterUi) -> Unit,
@@ -96,6 +98,13 @@ fun BookOverviewScreen(
                             Text(if (state.onShelf) strings.onShelf else strings.addToShelf)
                         }
                         when {
+                            state.available && state.finished -> Button(
+                                onClick = onReread,
+                                modifier = Modifier.weight(1f).height(48.dp),
+                            ) {
+                                Text(strings.readAgain)
+                            }
+
                             state.available -> Button(
                                 onClick = onRead,
                                 modifier = Modifier.weight(1f).height(48.dp),
@@ -187,6 +196,55 @@ fun BookOverviewScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
+                        if (state.finished) {
+                            Spacer(Modifier.height(10.dp))
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            ) {
+                                Surface(
+                                    shape = MaterialTheme.shapes.small,
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                ) {
+                                    Text(
+                                        strings.shelfFinished,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                                    )
+                                }
+                                state.finishedOn?.let { date ->
+                                    Text(
+                                        strings.finishedDate.format(date),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (state.finished) {
+                item(key = "finished-summary") {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(onClick = onOpenFinished)
+                            .padding(vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            strings.finishedSummary,
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
                     }
                 }
             }

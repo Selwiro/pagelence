@@ -62,6 +62,42 @@ class ReadingStateCodecTest {
     }
 
     @Test
+    fun `a v2 document without finishedAt decodes it as null`() {
+        val json = """
+            {
+              "schemaVersion": 2,
+              "deviceId": "device-legacy",
+              "updatedAt": "2026-11-20T10:00:00Z",
+              "books": {
+                "b": { "bookId": "b", "readUnitIds": ["u1"] }
+              }
+            }
+        """.trimIndent()
+        val decoded = assertNotNull(ReadingStateCodec.decode(json))
+        assertNull(decoded.state.progress("b").finishedAt)
+        assertEquals(STATE_SCHEMA_VERSION, decoded.state.schemaVersion)
+    }
+
+    @Test
+    fun `finishedAt round-trips and stays optional`() {
+        val state = ReadingState(
+            deviceId = "device-test",
+            updatedAt = "2026-11-21T10:00:00Z",
+            books = mapOf(
+                "b" to BookProgress(
+                    bookId = "b",
+                    readUnitIds = listOf("u1"),
+                    finishedAt = "2026-11-21T09:00:00Z",
+                ),
+            ),
+        )
+        val decoded = assertNotNull(ReadingStateCodec.decode(ReadingStateCodec.encode(state)))
+        assertEquals("2026-11-21T09:00:00Z", decoded.state.progress("b").finishedAt)
+        val encoded = ReadingStateCodec.encode(decoded.state)
+        assertTrue(encoded.contains("\"finishedAt\""))
+    }
+
+    @Test
     fun `v1 migrates without losing books cards preferences or device id`() {
         val decoded = assertNotNull(ReadingStateCodec.decode(v1))
         assertTrue(decoded.upgraded)

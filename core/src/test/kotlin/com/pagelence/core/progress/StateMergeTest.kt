@@ -39,11 +39,13 @@ class StateMergeTest {
             units: List<String> = listOf("u1"),
             paragraphId: String? = "p1",
             lastReadAt: String? = "2026-11-20T09:00:00Z",
+            finishedAt: String? = null,
         ): BookProgress = BookProgress(
             bookId = id,
             paragraphId = paragraphId,
             readUnitIds = units,
             lastReadAt = lastReadAt,
+            finishedAt = finishedAt,
         )
 
         fun card(
@@ -73,6 +75,40 @@ class StateMergeTest {
         )
         val merged = StateMerge.merge(local, remote, base = null, Fixture.NOW, Fixture.TODAY).state
         assertEquals(listOf("u2", "u1", "u3"), merged.books.getValue("b").readUnitIds)
+    }
+
+    @Test
+    fun finishDateKeepsTheEarliestNonNull() {
+        val local = Fixture.state(
+            books = mapOf(
+                "b" to Fixture.book(
+                    units = listOf("u1", "u2"),
+                    lastReadAt = "2026-11-21T09:00:00Z",
+                    finishedAt = "2026-11-21T08:00:00Z",
+                ),
+            ),
+        )
+        val remote = Fixture.state(
+            deviceId = "device-b",
+            books = mapOf(
+                "b" to Fixture.book(
+                    units = listOf("u1"),
+                    lastReadAt = "2026-11-20T09:00:00Z",
+                    finishedAt = "2026-11-20T08:00:00Z",
+                ),
+            ),
+        )
+        val merged = StateMerge.merge(local, remote, base = null, Fixture.NOW, Fixture.TODAY).state
+        assertEquals("2026-11-20T08:00:00Z", merged.books.getValue("b").finishedAt)
+
+        val oneSide = StateMerge.merge(
+            local.copy(books = mapOf("b" to Fixture.book(finishedAt = null))),
+            remote.copy(books = mapOf("b" to Fixture.book(finishedAt = "2026-11-20T08:00:00Z"))),
+            base = null,
+            Fixture.NOW,
+            Fixture.TODAY,
+        ).state
+        assertEquals("2026-11-20T08:00:00Z", oneSide.books.getValue("b").finishedAt)
     }
 
     @Test

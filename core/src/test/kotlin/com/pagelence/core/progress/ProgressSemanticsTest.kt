@@ -15,6 +15,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ProgressSemanticsTest {
+    private val NOW = "2026-11-21T10:00:00Z"
     private val book = Book(
         id = "test-book",
         title = LocalizedText(zh = "测试书", en = "Test"),
@@ -72,18 +73,18 @@ class ProgressSemanticsTest {
     @Test
     fun `advance marks the unit and moves to the next unit`() {
         val start = BookProgress(bookId = "test-book")
-        val after = ProgressSemantics.advance(start, index, "u1")
+        val after = ProgressSemantics.advance(start, index, "u1", NOW)
         assertEquals(listOf("u1"), after.readUnitIds)
         assertEquals("u2-p1", after.paragraphId)
 
-        val again = ProgressSemantics.advance(after, index, "u1")
+        val again = ProgressSemantics.advance(after, index, "u1", NOW)
         assertEquals(listOf("u1"), again.readUnitIds, "the unit is only marked once")
     }
 
     @Test
     fun `advancing the last unit keeps the resume paragraph`() {
         val progress = BookProgress(bookId = "test-book", paragraphId = "u3-p1")
-        val after = ProgressSemantics.advance(progress, index, "u3")
+        val after = ProgressSemantics.advance(progress, index, "u3", NOW)
         assertEquals(listOf("u3"), after.readUnitIds)
         assertEquals("u3-p1", after.paragraphId)
     }
@@ -91,16 +92,16 @@ class ProgressSemanticsTest {
     @Test
     fun `advancing an unknown unit is a no-op`() {
         val progress = BookProgress(bookId = "test-book", readUnitIds = listOf("u1"))
-        assertEquals(progress, ProgressSemantics.advance(progress, index, "ghost"))
+        assertEquals(progress, ProgressSemantics.advance(progress, index, "ghost", NOW))
     }
 
     @Test
     fun `markUnitRead does not move the position`() {
         val progress = BookProgress(bookId = "test-book", paragraphId = "u1-p1")
-        val after = ProgressSemantics.markUnitRead(progress, index, "u2")
+        val after = ProgressSemantics.markUnitRead(progress, index, "u2", NOW)
         assertEquals(listOf("u2"), after.readUnitIds)
         assertEquals("u1-p1", after.paragraphId)
-        assertEquals(after, ProgressSemantics.markUnitRead(after, index, "ghost"))
+        assertEquals(after, ProgressSemantics.markUnitRead(after, index, "ghost", NOW))
     }
 
     @Test
@@ -114,7 +115,7 @@ class ProgressSemanticsTest {
     fun `completion means every unit is read`() {
         val partial = BookProgress(bookId = "test-book", readUnitIds = listOf("u1", "u2"))
         assertFalse(ProgressSemantics.isComplete(partial, index))
-        val complete = ProgressSemantics.markUnitRead(partial, index, "u3")
+        val complete = ProgressSemantics.markUnitRead(partial, index, "u3", NOW)
         assertTrue(ProgressSemantics.isComplete(complete, index))
         assertEquals(3, ProgressSemantics.readUnitCount(complete, index))
     }
@@ -143,6 +144,75 @@ class ProgressSemanticsTest {
         val repository = com.pagelence.core.content.FileContentRepository(ContentFixtures.contentDir)
         val book = indexOf(repository, ContentFixtures.dolittle)
         assertEquals("chapter-01-p001", book.firstParagraphId)
+    }
+
+    @Test
+    fun `finishing the last unit stamps the finish date once`() {
+        val partial = BookProgress(bookId = "test-book", readUnitIds = listOf("u1", "u2"))
+        val finished = ProgressSemantics.markUnitRead(partial, index, "u3", NOW)
+        assertEquals(NOW, finished.finishedAt)
+
+        val again = ProgressSemantics.advance(finished, index, "u3", "2026-12-01T00:00:00Z")
+        assertEquals(NOW, again.finishedAt, "a re-read never rewrites the finish date")
+    }
+
+    @Test
+    fun `a passive save leaves the finish date alone`() {
+        val partial = BookProgress(bookId = "test-book", readUnitIds = listOf("u1", "u2"))
+        val browsed = ProgressSemantics.markUnitRead(partial, index, "u3", now = null)
+        assertNull(browsed.finishedAt, "browsing the last grammar page is not finishing the book")
+
+        val existing = partial.copy(finishedAt = NOW, readUnitIds = listOf("u1", "u2", "u3"))
+        assertEquals(NOW, ProgressSemantics.advance(existing, index, "u3", now = null).finishedAt)
+    }
+
+    @Test
+    fun `an incomplete book loses a stale finish date`() {
+        val stale = BookProgress(
+            bookId = "test-book",
+            readUnitIds = listOf("u1", "u2"),
+            finishedAt = NOW,
+        )
+        val advanced = ProgressSemantics.advance(stale, index, "u1", now = null)
+        assertNull(advanced.finishedAt)
+    }
+
+    @Test
+    fun `restore keeps the finish date only while the book is complete`() {
+        val complete = ProgressSemantics.restore(
+            BookProgress(
+                bookId = "test-book",
+                readUnitIds = listOf("u1", "u2", "u3"),
+                finishedAt = NOW,
+            ),
+            index,
+        )
+        assertEquals(NOW, complete.finishedAt)
+
+        val missingUnit = ProgressSemantics.restore(
+            BookProgress(
+                bookId = "test-book",
+                readUnitIds = listOf("u1", "u2"),
+                finishedAt = NOW,
+            ),
+            index,
+        )
+        assertNull(missingUnit.finishedAt, "removing a unit puts the book back in progress")
+
+        val unknownOnly = ProgressSemantics.restore(
+            BookProgress(bookId = "test-book", readUnitIds = listOf("ghost"), finishedAt = NOW),
+            index,
+        )
+        assertNull(unknownOnly.finishedAt)
+    }
+
+    @Test
+    fun `justFinished only fires on the transition`() {
+        val before = BookProgress(bookId = "test-book", readUnitIds = listOf("u1", "u2"))
+        val after = ProgressSemantics.markUnitRead(before, index, "u3", NOW)
+        assertTrue(ProgressSemantics.justFinished(before, after))
+        assertFalse(ProgressSemantics.justFinished(after, after))
+        assertFalse(ProgressSemantics.justFinished(after, ProgressSemantics.advance(after, index, "u3", NOW)))
     }
 
     private fun indexOf(

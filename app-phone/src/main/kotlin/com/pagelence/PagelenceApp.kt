@@ -36,6 +36,7 @@ import com.pagelence.uim3.screens.AboutScreen
 import com.pagelence.uim3.screens.AssessmentScreen
 import com.pagelence.uim3.screens.BookInfoScreen
 import com.pagelence.uim3.screens.BookOverviewScreen
+import com.pagelence.uim3.screens.FinishedBookScreen
 import com.pagelence.uim3.screens.GrammarDetailScreen
 import com.pagelence.uim3.screens.GrammarPointScreen
 import com.pagelence.uim3.screens.LevelOnboardingScreen
@@ -246,9 +247,26 @@ private fun AppContent(
                     onBack = viewModel::back,
                     onToggleShelf = { viewModel.toggleShelf(detail.bookId) },
                     onRead = viewModel::startBookFromDetail,
+                    onReread = { viewModel.rereadBook(detail.bookId) },
+                    onOpenFinished = viewModel::openFinishedSummary,
                     onDownload = viewModel::downloadFromDetail,
                     onOpenInfo = viewModel::openBookInfo,
                     onOpenChapter = { viewModel.openChapterFromDetail(detail.bookId, it.id) },
+                )
+            }
+        }
+
+        Screen.BOOK_FINISHED -> {
+            val finished = state.finishedBook
+            if (finished == null) {
+                MainTabsShell(viewModel = viewModel, state = state, strings = strings)
+            } else {
+                FinishedBookScreen(
+                    strings = strings,
+                    state = finished,
+                    onReread = { viewModel.rereadBook(finished.bookId) },
+                    onBackToShelf = viewModel::backToShelf,
+                    onBrowseStore = viewModel::openStoreFromFinished,
                 )
             }
         }
@@ -387,6 +405,8 @@ private fun MainTabsShell(
                     strings = strings,
                     state = state.library,
                     onOpenBook = viewModel::openBook,
+                    onOpenBookDetail = viewModel::openBookDetail,
+                    onReread = viewModel::rereadBook,
                     onOpenSettings = viewModel::openSettings,
                     onOpenProfile = viewModel::openProfile,
                 )
