@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "deviceId": "device-legacy",
+  "updatedAt": "2026-11-18T10:00:00Z",
+  "books": {
+    "doctor-dolittle-1920": {
+      "bookId": "doctor-dolittle-1920",
+      "paragraphId": "chapter-01-p003",
+      "readUnitIds": ["chapter-01-u01", "chapter-01-u02"]
+    }
+  },
+  "wordCards": [
+    {
+      "id": "doctor-dolittle-1920::chapter-01-p002::chapter-01-p002-folks",
+      "bookId": "doctor-dolittle-1920",
+      "paragraphId": "chapter-01-p002",
+      "hintId": "chapter-01-p002-folks",
+      "unitId": "chapter-01-u01",
+      "term": "folks",
+      "lemma": "folk",
+      "pos": "noun",
+      "zh": "人们",
+      "en": "people",
+      "ipa": "fəʊks",
+      "createdAt": "2026-11-18T09:00:00Z",
+      "updatedAt": "2026-11-18T09:00:00Z"
+    }
+  ],
+  "preferences": {
+    "language": "en",
+    "readingMode": "guided",
+    "readerLayout": "scroll",
+    "definitionMode": "mixed",
+    "guideMode": "en",
+    "dictionary": "wordnet",
+    "theme": "dark",
+    "fontSize": "large",
+    "annotateHints": false,
+    "handledOffers": ["pilot"]
+  }
+}

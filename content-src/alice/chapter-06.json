@@ -1,0 +1,1430 @@
+{
+  "chapter": 6,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "门口的两个仆人",
+        "en": "Two Footmen at the Door"
+      },
+      "introduction": {
+        "zh": "爱丽丝来到一所房子前，正琢磨该怎么办，忽然从树林里跑出一个穿号衣的男仆。开门的是另一个仆人，两人的头发都很古怪。她悄悄探出头去，想听清他们在说什么。",
+        "en": "Alice stops in front of a house, wondering what to do, when a footman in livery runs out of the wood. Another footman opens the door, and both have very strange hair. Alice creeps closer to hear what the two of them are saying."
+      },
+      "paragraphs": {
+        "chapter-06-p001": {
+          "sentences": [
+            "她站在那儿看着那所房子，看了一两分钟，正想着自己该怎么办，忽然有个穿号衣的男仆从树林里跑了出来——（她认定他是男仆，是因为他穿着号衣；不然单看那张脸，她会把他叫作鱼）——他用指节在门上大声敲了几下。",
+            "开门的是另一个穿号衣的男仆，圆脸，一双像青蛙的大眼睛；爱丽丝注意到，两个男仆的头发都扑了粉，满头卷曲。",
+            "她非常好奇，想知道这到底是怎么回事，就悄悄从树林里挪出来一点，好听个明白。"
+          ],
+          "hints": [
+            {
+              "id": "powdered-hair",
+              "kind": "phrase",
+              "target": "powdered hair",
+              "sentence": 2,
+              "zh": "扑了粉的头发；旧时大户人家的仆人常戴扑粉的假发，头发卷曲。",
+              "en": "Powdered hair: servants in grand houses wore their hair powdered white and curled."
+            }
+          ]
+        },
+        "chapter-06-p002": {
+          "sentences": [
+            "鱼仆先从腋下拿出一封很大的信，几乎和他自己一样大，然后把它交给另一个仆人，用庄重的口气说：“给公爵夫人的。",
+            "王后请她去打槌球。”",
+            "蛙仆用同样庄重的口气重复了一遍，只是把词序稍微换了换：“王后来的。",
+            "请公爵夫人去打槌球的邀请。”"
+          ],
+          "hints": [
+            {
+              "id": "fish-footman",
+              "kind": "word",
+              "target": "Fish-Footman",
+              "sentence": 4,
+              "zh": "鱼仆，长着鱼脸的仆役，送来这封请柬。",
+              "en": "The Fish-Footman, a fish-faced servant who brings the invitation."
+            },
+            {
+              "id": "duchess",
+              "kind": "word",
+              "target": "Duchess",
+              "sentence": 4,
+              "zh": "公爵夫人，这所房子的女主人。",
+              "en": "The Duchess, the lady of this house."
+            },
+            {
+              "id": "queen",
+              "kind": "word",
+              "target": "Queen",
+              "sentence": 5,
+              "zh": "王后，这里指奇境里的红心王后。",
+              "en": "The Queen: the Queen of Hearts in Wonderland."
+            },
+            {
+              "id": "croquet",
+              "kind": "word",
+              "target": "croquet",
+              "sentence": 7,
+              "zh": "槌球，用木槌把球打过铁圈的草地游戏。",
+              "en": "Croquet: a lawn game in which players hit balls through hoops with a mallet."
+            }
+          ]
+        },
+        "chapter-06-p003": {
+          "sentences": [
+            "然后两人深深鞠了一躬，卷发缠在了一起。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p004": {
+          "sentences": [
+            "爱丽丝看得笑个不停，又怕被他们听见，只好跑回树林里；等她再探头张望时，鱼仆已经走了，另一个仆人坐在门边的地上，呆呆地仰头望着天。"
+          ],
+          "hints": [
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 9,
+              "zh": "爱丽丝，本书主角，追着白兔掉进奇境的小女孩。",
+              "en": "Alice, the girl who followed the White Rabbit into Wonderland."
+            }
+          ]
+        },
+        "chapter-06-p005": {
+          "sentences": [
+            "爱丽丝怯生生地走到门前，敲了敲门。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice decide that the first visitor must be a footman?",
+          "options": [
+            "Because he knocks loudly with his knuckles.",
+            "Because he is wearing livery.",
+            "Because his face looks like a fish."
+          ],
+          "answer": 1,
+          "sentence": 1,
+          "feedback": {
+            "zh": "原文说，她认定他是男仆，正是因为他“穿号衣”；单看那张脸，她本来会把他当成一条鱼。",
+            "en": "The text says she calls him a footman because he is in livery; judging by his face alone, she would have called him a fish."
+          }
+        },
+        {
+          "question": "What happens when the two footmen bow to each other?",
+          "options": [
+            "Their letter falls on the ground.",
+            "The door shuts behind them.",
+            "Their curls get entangled together."
+          ],
+          "answer": 2,
+          "sentence": 8,
+          "feedback": {
+            "zh": "两人深深鞠躬，头上的卷发缠在了一起——爱丽丝正是看到这里才笑出声来。",
+            "en": "They bow low and their curls get tangled together, which is why Alice cannot stop laughing."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "She felt very curious to know what it was all about",
+        "pointIds": [
+          "cefrj-153"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "know 后面的 what it was all about 是 wh- 从句，用陈述语序：it was，不能再倒装成 was it。",
+          "en": "The wh-clause after know keeps statement order: what it was all about, not what was it all about."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "敲门有什么用",
+        "en": "No Use in Knocking"
+      },
+      "introduction": {
+        "zh": "爱丽丝在门上敲了几下，仆人却说敲门一点用也没有，理由有两个。她问自己该怎么进去，仆人讲起门内门外的道理，眼睛一直望着天。就在这时，门里飞出一只盘子。",
+        "en": "Alice knocks, but the footman says knocking is no use at all, and gives two reasons. She asks how she is to get in, and he explains about doors and sides while staring at the sky. Then something comes flying out of the house."
+      },
+      "paragraphs": {
+        "chapter-06-p006": {
+          "sentences": [
+            "“敲门根本没用，”仆人说，“原因有两个。",
+            "第一，因为我和你一样，都站在门的这一边；第二，因为里面吵得那么厉害，根本没人听得见你。”",
+            "屋里的确传出一阵极不寻常的响动——不停地嚎叫和打喷嚏，时不时还有砰的一声巨响，像是盘子或水壶被摔得粉碎。"
+          ],
+          "hints": [
+            {
+              "id": "no-sort-of-use",
+              "kind": "phrase",
+              "target": "no sort of use",
+              "sentence": 1,
+              "zh": "一点用也没有；no sort of 加强否定。",
+              "en": "No sort of use: not any use at all; no sort of makes the negative stronger."
+            },
+            {
+              "id": "broken-to-pieces",
+              "kind": "phrase",
+              "target": "broken to pieces",
+              "sentence": 3,
+              "zh": "摔成碎片；to pieces 表示碎成小块。",
+              "en": "Broken to pieces: smashed into small bits."
+            }
+          ]
+        },
+        "chapter-06-p007": {
+          "sentences": [
+            "“那么请问，”爱丽丝说，“我该怎么进去呢？”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p008": {
+          "sentences": [
+            "“你敲门也许还有点道理，”仆人并不理会她，接着说，“前提是我们中间隔着这扇门。",
+            "比如说，要是你在里面，你敲敲门，我就可以放你出来，你懂吧。”",
+            "他说话的时候一直仰头望着天，爱丽丝觉得这实在太没礼貌。",
+            "“不过也许他也没办法，”她自言自语，“他的眼睛长得实在太靠头顶了。",
+            "可不管怎样，他总该回答人家的问题吧。——我该怎么进去？”她大声重复了一遍。"
+          ],
+          "hints": [
+            {
+              "id": "decidedly-uncivil",
+              "kind": "phrase",
+              "target": "decidedly uncivil",
+              "sentence": 7,
+              "zh": "decidedly 是“确实、明显”，uncivil 是“没礼貌”，合起来是“实在太无礼”。",
+              "en": "Decidedly uncivil: decidedly means clearly, uncivil means rude."
+            }
+          ]
+        },
+        "chapter-06-p009": {
+          "sentences": [
+            "“我就坐在这儿，”仆人说道，“一直坐到明天——”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p010": {
+          "sentences": [
+            "这时房子的门开了，一只大盘子飞掠而出，直冲仆人的脑袋：盘子只是擦过他的鼻子，撞在他身后的一棵树上，摔成了碎片。"
+          ],
+          "hints": [
+            {
+              "id": "grazed",
+              "kind": "word",
+              "target": "grazed",
+              "sentence": 11,
+              "zh": "擦过、蹭到；这里盘子只是擦过他的鼻子，并没有打中。",
+              "en": "Grazed: touched or scraped lightly in passing."
+            }
+          ]
+        },
+        "chapter-06-p011": {
+          "sentences": [
+            "“——或者也许是后天，”仆人用同样的口气接着说，就好像什么事都没发生。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p012": {
+          "sentences": [
+            "“我该怎么进去？”爱丽丝又问了一遍，声音更大了。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p013": {
+          "sentences": [
+            "“你究竟该不该进去呢？”仆人说。",
+            "“这才是第一个问题，你懂吧。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Footman say there is no use in knocking?",
+          "options": [
+            "The door is locked and the key has been lost.",
+            "Alice is knocking much too quietly.",
+            "He is on the same side of the door, and the noise inside is too loud."
+          ],
+          "answer": 2,
+          "sentence": 2,
+          "feedback": {
+            "zh": "他给出两个理由：两人都在门的同一侧；屋里太吵，没人听得见敲门声。",
+            "en": "He gives two reasons: they are on the same side of the door, and the noise inside would drown any knocking."
+          }
+        },
+        {
+          "question": "What does the Footman do while Alice is asking her questions?",
+          "options": [
+            "He keeps looking up into the sky.",
+            "He runs off into the wood.",
+            "He opens the door and lets her in."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "爱丽丝注意到，他说话时一直仰头看天，她觉得这实在太没礼貌。",
+            "en": "Alice notices that he stares at the sky the whole time he is speaking, which she thinks decidedly uncivil."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "how am I to get in",
+        "pointIds": [
+          "cefrj-99"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "be to do 表示按安排“该、要”做某事；am I to get in 是疑问语序，be 提到了主语 I 前面。",
+          "en": "Be to do means what is arranged or expected; in the question, am comes before the subject I."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "满屋胡椒",
+        "en": "Too Much Pepper"
+      },
+      "introduction": {
+        "zh": "爱丽丝推门进去，满屋都是胡椒味，呛得人人打喷嚏。厨房里坐着一位公爵夫人，怀里抱着个哭闹的婴儿；壁炉前还有一只大猫，咧着嘴笑个不停。她鼓起勇气，问起那只猫。",
+        "en": "Alice pushes the door open and finds the room thick with pepper; everyone is sneezing. In the kitchen sit a Duchess with a crying baby and a large cat grinning by the fire. Alice plucks up courage and asks about the cat."
+      },
+      "paragraphs": {
+        "chapter-06-p014": {
+          "sentences": [
+            "那当然没错：只是爱丽丝不喜欢被人这么说。",
+            "“真是要命，”她低声嘟囔，“这里所有的家伙都这么爱争辩。",
+            "简直能把人逼疯！”"
+          ],
+          "hints": [
+            {
+              "id": "drive-one-crazy",
+              "kind": "phrase",
+              "target": "drive one crazy",
+              "sentence": 3,
+              "zh": "把人逼疯；drive sb crazy 是“让某人受不了”。",
+              "en": "Drive one crazy: make someone lose patience completely."
+            }
+          ]
+        },
+        "chapter-06-p015": {
+          "sentences": [
+            "仆人似乎觉得这是个好机会，可以把他的话换个说法再说一遍。",
+            "“我就坐在这儿，”他说，“断断续续地，一坐就是好些天。”"
+          ],
+          "hints": [
+            {
+              "id": "on-and-off",
+              "kind": "phrase",
+              "target": "on and off",
+              "sentence": 5,
+              "zh": "断断续续地，时来时不来。",
+              "en": "On and off: for a while, then not, then again."
+            }
+          ]
+        },
+        "chapter-06-p016": {
+          "sentences": [
+            "“可我该怎么办呢？”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p017": {
+          "sentences": [
+            "“随你便，”仆人说，然后吹起了口哨。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p018": {
+          "sentences": [
+            "“唉，跟他说什么都没用，”爱丽丝绝望地说，“他简直是个白痴！”",
+            "于是她推开门走了进去。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p019": {
+          "sentences": [
+            "门一开就通向一间大厨房，里面从头到尾都是烟：公爵夫人坐在中间一张三条腿的凳子上，怀里抱着个婴儿；厨娘正俯在炉火上，搅着一口大锅，锅里似乎装满了汤。",
+            "“那锅汤里放的胡椒实在太多了！”",
+            "爱丽丝一边打喷嚏一边自言自语，尽可能把话说清楚。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p020": {
+          "sentences": [
+            "空气里的胡椒也实在太多了。",
+            "连公爵夫人也时不时打个喷嚏；至于那个婴儿，更是一刻不停地又打喷嚏又嚎叫，轮着来。",
+            "厨房里只有两个活物不打喷嚏：一个是厨娘，另一个是只大猫，它坐在壁炉前，咧着嘴笑到耳朵根。"
+          ],
+          "hints": [
+            {
+              "id": "grinning-from-ear-to-ear",
+              "kind": "phrase",
+              "target": "grinning from ear to ear",
+              "sentence": 15,
+              "zh": "咧着嘴笑得合不拢，笑到耳朵根。",
+              "en": "Grinning from ear to ear: smiling very widely."
+            }
+          ]
+        },
+        "chapter-06-p021": {
+          "sentences": [
+            "“请问你能不能告诉我，”爱丽丝有点胆怯地说，因为她不太确定自己先开口是否合乎礼数，“你的猫为什么那样笑呢？”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p022": {
+          "sentences": [
+            "“那是柴郡猫，”公爵夫人说，“所以就那样笑。",
+            "猪！”"
+          ],
+          "hints": [
+            {
+              "id": "cheshire-cat",
+              "kind": "word",
+              "target": "Cheshire cat",
+              "sentence": 17,
+              "zh": "柴郡猫，会隐身的猫；英国有句俗话，说柴郡猫总在笑。",
+              "en": "The Cheshire Cat, a cat that can vanish; an old English saying claims Cheshire cats always grin."
+            },
+            {
+              "id": "pig",
+              "kind": "word",
+              "target": "Pig",
+              "sentence": 18,
+              "zh": "猪！这里是公爵夫人骂婴儿的话，不是对爱丽丝说的。",
+              "en": "Pig! The Duchess is calling the baby a pig, not Alice."
+            }
+          ]
+        },
+        "chapter-06-p023": {
+          "sentences": [
+            "最后那个字说得那么突兀凶狠，把爱丽丝吓了一跳；可她随即看出，那话是对婴儿说的，不是冲她，于是她鼓起勇气，又接着说：——"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why is everyone in the kitchen sneezing?",
+          "options": [
+            "There is too much pepper in the air.",
+            "The fire is giving out thick smoke.",
+            "The baby has caught a bad cold."
+          ],
+          "answer": 0,
+          "sentence": 13,
+          "feedback": {
+            "zh": "爱丽丝先发现汤里胡椒太多，接着发现空气里也全是胡椒，连公爵夫人都在打喷嚏。",
+            "en": "Alice finds too much pepper in the soup, and then in the air itself: even the Duchess sneezes."
+          }
+        },
+        {
+          "question": "Who is the Duchess speaking to when she says 'Pig!'?",
+          "options": [
+            "Alice.",
+            "The baby.",
+            "The cook."
+          ],
+          "answer": 1,
+          "sentence": 19,
+          "feedback": {
+            "zh": "那声“猪”来得突然，爱丽丝吓了一跳，但随即看出那是对婴儿说的，不是在骂她。",
+            "en": "The word comes so violently that Alice jumps, but she soon sees it was addressed to the baby, not to her."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "she was not quite sure whether it was good manners for her to speak first",
+        "pointIds": [
+          "cefrj-154"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "whether 引导的从句作 sure 的宾语，内部用陈述语序 it was…；whether 在这里表示“是否”。",
+          "en": "The whether-clause is the object of sure and keeps statement order: whether it was good manners for her to speak first."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "飞来的锅碗",
+        "en": "Flying Saucepans"
+      },
+      "introduction": {
+        "zh": "公爵夫人说话很不客气，爱丽丝只想赶紧换个话题。还没等她找到话头，厨娘就把汤锅端下火，开始把厨房里的东西一件件扔出去。爱丽丝吓得直跳脚——这一顿乱扔，要扔到什么时候？",
+        "en": "The Duchess is rude, and Alice is only too glad to change the subject. Before she can think of one, the cook takes the soup off the fire and starts throwing everything she can reach. Alice watches in horror, jumping up and down."
+      },
+      "paragraphs": {
+        "chapter-06-p024": {
+          "sentences": [
+            "“我不知道柴郡猫总是咧嘴笑；说实话，我根本不知道猫还会笑。”",
+            "“它们都会，”公爵夫人说，“而且大多数还真的会笑。”"
+          ],
+          "hints": [
+            {
+              "id": "em",
+              "kind": "word",
+              "target": "'em",
+              "sentence": 2,
+              "zh": "'em 是 them 的口语缩略，这里指“它们（那些猫）”。",
+              "en": "'Em is a spoken form of them, here meaning the cats."
+            }
+          ]
+        },
+        "chapter-06-p025": {
+          "sentences": [
+            "“我可没见过哪只猫会笑，”爱丽丝很有礼貌地说，能跟人聊起来，她心里挺高兴。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p026": {
+          "sentences": [
+            "“你懂的可真少，”公爵夫人说，“这是实话。”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p027": {
+          "sentences": [
+            "爱丽丝一点也不喜欢这句话的口气，觉得还是换个话题为好。",
+            "她正琢磨着挑个什么话题，厨娘把一大锅汤从火上端了下来，马上动手把够得着的东西一件件朝公爵夫人和婴儿扔过去——先飞过来的是火炉用具，接着是雨点般的炖锅、盘子和碟子。",
+            "公爵夫人连被砸中了也毫不在意；那婴儿本来就嚎得厉害，实在说不清这些打击有没有弄疼它。"
+          ],
+          "hints": [
+            {
+              "id": "fix-on-one",
+              "kind": "phrase",
+              "target": "fix on one",
+              "sentence": 6,
+              "zh": "选定一个（话题）；fix on 是“确定、挑定”。",
+              "en": "Fix on one: settle on or choose one subject."
+            },
+            {
+              "id": "fire-irons",
+              "kind": "word",
+              "target": "fire-irons",
+              "sentence": 6,
+              "zh": "火炉用具，火钳、火铲一类。",
+              "en": "Fire-irons: the poker, shovel and tongs used at a fire."
+            }
+          ]
+        },
+        "chapter-06-p028": {
+          "sentences": [
+            "“哎呀，请你当心点！”爱丽丝大叫，吓得直跳脚。",
+            "“哎呀，他那只宝贝鼻子要没了！”这时一只特别大的炖锅从鼻子旁边飞过，差一点就把它削掉了。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p029": {
+          "sentences": [
+            "“要是人人都管好自己的事，”公爵夫人用沙哑的嗓音低吼，“这世界转起来会比现在快得多。”"
+          ],
+          "hints": [
+            {
+              "id": "a-deal-faster",
+              "kind": "phrase",
+              "target": "a deal faster",
+              "sentence": 10,
+              "zh": "a deal 修饰比较级，表示“……得多”；a deal faster 就是“快得多”。",
+              "en": "A deal faster: a deal makes a comparative stronger, so much faster."
+            }
+          ]
+        },
+        "chapter-06-p030": {
+          "sentences": [
+            "“那可不是什么好事，”爱丽丝说，她很高兴有机会卖弄一点自己的知识。",
+            "“你想想，那会把白天和黑夜弄成什么样！",
+            "你要知道，地球自转一圈要二十四小时——”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the cook do with the cauldron of soup?",
+          "options": [
+            "She pours a bowl of it for Alice.",
+            "She takes it off the fire and begins throwing things at the Duchess and the baby.",
+            "She throws the soup out of the window."
+          ],
+          "answer": 1,
+          "sentence": 6,
+          "feedback": {
+            "zh": "厨娘把汤锅端下火，随即把够得着的东西一件件朝公爵夫人和婴儿扔过去，先扔的是火炉用具。",
+            "en": "The cook lifts the cauldron off the fire and starts throwing everything within reach at the Duchess and the baby."
+          }
+        },
+        {
+          "question": "How does the Duchess react when the things hit her?",
+          "options": [
+            "She orders the cook out of the kitchen.",
+            "She hides behind Alice.",
+            "She takes no notice at all."
+          ],
+          "answer": 2,
+          "sentence": 7,
+          "feedback": {
+            "zh": "原文说她即使被砸中也不理会；婴儿本来就嚎得厉害，根本说不清有没有被砸疼。",
+            "en": "The text says she takes no notice even when they hit her, and the baby is howling too much to tell whether it is hurt."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "If everybody minded their own business,\" the Duchess said in a hoarse growl, \"the world would go round a deal faster than it does.",
+        "pointIds": [
+          "cefrj-215"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if 从句用过去式 minded，主句用 would + 原形；说的是与现在相反的假设，不是过去的事。",
+          "en": "The if-clause uses the past form minded and the main clause uses would + base form; this is a hypothetical, not a past event."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "摇篮曲与斧头",
+        "en": "A Lullaby and an Axe"
+      },
+      "introduction": {
+        "zh": "公爵夫人忽然喊了一声砍头，随即又抱起孩子，唱起一支古怪的摇篮曲，每唱完一行就把婴儿狠狠摇一下。厨娘和婴儿也跟着唱起副歌。爱丽丝站在一旁，不知道该不该开口。",
+        "en": "The Duchess suddenly calls for someone's head, then takes her baby and sings a strange lullaby, shaking the child hard at the end of every line. The cook and the baby join in the chorus. Alice stands by, unsure whether to speak."
+      },
+      "paragraphs": {
+        "chapter-06-p031": {
+          "sentences": [
+            "“说到斧头，”公爵夫人说，“把她的头砍下来！”"
+          ],
+          "hints": [
+            {
+              "id": "talking-of-axes",
+              "kind": "phrase",
+              "target": "Talking of axes",
+              "sentence": 1,
+              "zh": "axe（斧头）的复数 axes 与 axis（轴）的复数 axes 拼写相同；公爵夫人把“轴”听成了“斧头”。",
+              "en": "Axes is both the plural of axe and of axis; the Duchess hears axis as axe."
+            }
+          ]
+        },
+        "chapter-06-p032": {
+          "sentences": [
+            "爱丽丝相当紧张地瞟了厨娘一眼，看她是不是打算照这话去做；可厨娘正忙着搅汤，好像根本没在听，于是她又说下去：“我想是二十四小时吧；要么是十二小时？",
+            "我——”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p033": {
+          "sentences": [
+            "“唉，别来烦我，”公爵夫人说，“我这辈子都受不了数字！”",
+            "说完她又抱起孩子哄起来，一边哄一边唱着一支像是摇篮曲的东西，每唱完一行就把孩子狠狠摇一下：——"
+          ],
+          "hints": [
+            {
+              "id": "abide",
+              "kind": "word",
+              "target": "abide",
+              "sentence": 4,
+              "zh": "忍受、容忍；这里她说自己从来受不了数字，不是“遵守”。",
+              "en": "Abide: here it means to put up with; she cannot stand figures."
+            }
+          ]
+        },
+        "chapter-06-p034": {
+          "sentences": [
+            "“对小男孩要粗声粗气地说话。",
+            "他打喷嚏就揍他一顿：他打喷嚏只为惹你生气，因为他知道这招气人。”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p035": {
+          "sentences": [
+            "合唱。"
+          ],
+          "hints": [
+            {
+              "id": "chorus",
+              "kind": "word",
+              "target": "Chorus",
+              "sentence": 8,
+              "zh": "副歌，歌里大家一起跟着唱的那一段。",
+              "en": "Chorus: the part of a song that everyone sings together."
+            }
+          ]
+        },
+        "chapter-06-p036": {
+          "sentences": [
+            "（这一段厨娘和婴儿也一起唱）：——"
+          ],
+          "hints": []
+        },
+        "chapter-06-p037": {
+          "sentences": [
+            "“哇！哇！哇！”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p038": {
+          "sentences": [
+            "公爵夫人唱第二段的时候，不停地把婴儿狠狠地往上抛又接住，那可怜的小东西嚎得太响，爱丽丝几乎听不清歌词：——"
+          ],
+          "hints": []
+        },
+        "chapter-06-p039": {
+          "sentences": [
+            "“我对我家男孩说话很凶，他打喷嚏我就揍他；因为只要他乐意，就能把胡椒吃个痛快！”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p040": {
+          "sentences": [
+            "合唱。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p041": {
+          "sentences": [
+            "“哇！哇！哇！”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p042": {
+          "sentences": [
+            "“喏！你要是愿意，就抱它一会儿！”公爵夫人对爱丽丝说，一边说一边把孩子朝她扔了过去。",
+            "“我得去准备准备，好跟王后打槌球。”说完她就匆匆出了房间。",
+            "她走的时候，厨娘朝她背后扔了一只煎锅，只差一点就打中她。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Duchess do at the end of every line of her song?",
+          "options": [
+            "She throws a plate at the cook.",
+            "She stops to sneeze.",
+            "She gives the baby a violent shake."
+          ],
+          "answer": 2,
+          "sentence": 5,
+          "feedback": {
+            "zh": "她一边唱一边摇孩子，每唱完一行就狠狠摇一下。",
+            "en": "She sings to the child and gives it a violent shake at the end of every line."
+          }
+        },
+        {
+          "question": "Who joins in the chorus?",
+          "options": [
+            "The cook and the baby.",
+            "Alice and the cook.",
+            "The Duchess alone."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "原文括号里写明，副歌由厨娘和婴儿一起唱。",
+            "en": "The stage direction in brackets says that the cook and the baby joined in the chorus."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "she kept tossing the baby violently up and down",
+        "pointIds": [
+          "cefrj-114"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "kept 后面接“宾语 + -ing”：kept tossing the baby，表示一遍又一遍地抛。",
+          "en": "Keep takes an object plus -ing: kept tossing the baby means she did it again and again."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "把孩子抱出去",
+        "en": "Out into the Open Air"
+      },
+      "introduction": {
+        "zh": "一个模样古怪的婴儿落进爱丽丝怀里：它手脚乱伸，像蒸汽机一样喷着气，还不停地缩成一团又伸直。她好不容易找到一个抱稳的法子，抱着它走到屋外。这孩子到底怎么了？",
+        "en": "A strange-shaped baby lands in Alice's arms: it sticks out its arms and legs, snorts like a steam engine and keeps curling up and stretching out again. She works out a way to hold it and carries it outside. What is wrong with the child?"
+      },
+      "paragraphs": {
+        "chapter-06-p043": {
+          "sentences": [
+            "爱丽丝费了点劲才接住婴儿，因为那是个形状古怪的小东西，手脚朝四面八方伸着；“活像一只海星，”爱丽丝心想。",
+            "她接住它的时候，那可怜的小东西像蒸汽机一样呼哧呼哧地喷着气，一会儿把自己缩成一团，一会儿又伸直开来，所以头一两分钟里，她几乎拼尽全力才抱得住它。"
+          ],
+          "hints": [
+            {
+              "id": "as-much-as-she-could-do",
+              "kind": "phrase",
+              "target": "as much as she could do to hold it",
+              "sentence": 2,
+              "zh": "她几乎用尽全力才抱得住；as much as one can do 是“勉强做到”。",
+              "en": "As much as she could do to hold it: she could just manage to hold it."
+            }
+          ]
+        },
+        "chapter-06-p044": {
+          "sentences": [
+            "她刚弄清楚该怎么抱它——就是把它扭成一个结，然后紧紧抓住它的右耳和左脚，免得它自己散开——就把它抱到了户外。",
+            "“我要是不把这孩子带走，”爱丽丝心想，“他们一两天内肯定会把它弄死：把它丢在这儿，不就是谋杀吗？”",
+            "最后那句话她大声说了出来，那小东西哼了一声算作回答（这时候它已经不打喷嚏了）。",
+            "“别哼哼，”爱丽丝说，“那根本不是好好说话的样子。”"
+          ],
+          "hints": [
+            {
+              "id": "made-out",
+              "kind": "word",
+              "target": "made out",
+              "sentence": 3,
+              "zh": "弄明白、想出；make out 在这里是“搞清楚”。",
+              "en": "Made out: worked out or understood."
+            },
+            {
+              "id": "left-off",
+              "kind": "phrase",
+              "target": "left off",
+              "sentence": 5,
+              "zh": "停止；leave off doing 是“不再做某事”。",
+              "en": "Left off: stopped doing something."
+            }
+          ]
+        },
+        "chapter-06-p045": {
+          "sentences": [
+            "婴儿又哼了一声，爱丽丝非常担心地看它的脸，想知道它怎么了。",
+            "毫无疑问，它长着一个很翘的鼻子，比起鼻子更像猪嘴；而且对一个婴儿来说，它的眼睛也变得越来越小：总之，爱丽丝一点也不喜欢这东西的模样。",
+            "“不过也许它只是在抽泣，”她想，于是又看了看它的眼睛，看有没有眼泪。"
+          ],
+          "hints": [
+            {
+              "id": "snout",
+              "kind": "word",
+              "target": "snout",
+              "sentence": 8,
+              "zh": "猪、狗等动物的长鼻子、口鼻部。",
+              "en": "Snout: the long nose of a pig or a dog."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice decide to take the child away with her?",
+          "options": [
+            "She believes the others will kill it in a day or two.",
+            "The Duchess asks her to keep it for ever.",
+            "She wants a child to play with at home."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "爱丽丝心想，要是把它留下，他们一两天内准会把它弄死，那简直就是谋杀。",
+            "en": "Alice thinks that if she leaves it behind, the others are sure to kill it in a day or two."
+          }
+        },
+        {
+          "question": "How does Alice find a way to hold the baby?",
+          "options": [
+            "She wraps it in her apron and carries it on her back.",
+            "She twists it into a knot and holds its right ear and left foot.",
+            "She asks the cook to tie it up for her."
+          ],
+          "answer": 1,
+          "sentence": 3,
+          "feedback": {
+            "zh": "她把孩子扭成一个结，再抓紧右耳和左脚，免得它自己散开。",
+            "en": "She twists it into a sort of knot and holds tight to its right ear and left foot so that it cannot come undone."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "As soon as she had made out the proper way of nursing it",
+        "pointIds": [
+          "cefrj-158"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "as soon as 引导时间从句，讲先发生的事；主句 she carried it out 是随后发生的动作。",
+          "en": "As soon as introduces the earlier action; the main clause, she carried it out, comes second in time."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "越看越不像孩子",
+        "en": "Not Quite a Baby"
+      },
+      "introduction": {
+        "zh": "爱丽丝抱着孩子穿过树林，越看越觉得不对劲：那张脸怎么看都不像个正常的婴儿。她认真地对它说了几句话，回答她的却只是一声哼哼。她还能把它带回自己家吗？",
+        "en": "Alice carries the child through the wood and cannot shake the feeling that something is wrong with its face. She speaks to it seriously, and gets a grunt for an answer. Can she still take it home with her?"
+      },
+      "paragraphs": {
+        "chapter-06-p046": {
+          "sentences": [
+            "没有，一滴眼泪也没有。",
+            "“亲爱的，你要是打算变成猪，”爱丽丝认真地说，“那我就不再管你了。",
+            "你可听好了！”",
+            "那可怜的小东西又抽泣了一声（也可能是哼了一声，实在分不清），他们就这样默默地走了一阵。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p047": {
+          "sentences": [
+            "爱丽丝刚在心里琢磨：“等我把这东西带回家，拿它怎么办呢？”它又哼了一声，哼得那么用力，她有点惊慌地低头去看它的脸。",
+            "这一回绝不会看错了：它完完全全就是一头猪，她觉得再抱着它往前走实在太荒唐了。"
+          ],
+          "hints": [
+            {
+              "id": "neither-more-nor-less",
+              "kind": "phrase",
+              "target": "neither more nor less than",
+              "sentence": 6,
+              "zh": "不多不少正是，简直就是。",
+              "en": "Neither more nor less than: exactly, and nothing else."
+            }
+          ]
+        },
+        "chapter-06-p048": {
+          "sentences": [
+            "于是她把那小东西放到地上，看它安安静静地小跑进树林，心里松了一口气。",
+            "“它要是长大，”她自言自语，“会变成一个丑得吓人的孩子；不过我觉得，它倒是一头挺漂亮的猪。”",
+            "她开始想起自己认识的别的孩子，觉得他们变成猪大概也不错，正自言自语着“要是有人知道该怎么变就好了——”，忽然看见柴郡猫坐在几码外的一根树枝上，倒让她吃了一惊。"
+          ],
+          "hints": [
+            {
+              "id": "bough",
+              "kind": "word",
+              "target": "bough",
+              "sentence": 9,
+              "zh": "大树枝；bough 多指树的主枝。",
+              "en": "Bough: a large branch of a tree."
+            }
+          ]
+        },
+        "chapter-06-p049": {
+          "sentences": [
+            "那猫看见爱丽丝，只是咧嘴笑了笑。",
+            "她想，它看上去脾气不错；可它爪子很长，牙齿也很多，所以她觉得还是得敬着它一点。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What makes Alice certain that the creature is really a pig?",
+          "options": [
+            "It runs away from her on four short legs.",
+            "It grunts so violently that she looks into its face in alarm.",
+            "The Duchess shouts after her that it is a pig."
+          ],
+          "answer": 1,
+          "sentence": 6,
+          "feedback": {
+            "zh": "它又一次哼哼，爱丽丝低头细看，这一回再不会看错：它完完全全就是一头猪。",
+            "en": "It grunts again, and when she looks into its face there can be no mistake: it is neither more nor less than a pig."
+          }
+        },
+        {
+          "question": "What does Alice think of the pig as she sets it down?",
+          "options": [
+            "It will never survive in the wood.",
+            "It ought to be taken back to the Duchess.",
+            "It makes rather a handsome pig."
+          ],
+          "answer": 2,
+          "sentence": 8,
+          "feedback": {
+            "zh": "她想，它要是长大准是个丑得吓人的孩子，可做猪倒挺漂亮。",
+            "en": "She decides it would have made a dreadfully ugly child, but it makes rather a handsome pig."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "If it had grown up,\" she said to herself, \"it would have made a dreadfully ugly child",
+        "pointIds": [
+          "cefrj-216"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if 从句用 had + 过去分词，主句用 would have + 过去分词；这是与过去事实相反的假设。",
+          "en": "If + had + past participle and would have + past participle make a hypothetical about the past that did not happen."
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "该往哪边走",
+        "en": "Which Way to Go?"
+      },
+      "introduction": {
+        "zh": "柴郡猫又出现了，蹲在树枝上冲爱丽丝笑。她客客气气地问，自己该往哪边走；猫说，这要看她想去哪儿。她说不清自己到底想去哪儿——猫会给她指一条什么样的路呢？",
+        "en": "The Cheshire Cat is back, grinning from a branch. Alice politely asks which way she should go, and the Cat says that depends on where she wants to get to. She is not sure, so what answer will she get?"
+      },
+      "paragraphs": {
+        "chapter-06-p050": {
+          "sentences": [
+            "“柴郡猫咪，”她有些胆怯地开口，因为她完全不知道这猫喜不喜欢这个名字；不过它只是把嘴咧得更大了一点。",
+            "“看来它到这会儿还挺高兴，”爱丽丝心想，于是接着说，“请问你能告诉我，我该往哪边走吗？”"
+          ],
+          "hints": [
+            {
+              "id": "puss",
+              "kind": "word",
+              "target": "Puss",
+              "sentence": 1,
+              "zh": "对猫的昵称，相当于“猫咪”。",
+              "en": "Puss: a friendly name for a cat."
+            }
+          ]
+        },
+        "chapter-06-p051": {
+          "sentences": [
+            "“这很大程度上要看你想到哪儿去，”猫说。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p052": {
+          "sentences": [
+            "“我不太在乎去哪儿——”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p053": {
+          "sentences": [
+            "“那你走哪条路都无所谓，”猫说。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p054": {
+          "sentences": [
+            "“——只要能走到个什么地方就行，”爱丽丝补充说明。"
+          ],
+          "hints": [
+            {
+              "id": "so-long-as",
+              "kind": "phrase",
+              "target": "so long as",
+              "sentence": 6,
+              "zh": "只要；表示条件。",
+              "en": "So long as: provided that, on condition that."
+            }
+          ]
+        },
+        "chapter-06-p055": {
+          "sentences": [
+            "“哦，这个你肯定做得到，”猫说，“只要你走得够久。”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p056": {
+          "sentences": [
+            "爱丽丝觉得这话无法反驳，于是换了个问题。",
+            "“这附近住着些什么样的人？”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p057": {
+          "sentences": [
+            "“往那个方向，”猫说着，把右爪转了一圈，“住着一位帽匠；往那个方向，”它又晃了晃另一只爪子，“住着一只三月兔。",
+            "你爱去看哪个都行：他们两个都疯了。”"
+          ],
+          "hints": [
+            {
+              "id": "hatter",
+              "kind": "word",
+              "target": "Hatter",
+              "sentence": 10,
+              "zh": "帽匠，做帽子的人；奇境里那位疯帽匠。",
+              "en": "A hatter: a maker of hats; here the Mad Hatter."
+            },
+            {
+              "id": "march-hare",
+              "kind": "word",
+              "target": "March Hare",
+              "sentence": 10,
+              "zh": "三月兔，住在附近的居民。",
+              "en": "The March Hare, one of the neighbours."
+            }
+          ]
+        },
+        "chapter-06-p058": {
+          "sentences": [
+            "“可我不想走到疯子中间去，”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p059": {
+          "sentences": [
+            "“哦，这你可躲不掉，”猫说，“我们这儿全都疯了。",
+            "我疯了。",
+            "你也疯了。”"
+          ],
+          "hints": [
+            {
+              "id": "cant-help-that",
+              "kind": "phrase",
+              "target": "can't help that",
+              "sentence": 13,
+              "zh": "躲不掉、没办法；can't help 是“无法避免”。",
+              "en": "Can't help that: cannot avoid it or do anything about it."
+            }
+          ]
+        },
+        "chapter-06-p060": {
+          "sentences": [
+            "“你怎么知道我是疯的？”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p061": {
+          "sentences": [
+            "“你一定是疯的，”猫说，“不然你就不会到这儿来了。”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p062": {
+          "sentences": [
+            "爱丽丝认为这根本证明不了什么；不过她还是接着问：“那你怎么知道自己疯了呢？”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p063": {
+          "sentences": [
+            "“首先，”猫说，“狗是不疯的。",
+            "这一点你承认吧？”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p064": {
+          "sentences": [
+            "“大概吧，”爱丽丝说。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Cat say when Alice asks which way she ought to go?",
+          "options": [
+            "She should follow the March Hare.",
+            "She should go back the way she came.",
+            "It depends on where she wants to get to."
+          ],
+          "answer": 2,
+          "sentence": 3,
+          "feedback": {
+            "zh": "猫说，这要看她想到哪儿去；她说不清目的地，猫便说走哪条路都无所谓。",
+            "en": "The Cat says it depends on where she wants to get to; when she cannot say, he answers that any way will do."
+          }
+        },
+        {
+          "question": "Why does the Cat say Alice must be mad?",
+          "options": [
+            "Because she keeps talking to a cat in a tree.",
+            "Because she has come here, where everyone is mad.",
+            "Because she cannot remember her own name."
+          ],
+          "answer": 1,
+          "sentence": 17,
+          "feedback": {
+            "zh": "猫说“你一定是疯的，不然你就不会到这儿来了”，把“来这儿”当成发疯的证据。",
+            "en": "He says she must be mad, or she would not have come here, treating her arrival as the proof."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "or you wouldn't have come here",
+        "pointIds": [
+          "cefrj-145"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "wouldn't have come 是“情态动词 + have + 过去分词”，对过去作相反的推断：既然你来了，就说明你疯了。",
+          "en": "Wouldn't have come is modal + have + past participle: it draws a conclusion about the past that is contrary to fact."
+        }
+      }
+    },
+    {
+      "number": 9,
+      "title": {
+        "zh": "这里人人都疯",
+        "en": "We're All Mad Here"
+      },
+      "introduction": {
+        "zh": "猫说这里人人都疯了，连爱丽丝也不例外，还举出狗的例子，证明自己疯得有道理。爱丽丝觉得这说法根本站不住脚。说着说着，猫问起那个婴儿的下落，随后又一次不见了。",
+        "en": "The Cat says everyone here is mad, Alice included, and uses a dog to prove that he is mad too. Alice does not think much of the argument. Then he asks what became of the baby, and disappears again."
+      },
+      "paragraphs": {
+        "chapter-06-p065": {
+          "sentences": [
+            "“那好，”猫接着说，“你瞧，狗生气的时候就低吼，高兴的时候就摇尾巴。",
+            "可我高兴的时候低吼，生气的时候摇尾巴。",
+            "所以我疯了。”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p066": {
+          "sentences": [
+            "“我管那叫打呼噜，不叫低吼，”爱丽丝说。"
+          ],
+          "hints": [
+            {
+              "id": "purring",
+              "kind": "word",
+              "target": "purring",
+              "sentence": 4,
+              "zh": "猫高兴时发出的呼噜声；爱丽丝说那是 purr，不是低吼。",
+              "en": "Purring: the soft sound a happy cat makes, which Alice says is not a growl."
+            }
+          ]
+        },
+        "chapter-06-p067": {
+          "sentences": [
+            "“随你怎么叫，”猫说。",
+            "“你今天跟王后打槌球吗？”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p068": {
+          "sentences": [
+            "“我很想去，”爱丽丝说，“可还没人请我呢。”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p069": {
+          "sentences": [
+            "“你会在那儿见到我的，”猫说，然后就消失了。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p070": {
+          "sentences": [
+            "爱丽丝对此并不太吃惊，她已经很习惯这种古怪的事了。",
+            "她还在望着它刚才待过的地方，它忽然又出现了。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p071": {
+          "sentences": [
+            "“顺便问一句，那个婴儿后来怎么样了？”猫说。",
+            "“我差点忘了问。”"
+          ],
+          "hints": [
+            {
+              "id": "what-became-of",
+              "kind": "phrase",
+              "target": "what became of",
+              "sentence": 11,
+              "zh": "……后来怎么样了；become of sb 是“某人出了什么事”。",
+              "en": "What became of: what happened to."
+            },
+            {
+              "id": "by-the-bye",
+              "kind": "phrase",
+              "target": "By-the-bye",
+              "sentence": 11,
+              "zh": "顺便说一句；用来引出题外的话。",
+              "en": "By-the-bye: by the way, used when adding a new point."
+            }
+          ]
+        },
+        "chapter-06-p072": {
+          "sentences": [
+            "“它变成猪了，”爱丽丝非常平静地回答，就好像猫这样回来是很自然的事。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p073": {
+          "sentences": [
+            "“我早料到了，”猫说，又消失了。",
+            "爱丽丝等了一会儿，半是盼着再见到它，可它没有出现；过了一两分钟，她就朝着人家说三月兔住的方向走去。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p074": {
+          "sentences": [
+            "“我见过帽匠，”她自言自语，“三月兔一定最有意思，而且既然现在是五月，它也许不至于疯得那么厉害——至少不会像三月里那么疯。”",
+            "她正说着，抬头一看，那猫又在那儿了，坐在一根树枝上。"
+          ],
+          "hints": [
+            {
+              "id": "in-march",
+              "kind": "phrase",
+              "target": "in March",
+              "sentence": 16,
+              "zh": "三月里；俗语 as mad as a March hare 说三月里的野兔最疯——这里爱丽丝正拿它跟自己打气。",
+              "en": "In March: the saying as mad as a March hare comes from the hare's wild behaviour in spring."
+            }
+          ]
+        },
+        "chapter-06-p075": {
+          "sentences": [
+            "“你说的是猪，还是无花果？”猫说。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p076": {
+          "sentences": [
+            "“我说的是猪，”爱丽丝回答，“我真希望你别老是这么突然地出现又消失：这叫人头晕。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "How does the Cat prove that he is mad?",
+          "options": [
+            "He growls when he is pleased and wags his tail when he is angry.",
+            "He forgets where he lives and who he is.",
+            "He vanishes whenever someone speaks to him."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "狗生气时低吼、高兴时摇尾；猫说自己正好相反，所以是疯的。",
+            "en": "Dogs growl when angry and wag their tails when pleased; the Cat does the opposite, so he calls himself mad."
+          }
+        },
+        {
+          "question": "What does the Cat ask about when it comes back?",
+          "options": [
+            "Where Alice is going to sleep.",
+            "Whether Alice can play croquet.",
+            "What became of the baby."
+          ],
+          "answer": 2,
+          "sentence": 11,
+          "feedback": {
+            "zh": "它一回来就问“那个婴儿后来怎么样了”，还说自己差点忘了问。",
+            "en": "He comes back to ask what became of the baby, and admits he had nearly forgotten to ask."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I haven't been invited yet",
+        "pointIds": [
+          "cefrj-75"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "have been + 过去分词是现在完成时的被动：她“还没有被邀请”，说的正是此刻的状况。",
+          "en": "Have been + past participle is the present perfect passive: she has not been invited, and that is still true now."
+        }
+      }
+    },
+    {
+      "number": 10,
+      "title": {
+        "zh": "猫没了，笑还在",
+        "en": "A Grin Without a Cat"
+      },
+      "introduction": {
+        "zh": "这一回，猫消失得很慢：先从尾巴尖不见，最后才轮到那个笑容，笑了好一会儿才散去。爱丽丝从没见过这样的事。她继续往前走，来到三月兔的房子前，那房子大得让她不敢靠近。",
+        "en": "This time the Cat vanishes slowly, tail first, and the grin stays behind after the rest of him is gone. Alice has never seen anything like it. She walks on and reaches the March Hare's house, which is far too big to approach."
+      },
+      "paragraphs": {
+        "chapter-06-p077": {
+          "sentences": [
+            "“好吧，”猫说；这一回它消失得很慢，从尾巴尖开始，最后是那个笑容，猫身上别的地方都没了以后，笑容还留了好一会儿。"
+          ],
+          "hints": []
+        },
+        "chapter-06-p078": {
+          "sentences": [
+            "“哎呀！",
+            "我常常见到没有笑容的猫，”爱丽丝心想，“可一个没有猫的笑容！",
+            "这是我一辈子见过的最奇怪的东西！”"
+          ],
+          "hints": []
+        },
+        "chapter-06-p079": {
+          "sentences": [
+            "她又往前走了没多远，就看见了三月兔的房子：她觉得那准是没错的房子，因为烟囱的形状像耳朵，屋顶是用毛皮盖的。",
+            "那房子那么大，她不敢再走近，先又啃了一点左手那块蘑菇，把自己长到大约两英尺高；即便这样，她还是相当胆怯地朝它走去，一边自言自语：“万一它真的疯得厉害呢！",
+            "我几乎有点后悔，还不如去看帽匠呢！”"
+          ],
+          "hints": [
+            {
+              "id": "thatched-with-fur",
+              "kind": "phrase",
+              "target": "thatched with fur",
+              "sentence": 5,
+              "zh": "屋顶是用毛皮“盖”成的；thatch 指用茅草等盖屋顶。",
+              "en": "Thatched with fur: thatch means to cover a roof with straw, reeds or the like."
+            },
+            {
+              "id": "left-hand-mushroom",
+              "kind": "phrase",
+              "target": "left-hand bit of mushroom",
+              "sentence": 6,
+              "zh": "左手那块蘑菇；爱丽丝靠啃它来改变自己身体的大小。",
+              "en": "The left-hand bit of mushroom: the piece Alice nibbles to change her size."
+            },
+            {
+              "id": "raving-mad",
+              "kind": "phrase",
+              "target": "raving mad",
+              "sentence": 6,
+              "zh": "疯得厉害；raving 表示“狂乱地”，加重 mad 的程度。",
+              "en": "Raving mad: completely mad; raving makes mad much stronger."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "In what order does the Cat vanish this time?",
+          "options": [
+            "From the grin to the end of the tail.",
+            "From the end of the tail to the grin.",
+            "All at once, without leaving anything behind."
+          ],
+          "answer": 1,
+          "sentence": 1,
+          "feedback": {
+            "zh": "它从尾巴尖开始消失，最后才轮到笑容；笑容在别处都没了以后还留了一阵。",
+            "en": "It begins with the end of the tail and ends with the grin, which stays for a while after the rest has gone."
+          }
+        },
+        {
+          "question": "Why does Alice think the March Hare's house must be the right one?",
+          "options": [
+            "Its chimneys are shaped like ears and its roof is thatched with fur.",
+            "A sign by the gate gives the Hare's name.",
+            "The Cat is waiting for her at the door."
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "她认定房子没错，是因为烟囱像耳朵、屋顶用毛皮盖成，处处都是兔子的痕迹。",
+            "en": "She is sure it is the right house because the chimneys look like ears and the roof is thatched with fur."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the grin, which remained some time after the rest of it had gone",
+        "pointIds": [
+          "cefrj-181"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "逗号后的 which 指前面的 the grin，作补充说明；非限制性从句前必须有逗号，不能用 that。",
+          "en": "The comma before which marks a non-restrictive clause: it adds a comment about the grin instead of identifying it."
+        }
+      }
+    }
+  ]
+}

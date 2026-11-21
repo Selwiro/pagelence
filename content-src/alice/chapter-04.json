@@ -1,0 +1,1201 @@
+{
+  "chapter": 4,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "快跑，玛丽·安！",
+        "en": "Run, Mary Ann!"
+      },
+      "introduction": {
+        "zh": "白兔一路小跑回来，嘴里念叨着公爵夫人和砍头，像是在找什么要紧东西。爱丽丝好心帮忙，白兔一看见她，却用命令的口气喊了起来。它把她当成了谁？",
+        "en": "The White Rabbit trots back, muttering about the Duchess and the axe. Alice tries to help him find what he has lost, but the Rabbit mistakes her for someone else and gives her an order. Who does he think she is?"
+      },
+      "paragraphs": {
+        "chapter-04-p001": {
+          "sentences": [
+            "原来是那只白兔，正慢慢地小跑回来，一边跑一边焦急地东张西望，像是丢了什么东西；她还听见它自言自语地嘟囔：“公爵夫人！",
+            "公爵夫人！",
+            "哦，我可怜的爪子！",
+            "哦，我的皮毛和胡须！",
+            "她一定会把我砍头的，就像雪貂终归是雪貂一样千真万确！",
+            "我到底能把它们掉在哪儿了呢？”",
+            "爱丽丝立刻猜出，它是在找那把扇子和那双白色的小山羊皮手套，于是好心地帮它四处找起来。可哪儿都看不见——自从在池子里游过泳之后，一切好像都变了，那座带玻璃桌子和一扇小门的大厅也完全消失了。"
+          ],
+          "hints": [
+            {
+              "id": "white-rabbit",
+              "kind": "word",
+              "target": "the White Rabbit",
+              "sentence": 1,
+              "zh": "白兔，揣着怀表、总在赶时间的那只兔子。",
+              "en": "The White Rabbit, the waistcoat-wearing rabbit who is always in a hurry."
+            },
+            {
+              "id": "duchess",
+              "kind": "word",
+              "target": "The Duchess",
+              "sentence": 1,
+              "zh": "公爵夫人，白兔非常惧怕的贵妇。",
+              "en": "The Duchess, a noblewoman the White Rabbit is badly afraid of."
+            },
+            {
+              "id": "ferrets",
+              "kind": "phrase",
+              "target": "as sure as ferrets are ferrets",
+              "sentence": 5,
+              "zh": "像雪貂就是雪貂一样确凿——白兔的口头强调，意思是“千真万确”。",
+              "en": "As sure as ferrets are ferrets: a fixed phrase meaning 'absolutely certain'."
+            },
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 7,
+              "zh": "爱丽丝，故事的女主角。",
+              "en": "Alice, the girl at the centre of the story."
+            },
+            {
+              "id": "kid-gloves",
+              "kind": "phrase",
+              "target": "kid gloves",
+              "sentence": 7,
+              "zh": "小山羊皮手套；这里的 kid 指小山羊皮，不是“小孩”。",
+              "en": "Kid gloves are gloves made of soft goatskin; kid here is the leather, not a child."
+            }
+          ]
+        },
+        "chapter-04-p002": {
+          "sentences": [
+            "没过多久，白兔就注意到了正在四处寻找的爱丽丝，生气地冲她喊道：“喂，玛丽·安，你跑到这儿来干什么？",
+            "马上回家去，给我拿一副手套和一把扇子来！",
+            "快点，这就去！”",
+            "爱丽丝吓得要命，立刻朝它指的方向跑去，根本没想解释它认错了人。"
+          ],
+          "hints": [
+            {
+              "id": "mary-ann",
+              "kind": "word",
+              "target": "Mary Ann",
+              "sentence": 8,
+              "zh": "玛丽·安，白兔家女仆的名字；白兔把爱丽丝当成了她。",
+              "en": "Mary Ann, the name of the Rabbit's housemaid, whom he takes Alice to be."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the White Rabbit keep saying the Duchess's name?",
+          "options": [
+            "He wants to invite the Duchess to tea.",
+            "He is afraid the Duchess will have him executed.",
+            "He is looking for the Duchess's house."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "白兔念叨“她一定会把我砍头”，怕的是公爵夫人惩罚它，所以急得直叫。",
+            "en": "The Rabbit repeats 'She'll get me executed' — he is afraid of what the Duchess will do to him."
+          }
+        },
+        {
+          "question": "What does Alice do when the Rabbit shouts at her?",
+          "options": [
+            "She explains that he has made a mistake.",
+            "She runs off to fetch the gloves and the fan.",
+            "She sits down and starts to cry."
+          ],
+          "answer": 1,
+          "sentence": 11,
+          "feedback": {
+            "zh": "她吓得要命，顾不上解释，就朝白兔指的方向跑去拿手套和扇子。",
+            "en": "She is too frightened to explain and simply runs off the way the Rabbit points."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "she heard it muttering to itself",
+        "pointIds": [
+          "cefrj-211"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "heard it muttering 是 hear + 宾语 + -ing：她听见时，嘟囔声已经在进行。",
+          "en": "Heard it muttering is hear + object + -ing: the muttering was already going on when she caught it."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "给兔子当女仆",
+        "en": "A Message for a Rabbit"
+      },
+      "introduction": {
+        "zh": "爱丽丝一边跑一边想：给一只兔子跑腿，这事可真够古怪。她果然找到一栋小房子，门上钉着刻了名字的黄铜牌。屋里等着她的，会是那个真正的女仆吗？",
+        "en": "Running along, Alice wonders how strange it is to be sent on messages by a rabbit. She finds a neat little house with a brass plate on the door. Will the real housemaid be waiting inside?"
+      },
+      "paragraphs": {
+        "chapter-04-p003": {
+          "sentences": [
+            "“他把我当成他家的女仆了。”她一边跑一边自言自语。",
+            "“等他弄明白我是谁，准会大吃一惊！",
+            "不过我还是把他的扇子和手套送去吧——前提是我找得到。”",
+            "说着说着，她来到一栋整洁的小房子前，门上钉着一块锃亮的黄铜门牌，上面刻着“白兔”的名字。",
+            "她没敲门就进去了，急匆匆地上楼，心里非常害怕会碰见真正的玛丽·安，还没找到扇子和手套就被赶出屋子。"
+          ],
+          "hints": [
+            {
+              "id": "came-upon",
+              "kind": "phrase",
+              "target": "came upon",
+              "sentence": 4,
+              "zh": "偶然发现、碰上；不是“走到……上面”。",
+              "en": "Came upon means 'found by chance', not 'walked on top of'."
+            },
+            {
+              "id": "lest",
+              "kind": "word",
+              "target": "lest",
+              "sentence": 5,
+              "zh": "以免、生怕；书面旧用法，后面常跟 should。",
+              "en": "Lest means 'for fear that'; it is old-fashioned and often followed by should."
+            }
+          ]
+        },
+        "chapter-04-p004": {
+          "sentences": [
+            "“这事儿真古怪，”爱丽丝自言自语，“居然给一只兔子跑腿送东西！",
+            "我看下一回就该轮到黛娜打发我去送信了！”",
+            "她开始想象那会是什么情形：“‘爱丽丝小姐！",
+            "马上过来，准备去散步！’‘就来，保姆！",
+            "可我得守着这个老鼠洞，等黛娜回来，还得看着别让老鼠跑出去。’只不过我觉得，”爱丽丝接着说，“要是黛娜也这样对人呼来喝去，他们大概不会让它留在家里！”"
+          ],
+          "hints": [
+            {
+              "id": "going-messages",
+              "kind": "phrase",
+              "target": "going messages",
+              "sentence": 6,
+              "zh": "跑腿送信、替人办事；旧式说法，相当于 running errands。",
+              "en": "Going messages is an old way of saying 'running errands'."
+            },
+            {
+              "id": "dinah",
+              "kind": "word",
+              "target": "Dinah",
+              "sentence": 7,
+              "zh": "黛娜，爱丽丝的猫。",
+              "en": "Dinah, Alice's cat."
+            },
+            {
+              "id": "mouse-hole",
+              "kind": "word",
+              "target": "mouse-hole",
+              "sentence": 10,
+              "zh": "老鼠洞；爱丽丝想象自己像猫一样守在洞边。",
+              "en": "A mouse-hole: in her daydream Alice guards it as a cat would."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is written on the brass plate on the door?",
+          "options": [
+            "W. RABBIT",
+            "DRINK ME",
+            "MARY ANN"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "黄铜牌上刻着“W. RABBIT”，可见这栋小房子正是白兔的家。",
+            "en": "The plate reads 'W. RABBIT', so the little house belongs to the Rabbit."
+          }
+        },
+        {
+          "question": "Why does Alice hurry upstairs without knocking?",
+          "options": [
+            "She wants to meet the real Mary Ann.",
+            "She hopes to find the fan and gloves before the real Mary Ann turns her out.",
+            "She is looking for her cat Dinah."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "她怕撞见真正的玛丽·安，还没找到东西就被赶出去，所以悄悄上楼。",
+            "en": "She slips in because she fears the real Mary Ann will throw her out before she finds the fan and gloves."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "on the door of which was a bright brass plate",
+        "pointIds": [
+          "cefrj-184"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "on the door of which 是“介词 + 关系代词”，先行词是 house；从句主语 brass plate 放在 was 后面。",
+          "en": "On the door of which is a preposition plus relative pronoun; the clause's subject, a bright brass plate, follows was."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "没有标签的瓶子",
+        "en": "The Bottle with No Label"
+      },
+      "introduction": {
+        "zh": "小房间里，爱丽丝找到了扇子和手套，还发现一瓶没有标签的饮料。她太想变回原来的大小，仰头就喝。这一次，身体会照她希望的那样变吗？",
+        "en": "In a tidy little room Alice finds the fan and gloves, and a bottle with no label at all. She is tired of being tiny, so she drinks. Will her body do what she hopes this time?"
+      },
+      "paragraphs": {
+        "chapter-04-p005": {
+          "sentences": [
+            "这时，她已经走进一间整洁的小房间，窗边有张桌子，桌上（正如她所希望的）放着一把扇子和两三双小巧的白色小山羊皮手套。她拿起扇子和一双手套，正要离开房间，目光却落在镜子旁的一只小瓶子上。",
+            "这一次瓶子上没有写着“喝我”的标签，可她还是拔开瓶塞，把瓶子凑到嘴边。",
+            "“我知道，只要我吃点或喝点什么，准会有有趣的事发生，”她自言自语，“那我就看看这瓶东西会怎么样。",
+            "我真希望它能让我重新变大，说真的，我已经很厌倦做这么个小不点儿了！”"
+          ],
+          "hints": [
+            {
+              "id": "looking-glass",
+              "kind": "word",
+              "target": "looking-glass",
+              "sentence": 1,
+              "zh": "镜子；维多利亚时代的旧说法，现在多说 mirror。",
+              "en": "A looking-glass is a mirror; the word is old-fashioned now."
+            },
+            {
+              "id": "drink-me",
+              "kind": "phrase",
+              "target": "DRINK ME",
+              "sentence": 2,
+              "zh": "“喝我”，上一章那只瓶子上的标签；这一瓶什么都没有。",
+              "en": "'DRINK ME' was the label on the bottle in the last chapter; this bottle has none."
+            }
+          ]
+        },
+        "chapter-04-p006": {
+          "sentences": [
+            "它果然起了作用，而且比她预料的快得多：还没喝到半瓶，她就发现自己的头顶住了天花板，只好弯下腰，免得把脖子折断。",
+            "她赶紧放下瓶子，自言自语道：“够了——希望我不会再长了——可就算这样，我也出不了门——真希望我没喝那么多！”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p007": {
+          "sentences": [
+            "唉！现在后悔已经太晚了！",
+            "她不停地长啊长，很快就只能跪在地板上；再过一分钟，连跪的地方也没有了，她便试着躺下来，一只胳膊肘抵着门，另一条胳膊蜷在头边。",
+            "她还在继续长，实在没有别的办法了，只好把一只胳膊伸出窗外，把一只脚伸进烟囱，自言自语道：“现在我再也做不了什么了，不管发生什么。",
+            "我会变成什么样呢？”"
+          ],
+          "hints": [
+            {
+              "id": "last-resource",
+              "kind": "phrase",
+              "target": "as a last resource",
+              "sentence": 9,
+              "zh": "作为最后一招、实在没别的办法时；相当于 as a last resort。",
+              "en": "As a last resource means 'as a final resort', when nothing else is left."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice drink from the bottle although it has no label?",
+          "options": [
+            "She is very thirsty after her long run.",
+            "She believes something interesting always happens when she eats or drinks.",
+            "She wants to test whether it is poison."
+          ],
+          "answer": 1,
+          "sentence": 3,
+          "feedback": {
+            "zh": "她说“只要我吃点或喝点什么，准会有有趣的事发生”，于是想看看这瓶东西的效果。",
+            "en": "She says something interesting always happens when she eats or drinks, so she tries the bottle."
+          }
+        },
+        {
+          "question": "What happens to Alice soon after she drinks?",
+          "options": [
+            "She shrinks to the size of a mouse.",
+            "Her head is pressed against the ceiling.",
+            "The bottle turns into a fan."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "还没喝到半瓶，她的头顶就抵住了天花板，只好弯腰，免得折断脖子。",
+            "en": "Before half the bottle is gone her head presses the ceiling, and she has to stoop."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I do hope it'll make me grow large again",
+        "pointIds": [
+          "cefrj-53"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "do hope 是 do + 动词原形表强调，意思是“真的希望”，不是疑问或否定。",
+          "en": "Do hope uses do + base verb for emphasis: she really hopes it, and this is neither a question nor a negative."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "长大以后的麻烦",
+        "en": "The Trouble with Growing Up"
+      },
+      "introduction": {
+        "zh": "瓶子终于不再起作用，可爱丽丝已经把房间塞得满满当当。她开始怀念家里，又为“长大”发愁：要是永远不再变老，是不是就得永远上课？",
+        "en": "The bottle has done its work, and Alice now fills the room. She thinks of home and worries about growing up: if she never gets any older, will she have lessons for ever?"
+      },
+      "paragraphs": {
+        "chapter-04-p008": {
+          "sentences": [
+            "幸亏如此，小魔法瓶这时已经发挥完了效力，她不再长大了；可她还是很不舒服，而且看来再也没有机会走出这间屋子，难怪她觉得不快乐。"
+          ],
+          "hints": []
+        },
+        "chapter-04-p009": {
+          "sentences": [
+            "“在家里可舒服多了，”可怜的爱丽丝心想，“那时候不用老是变大变小，也不用被老鼠和兔子呼来喝去。",
+            "我几乎希望自己没钻进那个兔子洞——可是——可是——你知道，这种日子还真挺稀奇的！",
+            "我真想知道我到底出了什么事！",
+            "以前我读童话的时候，总以为那种事根本不会发生，可现在我自己就身处一个童话之中！",
+            "应该有人为我写一本书才对，真该写一本！",
+            "等我长大了，我要自己写一本——可我现在已经长大了，”她伤心地补了一句，“至少在这儿再也没有地方可以长大了。”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p010": {
+          "sentences": [
+            "“可是那样的话，”爱丽丝想，“我是不是永远也不会比现在更老了？",
+            "从某方面说，这倒是件安慰——永远不用变成老太婆——可又一想——那样就得永远上课！",
+            "哦，我可不喜欢这样！”"
+          ],
+          "hints": [
+            {
+              "id": "one-way",
+              "kind": "phrase",
+              "target": "one way",
+              "sentence": 9,
+              "zh": "从某一方面说、往好处想；不是“一条路”。",
+              "en": "One way here means 'in one respect' or 'on the bright side', not 'one road'."
+            }
+          ]
+        },
+        "chapter-04-p011": {
+          "sentences": [
+            "“哦，你这个傻爱丽丝！”她回答自己。",
+            "“在这儿你怎么上课呢？",
+            "瞧，连你都快没地方待了，哪儿还放得下课本！”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p012": {
+          "sentences": [
+            "就这样，她一会儿替这一边说，一会儿替那一边说，简直把整件事说成了一场对话；可过了几分钟，她听见外面有声音，就停下来听。"
+          ],
+          "hints": [
+            {
+              "id": "taking-sides",
+              "kind": "phrase",
+              "target": "taking first one side and then the other",
+              "sentence": 14,
+              "zh": "先站这一边、再站那一边；指她自问自答，轮流扮演两边。",
+              "en": "Taking first one side and then the other: she argues both parts of the conversation herself."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice feel unhappy in the room?",
+          "options": [
+            "She has lost the fan and the gloves.",
+            "She sees no chance of ever getting out of the room.",
+            "Dinah has not come to find her."
+          ],
+          "answer": 1,
+          "sentence": 1,
+          "feedback": {
+            "zh": "她看不出还有走出房间的可能，所以闷闷不乐。",
+            "en": "There seems to be no chance of ever leaving the room, and that makes her unhappy."
+          }
+        },
+        {
+          "question": "What does Alice say she will do when she grows up?",
+          "options": [
+            "Write a book about herself.",
+            "Teach Dinah to do tricks.",
+            "Go back down the rabbit-hole."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "她说应该有人为她写本书，等长大了就自己写一本，可随即发现自己已经长大了。",
+            "en": "She says a book ought to be written about her and that she will write one — but she is grown up already."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "There ought to be a book written about me",
+        "pointIds": [
+          "cefrj-137"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "ought to 表示“应该”，语气比 should 更书面；这里等于说“该有人为我写本书”。",
+          "en": "Ought to means 'should' and sounds more formal than should: a book about her ought to exist."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "窗外的胳膊",
+        "en": "An Arm in the Window"
+      },
+      "introduction": {
+        "zh": "门外传来白兔的声音，它想进屋，门却推不开，只好改从窗口进来。爱丽丝守在窗边，等着它靠近。楼下很快响起玻璃碎裂的声音，还有一个陌生的声音在用浓重的乡下方言说话。",
+        "en": "The Rabbit's voice comes from the stairs, but the door will not open. Alice decides to guard the window, and her first grab catches nothing. Then a new voice answers, in a strange country dialect."
+      },
+      "paragraphs": {
+        "chapter-04-p013": {
+          "sentences": [
+            "“玛丽·安！",
+            "玛丽·安！”那个声音说，“马上把我的手套拿来！”",
+            "接着，楼梯上传来一阵轻轻的脚步声。",
+            "爱丽丝知道是白兔来找她，吓得抖个不停，抖得整栋房子都晃了起来，完全忘了自己现在比白兔大了约一千倍，根本没有理由怕它。"
+          ],
+          "hints": []
+        },
+        "chapter-04-p014": {
+          "sentences": [
+            "过了一会儿，白兔来到门口，想推开门；可门是朝里开的，爱丽丝的胳膊肘又死死抵着门，这一试就失败了。",
+            "爱丽丝听见它自言自语：“那我就绕过去，从窗口爬进来。”"
+          ],
+          "hints": [
+            {
+              "id": "presently",
+              "kind": "word",
+              "target": "Presently",
+              "sentence": 5,
+              "zh": "不久、过了一会儿；不是“目前”。",
+              "en": "Presently means 'soon' or 'after a moment', not 'at present'."
+            }
+          ]
+        },
+        "chapter-04-p015": {
+          "sentences": [
+            "“你可爬不进来！”爱丽丝心想。她等到觉得白兔就在窗下时，忽然伸出手，在空中猛地一抓。",
+            "她什么也没抓到，却听见一声小小的尖叫、一下跌倒的声音，还有玻璃摔碎的响声；她由此推断，它多半是掉进了黄瓜架，或者诸如此类的地方。"
+          ],
+          "hints": [
+            {
+              "id": "made-a-snatch",
+              "kind": "phrase",
+              "target": "made a snatch",
+              "sentence": 7,
+              "zh": "猛地一抓；指伸手去抓，而不是慢慢拿。",
+              "en": "Made a snatch means 'grabbed quickly at something'."
+            },
+            {
+              "id": "cucumber-frame",
+              "kind": "word",
+              "target": "cucumber-frame",
+              "sentence": 8,
+              "zh": "黄瓜架：带玻璃罩的低矮菜床，所以掉进去会有碎玻璃声。",
+              "en": "A cucumber-frame is a low glass-covered bed for growing cucumbers, which is why glass breaks."
+            }
+          ]
+        },
+        "chapter-04-p016": {
+          "sentences": [
+            "接着传来一个生气的声音——是白兔的——“帕特！",
+            "帕特！",
+            "你在哪儿？”",
+            "然后又响起一个她从未听过的声音：“我在这儿呢，当然啦！",
+            "在挖苹果呢，老爷！”"
+          ],
+          "hints": [
+            {
+              "id": "pat",
+              "kind": "word",
+              "target": "Pat",
+              "sentence": 9,
+              "zh": "帕特，白兔的园丁，说话带浓重的乡下方言。",
+              "en": "Pat, the Rabbit's gardener, who speaks in a broad country dialect."
+            },
+            {
+              "id": "yer-honour",
+              "kind": "phrase",
+              "target": "yer honour",
+              "sentence": 13,
+              "zh": "“老爷”的乡下口音说法（= your honour），仆人回话时用。",
+              "en": "Yer honour is a dialect form of 'your honour', used by servants answering a master."
+            }
+          ]
+        },
+        "chapter-04-p017": {
+          "sentences": [
+            "“挖苹果，真是的！”白兔生气地说。",
+            "“这儿！",
+            "过来帮我从这堆东西里出来！”（又是一阵玻璃碎裂的声音。）"
+          ],
+          "hints": []
+        },
+        "chapter-04-p018": {
+          "sentences": [
+            "“好了，帕特，你告诉我，窗户里那是什么东西？”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p019": {
+          "sentences": [
+            "“老爷，那是一条胳膊！”（他把“胳膊”念成了“胳巴”。）"
+          ],
+          "hints": []
+        },
+        "chapter-04-p020": {
+          "sentences": [
+            "“一条胳膊，你这傻瓜！",
+            "谁见过那么大的胳膊？",
+            "它把整个窗户都塞满了！”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why can't the Rabbit open the door?",
+          "options": [
+            "The door is locked from the inside.",
+            "Alice's elbow is pressed hard against it.",
+            "Pat is holding the door shut."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "门朝里开，爱丽丝的胳膊肘又死死抵着门，白兔自然推不开。",
+            "en": "The door opens inwards and Alice's elbow is pressed hard against it, so it will not move."
+          }
+        },
+        {
+          "question": "What does Alice think has happened after her first grab at the window?",
+          "options": [
+            "The Rabbit has fallen into the pool.",
+            "The Rabbit has fallen into a cucumber-frame.",
+            "The Rabbit has run away through the garden."
+          ],
+          "answer": 1,
+          "sentence": 8,
+          "feedback": {
+            "zh": "她听见尖叫、跌倒和玻璃碎裂声，便猜到它掉进了黄瓜架的玻璃罩里。",
+            "en": "A shriek, a fall and breaking glass tell her the Rabbit has landed in a cucumber-frame."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "about a thousand times as large as the Rabbit",
+        "pointIds": [
+          "cefrj-37"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as large as 是同级比较，前面加 a thousand times 表示倍数：大到白兔的一千倍。",
+          "en": "As large as compares two things as equal; a thousand times in front makes it a multiple."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "没人愿意去的差事",
+        "en": "Nobody Wants the Job"
+      },
+      "introduction": {
+        "zh": "窗口那条胳膊谁也搬不动，外面的人只好搬来梯子，围着房子七嘴八舌地商量。商量到后来，谁都不愿意揽下那件差事。他们最后打算派谁去？",
+        "en": "Nobody can move the arm in the window, so the crowd outside brings ladders and argues about what to do. In the end they agree on one plan: a small animal must go down the chimney. Who is chosen?"
+      },
+      "paragraphs": {
+        "chapter-04-p021": {
+          "sentences": [
+            "“老爷，可不是嘛：可它就是一条胳膊呀。”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p022": {
+          "sentences": [
+            "“好吧，不管怎么说，它不该待在那儿：去把它弄走！”"
+          ],
+          "hints": [
+            {
+              "id": "at-any-rate",
+              "kind": "phrase",
+              "target": "at any rate",
+              "sentence": 2,
+              "zh": "不管怎样、无论如何；用来把话拉回重点。",
+              "en": "At any rate means 'in any case' or 'anyway'."
+            }
+          ]
+        },
+        "chapter-04-p023": {
+          "sentences": [
+            "之后是一阵长长的沉默，爱丽丝只能偶尔听见几句耳语，比如：“老爷，我可真不喜欢这东西，一点儿也不喜欢！”",
+            "“照我说的做，你这胆小鬼！”最后，她又伸出手，在空中抓了一把。",
+            "这一回响起了两声尖叫，还有更多玻璃破碎的声音。",
+            "“这地方的黄瓜架可真多呀！”爱丽丝心想。",
+            "“我倒想知道他们下一步要干什么！",
+            "至于把我从窗口拉出去，我巴不得他们能办到！",
+            "我敢说，我一刻也不想再待在这儿了！”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p024": {
+          "sentences": [
+            "她等了一会儿，没再听见什么动静；最后传来小车轮子滚动的声音，还有许多人的声音一起说话。她听出了这些话：“另一架梯子在哪儿？——咦，我只带了一架来；比尔拿着另一架——比尔！把它拿到这儿来，小子！——来，把它架在这个角上——不行，先把它们绑在一起——还不够一半高呢——哦！这样就够好了，别那么讲究——来，比尔！抓住这根绳子——屋顶受得住吗？——当心那块松动的石板——哦，它要掉下来了！",
+            "下面的人小心！”（哗啦一声巨响）——“是谁干的？——我看是比尔——谁下去烟囱？——不，我不去！",
+            "你去！——那我才不去呢！——比尔得下去——来，比尔！主人说叫你下烟囱！”"
+          ],
+          "hints": [
+            {
+              "id": "made-out",
+              "kind": "phrase",
+              "target": "made out",
+              "sentence": 10,
+              "zh": "辨认出、听清楚；不是“做出”。",
+              "en": "Made out means 'managed to hear or understand', not 'produced'."
+            },
+            {
+              "id": "bill",
+              "kind": "word",
+              "target": "Bill",
+              "sentence": 10,
+              "zh": "比尔，白兔的帮手，一只小壁虎。",
+              "en": "Bill, one of the Rabbit's helpers, a small lizard."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What do the voices outside finally decide to do?",
+          "options": [
+            "Burn the house down at once.",
+            "Send Bill down the chimney.",
+            "Pull the arm out with a rope."
+          ],
+          "answer": 1,
+          "sentence": 12,
+          "feedback": {
+            "zh": "众人商量到最后，一致认定“比尔得下去”，还喊他主人的命令来压他。",
+            "en": "After all the arguing the crowd agrees that Bill must go down the chimney."
+          }
+        },
+        {
+          "question": "What does Alice wish while she waits?",
+          "options": [
+            "That the crowd would go away.",
+            "That they could pull her out of the window.",
+            "That she had a ladder of her own."
+          ],
+          "answer": 1,
+          "sentence": 8,
+          "feedback": {
+            "zh": "她说“至于把我从窗口拉出去，我巴不得他们能办到”，因为她一刻也不想再待在里面。",
+            "en": "She says she only wishes they could pull her out of the window, as she hates being stuck inside."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I wonder what they'll do next",
+        "pointIds": [
+          "cefrj-153"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "wonder 后接 what 从句，从句用陈述语序：what they'll do，而不是 what will they do。",
+          "en": "Wonder takes a wh-clause in statement order: what they'll do, not what will they do."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "烟囱里的访客",
+        "en": "A Visitor in the Chimney"
+      },
+      "introduction": {
+        "zh": "爱丽丝把脚伸进烟囱，等着那个小东西爬近。外面的人一听动静就乱了套，喊声、脚步声和追问响成一片。他们还会想出什么办法来对付屋里的大家伙？",
+        "en": "Alice stretches her foot down the chimney and waits for the small animal to come closer. Outside, the crowd panics at the noise: brandy is fetched, advice is shouted, and someone mentions burning the house. What will they try next?"
+      },
+      "paragraphs": {
+        "chapter-04-p025": {
+          "sentences": [
+            "“哦！这么说比尔得下烟囱，是吗？”爱丽丝自言自语。",
+            "“哼，他们好像什么事都往比尔身上推！",
+            "给我一大笔钱我也不愿站在比尔的位置上：这壁炉确实窄；不过我想我还是能踢上一脚的！”"
+          ],
+          "hints": [
+            {
+              "id": "put-upon-bill",
+              "kind": "phrase",
+              "target": "put everything upon Bill",
+              "sentence": 2,
+              "zh": "把什么事都推给比尔；put upon 这里指“把活儿推给某人”。",
+              "en": "Put everything upon Bill means 'load every job onto Bill'."
+            }
+          ]
+        },
+        "chapter-04-p026": {
+          "sentences": [
+            "她尽量把脚往烟囱下面伸，等着听见一只小动物（她猜不出是什么动物）在她头顶上方的烟囱里又抓又爬；然后，她对自己说了句“这就是比尔”，猛地踢了一脚，等着看会发生什么。"
+          ],
+          "hints": []
+        },
+        "chapter-04-p027": {
+          "sentences": [
+            "她首先听到的是一片齐声的喊叫：“比尔上去了！”接着只有白兔的声音——“接住他，你这树篱边的家伙！”然后是一片安静，接着又是一片乱糟糟的声音——“扶住他的头——快拿白兰地——别让他噎着——怎么回事，老伙计？",
+            "你遇到什么了？",
+            "快跟我们说说！”"
+          ],
+          "hints": [
+            {
+              "id": "brandy",
+              "kind": "word",
+              "target": "Brandy",
+              "sentence": 5,
+              "zh": "白兰地；当时被当作提神醒脑的药，给昏过去的人喝。",
+              "en": "Brandy, then used as a reviving medicine for someone who has fainted."
+            }
+          ]
+        },
+        "chapter-04-p028": {
+          "sentences": [
+            "最后传来一个微弱尖细的声音，（“那是比尔。”爱丽丝心想，）“嗯，我也说不清——不喝了，谢谢你；我现在好些了——可我实在慌得厉害，说不清楚——我只知道，有个东西像玩偶匣里的弹簧小人一样朝我冲过来，我就嗖地一下飞了上去，像支冲天炮！”"
+          ],
+          "hints": [
+            {
+              "id": "jack-in-the-box",
+              "kind": "word",
+              "target": "Jack-in-the-box",
+              "sentence": 8,
+              "zh": "玩偶匣：一打开盖子就弹出小人的玩具；比尔拿它比喻突然冲上来的东西。",
+              "en": "A Jack-in-the-box is a toy figure that springs out when the lid opens; Bill compares it to what rushed at him."
+            },
+            {
+              "id": "a-deal",
+              "kind": "phrase",
+              "target": "a deal too flustered",
+              "sentence": 8,
+              "zh": "a deal 表示“很、非常”：慌得实在太厉害，不是“一笔交易”。",
+              "en": "A deal here means 'very much': he is far too flustered to explain, with no bargain involved."
+            }
+          ]
+        },
+        "chapter-04-p029": {
+          "sentences": [
+            "“你确实飞上去了，老伙计！”其他人说。"
+          ],
+          "hints": []
+        },
+        "chapter-04-p030": {
+          "sentences": [
+            "“我们得把房子烧掉！”白兔的声音说；爱丽丝用尽力气喊道：“你们要是敢，我就放黛娜来咬你们！”"
+          ],
+          "hints": [
+            {
+              "id": "set-dinah-at-you",
+              "kind": "phrase",
+              "target": "set Dinah at you",
+              "sentence": 10,
+              "zh": "放黛娜去咬你；set a dog at someone 就是放狗去追咬某人。",
+              "en": "Set Dinah at you: to set a dog at someone is to send it to attack them."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Alice do when she hears the animal in the chimney?",
+          "options": [
+            "She calls Dinah to come and help.",
+            "She gives one sharp kick.",
+            "She climbs up the chimney herself."
+          ],
+          "answer": 1,
+          "sentence": 4,
+          "feedback": {
+            "zh": "她听见小动物在头顶上方又抓又爬，说了句“这就是比尔”，就狠狠踢了一脚。",
+            "en": "Hearing the animal scramble above her, she says 'This is Bill' and gives one sharp kick."
+          }
+        },
+        {
+          "question": "What does the Rabbit suggest when Alice cannot be moved?",
+          "options": [
+            "Burning the house down.",
+            "Fetching a much longer ladder.",
+            "Sending for the Duchess."
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "白兔喊道“我们得把房子烧掉”，爱丽丝则回敬说要放黛娜去咬他们。",
+            "en": "The Rabbit shouts 'We must burn the house down!', and Alice answers with a threat about Dinah."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "so Bill's got to come down the chimney",
+        "pointIds": [
+          "cefrj-128"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "'s got to 就是 has got to，表示“不得不、必须”；这里爱丽丝在复述外面人的结论。",
+          "en": "'S got to is has got to, meaning 'must'; Alice is repeating the crowd's decision."
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "飞进窗口的石头",
+        "en": "Pebbles at the Window"
+      },
+      "introduction": {
+        "zh": "窗外安静了一会儿，紧接着飞进来一阵小石子，有几颗打在她脸上。落在地上的石头瞧着不太对劲。爱丽丝盯着它们，忽然想到一个也许能让她脱身的办法。",
+        "en": "The window goes quiet, then a shower of little pebbles rattles in and some hit Alice in the face. Strangely, the pebbles change as they lie on the floor. Looking at them, Alice gets an idea that might set her free."
+      },
+      "paragraphs": {
+        "chapter-04-p031": {
+          "sentences": [
+            "外面立刻一片死寂，爱丽丝心想：“我倒想知道他们下一步要干什么！",
+            "他们要是有点脑子，就该把屋顶掀掉。”",
+            "过了一两分钟，他们又开始走动起来，爱丽丝听见白兔说：“先来一独轮车就够了。”"
+          ],
+          "hints": [
+            {
+              "id": "barrowful",
+              "kind": "word",
+              "target": "A barrowful",
+              "sentence": 3,
+              "zh": "一独轮车（的量）；barrow 指手推的独轮车。",
+              "en": "A barrowful is as much as a wheelbarrow holds."
+            }
+          ]
+        },
+        "chapter-04-p032": {
+          "sentences": [
+            "“一独轮车什么？”爱丽丝想；不过她没疑惑多久，因为紧接着就有一阵小石子从窗口哗啦啦地飞进来，有几颗还打在她脸上。",
+            "“我得把这事制止住。”她自言自语，然后大声喊道：“你们最好别再扔了！”这句话又换来一片死寂。"
+          ],
+          "hints": [
+            {
+              "id": "put-a-stop-to",
+              "kind": "phrase",
+              "target": "put a stop to this",
+              "sentence": 5,
+              "zh": "把这件事制止住；不是“停下来放东西”。",
+              "en": "Put a stop to this means 'end this', not 'stop to put something down'."
+            }
+          ]
+        },
+        "chapter-04-p033": {
+          "sentences": [
+            "爱丽丝有些惊讶地发现，那些石子落在地上，全都变成了小蛋糕；她脑子里忽然闪过一个好主意。",
+            "“要是我吃一块这样的蛋糕，”她想，“它一定会让我的身体发生变化；既然它不可能让我变得更大，那我想，它准会让我变小。”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p034": {
+          "sentences": [
+            "于是她吞下一块蛋糕，高兴地发现自己立刻开始缩小。",
+            "等她小到能从门口出去时，她就跑出房子，看见外面等着好大一群小动物和鸟。",
+            "可怜的小蜥蜴比尔在正中间，被两只豚鼠扶着，它们正从瓶子里喂它什么东西。",
+            "她一出现，他们全都朝她冲过来；可她拼命地跑，很快就发现自己安全地待在一片茂密的树林里。"
+          ],
+          "hints": [
+            {
+              "id": "guinea-pigs",
+              "kind": "word",
+              "target": "guinea-pigs",
+              "sentence": 10,
+              "zh": "豚鼠，也叫荷兰猪；这里是被叫来帮忙的小动物。",
+              "en": "Guinea-pigs, small rodents called in to help hold Bill up."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What happens to the pebbles that come through the window?",
+          "options": [
+            "They turn into little cakes on the floor.",
+            "They turn into mushrooms.",
+            "They vanish as soon as they land."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "爱丽丝惊讶地看见，石子落地后全都变成了小蛋糕。",
+            "en": "Alice notices with surprise that the pebbles on the floor turn into little cakes."
+          }
+        },
+        {
+          "question": "Why does Alice eat one of the cakes?",
+          "options": [
+            "She is hungry after shouting at the crowd.",
+            "She expects it to change her size and make her smaller.",
+            "She wants to grow big enough to frighten the crowd."
+          ],
+          "answer": 1,
+          "sentence": 7,
+          "feedback": {
+            "zh": "她推断蛋糕一定会改变身材，既然不能变大，那就只能变小，于是吞了一块。",
+            "en": "She reasons that a cake must change her size; as it cannot make her larger, it must make her smaller."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "If I eat one of these cakes",
+        "pointIds": [
+          "cefrj-156"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if 从句用一般现在时 eat，主句说她预期的结果；这里她在推算吃下蛋糕的后果。",
+          "en": "The if-clause uses the present tense eat, and the main clause gives the result she expects."
+        }
+      }
+    },
+    {
+      "number": 9,
+      "title": {
+        "zh": "树林里的大狗崽",
+        "en": "A Puppy in the Wood"
+      },
+      "introduction": {
+        "zh": "逃进树林，爱丽丝给自己定了两件事：先变回原来的大小，再找到进那座可爱花园的路。可她还没想好怎么做，头顶忽然传来一声尖细的叫声。",
+        "en": "Safe in the wood, Alice sets herself two tasks: grow back to her right size, and find her way into the lovely garden. Before she can plan how, a sharp little bark sounds just above her head."
+      },
+      "paragraphs": {
+        "chapter-04-p035": {
+          "sentences": [
+            "“我首先要做的，”爱丽丝在树林里游荡时自言自语，“是重新长回我该有的大小；第二件事，是找到路，走进那座可爱的花园。",
+            "我想这是最好的办法。”"
+          ],
+          "hints": []
+        },
+        "chapter-04-p036": {
+          "sentences": [
+            "这计划听上去好极了，毫无疑问，安排得又干净又简单；唯一的难处是，她完全不知道该怎么着手；她正焦急地在树间张望，忽然头顶上方传来一声尖细的叫声，她连忙抬起头。"
+          ],
+          "hints": [
+            {
+              "id": "set-about",
+              "kind": "phrase",
+              "target": "to set about it",
+              "sentence": 3,
+              "zh": "着手去做、开始动手；set about 后面接要做的事。",
+              "en": "To set about it means 'to begin doing it'."
+            }
+          ]
+        },
+        "chapter-04-p037": {
+          "sentences": [
+            "一只巨大的小狗正用圆圆的大眼睛低头看着她，还虚弱地伸出一只爪子，想碰碰她。",
+            "“可怜的小东西！”爱丽丝用哄劝的语气说，还使劲想对它吹口哨；可她一直害怕得要命，生怕它饿了，真要是那样，那它多半会不顾她怎么哄，把她吃掉。"
+          ],
+          "hints": [
+            {
+              "id": "puppy",
+              "kind": "word",
+              "target": "puppy",
+              "sentence": 4,
+              "zh": "小狗、狗崽；这里是一只体型大得吓人的狗崽。",
+              "en": "A puppy here is a dog so young that its size is startling."
+            },
+            {
+              "id": "in-which-case",
+              "kind": "phrase",
+              "target": "in which case",
+              "sentence": 5,
+              "zh": "要是那样的话；承接前面的假设，说明随之而来的结果。",
+              "en": "In which case means 'if that were so', pointing to the result of the guess."
+            }
+          ]
+        },
+        "chapter-04-p038": {
+          "sentences": [
+            "她几乎不知道自己在做什么，捡起一小根树枝，伸到小狗面前；小狗立刻四脚一齐跳起，欢喜地叫了一声，扑向树枝，假装撕咬起来；爱丽丝躲到一棵大蓟后面，免得被它撞倒；她刚在另一边露面，小狗又朝树枝冲过来，急急忙忙地翻了个跟头；爱丽丝觉得这简直像在跟一匹拉车的马玩耍，随时都可能被它踩在脚下，便又绕着大蓟跑；小狗开始一次次短促地扑向树枝，每次往前跑一点点，又退回去老远，一边跑一边沙哑地叫着，最后它在老远的地方坐下来，伸着舌头直喘气，大眼睛半睁半闭。",
+            "爱丽丝觉得这是个逃走的好机会，于是立刻动身，一直跑到又累又喘，直到小狗的叫声在远处变得十分微弱。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What two things does Alice decide she must do?",
+          "options": [
+            "Find food and then sleep in the wood.",
+            "Grow back to her right size and find the garden.",
+            "Find Dinah and go back home."
+          ],
+          "answer": 1,
+          "sentence": 1,
+          "feedback": {
+            "zh": "她给自己定下两件事：先长回原来的大小，再找到进那座花园的路。",
+            "en": "She sets herself two tasks: grow back to her right size, then find the way into the garden."
+          }
+        },
+        {
+          "question": "Why is Alice frightened of the puppy while she speaks kindly to it?",
+          "options": [
+            "It barks too loudly for her ears.",
+            "It might be hungry and eat her up.",
+            "It belongs to the White Rabbit."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "她一边哄它，一边怕它饿了——真是那样，再哄也没用，它很可能把她吃掉。",
+            "en": "She coaxes it, yet fears that a hungry puppy would eat her in spite of all her coaxing."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "she had not the smallest idea how to set about it",
+        "pointIds": [
+          "cefrj-167"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "how to set about it 是“疑问词 + 不定式”，说明她“不知道该怎么着手”这件事。",
+          "en": "How to set about it is a wh-word plus infinitive, telling us what she has no idea about."
+        }
+      }
+    },
+    {
+      "number": 10,
+      "title": {
+        "zh": "蘑菇上面有什么？",
+        "en": "What Is on the Mushroom?"
+      },
+      "introduction": {
+        "zh": "靠着毛茛休息时，爱丽丝才想起自己还得再长大一次。她四下张望，想找点能吃能喝的东西，最后把目光落在身边那朵大蘑菇上。蘑菇顶上，坐着什么呢？",
+        "en": "Resting against a buttercup, Alice remembers that she still has to grow up again. She looks around for something to eat or drink and settles her eyes on a large mushroom beside her. What is sitting on top of it?"
+      },
+      "paragraphs": {
+        "chapter-04-p039": {
+          "sentences": [
+            "“可它真是只可爱的小狗啊！”爱丽丝靠着一株毛茛歇脚，用一片叶子扇着风说，“我真愿意教它几套把戏，要是——要是我有合适的大小来教它就好了！",
+            "哎呀！",
+            "我差点忘了，我还得重新长大呢！",
+            "让我想想——这该怎么才能办到呢？",
+            "我想我总得吃点或喝点什么才行；可最大的问题是，吃什么、喝什么？”"
+          ],
+          "hints": [
+            {
+              "id": "buttercup",
+              "kind": "word",
+              "target": "buttercup",
+              "sentence": 1,
+              "zh": "毛茛，开黄花的小野草；她得靠着一株才歇得住，可见自己有多小。",
+              "en": "A buttercup, a small yellow wild flower; she can lean on one, which shows how tiny she is."
+            },
+            {
+              "id": "managed",
+              "kind": "word",
+              "target": "managed",
+              "sentence": 4,
+              "zh": "manage 这里不是“管理”，而是“设法做到”：这事该怎么办呢？",
+              "en": "Managed here means 'brought about', not 'run or controlled': how is it to be done?"
+            }
+          ]
+        },
+        "chapter-04-p040": {
+          "sentences": [
+            "最大的问题确实是，什么？",
+            "爱丽丝环顾四周的花和草叶，可在这种情形下，她看不出有什么东西像是能吃的或能喝的。",
+            "她身旁长着一朵大蘑菇，差不多和她一样高；她往蘑菇底下看过，两边看过，后面也看过，这才想到，不妨也看看蘑菇上面有什么。"
+          ],
+          "hints": []
+        },
+        "chapter-04-p041": {
+          "sentences": [
+            "她踮起脚，探身从蘑菇边缘望过去，目光立刻遇到了一只蓝色的大毛毛虫的眼睛。它正盘着胳膊坐在蘑菇顶上，静静地抽着一根长长的水烟筒，对她、对别的一切都毫不在意。"
+          ],
+          "hints": [
+            {
+              "id": "caterpillar",
+              "kind": "word",
+              "target": "caterpillar",
+              "sentence": 9,
+              "zh": "毛毛虫，这里是一只蓝色的大毛毛虫，坐在蘑菇顶上抽水烟。",
+              "en": "A caterpillar, here a large blue one sitting on the mushroom and smoking."
+            },
+            {
+              "id": "hookah",
+              "kind": "word",
+              "target": "hookah",
+              "sentence": 9,
+              "zh": "水烟筒：烟气先经过水再吸入口中的长管烟具。",
+              "en": "A hookah is a long tube pipe in which smoke passes through water before it is breathed in."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What problem is Alice trying to solve?",
+          "options": [
+            "How to get back into the lovely garden.",
+            "What to eat or drink so that she can grow again.",
+            "How to teach the puppy some tricks."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "她认定总得吃点或喝点什么才能重新长大，可最大的问题是不知道选什么。",
+            "en": "She decides she must eat or drink something, but the great question is what."
+          }
+        },
+        {
+          "question": "What does Alice see on top of the mushroom?",
+          "options": [
+            "A large blue caterpillar smoking a hookah.",
+            "The White Rabbit with his watch.",
+            "A little cake left by the crowd."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "蘑菇顶上坐着一只蓝色的大毛毛虫，盘着手臂抽水烟，完全不理她。",
+            "en": "On the mushroom sits a large blue caterpillar smoking a hookah, taking no notice of her."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I should have liked teaching it tricks very much, if—if I'd only been the right size to do it",
+        "pointIds": [
+          "cefrj-216"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "should have liked 与 if I'd been 都是与过去相反的虚拟：她当时并没有合适的大小。",
+          "en": "Should have liked and if I'd been are past unreal forms: she was not the right size at the time."
+        }
+      }
+    }
+  ]
+}

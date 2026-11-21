@@ -1,0 +1,793 @@
+{
+  "updatedAt": "2026-11-21",
+  "passages": [
+    {
+      "id": "passage-b2-working-from-home",
+      "level": "B2",
+      "title": "Working from Home",
+      "text": "Ten years ago, working from home was unusual. Today many companies offer it, and employees often say they are more productive without the commute. But the picture is not entirely positive. A recent survey found that people who work alone at home miss the informal conversations that used to happen in an office. Those conversations often produce new ideas, and they also make it easier to ask for help. Some companies have tried to solve the problem by asking staff to come in two or three days a week. Others have given up their offices completely and rely on video calls. Neither approach suits everyone. What seems clear is that the office is no longer the only place where work happens; the question is what it is still good for."
+    },
+    {
+      "id": "passage-b2-night-noise",
+      "level": "B2",
+      "title": "The Noise After Dark",
+      "text": "Every summer the argument returns to our street. Some residents want the bars along the waterfront to close at eleven; others say the music is what keeps the district alive. Last month the council asked both sides to submit written statements, and the responses were sharper than anyone had expected.\n\nThose who want earlier closing times talk about the health of people who work early shifts. A nurse who lives above one of the bars told the council that she has not slept properly in three years. Her neighbours describe broken glass, shouting and taxis waiting with their engines running until two in the morning. For them the issue is not culture but ordinary rest.\n\nThe bar owners answer that the district was quiet and poor before the music arrived, and that visitors now pay for the street lighting, the rubbish collection and the bus that runs after midnight. They also note that the loudest complaints come from buildings that were converted into flats only five years ago, when the bars were already there.\n\nThe council has not decided yet. It has, however, asked for one thing that nobody objects to: a proper measurement of the noise, taken at night, over a whole season. Until those figures exist, both sides are arguing about impressions."
+    },
+    {
+      "id": "passage-b2-book-repair",
+      "level": "B2",
+      "title": "Saving the Second-hand Shelves",
+      "text": "The workshop behind the library smells of glue and old paper. Twice a week, six volunteers sit at a long table and repair books that readers have damaged or that have simply fallen apart. Most are ordinary paperbacks: a cookbook with a broken spine, a novel whose pages have come loose, a dictionary that someone dropped in the bath.\n\nThe project began almost by accident. A retired teacher brought in a box of books she could not bear to throw away, and the librarian admitted that the library itself was quietly discarding dozens every month. Repairing them seemed cheaper than replacing them, and it kept titles on the shelf that no longer exist in print.\n\nVolunteers take a short training course, and the rules are strict. They never repair anything valuable; a book worth more than fifty pounds goes to a professional. They use reversible glue, so that a later owner can undo their work. And they record every repair in a notebook, because, as the teacher puts it, a book with a history should not lose it.\n\nLast year the workshop saved more than four hundred books. The library now lends them with a small card inside, explaining what was done, so that readers understand why a repaired copy sometimes looks older than it is."
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-b2-v01",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "The new policy will {{blank}} all employees.",
+      "options": [
+        "affect",
+        "effect",
+        "effort",
+        "afford"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "affect 是动词「影响」；effect 多作名词「影响、效果」。",
+        "en": "Affect is the verb meaning to influence; effect is usually a noun."
+      },
+      "point": "lex-affect"
+    },
+    {
+      "id": "q-b2-v02",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "Her explanation was so {{blank}} that everyone was convinced.",
+      "options": [
+        "convincing",
+        "convinced",
+        "confusing",
+        "hesitant"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "令人信服的是 explanation，用 -ing 形式的 convincing。",
+        "en": "The explanation is the thing that convinces, so convincing is correct."
+      },
+      "point": "lex-convincing"
+    },
+    {
+      "id": "q-b2-v03",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "The company had to {{blank}} several staff because of the crisis.",
+      "options": [
+        "lay off",
+        "lay out",
+        "lay down",
+        "lay in"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "lay off 是裁员；lay out 是布置，lay down 是放下，lay in 是储备。",
+        "en": "Lay off means to dismiss staff for economic reasons."
+      },
+      "point": "lex-lay-off"
+    },
+    {
+      "id": "q-b2-v04",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "The evidence is {{blank}} with his story.",
+      "options": [
+        "consistent",
+        "persistent",
+        "insistent",
+        "resistant"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "be consistent with 是「与……一致」；persistent 是「坚持的」。",
+        "en": "Consistent with means agreeing with; persistent means continuing."
+      },
+      "point": "lex-consistent"
+    },
+    {
+      "id": "q-b2-v05",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "He has a {{blank}} knowledge of French history.",
+      "options": [
+        "thorough",
+        "through",
+        "thought",
+        "though"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "thorough 是「透彻的」；through、thought、though 只是拼写相近。",
+        "en": "Thorough means complete and detailed; the others are unrelated words."
+      },
+      "point": "cefrj-105"
+    },
+    {
+      "id": "q-b2-v06",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "The delay was {{blank}} by heavy snow.",
+      "options": [
+        "caused",
+        "effected",
+        "resulted",
+        "led"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "be caused by 是「由……造成」；result 要用 result from，lead 要用 lead to。",
+        "en": "Caused by is correct; result takes from and lead takes to."
+      },
+      "point": "lex-caused"
+    },
+    {
+      "id": "q-b2-v07",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "She was {{blank}} to admit her mistake, and argued for an hour before she did.",
+      "options": [
+        "reluctant",
+        "willing",
+        "eager",
+        "ready"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "承认错误通常不情愿：reluctant to do 是「不愿做」。",
+        "en": "Reluctant to admit means unwilling, which fits admitting a mistake."
+      },
+      "point": "lex-reluctant"
+    },
+    {
+      "id": "q-b2-v08",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "The government has promised to {{blank}} the issue.",
+      "options": [
+        "address",
+        "adopt",
+        "advance",
+        "afford"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "address an issue 是「着手处理问题」；adopt 是采纳。",
+        "en": "Address an issue means to deal with it."
+      },
+      "point": "lex-address"
+    },
+    {
+      "id": "q-b2-v09",
+      "level": "B2",
+      "skill": "vocab",
+      "prompt": "The two countries finally reached an {{blank}} after months of talks, and both sides signed it.",
+      "options": [
+        "agreement",
+        "argument",
+        "arrangement",
+        "announcement"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "reach an agreement 是「达成协议」的固定搭配。",
+        "en": "Reach an agreement is the fixed collocation."
+      },
+      "point": "lex-agreement"
+    },
+    {
+      "id": "q-b2-g01",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "Hardly {{blank}} the room when the phone rang.",
+      "options": [
+        "had I entered",
+        "I had entered",
+        "did I enter",
+        "I entered"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "hardly 置句首要部分倒装：had I entered。",
+        "en": "A sentence starting with hardly needs inversion: had I entered."
+      },
+      "point": "cefrj-234"
+    },
+    {
+      "id": "q-b2-g02",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "{{blank}} the bad weather, the match went ahead.",
+      "options": [
+        "Despite",
+        "Although",
+        "However",
+        "Even"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "空格后是名词短语，用介词 despite；although 后接句子。",
+        "en": "A noun phrase follows, so the preposition despite is needed."
+      },
+      "point": "cefrj-161"
+    },
+    {
+      "id": "q-b2-g03",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "She would rather {{blank}} at home tonight.",
+      "options": [
+        "stay",
+        "to stay",
+        "staying",
+        "stayed"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "would rather 后接动词原形。",
+        "en": "Would rather takes the base verb."
+      },
+      "point": "cefrj-143"
+    },
+    {
+      "id": "q-b2-g04",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "The report, {{blank}} was published yesterday, caused a stir.",
+      "options": [
+        "which",
+        "that",
+        "what",
+        "it"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "非限制性定语从句不能用 that，指物用 which。",
+        "en": "A non-defining relative clause cannot use that; which is correct."
+      },
+      "point": "cefrj-181"
+    },
+    {
+      "id": "q-b2-g05",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "He is said {{blank}} abroad for years.",
+      "options": [
+        "to have lived",
+        "to live",
+        "living",
+        "lived"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "据说他过去多年住在国外，用不定式完成式 to have lived。",
+        "en": "The living happened before now, so the perfect infinitive is used."
+      },
+      "point": "cefrj-90"
+    },
+    {
+      "id": "q-b2-g06",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "Not until midnight {{blank}} the news.",
+      "options": [
+        "did we hear",
+        "we heard",
+        "we did hear",
+        "heard we"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "not until 置句首要部分倒装：did we hear。",
+        "en": "A sentence starting with not until needs inversion."
+      },
+      "point": "focus-not-until"
+    },
+    {
+      "id": "q-b2-g07",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "I wish I {{blank}} more careful yesterday.",
+      "options": [
+        "had been",
+        "was",
+        "were",
+        "have been"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "对过去的遗憾用 wish + 过去完成时。",
+        "en": "Regret about the past uses wish + past perfect."
+      },
+      "point": "cefrj-219"
+    },
+    {
+      "id": "q-b2-g08",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "It is high time we {{blank}} .",
+      "options": [
+        "left",
+        "leaving",
+        "will leave",
+        "have left"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "it is high time 后接一般过去时，表示「早该……了」。",
+        "en": "It is high time is followed by the past simple."
+      },
+      "point": "focus-it-is-time"
+    },
+    {
+      "id": "q-b2-g09",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "The project is expected {{blank}} by June.",
+      "options": [
+        "to be finished",
+        "to finish",
+        "finishing",
+        "finish"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "项目是被完成的，用不定式被动 to be finished。",
+        "en": "The project receives the action, so the passive infinitive is used."
+      },
+      "point": "cefrj-91"
+    },
+    {
+      "id": "q-b2-g10",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "{{blank}} having studied for years, she failed the exam.",
+      "options": [
+        "Despite",
+        "Although",
+        "However",
+        "Because"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "空格后是动名词短语，用 despite；although 后接完整句子。",
+        "en": "An -ing phrase follows, so despite is used."
+      },
+      "point": "focus-despite-ing"
+    },
+    {
+      "id": "q-b2-g11",
+      "level": "B2",
+      "skill": "grammar",
+      "prompt": "Under no circumstances {{blank}} leave the building.",
+      "options": [
+        "should you",
+        "you should",
+        "you must",
+        "must you"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "under no circumstances 置句首要倒装：should you leave。",
+        "en": "A negative adverbial at the start requires inversion: should you."
+      },
+      "point": "focus-under-no-circumstances"
+    },
+    {
+      "id": "q-b2-r01",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-working-from-home",
+      "prompt": "What does the passage say about working from home ten years ago?",
+      "options": [
+        "It was common",
+        "It was unusual",
+        "It was illegal",
+        "It was well paid"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "第一句说十年前在家工作 was unusual（不常见）。",
+        "en": "The first sentence says it was unusual ten years ago."
+      },
+      "point": "read-b2-wfh-1"
+    },
+    {
+      "id": "q-b2-r02",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-working-from-home",
+      "prompt": "According to the survey, what do people who work alone at home miss?",
+      "options": [
+        "Their commute",
+        "Informal office conversations",
+        "Higher pay",
+        "Longer holidays"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "调查说他们想念办公室里非正式的交谈。",
+        "en": "The survey says they miss informal conversations from the office."
+      },
+      "point": "read-b2-wfh-2"
+    },
+    {
+      "id": "q-b2-r03",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-working-from-home",
+      "prompt": "Why does the passage say those conversations matter?",
+      "options": [
+        "They produce new ideas and make asking for help easier",
+        "They replace video calls",
+        "They reduce the commute",
+        "They are part of the salary"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "文中说这些交谈常产生新想法，也让人更容易求助。",
+        "en": "The passage says they produce ideas and make asking for help easier."
+      },
+      "point": "read-b2-wfh-3"
+    },
+    {
+      "id": "q-b2-r04",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-working-from-home",
+      "prompt": "How have some companies responded to the problem?",
+      "options": [
+        "By asking staff to come in two or three days a week",
+        "By closing all their offices",
+        "By banning video calls",
+        "By paying for the commute"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "有些公司要求员工每周到办公室两三天。",
+        "en": "Some companies ask staff to come in two or three days a week."
+      },
+      "point": "read-b2-wfh-4"
+    },
+    {
+      "id": "q-b2-v10",
+      "level": "B2",
+      "skill": "vocab",
+      "point": "lex-postpone",
+      "prompt": "Because of the storm, the organizers decided to {{blank}} the match until next Saturday.",
+      "options": [
+        "postpone",
+        "cancel",
+        "replace",
+        "refuse"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "postpone 是「推迟」，可与 until next Saturday 连用；cancel 是「取消」，不能再接 until。",
+        "en": "Postpone means to move to a later time and works with until; cancel means to call off."
+      }
+    },
+    {
+      "id": "q-b2-v11",
+      "level": "B2",
+      "skill": "vocab",
+      "point": "lex-cope-with",
+      "prompt": "It took her months to {{blank}} the loss of her job.",
+      "options": [
+        "cope with",
+        "look after",
+        "put off",
+        "give away"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "cope with 是「应对、承受」，与 the loss 搭配；look after 是「照顾」。",
+        "en": "Cope with means to deal with a difficulty; look after means to take care of."
+      }
+    },
+    {
+      "id": "q-b2-v12",
+      "level": "B2",
+      "skill": "vocab",
+      "point": "lex-vital",
+      "prompt": "Regular exercise is {{blank}} to good health.",
+      "options": [
+        "vital",
+        "trivial",
+        "vague",
+        "vacant"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "be vital to 表示「对……至关重要」；trivial 是「微不足道的」。",
+        "en": "Vital to means essential for; trivial means unimportant."
+      }
+    },
+    {
+      "id": "q-b2-v13",
+      "level": "B2",
+      "skill": "vocab",
+      "point": "lex-put-off",
+      "prompt": "The meeting has been {{blank}} until Thursday because the manager is away.",
+      "options": [
+        "put off",
+        "put out",
+        "put up",
+        "put away"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "put off 是「推迟」；put out 是「扑灭」，put away 是「收好」。",
+        "en": "Put off means to postpone; put out means to extinguish."
+      }
+    },
+    {
+      "id": "q-b2-v14",
+      "level": "B2",
+      "skill": "vocab",
+      "point": "lex-deteriorate",
+      "prompt": "His health began to {{blank}} after the operation, and he needed daily care.",
+      "options": [
+        "deteriorate",
+        "decorate",
+        "demonstrate",
+        "distribute"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "deteriorate 是「恶化」，与 health 搭配，后文 daily care 也印证。",
+        "en": "Deteriorate means to become worse, which fits health after an operation."
+      }
+    },
+    {
+      "id": "q-b2-g12",
+      "level": "B2",
+      "skill": "grammar",
+      "point": "cefrj-50",
+      "prompt": "{{blank}} carefully you plan the trip, the fewer problems you will have.",
+      "options": [
+        "The more",
+        "More",
+        "The most",
+        "Most"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "the + 比较级, the + 比较级 结构，前半要用 The more carefully。",
+        "en": "The comparative pair needs the more carefully ... the fewer ..."
+      }
+    },
+    {
+      "id": "q-b2-g13",
+      "level": "B2",
+      "skill": "grammar",
+      "point": "cefrj-75",
+      "prompt": "The old bridge {{blank}} twice since the accident, but engineers still check it every month.",
+      "options": [
+        "has been repaired",
+        "has repaired",
+        "was repairing",
+        "is repaired"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "since 要求现在完成时，桥是被修的，所以用被动 has been repaired。",
+        "en": "Since requires the present perfect, and the bridge receives the action, so the passive is used."
+      }
+    },
+    {
+      "id": "q-b2-g14",
+      "level": "B2",
+      "skill": "grammar",
+      "point": "cefrj-204",
+      "prompt": "It was not until midnight {{blank}} the noise finally stopped.",
+      "options": [
+        "that",
+        "when",
+        "which",
+        "then"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "强调句 It was not until ... that ... 必须用 that 连接。",
+        "en": "The cleft structure It was not until ... that ... requires that."
+      }
+    },
+    {
+      "id": "q-b2-g15",
+      "level": "B2",
+      "skill": "grammar",
+      "point": "cefrj-205",
+      "prompt": "{{blank}} surprised me most was how calm she remained during the interview.",
+      "options": [
+        "What",
+        "That",
+        "Which",
+        "It"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "主语从句缺主语时用 what 引导，构成 what 伪分裂句。",
+        "en": "The subject clause needs what, standing for the thing that surprised me."
+      }
+    },
+    {
+      "id": "q-b2-g16",
+      "level": "B2",
+      "skill": "grammar",
+      "point": "cefrj-222",
+      "prompt": "If only I {{blank}} more time to prepare for tomorrow's exam.",
+      "options": [
+        "had",
+        "have",
+        "have had",
+        "will have"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "if only 表示对现在或未来的愿望时用一般过去时 had。",
+        "en": "If only for a present wish takes the past simple, so had is correct."
+      }
+    },
+    {
+      "id": "q-b2-r05",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-night-noise",
+      "point": "read-b2-night-noise-1",
+      "prompt": "What did the council ask both sides to do last month?",
+      "options": [
+        "Submit written statements",
+        "Close the bars at eleven",
+        "Pay for the street lighting",
+        "Meet the nurse in person"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "第一段说议会要求双方提交书面陈述。",
+        "en": "The first paragraph says the council asked both sides to submit written statements."
+      }
+    },
+    {
+      "id": "q-b2-r06",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-night-noise",
+      "point": "read-b2-night-noise-2",
+      "prompt": "In the first paragraph, the responses are described as 'sharper' because they were:",
+      "options": [
+        "more hostile",
+        "shorter",
+        "more accurate",
+        "more polite"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "sharper 在此指语气更尖锐、更有敌意，而不是更短或更准确。",
+        "en": "Sharper here means more hostile in tone, not shorter or more accurate."
+      }
+    },
+    {
+      "id": "q-b2-r07",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-night-noise",
+      "point": "read-b2-night-noise-3",
+      "prompt": "What do the bar owners suggest about the people who complain most loudly?",
+      "options": [
+        "They moved into the area after the bars opened",
+        "They work night shifts in the city",
+        "They never use the buses",
+        "They come from outside the district"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "酒吧老板指出最响的投诉来自五年前才改成公寓的楼，当时酒吧已经在了。",
+        "en": "The owners note the flats were converted only five years ago, after the bars were there."
+      }
+    },
+    {
+      "id": "q-b2-r08",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-night-noise",
+      "point": "read-b2-night-noise-4",
+      "prompt": "What is the writer's attitude in the last paragraph?",
+      "options": [
+        "The dispute needs measured facts before it can be settled",
+        "The council has already chosen the bars' side",
+        "Both sides are deliberately lying",
+        "The bars should close at eleven"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "末段说议会尚未决定、要先测一整季的噪音，可见作者认为需要事实。",
+        "en": "The writer stresses the council has not decided and wants measurements first."
+      }
+    },
+    {
+      "id": "q-b2-r09",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-book-repair",
+      "point": "read-b2-book-repair-1",
+      "prompt": "Why did the repair project begin?",
+      "options": [
+        "A retired teacher brought in a box of books",
+        "The library received a grant for repairs",
+        "A publisher donated new copies",
+        "Readers complained about damaged books"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "第二段说项目几乎是因一位退休教师送来一箱书才开始的。",
+        "en": "The second paragraph says it began when a retired teacher brought in a box of books."
+      }
+    },
+    {
+      "id": "q-b2-r10",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-book-repair",
+      "point": "read-b2-book-repair-2",
+      "prompt": "In the third paragraph, 'reversible' glue means glue that can be:",
+      "options": [
+        "undone later",
+        "used twice",
+        "bought cheaply",
+        "dried quickly"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "reversible 指修复以后可以撤销，让后来的主人能拆开。",
+        "en": "Reversible means the repair can be undone later by another owner."
+      }
+    },
+    {
+      "id": "q-b2-r11",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-book-repair",
+      "point": "read-b2-book-repair-3",
+      "prompt": "Why does the library put a small card inside repaired books?",
+      "options": [
+        "To explain why a copy may look old",
+        "To warn readers not to borrow it",
+        "To give the volunteer's name",
+        "To advertise the workshop"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "末段说卡片解释做过什么修复，让读者明白书为何显得更旧。",
+        "en": "The card explains what was done, so readers understand why the copy looks older."
+      }
+    },
+    {
+      "id": "q-b2-r12",
+      "level": "B2",
+      "skill": "reading",
+      "passageId": "passage-b2-book-repair",
+      "point": "read-b2-book-repair-4",
+      "prompt": "What is the passage mainly about?",
+      "options": [
+        "A volunteer project that keeps old books in use",
+        "The history of printing in Britain",
+        "How to value rare books",
+        "The training of librarians"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "全文讲志愿者修书项目如何让旧书继续被借阅。",
+        "en": "The passage is about volunteers repairing books so they stay in use."
+      }
+    }
+  ]
+}

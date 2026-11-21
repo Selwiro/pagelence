@@ -1,0 +1,619 @@
+{
+  "chapter": 6,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "泥巴盖的王宫",
+        "en": "The Palace of Mud"
+      },
+      "introduction": {
+        "zh": "杜立德医生带着动物们穿过密林，终于来到乔利金基国王的宫殿——一座用泥巴盖成的王宫。国王和王后正坐在门前的阳伞下，王后已经睡着了。医生走上前去，说明自己为什么来到非洲——这位国王会怎么回答他？",
+        "en": "The Doctor and his animals come through the thick forest to the King of Jolliginki’s palace, which is made of mud. The King and Queen sit outside under an umbrella; the Queen is asleep. The Doctor explains why he has come to Africa — what will the King say?"
+      },
+      "paragraphs": {
+        "chapter-06-p001": {
+          "sentences": [
+            "他们在茂密的森林里走了一小段路，来到一片开阔的空地；只见国王的宫殿就在眼前，是用泥巴盖成的。"
+          ]
+        },
+        "chapter-06-p002": {
+          "sentences": [
+            "这里就是国王和王后埃明特鲁德，还有他们的儿子邦波王子住的地方。",
+            "王子到河里捕鲑鱼去了。",
+            "但国王和王后正坐在宫门前的阳伞下。",
+            "埃明特鲁德王后睡着了。"
+          ],
+          "hints": [
+            {
+              "id": "ermintrude",
+              "kind": "word",
+              "target": "Ermintrude",
+              "sentence": 2,
+              "zh": "埃明特鲁德，乔利金基国王的王后。",
+              "en": "Ermintrude, the Queen of Jolliginki."
+            },
+            {
+              "id": "prince-bumpo",
+              "kind": "word",
+              "target": "Prince Bumpo",
+              "sentence": 2,
+              "zh": "邦波王子，国王与王后的儿子。",
+              "en": "Prince Bumpo, the son of the King and Queen."
+            }
+          ]
+        },
+        "chapter-06-p003": {
+          "sentences": [
+            "医生走到宫殿前，国王问他是来做什么的；医生便告诉他，自己为什么来到非洲。"
+          ]
+        },
+        "chapter-06-p004": {
+          "sentences": [
+            "「你不准从我的国土上经过。」国王说。",
+            "「许多年前，有一个白人来到这片海岸；我对他非常和气。",
+            "可他在土里挖洞取走金子，又杀光了所有大象，只为取它们的象牙，然后坐上自己的船悄悄走了——连一句『谢谢』都没说。",
+            "白人再也休想从乔利金基的国土上经过。」"
+          ],
+          "hints": [
+            {
+              "id": "jolliginki",
+              "kind": "word",
+              "target": "Jolliginki",
+              "sentence": 10,
+              "zh": "乔利金基，非洲的一个王国，这位国王的领地。",
+              "en": "Jolliginki, the African kingdom ruled by this King."
+            },
+            {
+              "id": "without-so-much-as",
+              "kind": "phrase",
+              "target": "without so much as saying",
+              "sentence": 9,
+              "zh": "连……都没说；so much as 用在否定句里，强调连最小的事都没做。",
+              "en": "Without so much as saying: not even saying — the phrase stresses how little he did."
+            }
+          ]
+        },
+        "chapter-06-p005": {
+          "sentences": [
+            "于是国王转向站在旁边的几个黑人，说：「把这个巫医——连同他所有的动物，一起带走，关进我最坚固的监狱。」"
+          ],
+          "hints": [
+            {
+              "id": "medicine-man",
+              "kind": "word",
+              "target": "medicine-man",
+              "sentence": 11,
+              "zh": "巫医；这里国王轻蔑地用它称呼医生，觉得他靠巫术治病。",
+              "en": "A medicine-man: the King uses the word scornfully for a healer who works by magic."
+            }
+          ]
+        },
+        "chapter-06-p006": {
+          "sentences": [
+            "于是六个黑人把医生和他所有的宠物带走，关进一间石头砌成的地牢。",
+            "地牢里只有一扇小窗，高高地开在墙上，还装着铁栅栏；门又厚又结实。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why will the King not let a white man travel through his lands?",
+          "options": [
+            "A white man once took gold and ivory and left without a word of thanks.",
+            "The Doctor has no money to pay for the journey.",
+            "The King is afraid of the Doctor’s animals."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "国王说，多年前一个白人挖走金子、杀象取牙，然后偷偷坐船走了，连句『谢谢』都没说，所以他再也不许白人过境。",
+            "en": "The King remembers a white man who dug for gold, killed elephants for their tusks and slipped away without even saying thank you."
+          }
+        },
+        {
+          "question": "Where is Prince Bumpo when the Doctor arrives?",
+          "options": [
+            "Away fishing for salmon in the river.",
+            "Asleep under the umbrella with the Queen.",
+            "Locked in the King’s strongest prison."
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "原文说王子到河里捕鲑鱼去了；在宫门前的是国王和王后，王后还睡着了。",
+            "en": "The text says the Prince was away fishing for salmon in the river; only the King and Queen were at the palace door."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Never again shall a white man travel through the lands of Jolliginki.",
+        "pointIds": [
+          "cefrj-234"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "Never again 置于句首，助动词 shall 要提到主语 a white man 前面；这是强调「再也不会」，不是疑问句。",
+          "en": "Putting Never again at the front pulls the auxiliary shall before the subject a white man; this is emphasis, not a question."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "点名少了一个",
+        "en": "One of Us Is Missing"
+      },
+      "introduction": {
+        "zh": "六个黑人把医生和动物们关进石砌的地牢，只有墙高处一扇带铁栅栏的小窗，门又厚又结实。大家难过起来，小猪咕咕哭个不停。鸭子开始清点人数——她会数出什么来？",
+        "en": "Six men shut the Doctor and his pets into a stone dungeon, where one little window sits high in the wall and the door is thick and strong. Everyone is sad, and Gub-Gub begins to cry. The duck starts to count them — what will she find?"
+      },
+      "paragraphs": {
+        "chapter-06-p007": {
+          "sentences": [
+            "于是大家都非常难过；小猪咕咕哭了起来。",
+            "可奇奇说，他要是再不停下那难听的哭声，就揍他一顿；咕咕便安静了。"
+          ],
+          "hints": [
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 1,
+              "zh": "咕咕，医生养的小猪。",
+              "en": "Gub-Gub, the Doctor’s little pig."
+            },
+            {
+              "id": "chee-chee",
+              "kind": "word",
+              "target": "Chee-Chee",
+              "sentence": 2,
+              "zh": "奇奇，那只猴子。",
+              "en": "Chee-Chee, the monkey."
+            }
+          ]
+        },
+        "chapter-06-p008": {
+          "sentences": [
+            "「我们都在这里吗？」医生适应了昏暗的光线后问道。"
+          ]
+        },
+        "chapter-06-p009": {
+          "sentences": [
+            "「是的，我想都在。」鸭子说着，开始数起来。"
+          ]
+        },
+        "chapter-06-p010": {
+          "sentences": [
+            "「波利尼西亚在哪儿？」鳄鱼问。",
+            "「她不在这儿。」"
+          ],
+          "hints": [
+            {
+              "id": "polynesia",
+              "kind": "word",
+              "target": "Polynesia",
+              "sentence": 5,
+              "zh": "波利尼西亚，医生的鹦鹉，会说话，也能模仿人声。",
+              "en": "Polynesia, the Doctor’s parrot, who can talk and mimic voices."
+            }
+          ]
+        },
+        "chapter-06-p011": {
+          "sentences": [
+            "「你肯定吗？」医生说。",
+            "「再仔细看看。",
+            "波利尼西亚！",
+            "波利尼西亚！",
+            "你在哪儿？」"
+          ]
+        },
+        "chapter-06-p012": {
+          "sentences": [
+            "「我猜她是逃走了，」鳄鱼嘟囔道。",
+            "「哼，这太像她了！——朋友们一有麻烦，她就溜进丛林里去了。」"
+          ],
+          "hints": [
+            {
+              "id": "sneaked-off",
+              "kind": "phrase",
+              "target": "Sneaked off",
+              "sentence": 13,
+              "zh": "偷偷溜走；鳄鱼用它埋怨鹦鹉不告而别。",
+              "en": "Sneaked off: slipped away secretly, as the crocodile complains she did."
+            }
+          ]
+        },
+        "chapter-06-p013": {
+          "sentences": [
+            "「我可不是那种鸟，」鹦鹉说着，从医生外套后摆的口袋里爬了出来。",
+            "「你看，我个子小，能从那个窗口的铁栅栏之间钻出去；可我怕他们反倒把我关进笼子里。",
+            "所以国王忙着说话的时候，我就躲进医生的口袋里——这不，我在这儿呢！",
+            "这就是人们说的『计策』，」她说着，用喙把羽毛捋平。"
+          ],
+          "hints": [
+            {
+              "id": "ruse",
+              "kind": "word",
+              "target": "ruse",
+              "sentence": 17,
+              "zh": "计策、花招；波利尼西亚得意地说自己使了个小计谋。",
+              "en": "A ruse: a trick or piece of cunning, which she is proud of."
+            }
+          ]
+        },
+        "chapter-06-p014": {
+          "sentences": [
+            "「老天爷！」医生叫道。",
+            "「算你走运，我没一屁股坐到你身上。」"
+          ]
+        },
+        "chapter-06-p015": {
+          "sentences": [
+            "「听我说，」波利尼西亚说，「今晚天一黑，我就从那个窗口的铁栅栏间钻出去，飞到王宫去。",
+            "然后——你等着瞧——我很快就能想出办法，让国王把我们全都放出监狱。」"
+          ]
+        },
+        "chapter-06-p016": {
+          "sentences": [
+            "「唉，你能做什么呢？」咕咕说着，翘起鼻子，又要哭起来。",
+            "「你不过是只鸟！」"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why did Polynesia hide in the Doctor’s pocket?",
+          "options": [
+            "She was small enough to slip through the bars, but she was afraid of being put in a cage.",
+            "She wanted to listen to what the King would say.",
+            "She was tired and wanted a warm place to sleep."
+          ],
+          "answer": 0,
+          "sentence": 15,
+          "feedback": {
+            "zh": "她说自己个子小，本可以从铁栅栏间钻出去，但怕他们把她关进笼子，就躲进了医生的口袋。",
+            "en": "She says she could have got through the bars, but she was afraid they would put her in a cage instead."
+          }
+        },
+        {
+          "question": "What does the crocodile think has happened to Polynesia?",
+          "options": [
+            "She has sneaked off into the jungle because her friends are in trouble.",
+            "She has been taken away by the King’s men.",
+            "She is hiding somewhere in the dungeon."
+          ],
+          "answer": 0,
+          "sentence": 13,
+          "feedback": {
+            "zh": "鳄鱼嘟囔说她准是逃走了，还抱怨「这太像她了」——朋友一有麻烦就溜进丛林。",
+            "en": "The crocodile grumbles that she has escaped: it is just like her to sneak off when her friends are in trouble."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "as soon as it gets dark, I am going to creep through the bars of that window",
+        "pointIds": [
+          "cefrj-158"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as soon as 从句讲将来的事，却用一般现在时 gets；主句用 be going to 表示已经打算好的行动。",
+          "en": "The clause after as soon as refers to the future but uses the present tense gets; the main clause uses be going to for a plan."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "深夜的咳嗽",
+        "en": "A Cough in the Night"
+      },
+      "introduction": {
+        "zh": "那天夜里，王宫的人都睡了，波利尼西亚从牢窗钻出去，飞过夜空。食品间的玻璃窗早被网球打破，她就从破洞钻进去，踮着脚上楼，来到国王的卧室。国王睡得正熟，她却在床底下咳了一声——正是杜立德医生的那种咳嗽。",
+        "en": "That night the parrot slips out through the bars and flies to the palace. She pops in through a broken pantry window, tip-toes up to the King’s bedroom and finds him asleep. Then, under his bed, she coughs — just like Doctor Dolittle."
+      },
+      "paragraphs": {
+        "chapter-06-p017": {
+          "sentences": [
+            "「说得一点不错，」鹦鹉说。",
+            "「可别忘了，我虽然只是只鸟，却能像人一样说话——而且我了解这些黑人。」"
+          ],
+          "hints": [
+            {
+              "id": "darkies",
+              "kind": "word",
+              "target": "darkies",
+              "sentence": 2,
+              "zh": "旧时对黑人的轻慢称呼；这里波利尼西亚随口说来，表示自己熟悉当地人。",
+              "en": "An old, belittling word for Black people; the parrot uses it casually to say she knows the locals."
+            }
+          ]
+        },
+        "chapter-06-p018": {
+          "sentences": [
+            "于是那天夜里，月光透过棕榈树照下来，国王的部下都睡着了，鹦鹉从牢房的铁栅栏间溜了出去，飞向王宫。",
+            "食品间的窗户上周被网球打破过；波利尼西亚就从玻璃上的破洞里钻了进去。"
+          ],
+          "hints": [
+            {
+              "id": "kings-men",
+              "kind": "phrase",
+              "target": "King’s men",
+              "sentence": 3,
+              "zh": "国王的部下，这里指王宫里的卫兵和仆人。",
+              "en": "The King’s men: his soldiers and servants."
+            }
+          ]
+        },
+        "chapter-06-p019": {
+          "sentences": [
+            "她听见邦波王子在王宫后部的卧室里打呼噜。",
+            "然后她踮着脚上楼，一直走到国王的卧室。",
+            "她轻轻推开门，往里偷看。"
+          ]
+        },
+        "chapter-06-p020": {
+          "sentences": [
+            "那天晚上王后到表亲家参加舞会去了；国王却躺在床上，睡得正熟。"
+          ],
+          "hints": [
+            {
+              "id": "fast-asleep",
+              "kind": "phrase",
+              "target": "fast asleep",
+              "sentence": 8,
+              "zh": "熟睡；fast 在这里不是「快」，而是「沉沉地」。",
+              "en": "Fast asleep means deeply asleep; fast here does not mean quickly."
+            }
+          ]
+        },
+        "chapter-06-p021": {
+          "sentences": [
+            "波利尼西亚轻手轻脚地爬进去，钻到床底下。"
+          ]
+        },
+        "chapter-06-p022": {
+          "sentences": [
+            "接着她咳了一声——正是杜立德医生平时咳嗽的样子。",
+            "波利尼西亚能模仿任何人。"
+          ],
+          "hints": [
+            {
+              "id": "mimic",
+              "kind": "word",
+              "target": "mimic",
+              "sentence": 11,
+              "zh": "模仿别人的声音或样子。",
+              "en": "To mimic: to copy someone’s voice or way of speaking."
+            }
+          ]
+        },
+        "chapter-06-p023": {
+          "sentences": [
+            "国王睁开眼睛，睡意朦胧地说：「是你吗，埃明特鲁德？」（他以为是王后跳完舞回来了。）"
+          ]
+        },
+        "chapter-06-p024": {
+          "sentences": [
+            "接着鹦鹉又咳了一声——声音很响，像个男人。",
+            "国王坐起身，完全醒了，说：「是谁？」"
+          ]
+        },
+        "chapter-06-p025": {
+          "sentences": [
+            "「我是杜立德医生，」鹦鹉说——正是医生会有的那种口气。"
+          ]
+        },
+        "chapter-06-p026": {
+          "sentences": [
+            "「你在我卧室里干什么？」国王叫道。",
+            "「你竟敢从监狱里逃出来！",
+            "你在哪儿？——我看不见你。」"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "How does Polynesia get into the palace?",
+          "options": [
+            "Through the hole in the broken pantry window.",
+            "Through the King’s bedroom door, which was left open.",
+            "Through the bars of the King’s window."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "食品间的窗户上周被网球打破，波利尼西亚就从玻璃的破洞钻了进去。",
+            "en": "The pantry window had been broken by a tennis ball, and she popped in through the hole in the glass."
+          }
+        },
+        {
+          "question": "Why does the King ask, “Is that you, Ermintrude?”",
+          "options": [
+            "He thinks the Queen has come back from the dance.",
+            "He is still dreaming about the Queen.",
+            "He hears the Queen calling him from the stairs."
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "他睡得迷迷糊糊，听见咳嗽声，以为是去表亲家跳舞的王后回来了。",
+            "en": "He is sleepy and thinks the Queen has come back from the dance at her cousin’s."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "although I am only a bird, I can talk like a man",
+        "pointIds": [
+          "cefrj-161"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "although 引出让步从句「虽然我只是只鸟」，主句 I can talk like a man 才是重点；中文不再加「但是」。",
+          "en": "Although introduces a concession — she is only a bird — and the main clause carries the point: she can talk like a man."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "一根小指头",
+        "en": "One Little Finger"
+      },
+      "introduction": {
+        "zh": "卧室里，国王又惊又怒，要这个看不见的『医生』立刻现形。波利尼西亚却笑得更大声，自称是隐身了的杜立德医生，还说到天亮之前，自有分晓。国王会相信她吗？",
+        "en": "In his bedroom the angry, frightened King orders the unseen “Doctor” to show himself at once. But the parrot only laughs and says she is John Dolittle, invisible, and that before sunrise the King will see what she can do. Will he believe her?"
+      },
+      "paragraphs": {
+        "chapter-06-p027": {
+          "sentences": [
+            "可鹦鹉只是笑——又长又低沉的开怀大笑，跟医生一模一样。"
+          ]
+        },
+        "chapter-06-p028": {
+          "sentences": [
+            "「别笑了，马上过来，让我看看你，」国王说。"
+          ]
+        },
+        "chapter-06-p029": {
+          "sentences": [
+            "「愚蠢的国王！」波利尼西亚答道。",
+            "「你难道忘了，你是在跟约翰·杜立德医学博士说话——天底下最了不起的人？",
+            "你当然看不见我。",
+            "我已经让自己隐身了。",
+            "没有我做不到的事。",
+            "现在听着：我今晚来这儿，是要警告你。",
+            "你要是不让我和我的动物们从你的王国经过，我就让你和你所有的子民都像那些猴子一样病倒。",
+            "因为我能让人痊愈，也能让人生病——只消抬一抬我的小指头。",
+            "马上派士兵去打开地牢的门，否则，不等太阳升上乔利金基的山头，你就要得腮腺炎了。」"
+          ],
+          "hints": [
+            {
+              "id": "john-dolittle-md",
+              "kind": "word",
+              "target": "John Dolittle, M.D.",
+              "sentence": 4,
+              "zh": "约翰·杜立德医学博士；M.D. 是医学博士（Doctor of Medicine）的缩写。",
+              "en": "John Dolittle, M.D.: M.D. stands for Doctor of Medicine."
+            },
+            {
+              "id": "little-finger",
+              "kind": "phrase",
+              "target": "raising my little finger",
+              "sentence": 10,
+              "zh": "抬一抬小指头；她声称只动一下小指就能让人病倒。",
+              "en": "Raising my little finger: she claims this tiny gesture is enough to make people ill."
+            },
+            {
+              "id": "mumps",
+              "kind": "word",
+              "target": "mumps",
+              "sentence": 11,
+              "zh": "腮腺炎，一种让脸颊和下巴肿起来的传染病。",
+              "en": "Mumps: a disease that makes the cheeks and jaw swell."
+            }
+          ]
+        },
+        "chapter-06-p030": {
+          "sentences": [
+            "国王开始发抖，害怕极了。"
+          ]
+        },
+        "chapter-06-p031": {
+          "sentences": [
+            "「医生，」他叫道，「就照你说的办。",
+            "求你别抬起你的小指头！」",
+            "他跳下床，跑去吩咐士兵打开监狱的门。"
+          ],
+          "hints": [
+            {
+              "id": "shall-promise",
+              "kind": "phrase",
+              "target": "it shall be as you say",
+              "sentence": 13,
+              "zh": "就照你说的办；shall 在这里是旧式说法，表示许诺或顺从。",
+              "en": "It shall be as you say: an old-fashioned way of promising to do as he asks."
+            }
+          ]
+        },
+        "chapter-06-p032": {
+          "sentences": [
+            "他刚一走，波利尼西亚就爬下楼，从食品间的窗户离开了王宫。"
+          ]
+        },
+        "chapter-06-p033": {
+          "sentences": [
+            "可王后正用随身钥匙从后门进屋，恰好看见鹦鹉从破玻璃窗里钻出去。",
+            "国王回到床上时，她把自己看见的事告诉了他。"
+          ],
+          "hints": [
+            {
+              "id": "latch-key",
+              "kind": "word",
+              "target": "latch-key",
+              "sentence": 17,
+              "zh": "弹簧锁钥匙，出门随身带的门钥匙。",
+              "en": "A latch-key: a door key carried by someone who lives there."
+            }
+          ]
+        },
+        "chapter-06-p034": {
+          "sentences": [
+            "国王这才明白自己上了当，气得要命。",
+            "他立刻赶回监狱。"
+          ]
+        },
+        "chapter-06-p035": {
+          "sentences": [
+            "可他还是来晚了一步。",
+            "牢门大开着。",
+            "地牢里空无一人。",
+            "医生和他所有的动物都不见了。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Polynesia say will happen if the King does not let them go?",
+          "options": [
+            "She will make the King and all his people sick like the monkeys.",
+            "She will take the King’s gold and ivory.",
+            "She will turn the King into a monkey."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "她威胁说，要是国王不放行，她就让他和所有子民都像猴子一样病倒。",
+            "en": "She threatens to make the King and all his people sick like the monkeys."
+          }
+        },
+        {
+          "question": "Why does the King hurry back to the prison?",
+          "options": [
+            "He realizes that the Queen saw the parrot and that he has been tricked.",
+            "He wants to apologize to the Doctor for locking him up.",
+            "He hears the Doctor and the animals singing in the dungeon."
+          ],
+          "answer": 0,
+          "sentence": 19,
+          "feedback": {
+            "zh": "王后把自己看见鹦鹉从破窗钻出去的事告诉他，国王这才明白受了骗，气得赶回监狱。",
+            "en": "The Queen tells him she saw the parrot leaving, so he understands he has been tricked."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "If you don’t let me and my animals travel through your kingdom, I will make you and all your people sick like the monkeys.",
+        "pointIds": [
+          "cefrj-156"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if 从句用一般现在时 don’t let 讲条件，主句用 will make 讲后果；从句里不能用 will。",
+          "en": "The if-clause uses the present tense don’t let for a future condition, and the main clause uses will make for the result; no will in the if-clause."
+        }
+      }
+    }
+  ]
+}

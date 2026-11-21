@@ -1,0 +1,1242 @@
+{
+  "chapter": 11,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "这是谁的审判？",
+        "en": "Whose Trial Is This?"
+      },
+      "introduction": {
+        "zh": "爱丽丝跟着狮鹫走进一间大法庭：红心国王和王后高坐在宝座上，红心骑士戴着镣铐站在中间，四周挤满了鸟兽和纸牌。屋子正中摆着一大盘香喷喷的馅饼，她看着看着就饿了。这场审判到底要审出什么结果？",
+        "en": "Alice and the Gryphon enter a great court, where the King and Queen of Hearts sit on their thrones and the Knave stands in chains. A dish of tarts in the middle of the room makes Alice hungry, and the court seems in no hurry to hand them round."
+      },
+      "paragraphs": {
+        "chapter-11-p001": {
+          "sentences": [
+            "爱丽丝和狮鹫到时，红心国王和王后已经坐在宝座上了，四周聚着一大群人——各式各样的小鸟和野兽，还有整整一副纸牌：红心骑士站在他们面前，身上戴着镣铐，两边各有一名士兵看守；国王身边站着白兔，一手拿号角，一手拿一卷羊皮纸。",
+            "法庭正中央摆着一张桌子，上面放着一大盘馅饼：它们看上去太诱人了，爱丽丝看着看着就饿了起来——“但愿他们快点审完，”她想，“好把点心分给大家！”",
+            "可是看样子根本没这个可能，她只好东张西望，打发时间。"
+          ],
+          "hints": [
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 2,
+              "zh": "爱丽丝，本书主角，追着白兔掉进奇境的小女孩。",
+              "en": "Alice, the girl who followed the White Rabbit into Wonderland."
+            },
+            {
+              "id": "king-and-queen-of-hearts",
+              "kind": "word",
+              "target": "King and Queen of Hearts",
+              "sentence": 1,
+              "zh": "红心国王与红心王后，奇境法庭上的君主。",
+              "en": "The King and Queen of Hearts, who preside over the court."
+            },
+            {
+              "id": "knave",
+              "kind": "word",
+              "target": "the Knave",
+              "sentence": 1,
+              "zh": "红心骑士，被控偷馅饼、戴着镣铐受审的人。",
+              "en": "The Knave of Hearts, the prisoner in chains, accused of stealing tarts."
+            },
+            {
+              "id": "white-rabbit",
+              "kind": "word",
+              "target": "White Rabbit",
+              "sentence": 1,
+              "zh": "白兔，奇境里揣着怀表的兔子，此刻站在国王身边。",
+              "en": "The White Rabbit, the pocket-watch rabbit, now standing beside the King."
+            },
+            {
+              "id": "tarts",
+              "kind": "word",
+              "target": "tarts",
+              "sentence": 2,
+              "zh": "馅饼，一种果馅小圆饼；也是这场审判的焦点。",
+              "en": "Tarts, small fruit pies — the very things this trial is about."
+            }
+          ]
+        },
+        "chapter-11-p002": {
+          "sentences": [
+            "爱丽丝以前从没进过法庭，不过她在书里读到过，所以发现自己几乎叫得出那里每样东西的名字时，心里挺得意。",
+            "“那是法官，”她自言自语，“因为他戴着那顶大假发。”"
+          ],
+          "hints": [
+            {
+              "id": "wig",
+              "kind": "phrase",
+              "target": "his great wig",
+              "sentence": 5,
+              "zh": "法官的大假发，旧时英国法官出庭时戴的白色卷曲假发。",
+              "en": "The judge's great wig, the curled white wig worn in court."
+            }
+          ]
+        },
+        "chapter-11-p003": {
+          "sentences": [
+            "顺便说一句，那位法官就是国王；他把王冠戴在假发外面（想看他怎么戴的，可以翻翻卷首插图），看上去一点也不舒服，而且实在不好看。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Alice wish the court would do?",
+          "options": [
+            "Finish the trial and hand round the refreshments",
+            "Call the Queen to give evidence",
+            "Send the Knave away in chains"
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "爱丽丝盯着那盘馅饼，心想“但愿他们快点审完，好把点心分给大家”，可见她最惦记的是吃。",
+            "en": "Looking at the tarts, Alice thinks, \"I wish they'd get the trial done and hand round the refreshments.\""
+          }
+        },
+        {
+          "question": "How does Alice recognise the judge?",
+          "options": [
+            "By the great wig he is wearing",
+            "By the crown on his head",
+            "By the scroll in his hand"
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "爱丽丝自言自语说“那是法官，因为他戴着那顶大假发”；王冠戴在假发外面，是她后来才注意到的。",
+            "en": "Alice tells herself, \"That's the judge, because of his great wig.\" The crown over the wig comes later."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Alice had never been in a court of justice before",
+        "pointIds": [
+          "cefrj-67"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "had never been 是过去完成时，表示在她走进法庭之前从未到过；never 放在 had 之后。",
+          "en": "Had never been is past perfect: before she entered, she had never been in a court of justice."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "陪审员在写什么？",
+        "en": "What Are the Jurors Writing?"
+      },
+      "introduction": {
+        "zh": "十二只小动物和鸟坐在陪审席上，埋头在石板上写个不停。爱丽丝很得意自己知道“陪审员”这个词，却想不通：审判还没开始，他们有什么可记的？狮鹫凑过来，小声说出了原因。",
+        "en": "Twelve small creatures sit in the jury-box, writing busily on their slates. Alice is proud that she knows the word \"jurors\", but she cannot think what they have to write down before the trial begins. The Gryphon leans over to explain."
+      },
+      "paragraphs": {
+        "chapter-11-p004": {
+          "sentences": [
+            "“那个就是陪审席，”爱丽丝想，“那十二只‘家伙’，”——你瞧，她只好说‘家伙’，因为其中有些是动物，有些是鸟——“我想他们就是陪审员吧。”",
+            "她把最后这个词自言自语地念了两三遍，颇为得意：因为她觉得——而且想得没错——像她这么大的小女孩，几乎没有几个知道这个词是什么意思。",
+            "不过，说“男陪审员”其实也一样。"
+          ],
+          "hints": [
+            {
+              "id": "jury-box",
+              "kind": "word",
+              "target": "jury-box",
+              "sentence": 1,
+              "zh": "陪审席，陪审员在法庭上坐的地方。",
+              "en": "The jury-box, where the jurors sit in court."
+            },
+            {
+              "id": "jurors",
+              "kind": "word",
+              "target": "jurors",
+              "sentence": 1,
+              "zh": "陪审员，审判时听案并作出裁决的人。",
+              "en": "Jurors, the people who hear a case and give a verdict."
+            }
+          ]
+        },
+        "chapter-11-p005": {
+          "sentences": [
+            "十二名陪审员都在石板上忙着写字。",
+            "“他们在干什么？”",
+            "爱丽丝小声问狮鹫。",
+            "“审判还没开始，他们不可能有什么可记的呀。”"
+          ],
+          "hints": [
+            {
+              "id": "slates",
+              "kind": "word",
+              "target": "slates",
+              "sentence": 4,
+              "zh": "石板，用石笔写字的小板子。",
+              "en": "Slates, small boards written on with a slate pencil."
+            },
+            {
+              "id": "gryphon",
+              "kind": "word",
+              "target": "Gryphon",
+              "sentence": 6,
+              "zh": "狮鹫，鹰头狮身的怪兽，陪爱丽丝旁听审判。",
+              "en": "The Gryphon, a creature with an eagle's head and a lion's body, watching the trial with Alice."
+            }
+          ]
+        },
+        "chapter-11-p006": {
+          "sentences": [
+            "“他们在写自己的名字，”狮鹫小声回答，“怕审判结束前把自己的名字忘了。”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p007": {
+          "sentences": [
+            "“一群蠢货！”",
+            "爱丽丝气呼呼地大声开了口，但马上又咽了回去，因为白兔喊了一声“法庭肃静！”，国王也戴上眼镜，不安地四下张望，想弄清是谁在说话。"
+          ],
+          "hints": [
+            {
+              "id": "silence-in-the-court",
+              "kind": "phrase",
+              "target": "Silence in the court!",
+              "sentence": 10,
+              "zh": "法庭肃静！法庭上要求大家安静时的喊话。",
+              "en": "Silence in the court! — the call for quiet in a court of law."
+            }
+          ]
+        },
+        "chapter-11-p008": {
+          "sentences": [
+            "爱丽丝看得清清楚楚，就好像她正从他们肩头望过去：所有陪审员都在石板上写下“愚蠢的东西！”，她甚至能看出其中一个不会拼“愚蠢”这个词，只好请旁边的人告诉他。",
+            "“审判结束前，他们的石板准会乱成一团！”爱丽丝想。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why are the jurors writing on their slates?",
+          "options": [
+            "To put down their own names",
+            "To record what the witnesses say",
+            "To draw pictures of the court"
+          ],
+          "answer": 0,
+          "sentence": 8,
+          "feedback": {
+            "zh": "狮鹫解释说，他们是在写自己的名字，怕审判结束前把名字忘了。",
+            "en": "The Gryphon explains that they are writing down their names for fear they should forget them."
+          }
+        },
+        {
+          "question": "Why does Alice stop her angry outburst?",
+          "options": [
+            "The White Rabbit calls for silence and the King looks round",
+            "The Gryphon tells her to be quiet",
+            "She forgets what she was going to say"
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "白兔喊“法庭肃静！”，国王又戴上眼镜四处张望，爱丽丝只好把话咽了回去。",
+            "en": "The White Rabbit cries \"Silence in the court!\" and the King looks anxiously round, so Alice stops herself."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "as well as if she were looking over their shoulders",
+        "pointIds": [
+          "cefrj-220"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "as if 后用 were looking 表示假设：仿佛正从他们肩头看过去，其实并没有。",
+          "en": "After as if, were looking marks an imagined situation: she is not really looking over their shoulders."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "证人手里的茶杯",
+        "en": "A Witness with a Teacup"
+      },
+      "introduction": {
+        "zh": "白兔宣读控词：红心骑士被控偷了馅饼。国王听完就想让陪审团立刻定案，白兔连忙拦住他，说还早得很。第一位证人被传上堂，他一手端着茶杯，一手拿着黄油面包。",
+        "en": "The White Rabbit reads out the charge: the Knave of Hearts is accused of stealing tarts. The King wants a verdict at once, but the Rabbit stops him. Then the first witness is called, and he walks in holding a teacup and a piece of bread-and-butter."
+      },
+      "paragraphs": {
+        "chapter-11-p009": {
+          "sentences": [
+            "有一名陪审员有一支铅笔，写起来吱吱作响。",
+            "这声音爱丽丝当然受不了，她绕过法庭，走到他背后，很快就找到机会把铅笔拿走了。",
+            "她动作太快，那可怜的小陪审员（就是那只壁虎比尔）根本弄不清铅笔到哪儿去了；他四处找了一阵，只好用一根手指写下去，写了一天也没什么用，因为石板上一点痕迹都没留下。"
+          ],
+          "hints": [
+            {
+              "id": "bill-the-lizard",
+              "kind": "word",
+              "target": "Bill, the Lizard",
+              "sentence": 3,
+              "zh": "比尔，那只壁虎，十二名陪审员之一。",
+              "en": "Bill the Lizard, one of the twelve jurors."
+            }
+          ]
+        },
+        "chapter-11-p010": {
+          "sentences": [
+            "“传令官，宣读控词！”国王说。"
+          ],
+          "hints": [
+            {
+              "id": "herald",
+              "kind": "word",
+              "target": "Herald",
+              "sentence": 4,
+              "zh": "传令官，法庭上负责宣读的人。",
+              "en": "The herald, the officer who reads things out in court."
+            },
+            {
+              "id": "accusation",
+              "kind": "word",
+              "target": "accusation",
+              "sentence": 4,
+              "zh": "控词，对被告的正式指控。",
+              "en": "The accusation, the formal charge against the prisoner."
+            }
+          ]
+        },
+        "chapter-11-p011": {
+          "sentences": [
+            "白兔听了，吹了三声号角，然后展开那卷羊皮纸，念道：——"
+          ],
+          "hints": []
+        },
+        "chapter-11-p012": {
+          "sentences": [
+            "“红心王后做馅饼，／全在一个夏日里：／红心骑士偷馅饼，／一股脑儿全拿走！”"
+          ],
+          "hints": [
+            {
+              "id": "knave-of-hearts",
+              "kind": "word",
+              "target": "Knave of Hearts",
+              "sentence": 6,
+              "zh": "红心骑士，控词里被点名的那个人。",
+              "en": "The Knave of Hearts, the man named in the charge."
+            }
+          ]
+        },
+        "chapter-11-p013": {
+          "sentences": [
+            "“考虑你们的裁决吧。”国王对陪审团说。"
+          ],
+          "hints": [
+            {
+              "id": "verdict",
+              "kind": "word",
+              "target": "verdict",
+              "sentence": 7,
+              "zh": "裁决，陪审团对案件的正式结论。",
+              "en": "The verdict, the jury's formal decision on the case."
+            }
+          ]
+        },
+        "chapter-11-p014": {
+          "sentences": [
+            "“还不行，还不行！”白兔急忙插嘴。",
+            "“在那之前还有很多事要做呢！”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p015": {
+          "sentences": [
+            "“传第一个证人！”国王说；白兔又吹了三声号角，喊道：“第一个证人！”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p016": {
+          "sentences": [
+            "第一个证人是帽匠。",
+            "他一手端着茶杯，一手拿着黄油面包走了进来。",
+            "“请陛下恕罪，”他开口道，“恕我把这些东西带进来：可我被叫来的时候，茶还没喝完呢。”"
+          ],
+          "hints": [
+            {
+              "id": "hatter",
+              "kind": "word",
+              "target": "Hatter",
+              "sentence": 11,
+              "zh": "帽匠，也就是疯帽匠，茶会上的主人之一，这会儿成了证人。",
+              "en": "The Hatter, one of the tea-party hosts, now a witness."
+            }
+          ]
+        },
+        "chapter-11-p017": {
+          "sentences": [
+            "“你本该早就喝完的。”国王说。",
+            "“你是什么时候开始喝的？”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is the Knave of Hearts accused of?",
+          "options": [
+            "Stealing the Queen's tarts",
+            "Stealing the King's crown",
+            "Blowing the herald's trumpet"
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "白兔宣读的控词是一首押韵的小诗，说红心骑士偷了红心王后做的馅饼。",
+            "en": "The charge, read out in rhyme, says the Knave of Hearts stole the tarts the Queen made."
+          }
+        },
+        {
+          "question": "Why does the White Rabbit interrupt the King?",
+          "options": [
+            "Because a great deal must happen before a verdict",
+            "Because the jury has not arrived",
+            "Because the Hatter is still drinking tea"
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "国王刚让陪审团考虑裁决，白兔就急忙说“还不行”，因为在那之前还有很多事要做。",
+            "en": "The King asks for a verdict, but the Rabbit says a great deal must come before that."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "You ought to have finished",
+        "pointIds": [
+          "cefrj-145",
+          "cefrj-137"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "ought to have finished 是情态动词 + 完成式，指本该早就喝完，实际却没喝完。",
+          "en": "Ought to have finished is a modal with a perfect infinitive: he should have finished, but did not."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "三个日期，一顶帽子",
+        "en": "Three Dates and One Hat"
+      },
+      "introduction": {
+        "zh": "国王问帽匠是什么时候开始喝茶的，三月兔和睡鼠却各报了一个不同的日子。陪审团郑重地把三个日期加起来，还把得数换算成先令和便士。接着，国王注意到了帽匠头上的帽子。",
+        "en": "Asked when he began his tea, the Hatter gives a date, and the March Hare and the Dormouse each give another. The jury solemnly adds the three dates together and turns the sum into shillings and pence. Then the King turns his attention to the Hatter's hat."
+      },
+      "paragraphs": {
+        "chapter-11-p018": {
+          "sentences": [
+            "帽匠看了看三月兔——他跟着帽匠进了法庭，还和睡鼠挽着胳膊。",
+            "“我想是三月十四日吧。”他说。"
+          ],
+          "hints": [
+            {
+              "id": "march-hare",
+              "kind": "word",
+              "target": "March Hare",
+              "sentence": 1,
+              "zh": "三月兔，茶会上的主人之一，跟着帽匠进了法庭。",
+              "en": "The March Hare, one of the tea-party hosts, who follows the Hatter into court."
+            },
+            {
+              "id": "dormouse",
+              "kind": "word",
+              "target": "Dormouse",
+              "sentence": 1,
+              "zh": "睡鼠，茶会上总打瞌睡的伙伴，和三月兔挽着胳膊。",
+              "en": "The Dormouse, the sleepy guest from the tea party, arm-in-arm with the March Hare."
+            }
+          ]
+        },
+        "chapter-11-p019": {
+          "sentences": [
+            "“十五日。”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p020": {
+          "sentences": [
+            "“十六日。”睡鼠补了一句。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p021": {
+          "sentences": [
+            "“记下来。”国王对陪审团说。陪审员们赶紧把三个日期都写在石板上，然后把它们加起来，再把得数换算成先令和便士。"
+          ],
+          "hints": [
+            {
+              "id": "shillings-and-pence",
+              "kind": "phrase",
+              "target": "shillings and pence",
+              "sentence": 5,
+              "zh": "先令和便士，英国旧币制；把日期加起来再换算成钱，正是审判荒唐的地方。",
+              "en": "Shillings and pence, old British money; turning a sum of dates into money is part of the joke."
+            }
+          ]
+        },
+        "chapter-11-p022": {
+          "sentences": [
+            "“把你的帽子摘下来。”国王对帽匠说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p023": {
+          "sentences": [
+            "“这帽子不是我的。”帽匠说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p024": {
+          "sentences": [
+            "“偷来的！”国王大声说，转向陪审团，陪审员们立刻把这件事记了下来。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p025": {
+          "sentences": [
+            "“我留着这些帽子是要卖的，”帽匠解释说，“我自己一顶也没有。",
+            "我是个帽匠。”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p026": {
+          "sentences": [
+            "这时王后戴上眼镜，死死盯着帽匠；帽匠脸都白了，坐立不安。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p027": {
+          "sentences": [
+            "“说你的证词，”国王说，“别紧张，不然我当场把你处死。”"
+          ],
+          "hints": [
+            {
+              "id": "on-the-spot",
+              "kind": "phrase",
+              "target": "on the spot",
+              "sentence": 12,
+              "zh": "当场、立刻。",
+              "en": "On the spot: at once, right there."
+            }
+          ]
+        },
+        "chapter-11-p028": {
+          "sentences": [
+            "这话似乎一点也没让证人安心：他不停地换脚站着，不安地瞟着王后，慌乱之中竟在茶杯上咬了一大口，而不是去咬黄油面包。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p029": {
+          "sentences": [
+            "就在这时，爱丽丝有一种很奇怪的感觉，她好一会儿都没弄明白是怎么回事：她又在开始变大了。起初她想站起来离开法庭，但转念一想，只要还坐得下，她就决定待在原地。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p030": {
+          "sentences": [
+            "“我希望你别挤得这么厉害。”坐在她旁边的睡鼠说。",
+            "“我几乎喘不过气了。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What do the jurors do with the three dates?",
+          "options": [
+            "They add them up and turn the answer into shillings and pence",
+            "They read them out to the Queen",
+            "They write them on the parchment scroll"
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "陪审员们把三个日期都记下来，加起来，还把得数换算成先令和便士——这正显出审判的荒唐。",
+            "en": "The jurors write down all three dates, add them up, and reduce the answer to shillings and pence."
+          }
+        },
+        {
+          "question": "What does Alice decide when she feels herself growing?",
+          "options": [
+            "To stay where she is as long as there is room",
+            "To leave the court at once",
+            "To ask the King to wait"
+          ],
+          "answer": 0,
+          "sentence": 14,
+          "feedback": {
+            "zh": "爱丽丝先是想起身离开，转念又想：只要还坐得下，就待在原地不动。",
+            "en": "At first she thinks of leaving, but on second thoughts she stays as long as there is room for her."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the March Hare, who had followed him into the court",
+        "pointIds": [
+          "cefrj-181"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "逗号后的 who had followed... 是非限制性定语从句，只是补充说明三月兔，不是在限定哪一个。",
+          "en": "The comma before who marks a non-defining relative clause: it adds a fact about the March Hare rather than identifying him."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "会“闪烁”的茶",
+        "en": "Tea That Twinkles"
+      },
+      "introduction": {
+        "zh": "爱丽丝说自己忍不住在长高，睡鼠气呼呼地挪到了法庭另一边。王后一直盯着帽匠，还叫人去取上次音乐会的歌手名单，帽匠吓得把两只鞋都抖掉了。国王催他作证，他却说起一杯会“闪烁”的茶。",
+        "en": "Alice says she cannot help growing, and the Dormouse moves away in a huff. The Queen keeps staring at the Hatter and calls for a list of singers, which frightens him badly. When the King demands his evidence, the Hatter begins to talk about tea that twinkles."
+      },
+      "paragraphs": {
+        "chapter-11-p031": {
+          "sentences": [
+            "“我也没办法，”爱丽丝很温顺地说，“我在长个儿。”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p032": {
+          "sentences": [
+            "“你在这儿长个儿可没道理。”睡鼠说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p033": {
+          "sentences": [
+            "“别说傻话，”爱丽丝更大胆了些，“你自己也在长呀。”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p034": {
+          "sentences": [
+            "“没错，可我长起来是有分寸的，”睡鼠说，“不像你那样，荒唐得要命。”",
+            "他气鼓鼓地站起来，走到法庭的另一边去了。"
+          ],
+          "hints": [
+            {
+              "id": "at-a-reasonable-pace",
+              "kind": "phrase",
+              "target": "at a reasonable pace",
+              "sentence": 4,
+              "zh": "以合理的速度，不快不慢。",
+              "en": "At a reasonable pace: at a sensible speed."
+            }
+          ]
+        },
+        "chapter-11-p035": {
+          "sentences": [
+            "这期间，王后一直没停止盯着帽匠；就在睡鼠穿过法庭的时候，她对一名法庭官员说：“把上次音乐会的歌手名单给我拿来！”那可怜的帽匠听了浑身发抖，把两只鞋都抖掉了。"
+          ],
+          "hints": [
+            {
+              "id": "list-of-the-singers",
+              "kind": "phrase",
+              "target": "list of the singers",
+              "sentence": 6,
+              "zh": "上次音乐会的歌手名单；王后突然要这个，把帽匠吓坏了。",
+              "en": "The list of the singers in the last concert, which the Queen suddenly demands."
+            }
+          ]
+        },
+        "chapter-11-p036": {
+          "sentences": [
+            "“说你的证词，”国王生气地重复道，“不然我就把你处死，管你紧不紧张。”"
+          ],
+          "hints": [
+            {
+              "id": "evidence",
+              "kind": "word",
+              "target": "evidence",
+              "sentence": 7,
+              "zh": "证词，证人在法庭上说的话。",
+              "en": "Evidence: what a witness says in court."
+            }
+          ]
+        },
+        "chapter-11-p037": {
+          "sentences": [
+            "“我是个穷人，陛下，”帽匠用发抖的声音开口，“我还没开始喝我的茶——不过一星期左右以前——再说黄油面包越来越薄——还有那茶的闪闪烁烁——”"
+          ],
+          "hints": [
+            {
+              "id": "twinkling",
+              "kind": "word",
+              "target": "twinkling",
+              "sentence": 8,
+              "zh": "闪烁、忽明忽暗；帽匠用它形容茶，国王却听成了字母。",
+              "en": "Twinkling: a flickering light; the Hatter uses it of tea, and the King hears a letter instead."
+            }
+          ]
+        },
+        "chapter-11-p038": {
+          "sentences": [
+            "“什么的闪闪烁烁？”国王问。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p039": {
+          "sentences": [
+            "“是从茶开始的。”帽匠回答。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p040": {
+          "sentences": [
+            "“闪烁当然是从字母 T 开头！”国王尖刻地说。",
+            "“你当我是个笨蛋吗？",
+            "接着说！”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p041": {
+          "sentences": [
+            "“我是个穷人，”帽匠继续说，“从那以后，大多数东西都闪闪烁烁——只有三月兔说——”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p042": {
+          "sentences": [
+            "“我没有！”三月兔急忙打断他。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p043": {
+          "sentences": [
+            "“你有！”帽匠说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p044": {
+          "sentences": [
+            "“我否认！”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p045": {
+          "sentences": [
+            "“他否认了，”国王说，“把那一段删掉。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Dormouse do after arguing with Alice?",
+          "options": [
+            "He crosses to the other side of the court",
+            "He falls asleep on the spot",
+            "He calls for the Queen's officers"
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "睡鼠说自己长个儿“有分寸”，然后气鼓鼓地起身，走到法庭另一边去了。",
+            "en": "After saying he grows at a reasonable pace, the Dormouse gets up sulkily and crosses the court."
+          }
+        },
+        {
+          "question": "What does the King think \"twinkling\" means?",
+          "options": [
+            "That it must begin with the letter T",
+            "That it is a kind of singing",
+            "That it has something to do with teacups"
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "帽匠说“茶的闪烁”，国王却听成了拼写问题，说“闪烁当然从字母 T 开始”，还问帽匠是不是把他当笨蛋。",
+            "en": "The King takes \"twinkling\" as a spelling matter: \"Of course twinkling begins with a T!\""
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the wretched Hatter trembled so, that he shook both his shoes off",
+        "pointIds": [
+          "cefrj-45"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "trembled so, that... 是 so + 副词 + that 从句，说明抖到什么程度：连鞋都抖掉了。",
+          "en": "Trembled so, that... is so + adverb + that-clause, showing the result: he shook off both his shoes."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "装进布袋的喝彩",
+        "en": "A Cheer in a Canvas Bag"
+      },
+      "introduction": {
+        "zh": "帽匠怎么也想不起睡鼠说过什么，国王又拿处死来吓他。一只豚鼠喝起彩来，立刻被官员们“镇压”——做法让人哭笑不得。爱丽丝忽然明白，报纸上常写的那句话究竟指什么。",
+        "en": "The Hatter cannot remember what the Dormouse said, and the King threatens him again. A guinea-pig cheers and is at once \"suppressed\", in a way Alice finds hard to believe. At last she understands a phrase she has often read in newspaper reports."
+      },
+      "paragraphs": {
+        "chapter-11-p046": {
+          "sentences": [
+            "“好吧，不管怎么说，睡鼠说过——”帽匠接着说，一边不安地四下张望，看睡鼠会不会也否认；可睡鼠什么也没否认，他睡得正香。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p047": {
+          "sentences": [
+            "“那以后，”帽匠接着说，“我又切了些黄油面包——”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p048": {
+          "sentences": [
+            "“可睡鼠到底说了什么？”陪审团里有人问。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p049": {
+          "sentences": [
+            "“这我可记不得了。”帽匠说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p050": {
+          "sentences": [
+            "“你必须记得，”国王说，“不然我就把你处死。”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p051": {
+          "sentences": [
+            "可怜的帽匠丢下茶杯和黄油面包，单膝跪了下来。",
+            "“我是个穷人，陛下。”他开口道。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p052": {
+          "sentences": [
+            "“你是个穷人，口才也真够差的。”国王说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p053": {
+          "sentences": [
+            "这时，一只豚鼠喝起彩来，立刻被法庭官员“镇压”了。（这个词有点难，我就说说他们是怎么做的。",
+            "他们有一个大帆布袋，袋口用绳子扎紧：他们把豚鼠头朝下塞进去，然后一屁股坐在上面。）"
+          ],
+          "hints": [
+            {
+              "id": "suppressed",
+              "kind": "word",
+              "target": "suppressed",
+              "sentence": 9,
+              "zh": "镇压、制止；这里指把喝彩的豚鼠塞进袋子。",
+              "en": "Suppressed: put down or stopped; here, the guinea-pig is bundled into a bag."
+            },
+            {
+              "id": "canvas-bag",
+              "kind": "phrase",
+              "target": "canvas bag",
+              "sentence": 10,
+              "zh": "帆布袋，用厚帆布做的袋子。",
+              "en": "A canvas bag, a strong bag made of canvas."
+            }
+          ]
+        },
+        "chapter-11-p054": {
+          "sentences": [
+            "“很高兴我亲眼见过这回事。”爱丽丝想。",
+            "“我常在报纸上读到，审判结束时写着：‘有人试图鼓掌，但立刻被法庭官员制止了。’直到现在我才明白那是什么意思。”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p055": {
+          "sentences": [
+            "“如果你知道的就这些，你可以退下了。”国王接着说。"
+          ],
+          "hints": [
+            {
+              "id": "stand-down",
+              "kind": "phrase",
+              "target": "stand down",
+              "sentence": 13,
+              "zh": "退下（证人席）；帽匠却听成“往下站”。",
+              "en": "Stand down: leave the witness-box; the Hatter takes it literally."
+            }
+          ]
+        },
+        "chapter-11-p056": {
+          "sentences": [
+            "“我没法再往下低了，”帽匠说，“我已经在地上跪着了。”"
+          ],
+          "hints": [
+            {
+              "id": "as-it-is",
+              "kind": "phrase",
+              "target": "as it is",
+              "sentence": 14,
+              "zh": "本来就、已经。",
+              "en": "As it is: already, as things stand."
+            }
+          ]
+        },
+        "chapter-11-p057": {
+          "sentences": [
+            "“那你就坐下吧。”国王回答。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p058": {
+          "sentences": [
+            "这时，另一只豚鼠也喝起彩来，同样被镇压了。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p059": {
+          "sentences": [
+            "“好啦，豚鼠总算都解决完了！”爱丽丝想。",
+            "“这下我们该顺利些了。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "How is the cheering guinea-pig suppressed?",
+          "options": [
+            "It is put head first into a canvas bag and sat upon",
+            "It is carried out by two soldiers",
+            "It is made to stand down from the witness-box"
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "官员们拿来一个大帆布袋，把豚鼠头朝下塞进去，然后坐在袋子上。",
+            "en": "The officers slip the guinea-pig head first into a canvas bag tied with strings, then sit upon it."
+          }
+        },
+        {
+          "question": "Why does the Hatter say he cannot go any lower?",
+          "options": [
+            "Because he is already on the floor",
+            "Because his shoes have come off",
+            "Because the King has forbidden it"
+          ],
+          "answer": 0,
+          "sentence": 14,
+          "feedback": {
+            "zh": "国王让他退下，帽匠却把 stand down 听成“往下站”，说自己已经跪在地上，没法再低了。",
+            "en": "The Hatter takes \"stand down\" literally: he is already on the floor, so he cannot go any lower."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I've seen that done",
+        "pointIds": [
+          "cefrj-212"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "seen that done 是感官动词 + 宾语 + 过去分词：that 指那件事，done 表示它被人做过。",
+          "en": "Seen that done is see + object + past participle: that is the thing, and done says it was carried out."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "胡椒味的馅饼",
+        "en": "Tarts Made of Pepper"
+      },
+      "introduction": {
+        "zh": "帽匠只想回去把那杯茶喝完。王后翻着歌手名单，似乎另有打算。下一位证人是公爵夫人的厨娘，她端着胡椒罐上堂，门口的人立刻喷嚏连天。国王要问她的，只是馅饼里放了什么。",
+        "en": "The Hatter would rather finish his tea, while the Queen reads her list of singers and seems to have other plans. The next witness is the Duchess's cook, whose pepper-box sets everyone near the door sneezing. The King has only one question for her: what are tarts made of?"
+      },
+      "paragraphs": {
+        "chapter-11-p060": {
+          "sentences": [
+            "“我宁愿先把茶喝完。”帽匠说，不安地看了王后一眼，她正在看歌手名单。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p061": {
+          "sentences": [
+            "“你可以走了。”国王说。帽匠急忙离开法庭，连鞋都来不及穿。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p062": {
+          "sentences": [
+            "“——顺便在外面把他的头取下来。”王后对一名官员补了一句；可那名官员还没走到门口，帽匠已经不见了踪影。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p063": {
+          "sentences": [
+            "“传下一个证人！”国王说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p064": {
+          "sentences": [
+            "下一个证人是公爵夫人的厨娘。",
+            "她手里端着胡椒罐；还没等她走进法庭，爱丽丝就凭门口那些人突然一齐打起喷嚏猜出了她是谁。"
+          ],
+          "hints": [
+            {
+              "id": "duchess",
+              "kind": "word",
+              "target": "Duchess",
+              "sentence": 5,
+              "zh": "公爵夫人，厨娘的东家。",
+              "en": "The Duchess, the cook's mistress."
+            },
+            {
+              "id": "pepper-box",
+              "kind": "word",
+              "target": "pepper-box",
+              "sentence": 6,
+              "zh": "胡椒罐，一打开就让人打喷嚏。",
+              "en": "A pepper-box: open it and everyone starts sneezing."
+            }
+          ]
+        },
+        "chapter-11-p065": {
+          "sentences": [
+            "“说你的证词。”国王说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p066": {
+          "sentences": [
+            "“才不呢。”厨娘说。"
+          ],
+          "hints": [
+            {
+              "id": "shant",
+              "kind": "word",
+              "target": "Shan't",
+              "sentence": 8,
+              "zh": "shan't 是 shall not 的缩写，这里表示“我才不呢”。",
+              "en": "Shan't is short for shall not: here it means \"I won't\"."
+            }
+          ]
+        },
+        "chapter-11-p067": {
+          "sentences": [
+            "国王不安地望向白兔，白兔压低了声音。",
+            "“陛下必须盘问这个证人。”"
+          ],
+          "hints": [
+            {
+              "id": "cross-examine",
+              "kind": "word",
+              "target": "cross-examine",
+              "sentence": 10,
+              "zh": "盘问，向证人追问细节。",
+              "en": "Cross-examine: to question a witness closely."
+            }
+          ]
+        },
+        "chapter-11-p068": {
+          "sentences": [
+            "“好吧，既然非问不可，那就问吧。”国王神情忧郁地说。他抱起双臂，皱着眉盯着厨娘，盯得眼睛都快看不见了，然后用低沉的声音说：“馅饼是用什么做的？”"
+          ],
+          "hints": []
+        },
+        "chapter-11-p069": {
+          "sentences": [
+            "“主要是胡椒。”厨娘说。"
+          ],
+          "hints": []
+        },
+        "chapter-11-p070": {
+          "sentences": [
+            "“糖浆。”她身后传来一个睡意朦胧的声音。"
+          ],
+          "hints": [
+            {
+              "id": "treacle",
+              "kind": "word",
+              "target": "Treacle",
+              "sentence": 13,
+              "zh": "糖浆，英国常见的一种深色甜浆。",
+              "en": "Treacle: a thick dark syrup."
+            }
+          ]
+        },
+        "chapter-11-p071": {
+          "sentences": [
+            "“抓住那只睡鼠！”王后尖叫道。",
+            "“砍掉那只睡鼠的脑袋！",
+            "把那只睡鼠赶出法庭！",
+            "镇压他！",
+            "掐他！",
+            "剃掉他的胡子！”"
+          ],
+          "hints": [
+            {
+              "id": "collar",
+              "kind": "word",
+              "target": "Collar",
+              "sentence": 14,
+              "zh": "collar 在这里是“抓住”，不是“衣领”。",
+              "en": "Collar here means \"seize\", not a shirt collar."
+            }
+          ]
+        },
+        "chapter-11-p072": {
+          "sentences": [
+            "法庭乱了好几分钟，忙着把睡鼠赶出去；等大家重新安顿下来，厨娘已经不见了。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "How does Alice guess who the next witness is before seeing her?",
+          "options": [
+            "People near the door begin sneezing all at once",
+            "The King announces the cook's name",
+            "She sees a pepper-box through the door"
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "厨娘还没进法庭，门口的人就一齐打起喷嚏，爱丽丝因此猜到了她是谁。",
+            "en": "Before the cook enters, everyone near the door starts sneezing, and Alice guesses who it is."
+          }
+        },
+        {
+          "question": "Why does the King agree to question the cook himself?",
+          "options": [
+            "Because the White Rabbit says he must cross-examine her",
+            "Because the Queen orders him to do it",
+            "Because the cook asks him a question"
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "厨娘只说“才不呢”，国王不知所措，白兔低声提醒他必须盘问这个证人，他只好照办。",
+            "en": "The cook refuses to speak, and the White Rabbit tells the King that he must cross-examine this witness."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I'd rather finish my tea",
+        "pointIds": [
+          "cefrj-143"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "I'd rather 是 would rather + 动词原形，表示“宁愿”，后面不接 to。",
+          "en": "I'd rather is would rather + bare infinitive: it means he would prefer to finish his tea."
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "下一个名字",
+        "en": "The Next Name on the List"
+      },
+      "introduction": {
+        "zh": "厨娘不见了，国王反倒松了口气，还悄悄请王后亲自盘问下一位证人，说这差事让他脑门发疼。爱丽丝盯着白兔在名单上翻找，很想知道下一个上场的会是谁——到现在，他们还没问出多少证词。",
+        "en": "With the cook gone, the King feels relieved and asks the Queen to question the next witness herself, saying it makes his forehead ache. Alice watches the White Rabbit fumble over the list, eager to see who will come next."
+      },
+      "paragraphs": {
+        "chapter-11-p073": {
+          "sentences": [
+            "“没关系！”国王说，显得大大松了口气。",
+            "“传下一个证人。”",
+            "接着，他压低声音对王后补了一句：“真的，亲爱的，下一个证人得由你来盘问。",
+            "这问得我脑门都疼了！”"
+          ],
+          "hints": [
+            {
+              "id": "under-tone",
+              "kind": "phrase",
+              "target": "in an under-tone",
+              "sentence": 3,
+              "zh": "压低声音、小声地。",
+              "en": "In an under-tone: in a quiet voice."
+            }
+          ]
+        },
+        "chapter-11-p074": {
+          "sentences": [
+            "爱丽丝看着白兔在名单上翻找，很想知道下一个证人会是什么样子，“——毕竟他们还没问出多少证词呢，”她自言自语。",
+            "想想看，当白兔用又尖又细的嗓子高声念出“爱丽丝！”这个名字时，她有多惊讶。"
+          ],
+          "hints": [
+            {
+              "id": "fumbled-over",
+              "kind": "phrase",
+              "target": "fumbled over",
+              "sentence": 5,
+              "zh": "手忙脚乱地翻找。",
+              "en": "Fumbled over: handled awkwardly while searching."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the King want the Queen to question the next witness?",
+          "options": [
+            "Because it makes his forehead ache",
+            "Because he has to leave the court",
+            "Because the Rabbit is too busy"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "国王悄悄对王后说，盘问证人“问得我脑门都疼了”，所以下一个证人得由她来问。",
+            "en": "The King whispers to the Queen that cross-examining quite makes his forehead ache."
+          }
+        },
+        {
+          "question": "What is Alice curious about?",
+          "options": [
+            "What the next witness will be like",
+            "Whether the cook will come back",
+            "What the tarts are made of"
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "爱丽丝看着白兔在名单上翻找，很想知道下一个证人会是什么样子。",
+            "en": "Alice watches the Rabbit fumble over the list, curious to see what the next witness will be like."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Alice watched the White Rabbit as he fumbled over the list",
+        "pointIds": [
+          "cefrj-157"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as 引导时间状语从句，表示“当……的时候”，与主句 watched 同时发生。",
+          "en": "As introduces a time clause: the Rabbit's fumbling and Alice's watching happen at the same moment."
+        }
+      }
+    }
+  ]
+}

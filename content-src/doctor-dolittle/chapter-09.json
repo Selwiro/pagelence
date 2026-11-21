@@ -1,0 +1,540 @@
+{
+  "chapter": 9,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "夜里的大会",
+        "en": "The Monkeys’ Great Meeting"
+      },
+      "introduction": {
+        "zh": "猴子们忽然听说，医生要离开丛林，回帕德尔比去。可他们一直以为，他会永远和他们住在一起。那天夜里，全丛林的猴子聚在一起商量；黑猩猩首领问了一句话，却谁也没答上来——奇奇站起来的时候，大家都静了。",
+        "en": "The monkeys hear that the Doctor is going back to Puddleby. They had thought he would stay in the jungle forever. That night they all meet in the dark to talk it over, and the Chief Chimpanzee asks a question that nobody can answer. Then Chee-Chee stands up."
+      },
+      "paragraphs": {
+        "chapter-09-p001": {
+          "sentences": [
+            "奇奇站在医生门外，挡着大家不让进去，一直到他睡醒。",
+            "随后，约翰·杜立德告诉猴子们，他现在必须回帕德尔比去了。"
+          ],
+          "hints": [
+            {
+              "id": "chee-chee",
+              "kind": "word",
+              "target": "Chee-Chee",
+              "sentence": 1,
+              "zh": "奇奇，那只猴子，医生在非洲结识的朋友。",
+              "en": "Chee-Chee, the monkey who became the Doctor's friend in Africa."
+            },
+            {
+              "id": "john-dolittle",
+              "kind": "word",
+              "target": "John Dolittle",
+              "sentence": 2,
+              "zh": "约翰·杜立德，本书的主角，那位会给动物看病的医生。",
+              "en": "John Dolittle, the hero of the book: the doctor who can talk to animals."
+            },
+            {
+              "id": "puddleby",
+              "kind": "word",
+              "target": "Puddleby",
+              "sentence": 2,
+              "zh": "帕德尔比，医生的家乡，远在英格兰。",
+              "en": "Puddleby, the Doctor's home town, far away in England."
+            }
+          ]
+        },
+        "chapter-09-p002": {
+          "sentences": [
+            "他们听了非常吃惊，因为他们原以为他会永远和他们住在一起。",
+            "那天夜里，所有的猴子聚在丛林里，商量这件事。"
+          ]
+        },
+        "chapter-09-p003": {
+          "sentences": [
+            "黑猩猩首领站起来说："
+          ],
+          "hints": [
+            {
+              "id": "chief-chimpanzee",
+              "kind": "word",
+              "target": "Chief Chimpanzee",
+              "sentence": 5,
+              "zh": "黑猩猩首领，猴群里的头领。",
+              "en": "The Chief Chimpanzee: the leader of the chimpanzees."
+            }
+          ]
+        },
+        "chapter-09-p004": {
+          "sentences": [
+            "「这位好人为什么要走呢？",
+            "他跟我们在一起，难道不开心吗？」"
+          ]
+        },
+        "chapter-09-p005": {
+          "sentences": [
+            "可是谁也没法回答他。"
+          ]
+        },
+        "chapter-09-p006": {
+          "sentences": [
+            "接着，大猩猩长老站起身来，说："
+          ]
+        },
+        "chapter-09-p007": {
+          "sentences": [
+            "「我想，我们大家应该一起去找他，请他留下来。",
+            "也许我们给他盖座新房子、做张更大的床，再答应派许多猴子伺候他、让他的日子过得舒舒服服——也许这样，他就不想走了。」"
+          ]
+        },
+        "chapter-09-p008": {
+          "sentences": [
+            "这时奇奇站起身；别的猴子都小声说：「嘘！",
+            "看哪！",
+            "奇奇，这位了不起的旅行家，要讲话了！」"
+          ],
+          "hints": [
+            {
+              "id": "great-traveler",
+              "kind": "phrase",
+              "target": "the great Traveler",
+              "sentence": 14,
+              "zh": "「了不起的旅行家」，猴子们给奇奇的外号——他被带到过白人的国度，见过世面。",
+              "en": "“The great traveller”: the monkeys' name for Chee-Chee, who has been to the white men's land."
+            }
+          ]
+        },
+        "chapter-09-p009": {
+          "sentences": [
+            "奇奇对别的猴子说："
+          ]
+        },
+        "chapter-09-p010": {
+          "sentences": [
+            "「朋友们，恐怕请医生留下来是没有用的。",
+            "他在帕德尔比欠了钱；他说他必须回去把钱还上。」"
+          ]
+        },
+        "chapter-09-p011": {
+          "sentences": [
+            "猴子们问他：「钱是什么？」"
+          ]
+        },
+        "chapter-09-p012": {
+          "sentences": [
+            "于是奇奇告诉他们：在白人的国度里，没有钱就什么也拿不到；没有钱就什么也做不成——没有钱，几乎活不下去。"
+          ],
+          "hints": [
+            {
+              "id": "land-of-white-men",
+              "kind": "phrase",
+              "target": "Land of the White Men",
+              "sentence": 19,
+              "zh": "「白人的国度」，猴子们对欧洲的叫法。",
+              "en": "“The land of the white men”: how the monkeys speak of Europe."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why are the monkeys so surprised when the Doctor says he must go back?",
+          "options": [
+            "They believed he would stay with them forever.",
+            "They thought he had nowhere else to go.",
+            "They did not know who he was."
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "原文说他们大吃一惊，因为他们本以为医生会永远和他们住在一起；他忽然要走，完全出乎意料。",
+            "en": "The text says they were very surprised, for they had thought he was going to stay with them forever."
+          }
+        },
+        {
+          "question": "What does the Grand Gorilla tell the monkeys to do?",
+          "options": [
+            "Ask the Doctor to stay, and offer him a new house and plenty of servants.",
+            "Hide the Doctor's boat so that he cannot leave.",
+            "Ask the Doctor to take them all to Puddleby."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "他提议大家一起去求医生留下，还许诺给他盖新房子、做更大的床、派许多猴子伺候他。",
+            "en": "He suggests going to the Doctor together and offering him a new house, a bigger bed and plenty of monkey-servants."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I am afraid it is useless to ask the Doctor to stay",
+        "pointIds": [
+          "cefrj-163"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "it 是形式主语，真正的主语是后面的 to ask the Doctor to stay；useless 说的正是「请他留下」这件事。",
+          "en": "It is a dummy subject: the real subject is to ask the Doctor to stay, and useless describes that act."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "饼干和借来的船",
+        "en": "Biscuits and a Borrowed Boat"
+      },
+      "introduction": {
+        "zh": "在猴子们看来，白人的国度样样难以理解：连吃喝都要付钱。奇奇只好讲起自己从前跟着摇风琴艺人的日子，还有他们来非洲路上欠下的账。猴子们听完，一动不动地坐在地上，沉默了很久。",
+        "en": "To the monkeys, the white men's land makes no sense: you must even pay to eat and drink. So Chee-Chee tells them about his old days on the street with the organ-grinder, and about the debts behind the journey to Africa. When he stops, the monkeys sit quite still."
+      },
+      "paragraphs": {
+        "chapter-09-p013": {
+          "sentences": [
+            "有几只猴子问：「可是，难道连吃喝也非付钱不可吗？」"
+          ]
+        },
+        "chapter-09-p014": {
+          "sentences": [
+            "奇奇却摇了摇头。",
+            "接着他告诉他们：就连他自己，当年跟着摇手摇风琴的艺人时，也被逼着向孩子们讨钱。"
+          ],
+          "hints": [
+            {
+              "id": "organ-grinder",
+              "kind": "word",
+              "target": "organ-grinder",
+              "sentence": 3,
+              "zh": "摇手摇风琴的街头艺人；奇奇从前跟着他上街卖艺、讨钱。",
+              "en": "A street musician who turns a hand organ; Chee-Chee once travelled with one."
+            }
+          ]
+        },
+        "chapter-09-p015": {
+          "sentences": [
+            "黑猩猩首领转向最年长的红毛猩猩，说：「表亲，这些『人』真是些奇怪的家伙！",
+            "谁会愿意住在这样的地方？",
+            "我的天，多么寒酸！」"
+          ],
+          "hints": [
+            {
+              "id": "oldest-orang-outang",
+              "kind": "word",
+              "target": "Oldest Orang-outang",
+              "sentence": 4,
+              "zh": "最年长的红毛猩猩；orang-outang 是旧时拼法，现在多写 orangutan。",
+              "en": "The oldest orang-utan; orang-outang is the old spelling of orangutan."
+            },
+            {
+              "id": "be-strange-creatures",
+              "kind": "phrase",
+              "target": "be strange creatures",
+              "sentence": 4,
+              "zh": "「真是些奇怪的家伙」；这里用 be 代替 are，是旧式或方言的说法。",
+              "en": "“Are strange creatures”: be stands for are here, an old or dialect way of speaking."
+            },
+            {
+              "id": "my-gracious",
+              "kind": "phrase",
+              "target": "My gracious",
+              "sentence": 6,
+              "zh": "老式感叹语，「我的天哪」，表示吃惊或不以为然。",
+              "en": "An old-fashioned exclamation: “Good heavens!”, showing shock or scorn."
+            },
+            {
+              "id": "paltry",
+              "kind": "word",
+              "target": "paltry",
+              "sentence": 6,
+              "zh": "本义「微不足道、寒酸」；这里笑白人为几个钱斤斤计较，实在可怜。",
+              "en": "Small and mean; here it mocks the white men for caring so much about money."
+            }
+          ]
+        },
+        "chapter-09-p016": {
+          "sentences": [
+            "奇奇说："
+          ]
+        },
+        "chapter-09-p017": {
+          "sentences": [
+            "「我们来找你们的时候，没有船渡海，也没有钱在路上买吃的。",
+            "于是有人借给我们一些饼干；我们说好等回来就还他钱。",
+            "我们还向一个水手借了条船；可我们到达非洲海岸时，船在礁石上撞坏了。",
+            "现在医生说，他必须回去，另赔那个水手一条船——因为那人很穷，那条船就是他全部的家当。」"
+          ]
+        },
+        "chapter-09-p018": {
+          "sentences": [
+            "猴子们沉默了一会儿，一动不动地坐在地上，苦苦思索。"
+          ]
+        },
+        "chapter-09-p019": {
+          "sentences": [
+            "最后，最大的狒狒站起来说："
+          ],
+          "hints": [
+            {
+              "id": "biggest-baboon",
+              "kind": "word",
+              "target": "Biggest Baboon",
+              "sentence": 13,
+              "zh": "最大的狒狒，猴群里另一位有威望的头领。",
+              "en": "The Biggest Baboon: another respected leader among the monkeys."
+            }
+          ]
+        },
+        "chapter-09-p020": {
+          "sentences": [
+            "「我觉得，我们不该让这位好人空着手离开我们的土地；得先送他一份厚礼带回去，好让他知道，我们感激他为我们做的一切。」"
+          ]
+        },
+        "chapter-09-p021": {
+          "sentences": [
+            "一只小小的红猴子坐在树上，朝下面喊道："
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Doctor say he must go back to Puddleby?",
+          "options": [
+            "He must pay his debts, and get the poor sailor another boat.",
+            "He wants to bring all his animals to Africa.",
+            "The monkeys have asked him to leave their land."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "奇奇说，医生得回去还债，还要赔那个水手一条船——因为那人很穷，船就是他全部的家当。",
+            "en": "Chee-Chee explains that the Doctor must pay his debts and replace the sailor's boat, because the man was poor and the ship was all he had."
+          }
+        },
+        {
+          "question": "What does Chee-Chee admit about his own past?",
+          "options": [
+            "He was once made to ask children for money.",
+            "He once owned a big boat of his own.",
+            "He once lived in the London Zoo."
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "他说，就连他自己跟着摇风琴的艺人时，也被逼着向孩子们讨钱：在白人的国度，没有钱寸步难行。",
+            "en": "He says that even he, when he was with the organ-grinder, had been made to ask the children for money."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I do not think we ought to let this good man leave our land",
+        "pointIds": [
+          "cefrj-137"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "ought to 后面接动词原形 leave，表示「应该、按理该」；否定式是 ought not to。",
+          "en": "Ought to takes the base verb leave and means “should”; the negative is ought not to."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "送他什么好",
+        "en": "What Shall We Give Him?"
+      },
+      "introduction": {
+        "zh": "既然留不住医生，猴子们想送他一件礼物带走。可送什么好？香蕉和椰子顺口就能说出来，稀有的野兽似乎更体面。奇奇报出一个又一个名字，那边却都已经有了。难道白人什么都见过？",
+        "en": "If the Doctor cannot stay, the monkeys want to send him away with a gift. But what? Bananas and coconuts are easy to name. A rare beast would be better — but which one? Chee-Chee names one animal after another, and each time the answer is the same."
+      },
+      "paragraphs": {
+        "chapter-09-p022": {
+          "sentences": [
+            "「我也这么想！」"
+          ]
+        },
+        "chapter-09-p023": {
+          "sentences": [
+            "于是他们一齐嚷起来，闹成一片：「对，对！",
+            "我们送他一份白人从没收到过的最好的礼物！」"
+          ]
+        },
+        "chapter-09-p024": {
+          "sentences": [
+            "他们开始琢磨，互相打听：送什么给他最好？",
+            "一个说：「五十袋椰子！」",
+            "另一个说：「一百串香蕉！——至少在那个『吃饭要付钱的地方』，他不用再买水果了！」"
+          ],
+          "hints": [
+            {
+              "id": "cocoanuts",
+              "kind": "word",
+              "target": "cocoanuts",
+              "sentence": 5,
+              "zh": "椰子的旧拼法，今天写作 coconuts。",
+              "en": "An old spelling of coconuts."
+            },
+            {
+              "id": "land-where-you-pay-to-eat",
+              "kind": "phrase",
+              "target": "Land Where You Pay to Eat",
+              "sentence": 6,
+              "zh": "「吃饭要付钱的地方」，猴子们给白人国度起的绰号。",
+              "en": "“The land where you pay to eat”: the monkeys' nickname for the white men's country."
+            }
+          ]
+        },
+        "chapter-09-p025": {
+          "sentences": [
+            "可奇奇告诉他们：这些东西太重，没法搬那么远；而且还没吃掉一半就先坏了。"
+          ]
+        },
+        "chapter-09-p026": {
+          "sentences": [
+            "「你们要是想让他高兴，」他说，「就送他一只动物。",
+            "你放心，他一定会好好待它。",
+            "送他一只稀有的动物，他们的兽苑里没有的那种。」"
+          ],
+          "hints": [
+            {
+              "id": "menageries",
+              "kind": "word",
+              "target": "menageries",
+              "sentence": 10,
+              "zh": "兽苑，旧时把野兽关在笼子里供人买票参观的场所，现代动物园的前身。",
+              "en": "A menagerie: an old collection of wild animals kept in cages for people to look at."
+            }
+          ]
+        },
+        "chapter-09-p027": {
+          "sentences": [
+            "猴子们问他：「兽苑是什么？」"
+          ]
+        },
+        "chapter-09-p028": {
+          "sentences": [
+            "于是奇奇向他们解释：兽苑是白人国度里的地方，动物被关在笼子里，让人过来观看。",
+            "猴子们吓了一大跳，彼此说："
+          ]
+        },
+        "chapter-09-p029": {
+          "sentences": [
+            "「这些『人』就像不懂事的小孩子——又蠢，又容易哄。",
+            "嘘！",
+            "他说的其实就是牢房。」"
+          ]
+        },
+        "chapter-09-p030": {
+          "sentences": [
+            "于是他们问奇奇：该送医生一只什么样的稀有动物——一只白人从没见过的？",
+            "狨猴少校问道："
+          ],
+          "hints": [
+            {
+              "id": "major-of-the-marmosettes",
+              "kind": "word",
+              "target": "Major of the Marmosettes",
+              "sentence": 18,
+              "zh": "狨猴少校；Major 是军衔「少校」，Marmosettes 指小狨猴。",
+              "en": "The Major of the Marmosettes: Major is an army rank, and marmosettes are tiny marmoset monkeys."
+            }
+          ]
+        },
+        "chapter-09-p031": {
+          "sentences": [
+            "「他们那边有鬣蜥吗？」"
+          ]
+        },
+        "chapter-09-p032": {
+          "sentences": [
+            "奇奇说：「有，伦敦动物园里就有一只。」"
+          ]
+        },
+        "chapter-09-p033": {
+          "sentences": [
+            "另一只问：「他们有霍加狓吗？」"
+          ],
+          "hints": [
+            {
+              "id": "okapi",
+              "kind": "word",
+              "target": "okapi",
+              "sentence": 21,
+              "zh": "霍加狓，非洲密林里的稀有动物，后腿像斑马，脖子像长颈鹿。",
+              "en": "An okapi: a rare animal of the African forest, with zebra-striped legs and a giraffe-like neck."
+            }
+          ]
+        },
+        "chapter-09-p034": {
+          "sentences": [
+            "奇奇说：「有。",
+            "五年前，摇风琴的艺人带我去比利时，他们那座叫安特卫普的大城里就有一只霍加狓。」"
+          ]
+        },
+        "chapter-09-p035": {
+          "sentences": [
+            "又一只问：「他们有『推我拉你』吗？」"
+          ],
+          "hints": [
+            {
+              "id": "pushmi-pullyu",
+              "kind": "word",
+              "target": "pushmi-pullyu",
+              "sentence": 24,
+              "zh": "「推我拉你」，一种稀有的双头动物；本书就用这个译名。",
+              "en": "The pushmi-pullyu: a rare two-headed animal; this is the name used for it in this book."
+            }
+          ]
+        },
+        "chapter-09-p036": {
+          "sentences": [
+            "奇奇说：「没有。",
+            "白人从没见过『推我拉你』。",
+            "我们就送他这个吧。」"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Chee-Chee say no to the fruit?",
+          "options": [
+            "It would be too heavy to carry, and it would go bad.",
+            "The Doctor never eats fruit.",
+            "The monkeys need the fruit for themselves."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "奇奇说，这些东西太重，搬不了那么远；而且还没吃掉一半，就先坏了。",
+            "en": "Chee-Chee says the fruit would be too heavy to carry so far and would go bad before half of it was eaten."
+          }
+        },
+        {
+          "question": "Why do the monkeys settle on the pushmi-pullyu?",
+          "options": [
+            "No white man has ever seen one.",
+            "It is the only animal they are able to catch.",
+            "It is smaller and lighter than an okapi."
+          ],
+          "answer": 0,
+          "sentence": 26,
+          "feedback": {
+            "zh": "鬣蜥和霍加狓白人都已经见过，只有「推我拉你」从没有白人见过，所以奇奇说就送这个。",
+            "en": "The white men already have an iguana and an okapi; no white man has ever seen a pushmi-pullyu."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "menageries were places in the Land of the White Men, where animals were put in cages",
+        "pointIds": [
+          "cefrj-185"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "where 从句修饰前面的 places，说明是「什么样的地方」；where 前要有表示地点的名词。",
+          "en": "The where-clause describes places: it tells us what kind of place it is, and it needs a place noun before it."
+        }
+      }
+    }
+  ]
+}

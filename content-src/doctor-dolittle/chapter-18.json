@@ -1,0 +1,1028 @@
+{
+  "chapter": 18,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "去请老鹰",
+        "en": "Send for the Eagles"
+      },
+      "introduction": {
+        "zh": "既然已经知道男孩的叔叔没有被扔进海里，杜立德医生就得把他找回来。达布达布凑到他耳边出了个主意：去请老鹰。这些大鸟能从几英里高的天上数清地上的蚂蚁——可一个人藏在半个世界的角落里，它们真能看见吗？",
+        "en": "The boy’s uncle was not thrown into the sea — so where is he? Dab-Dab whispers a plan to the Doctor: ask the eagles. From miles up they can count ants on the ground. But can an eagle’s eye find one lost fisherman in half the world?"
+      },
+      "paragraphs": {
+        "chapter-18-p001": {
+          "sentences": [
+            "「现在非得把你叔叔找到不可，」医生说，「这是接下来要做的事——既然我们已经知道他没有被扔进海里。」"
+          ]
+        },
+        "chapter-18-p002": {
+          "sentences": [
+            "这时达布达布又走到他跟前，小声说："
+          ],
+          "hints": [
+            {
+              "id": "dab-dab",
+              "kind": "word",
+              "target": "Dab-Dab",
+              "sentence": 2,
+              "zh": "达布达布，医生养的鸭子。",
+              "en": "Dab-Dab, the Doctor’s duck."
+            }
+          ]
+        },
+        "chapter-18-p003": {
+          "sentences": [
+            "「让老鹰去找那个人吧。",
+            "没有哪种活物比老鹰的眼力更好。",
+            "它们飞到几英里高的空中，还能数清地上爬的蚂蚁。",
+            "去请老鹰吧。」"
+          ]
+        },
+        "chapter-18-p004": {
+          "sentences": [
+            "于是医生派了一只燕子去请老鹰。"
+          ]
+        },
+        "chapter-18-p005": {
+          "sentences": [
+            "大约过了一个钟头，那只小鸟带回了六种不同的老鹰：一只黑鹰、一只白头海雕、一只鱼鹰、一只金雕、一只鹰鹫，还有一只白尾海雕。",
+            "它们每一只都有那男孩的两倍那么高。",
+            "它们站在船栏上，像一排驼背的士兵，严厉、一动不动、僵直；那一双双又大又亮、乌黑的眼睛，向这儿、那儿、四面八方投出锐利的目光。"
+          ],
+          "hints": [
+            {
+              "id": "eagle-vulture",
+              "kind": "word",
+              "target": "Eagle-Vulture",
+              "sentence": 8,
+              "zh": "鹰鹫，一种体形很大的猛禽，常被算作老鹰的一类。",
+              "en": "Eagle-vulture: a large bird of prey, counted here as one kind of eagle."
+            }
+          ]
+        },
+        "chapter-18-p006": {
+          "sentences": [
+            "咕咕被它们吓着了，躲到一只木桶后面。",
+            "他说，他觉得那些可怕的眼睛好像直看到他身子里面，要瞧出他午饭偷吃了什么。"
+          ],
+          "hints": [
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 11,
+              "zh": "咕咕，医生养的小猪。",
+              "en": "Gub-Gub, the Doctor’s baby pig."
+            }
+          ]
+        },
+        "chapter-18-p007": {
+          "sentences": [
+            "医生对老鹰们说："
+          ]
+        },
+        "chapter-18-p008": {
+          "sentences": [
+            "「有一个人失踪了——一个红头发、手臂上刺着锚的渔夫。",
+            "能不能劳烦你们帮忙找一找他？",
+            "这个男孩是他的侄子。」"
+          ],
+          "hints": [
+            {
+              "id": "anchor-mark",
+              "kind": "phrase",
+              "target": "an anchor marked on his arm",
+              "sentence": 14,
+              "zh": "手臂上刺着锚的图案：旧时水手和渔夫常把锚刺在身上作记号，认出一个人就靠这个。",
+              "en": "An anchor tattooed on the arm: sailors and fishermen often carried this mark, so it helps to identify a man."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Dab-Dab tell the Doctor to ask the eagles?",
+          "options": [
+            "No living creature can see better than an eagle.",
+            "Eagles can talk to fishermen.",
+            "Eagles live near the sea and know the ships."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "达布达布的理由是眼力：她说没有哪种活物比老鹰看得更清楚。",
+            "en": "Dab-Dab’s reason is eyesight: no living creature can see better than an eagle."
+          }
+        },
+        {
+          "question": "How will the eagles know which man to look for?",
+          "options": [
+            "He is a red-haired fisherman with an anchor marked on his arm.",
+            "He is a tall sailor in a blue coat.",
+            "He is the boy’s father, who has lost a ring."
+          ],
+          "answer": 0,
+          "sentence": 14,
+          "feedback": {
+            "zh": "医生给出两个特征：红头发，手臂上刺着锚；还说这男孩是那人的侄子。",
+            "en": "The Doctor gives two marks: red hair and an anchor on his arm, and adds that the boy is the man’s nephew."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "No living creature can see better than an eagle",
+        "pointIds": [
+          "cefrj-38"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "better 是 well 的不规则比较级，than an eagle 引出比较对象：没有谁比老鹰看得更清楚。",
+          "en": "Better is the irregular comparative of well, and than an eagle names what the eagle is compared with."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "飞向四方",
+        "en": "Off in All Directions"
+      },
+      "introduction": {
+        "zh": "六只老鹰站在船栏上，答应为约翰·杜立德尽力，随即一只只升上天空，越飞越高，最后朝东南西北分开，小得像几粒黑沙。船上的人等了很久。天黑下来时，它们终于回来了——带回来的会是什么消息？",
+        "en": "Six eagles stand on the rail and promise to do their best for John Dolittle. Up they go, higher and higher, then split up and vanish north, east, south and west. The ship waits all day. When the birds come back at dusk, what news do they bring?"
+      },
+      "paragraphs": {
+        "chapter-18-p009": {
+          "sentences": [
+            "老鹰不大爱说话。",
+            "它们用沙哑的嗓子只回答了这么一句："
+          ]
+        },
+        "chapter-18-p010": {
+          "sentences": [
+            "「你可以放心，我们一定尽力——为了约翰·杜立德。」"
+          ],
+          "hints": [
+            {
+              "id": "john-dolittle",
+              "kind": "word",
+              "target": "John Dolittle",
+              "sentence": 3,
+              "zh": "约翰·杜立德，就是医生本人；动物们郑重起来时常连名带姓地叫他。",
+              "en": "John Dolittle: the Doctor himself; the animals use his full name when they mean to be serious."
+            }
+          ]
+        },
+        "chapter-18-p011": {
+          "sentences": [
+            "然后它们就飞走了——咕咕从木桶后面出来看它们离去。",
+            "它们往上、往上、再往上——越飞越高，越来越高。",
+            "后来，医生只能勉强看见它们的时候，它们分了开来，朝四面八方飞去——北、东、南、西，看起来像几粒黑色的细沙，在广阔蔚蓝的天空里缓缓挪动。"
+          ],
+          "hints": [
+            {
+              "id": "parted-company",
+              "kind": "phrase",
+              "target": "parted company",
+              "sentence": 6,
+              "zh": "散伙、各走各的；这里指六只老鹰在空中分开，分头去搜。",
+              "en": "Parted company: they separated and each went its own way."
+            }
+          ]
+        },
+        "chapter-18-p012": {
+          "sentences": [
+            "「我的天哪！」咕咕压低了声音说。",
+            "「飞得多高啊！",
+            "我真奇怪它们怎么没把羽毛烤焦——离太阳那么近！」"
+          ]
+        },
+        "chapter-18-p013": {
+          "sentences": [
+            "它们去了很久。",
+            "等它们回来时，天几乎黑了。"
+          ]
+        },
+        "chapter-18-p014": {
+          "sentences": [
+            "老鹰们对医生说："
+          ]
+        },
+        "chapter-18-p015": {
+          "sentences": [
+            "「我们搜遍了这个半个世界所有的海、所有的国家、所有的岛屿、所有的城市和所有的村庄。",
+            "可是我们失败了。",
+            "在直布罗陀的大街上，我们看见三根红头发，落在一家面包店门前的手推车上。",
+            "可那不是人的头发——那是从一件皮大衣上掉下来的毛。",
+            "无论在陆地上还是水面上，我们都看不到这男孩叔叔的一点踪影。",
+            "既然我们看不见他，那就是谁也看不见他了……",
+            "为了约翰·杜立德——我们已经尽了力。」"
+          ],
+          "hints": [
+            {
+              "id": "gibraltar",
+              "kind": "word",
+              "target": "Gibraltar",
+              "sentence": 15,
+              "zh": "直布罗陀，地中海口的港口要塞，船出海时常在那里停靠。",
+              "en": "Gibraltar: the port and fortress at the mouth of the Mediterranean, a usual stop for ships."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What do the eagles do after they answer the Doctor?",
+          "options": [
+            "They fly apart and go off north, east, south and west.",
+            "They stay on the rail of the ship all day.",
+            "They fly straight back to their mountain homes."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "它们一直往上飞，飞到医院只能勉强看见时，就分开朝四个方向去搜。",
+            "en": "They climb higher and higher, and when the Doctor can barely see them they split up and search in four directions."
+          }
+        },
+        {
+          "question": "What did the eagles find in the main street of Gibraltar?",
+          "options": [
+            "Three red hairs, but they came from a fur coat.",
+            "A fisherman’s red hair on a baker’s door.",
+            "A wheelbarrow full of snuff."
+          ],
+          "answer": 0,
+          "sentence": 16,
+          "feedback": {
+            "zh": "三根红头发起初像是线索，但老鹰说明那不是人的头发，是皮大衣上掉的毛。",
+            "en": "The three red hairs looked like a clue, but the eagles say they were not a man’s hair — they came from a fur coat."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "higher and higher and higher still",
+        "pointIds": [
+          "cefrj-49"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "higher and higher 用 and 连两个比较级，表示越来越高；still 再加一层「还在往上升」。",
+          "en": "Higher and higher links two comparatives with and to show a change that keeps growing; still adds that it goes on."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "要是奇奇在这儿",
+        "en": "If Only Chee-Chee Were Here"
+      },
+      "introduction": {
+        "zh": "老鹰拍着翅膀回了山里的家，甲板上安静下来。达布达布念叨起猴子奇奇，白老鼠想起了鹦鹉波利尼西亚；吉普却对老鹰和鼠海豚一肚子意见，说它们只会讲自己办不到。难道就没有别的法子了？",
+        "en": "The eagles flap away to their mountain homes and the deck goes quiet. Dab-Dab wishes Chee-Chee were there; the white mouse thinks of Polynesia. Jip has no kind words for the eagles or the porpoises. Is there any other way to find a lost man?"
+      },
+      "paragraphs": {
+        "chapter-18-p016": {
+          "sentences": [
+            "于是那六只大鸟拍着大翅膀，飞回它们在群山和岩石间的家。"
+          ]
+        },
+        "chapter-18-p017": {
+          "sentences": [
+            "「那么，」它们走后，达布达布说，「我们现在怎么办？",
+            "这男孩的叔叔必须找到——这事没有别的说法。",
+            "这孩子还太小，不能一个人在外面闯荡。",
+            "男孩子可不像小鸭子——得有人照看他们，一直照看到很大才行……",
+            "要是奇奇在这儿就好了。",
+            "他很快就能找到那个人。",
+            "好样的老奇奇！",
+            "不知道他现在过得怎么样！」"
+          ],
+          "hints": [
+            {
+              "id": "chee-chee",
+              "kind": "word",
+              "target": "Chee-Chee",
+              "sentence": 6,
+              "zh": "奇奇，那只猴子；这时它留在非洲，不在船上。",
+              "en": "Chee-Chee, the monkey, who is not on the ship just now."
+            },
+            {
+              "id": "knocking-around",
+              "kind": "phrase",
+              "target": "knocking around the world",
+              "sentence": 4,
+              "zh": "在外面到处闯、四处漂泊；不是「敲打世界」。",
+              "en": "Knocking around the world: wandering about the world on one’s own."
+            }
+          ]
+        },
+        "chapter-18-p018": {
+          "sentences": [
+            "「要是波利尼西亚跟我们一起就好了，」白老鼠说。",
+            "「她很快就能想出办法。",
+            "你还记得她怎么把我们大家从牢里弄出来的吗——第二次？",
+            "哎呀，她可真是个机灵的家伙！」"
+          ],
+          "hints": [
+            {
+              "id": "polynesia",
+              "kind": "word",
+              "target": "Polynesia",
+              "sentence": 10,
+              "zh": "波利尼西亚，那只见多识广的鹦鹉。",
+              "en": "Polynesia, the much-travelled parrot."
+            },
+            {
+              "id": "out-of-prison",
+              "kind": "phrase",
+              "target": "got us all out of prison",
+              "sentence": 12,
+              "zh": "把我们从牢里弄出来；指从前被乔利金基国王关起来后逃走的那一回。",
+              "en": "Got us all out of prison: it points back to an earlier escape after the King of Jolliginki locked them up."
+            }
+          ]
+        },
+        "chapter-18-p019": {
+          "sentences": [
+            "「我可不大看得上那些老鹰伙计，」吉普说。",
+            "「它们就是自大。",
+            "也许它们眼力确实好得很，诸如此类；可你要是请它们帮你找个人，它们就办不到——还厚着脸皮回来说，别的谁也办不到。",
+            "它们就是自大——像帕德尔比那条柯利牧羊犬一样。",
+            "我也不大瞧得上那些爱说闲话的老鼠海豚。",
+            "它们能告诉我们的只是：那个人不在海里。",
+            "我们不想知道他不在哪儿——我们想知道他在哪儿。」"
+          ],
+          "hints": [
+            {
+              "id": "jip",
+              "kind": "word",
+              "target": "Jip",
+              "sentence": 14,
+              "zh": "吉普，医生养的狗，鼻子最灵。",
+              "en": "Jip, the Doctor’s dog, with the best nose on the ship."
+            },
+            {
+              "id": "puddleby",
+              "kind": "word",
+              "target": "Puddleby",
+              "sentence": 17,
+              "zh": "帕德尔比，医生的家乡小镇。",
+              "en": "Puddleby, the little town the Doctor comes from."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Dab-Dab wish Chee-Chee were with them?",
+          "options": [
+            "He would soon find the man.",
+            "He could fly higher than the eagles.",
+            "He could talk to the fish in the sea."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "达布达布说，奇奇在这儿很快就能找到那个人，还夸他「好样的老奇奇」。",
+            "en": "Dab-Dab says Chee-Chee would soon find the man, and calls him “good old Chee-Chee”."
+          }
+        },
+        {
+          "question": "What is Jip’s complaint about the eagles?",
+          "options": [
+            "They are conceited, and they say that nobody else could do it.",
+            "They are too old and too slow to fly.",
+            "They ate the food that belonged to the boy."
+          ],
+          "answer": 0,
+          "sentence": 16,
+          "feedback": {
+            "zh": "吉普说它们找不着人，还厚着脸皮回来说别人也办不到——这就是自大。",
+            "en": "Jip says they fail, then have the cheek to claim that nobody else could do it: that is being conceited."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I wish Chee-Chee were here",
+        "pointIds": [
+          "cefrj-218"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "wish 后面用过去式 were，表示与现在事实相反的愿望：可惜奇奇此刻不在这儿。",
+          "en": "After wish we use the past form were for a wish about now: Chee-Chee is not here."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "一块红手帕",
+        "en": "A Red Handkerchief"
+      },
+      "introduction": {
+        "zh": "咕咕说吉普光会吹牛，吉普气得让他等着瞧。它转身请医生去问那男孩：身上有没有属于叔叔的东西。男孩先拿出一枚挂在绳子上的金戒指，又掏出一块大红手帕。狗鼻子凑上去的时候，能闻到什么？",
+        "en": "Gub-Gub calls Jip a boaster, and Jip is furious: wait and see. Then he asks the Doctor to question the boy: has he anything that belonged to his uncle? First comes a gold ring on a string, then a big red handkerchief. What will a dog’s nose find?"
+      },
+      "paragraphs": {
+        "chapter-18-p020": {
+          "sentences": [
+            "「哦，别这么唠叨了，」咕咕说。",
+            "「说话容易；可要是让你满世界去找一个人，那就不容易了。",
+            "也许那渔夫因为担心这孩子，头发都变白了；所以老鹰才没找到他。",
+            "你也不是什么都懂。",
+            "你就光会说。",
+            "你什么忙也没帮上。",
+            "你找不到那男孩的叔叔，跟老鹰一样找不到——你也好不到哪儿去。」"
+          ],
+          "hints": [
+            {
+              "id": "any-more-than",
+              "kind": "phrase",
+              "target": "any more than the eagles could",
+              "sentence": 7,
+              "zh": "跟……一样（不行）；not … any more than 表示两边同样办不到。",
+              "en": "Not any more than means the two are equally unable: you could no more find him than the eagles could."
+            }
+          ]
+        },
+        "chapter-18-p021": {
+          "sentences": [
+            "「我找不到？」狗说。",
+            "「你就知道这些，你这块蠢头蠢脑的温热咸肉！",
+            "我还没开始试呢，不是吗？",
+            "你等着瞧吧！」"
+          ],
+          "hints": [
+            {
+              "id": "warm-bacon",
+              "kind": "phrase",
+              "target": "warm bacon",
+              "sentence": 9,
+              "zh": "「温热的咸肉」：吉普骂猪的话，暗指咕咕是一块会走路的肉。",
+              "en": "Warm bacon: an insult aimed at a pig — a piece of meat that walks and talks."
+            }
+          ]
+        },
+        "chapter-18-p022": {
+          "sentences": [
+            "然后吉普走到医生跟前说："
+          ]
+        },
+        "chapter-18-p023": {
+          "sentences": [
+            "「请您问问那男孩，他口袋里有没有属于他叔叔的东西，好吗？」"
+          ]
+        },
+        "chapter-18-p024": {
+          "sentences": [
+            "于是医生问了他。",
+            "男孩给他们看了一枚金戒指，他用一根绳子挂在脖子上，因为戴在手指上太大了。",
+            "他说，这是他们看见海盗过来的时候，叔叔给他的。"
+          ],
+          "hints": [
+            {
+              "id": "pirates",
+              "kind": "word",
+              "target": "pirates",
+              "sentence": 16,
+              "zh": "海盗；指本·阿里那伙人，男孩的叔叔就是被他们劫走的。",
+              "en": "Pirates: Ben Ali’s men, who took the boy’s uncle."
+            }
+          ]
+        },
+        "chapter-18-p025": {
+          "sentences": [
+            "吉普闻了闻戒指，说："
+          ]
+        },
+        "chapter-18-p026": {
+          "sentences": [
+            "「这个不行。",
+            "问问他还有没有别的属于他叔叔的东西。」"
+          ]
+        },
+        "chapter-18-p027": {
+          "sentences": [
+            "于是男孩从口袋里掏出一块很大的红手帕，说：「这也是我叔叔的。」"
+          ]
+        },
+        "chapter-18-p028": {
+          "sentences": [
+            "男孩刚一掏出来，吉普就大声叫起来："
+          ]
+        },
+        "chapter-18-p029": {
+          "sentences": [
+            "「鼻烟，天哪！——黑拉皮鼻烟。",
+            "你们没闻到吗？",
+            "他叔叔吸鼻烟——问问他，医生。」"
+          ],
+          "hints": [
+            {
+              "id": "black-rappee",
+              "kind": "word",
+              "target": "Black Rappee snuff",
+              "sentence": 22,
+              "zh": "黑拉皮鼻烟，一种深色、磨得较粗的鼻烟，气味很重。",
+              "en": "Black Rappee: a dark, coarsely ground snuff with a strong smell."
+            },
+            {
+              "id": "by-jingo",
+              "kind": "phrase",
+              "target": "by Jingo",
+              "sentence": 22,
+              "zh": "感叹语，表示惊讶或兴奋，相当于「天哪」「好家伙」。",
+              "en": "By Jingo: an old exclamation of surprise or excitement."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Jip ask the Doctor to do?",
+          "options": [
+            "Ask the boy whether he has anything that belonged to his uncle.",
+            "Ask the boy where the pirates have gone.",
+            "Ask Dab-Dab to fly back home for help."
+          ],
+          "answer": 0,
+          "sentence": 13,
+          "feedback": {
+            "zh": "吉普的办法是先闻气味，所以它要医生问男孩口袋里有没有叔叔的东西。",
+            "en": "Jip’s plan starts from a smell, so he asks the Doctor to find out whether the boy carries anything of his uncle’s."
+          }
+        },
+        {
+          "question": "What did the boy do with the gold ring?",
+          "options": [
+            "He wore it on a piece of string around his neck.",
+            "He kept it hidden in his pocket.",
+            "He gave it back to the pirates."
+          ],
+          "answer": 0,
+          "sentence": 15,
+          "feedback": {
+            "zh": "戒指太大，戴不上手指，男孩就用一根绳子把它挂在脖子上。",
+            "en": "The ring was too big for his finger, so the boy wore it on a string around his neck."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "As soon as the boy pulled it out, Jip shouted",
+        "pointIds": [
+          "cefrj-158"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as soon as 引出先发生的动作，主句紧接着发生；前后两处都用一般过去时。",
+          "en": "As soon as introduces the first action and the main clause follows at once; both verbs are in the past."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "不用灯也能找",
+        "en": "No Light Needed"
+      },
+      "introduction": {
+        "zh": "男孩承认叔叔吸很多鼻烟，吉普立刻说这人等于已经找到了。可天已经黑了，医生想不出没有光怎么找。吉普却说，找一个满身鼻烟味的人根本不用灯——它只要知道风往哪边吹。",
+        "en": "The boy says his uncle took a lot of snuff, and Jip calls the man as good as found. But it is dark, and the Doctor does not see how anyone can search without a light. Jip needs only to know which way the wind blows."
+      },
+      "paragraphs": {
+        "chapter-18-p030": {
+          "sentences": [
+            "医生又问那男孩；他说：「是的。",
+            "我叔叔吸很多鼻烟。」"
+          ]
+        },
+        "chapter-18-p031": {
+          "sentences": [
+            "「太好了！」吉普说。",
+            "「这人跟找到了一样。这就像从小猫那儿偷奶一样容易。",
+            "告诉那男孩，我用不了一个星期就能替他找到叔叔。",
+            "我们上楼去，看看风往哪边吹。」"
+          ],
+          "hints": [
+            {
+              "id": "as-good-as-found",
+              "kind": "phrase",
+              "target": "as good as found",
+              "sentence": 4,
+              "zh": "等于已经找到了；as good as 表示「实际上差不多就是」。",
+              "en": "As good as found: for practical purposes he is already found."
+            },
+            {
+              "id": "twill",
+              "kind": "word",
+              "target": "’Twill",
+              "sentence": 4,
+              "zh": "旧式缩略说法，等于 it will，常见于老书和乡间口语。",
+              "en": "’Twill is an old contraction of it will, common in older books and country speech."
+            }
+          ]
+        },
+        "chapter-18-p032": {
+          "sentences": [
+            "「可是现在天黑了，」医生说。",
+            "「你在黑地里可找不到他！」"
+          ]
+        },
+        "chapter-18-p033": {
+          "sentences": [
+            "「我要找的是一个身上有黑拉皮鼻烟气味的男人，用不着什么光，」吉普一边上楼一边说。",
+            "「要是这人身上是股难缠的气味，比如绳子——或者热水，那就另当别论了。",
+            "可鼻烟！——啧，啧！」"
+          ],
+          "hints": [
+            {
+              "id": "hard-smell",
+              "kind": "phrase",
+              "target": "a hard smell",
+              "sentence": 10,
+              "zh": "难追踪的气味；这里 hard 说的是气味不好循着找，不是「浓烈」。",
+              "en": "A hard smell: one that is hard to follow, not a strong one."
+            },
+            {
+              "id": "tut-tut",
+              "kind": "phrase",
+              "target": "Tut, tut",
+              "sentence": 11,
+              "zh": "啧、啧：咂嘴的声音，表示不以为然或觉得太容易了。",
+              "en": "Tut, tut: a click of the tongue showing mild scorn or “how easy!”"
+            }
+          ]
+        },
+        "chapter-18-p034": {
+          "sentences": [
+            "「热水有气味吗？」医生问。"
+          ]
+        },
+        "chapter-18-p035": {
+          "sentences": [
+            "「当然有，」吉普说。",
+            "「热水的味道和冷水大不一样。",
+            "真正难闻出来的是温水——或者冰。",
+            "哎，有一回，我在一个漆黑的夜里跟着一个人走了十英里，全凭他用热水刮胡子留下的气味——那可怜的家伙没有肥皂……",
+            "好了，咱们来看看风往哪边吹。",
+            "远程闻气味，风非常重要。",
+            "风不能太猛——当然还得朝对的方向吹。",
+            "一阵柔和、稳定、带湿气的微风最好……",
+            "哈！——这风是从北边来的。」"
+          ],
+          "hints": [
+            {
+              "id": "long-distant-smelling",
+              "kind": "phrase",
+              "target": "long-distant smelling",
+              "sentence": 18,
+              "zh": "远距离闻气味；作者自造的说法，用连字符把三个词拼在一起。",
+              "en": "Long-distant smelling: the author’s own compound for smelling things far away."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Jip say the man is as good as found?",
+          "options": [
+            "Because a man who smells of snuff will be easy to follow by nose.",
+            "Because the boy knows exactly where his uncle went.",
+            "Because the wind is already blowing from the south."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "吉普认为有鼻烟味这条线索，找起来就像从小猫那儿偷奶一样容易。",
+            "en": "With the snuff smell to follow, Jip thinks the search will be as easy as stealing milk from a kitten."
+          }
+        },
+        {
+          "question": "Why does Jip go upstairs?",
+          "options": [
+            "To see which way the wind is blowing.",
+            "To fetch a lamp for the Doctor.",
+            "To look at the stars and find the north."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "吉普要上楼去看风往哪边吹——远距离闻气味全靠风。",
+            "en": "Jip wants to see which way the wind blows, because wind matters for smelling things far off."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "to look for a man who smells of Black Rappee snuff",
+        "pointIds": [
+          "cefrj-172"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "who smells… 是修饰 a man 的关系从句，说明吉普要找的是怎样一个人。",
+          "en": "The who-clause describes a man: it tells us what kind of man Jip means to look for."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "风里的气味",
+        "en": "Smells on the Wind"
+      },
+      "introduction": {
+        "zh": "吉普走到船头，迎着风念念有词：焦油、西班牙洋葱、煤油、湿雨衣、揉碎的月桂叶……医生问，一阵风里真有这么多东西？吉普哼了一声，说这不过是最容易的几样。它闭上眼，把鼻子翘向天空。",
+        "en": "At the front of the ship Jip mutters into the wind: tar, Spanish onions, kerosene, wet raincoats, crushed laurel leaves. Can one wind carry all that? Those, says Jip, are the easy smells. He shuts his eyes and lifts his nose to the sky."
+      },
+      "paragraphs": {
+        "chapter-18-p036": {
+          "sentences": [
+            "然后吉普走到船头，闻了闻风；他开始自言自语地嘟囔："
+          ]
+        },
+        "chapter-18-p037": {
+          "sentences": [
+            "「焦油；西班牙洋葱；煤油；淋湿的雨衣；揉碎的月桂叶；橡胶烧着的味道；正在洗的蕾丝窗帘——不对，我说错了，是挂出去晾的蕾丝窗帘；还有狐狸——好几百只——小狐狸；还有——」"
+          ],
+          "hints": [
+            {
+              "id": "em",
+              "kind": "word",
+              "target": "’em",
+              "sentence": 2,
+              "zh": "them 的口语缩略，前面常省掉 of：hundreds of ’em 就是「好几百只」。",
+              "en": "’Em is a spoken form of them: hundreds of ’em means hundreds of them."
+            }
+          ]
+        },
+        "chapter-18-p038": {
+          "sentences": [
+            "「这一阵风里，你真能闻出所有这些不同的东西？」医生问。"
+          ]
+        },
+        "chapter-18-p039": {
+          "sentences": [
+            "「哎，当然！」吉普说。",
+            "「这些还只是些容易闻的气味——那些浓的。",
+            "随便哪条杂种狗，就算鼻子伤风也闻得出来。",
+            "等等，我再说说这风里送来的几种更难分辨的气味——几样清淡细微的。」"
+          ],
+          "hints": [
+            {
+              "id": "cold-in-the-head",
+              "kind": "phrase",
+              "target": "a cold in the head",
+              "sentence": 6,
+              "zh": "鼻子伤风、鼻塞；鼻子不通气时闻不出味道。",
+              "en": "A cold in the head: a blocked nose, when you can hardly smell anything."
+            },
+            {
+              "id": "dainty-ones",
+              "kind": "phrase",
+              "target": "the dainty ones",
+              "sentence": 7,
+              "zh": "dainty 这里指气味清淡、细微，不是「漂亮」；指最难分辨的那几种。",
+              "en": "The dainty ones: smells that are light and faint, the hardest to pick out."
+            }
+          ]
+        },
+        "chapter-18-p040": {
+          "sentences": [
+            "然后狗紧紧闭上眼睛，把鼻子直直地朝天上翘起，半张着嘴使劲地嗅。"
+          ]
+        },
+        "chapter-18-p041": {
+          "sentences": [
+            "好长一段时间，他什么也没说。",
+            "他像石头一样一动不动。",
+            "他几乎一点气都不喘。",
+            "等他终于开口时，那声音几乎像是在梦里忧伤地唱歌。"
+          ]
+        },
+        "chapter-18-p042": {
+          "sentences": [
+            "「砖头，」他低声说，声音很轻——「老旧发黄的砖，在花园的围墙里随岁月碎成粉末；站在山溪里的年轻母牛呼出的甜甜气息；鸽舍的铅皮屋顶——也许是谷仓的——正晒着正午的太阳；放在胡桃木五斗柜抽屉里的黑色小羊皮手套；一条尘土飞扬的大路，梧桐树下有马匹饮水的水槽；小蘑菇从腐烂的树叶下面钻出来；还有——还有——还有——」"
+          ],
+          "hints": [
+            {
+              "id": "bureau-drawer",
+              "kind": "phrase",
+              "target": "bureau-drawer",
+              "sentence": 13,
+              "zh": "五斗柜的抽屉；bureau 在这里是带抽屉的柜子，不是「办公室」。",
+              "en": "A bureau-drawer: a drawer in a chest of drawers; bureau here is not an office."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Which of these does Jip smell first in the wind?",
+          "options": [
+            "Tar, Spanish onions and wet raincoats.",
+            "Fresh bread and roasted coffee.",
+            "Fish, seaweed and wet sand."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "吉普一口气报出焦油、西班牙洋葱、煤油、湿雨衣、月桂叶等，还算上了狐狸。",
+            "en": "Jip runs through tar, Spanish onions, kerosene, wet raincoats and laurel leaves, and adds foxes too."
+          }
+        },
+        {
+          "question": "What does Jip do before he names the harder smells?",
+          "options": [
+            "He shuts his eyes, lifts his nose and sniffs hard.",
+            "He runs to the back of the ship and hides.",
+            "He asks the Doctor for a pipe of tobacco."
+          ],
+          "answer": 0,
+          "sentence": 8,
+          "feedback": {
+            "zh": "他闭上眼、把鼻子朝天竖起、半张着嘴使劲嗅，还一动不动地站了很久。",
+            "en": "He shuts his eyes, pokes his nose up and sniffs hard, then stands as still as a stone for a long time."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "He hardly seemed to be breathing at all",
+        "pointIds": [
+          "cefrj-35"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "hardly 意思是「几乎不」，本身已带否定，句子后面不再加 not。",
+          "en": "Hardly already means almost not, so the sentence needs no not."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "等风转向南边",
+        "en": "Waiting for the South Wind"
+      },
+      "introduction": {
+        "zh": "咕咕只想知道风里有没有防风草；吉普说这阵风里有烟斗和雪茄，却没有鼻烟，得等风转到南边。咕咕便笑它是个骗子，吉普火了，医生赶紧叫停。他问吉普：这些气味究竟是从哪儿来的？",
+        "en": "Gub-Gub wants to know if there are parsnips in the wind. Jip finds pipes and cigars there, but no snuff — they must wait for the wind to turn south. Gub-Gub laughs at him, Jip loses his temper, and the Doctor stops the quarrel."
+      },
+      "paragraphs": {
+        "chapter-18-p043": {
+          "sentences": [
+            "「有防风草吗？」咕咕问。"
+          ],
+          "hints": [
+            {
+              "id": "parsnips",
+              "kind": "word",
+              "target": "parsnips",
+              "sentence": 1,
+              "zh": "防风草，一种像白胡萝卜的根菜；咕咕是猪，只惦记吃的。",
+              "en": "Parsnips: white root vegetables like carrots; Gub-Gub the pig thinks only of food."
+            }
+          ]
+        },
+        "chapter-18-p044": {
+          "sentences": [
+            "「没有，」吉普说。",
+            "「你总是想着吃的东西。",
+            "一点防风草也没有。",
+            "也没有鼻烟——烟斗和香烟倒不少，还有几支雪茄。",
+            "可就是没有鼻烟。",
+            "我们得等风转到南边。」"
+          ]
+        },
+        "chapter-18-p045": {
+          "sentences": [
+            "「是啊，这风不行啊，这风，」咕咕说。",
+            "「我看你是个骗子，吉普。",
+            "谁听说过在汪洋大海中间光靠闻气味就能找到人！",
+            "我早就跟你说过你办不到。」"
+          ]
+        },
+        "chapter-18-p046": {
+          "sentences": [
+            "「你听着，」吉普真的生气了。",
+            "「你再过一会儿鼻子上就要挨一口了！",
+            "你别以为医生不让我们给你点应得的教训，你就可以这么放肆！」"
+          ],
+          "hints": [
+            {
+              "id": "bite-on-the-nose",
+              "kind": "phrase",
+              "target": "a bite on the nose",
+              "sentence": 13,
+              "zh": "鼻子上挨一口：吉普威胁要咬咕咕的鼻子。",
+              "en": "A bite on the nose: Jip is threatening to bite Gub-Gub’s nose."
+            }
+          ]
+        },
+        "chapter-18-p047": {
+          "sentences": [
+            "「别吵了！」医生说——「停一停！",
+            "人生太短了。",
+            "告诉我，吉普，你觉得这些气味是从哪儿来的？」"
+          ],
+          "hints": [
+            {
+              "id": "lifes-too-short",
+              "kind": "phrase",
+              "target": "Life’s too short",
+              "sentence": 16,
+              "zh": "人生太短（不值得浪费在吵架上）；这是劝人别争的一句常用话。",
+              "en": "Life’s too short: a set phrase meaning it is not worth wasting time on a quarrel."
+            }
+          ]
+        },
+        "chapter-18-p048": {
+          "sentences": [
+            "「从德文郡和威尔士来——大部分是，」吉普说——「风就是从那边来的。」"
+          ],
+          "hints": [
+            {
+              "id": "devon-wales",
+              "kind": "word",
+              "target": "Devon and Wales",
+              "sentence": 18,
+              "zh": "德文郡和威尔士，英格兰西南面的两个地方，正在这条船的北风上游。",
+              "en": "Devon and Wales: two places in the south-west of Britain, upwind of the ship."
+            }
+          ]
+        },
+        "chapter-18-p049": {
+          "sentences": [
+            "「好了，好了！」医生说。",
+            "「你知道吗，这真是相当了不起——相当了不起。",
+            "我得把这件事记下来，写进我的新书里。",
+            "不知道你能不能把我训练得也那么会闻……",
+            "不过算了——也许我这样反倒更好。俗话说『知足常乐』。",
+            "咱们下去吃晚饭吧。",
+            "我挺饿了。」"
+          ],
+          "hints": [
+            {
+              "id": "enough-is-a-feast",
+              "kind": "sentence",
+              "target": "‘Enough is as good as a feast,’",
+              "sentence": 23,
+              "zh": "英国谚语：饱餐不过如此，够吃就等于盛宴——意思相近于「知足常乐」。",
+              "en": "An old proverb: enough is as good as a feast — be content with what you have."
+            }
+          ]
+        },
+        "chapter-18-p050": {
+          "sentences": [
+            "「我也饿了，」咕咕说。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why must they wait?",
+          "options": [
+            "The wind must change to the south before the snuff smell can reach them.",
+            "The boy must find another handkerchief for Jip to smell.",
+            "The Doctor must buy a map of Devon and Wales."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "这阵北风里只有烟斗、香烟和雪茄的气味，没有鼻烟，所以要等风转到南边。",
+            "en": "This north wind carries pipes, cigarettes and cigars but no snuff, so they must wait for the wind to turn south."
+          }
+        },
+        {
+          "question": "Where does Jip say most of the smells come from?",
+          "options": [
+            "From Devon and Wales.",
+            "From Spain and Africa.",
+            "From the islands of the North Sea."
+          ],
+          "answer": 0,
+          "sentence": 18,
+          "feedback": {
+            "zh": "吉普说这些气味大部分来自德文郡和威尔士——风就是从那个方向吹来的。",
+            "en": "Jip says most of the smells come from Devon and Wales, because the wind is blowing from that way."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Let’s go down to supper",
+        "pointIds": [
+          "cefrj-120"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "Let’s + 动词原形，提议一起做某事，说话人自己也算在内。",
+          "en": "Let’s + base verb suggests doing something together, with the speaker included."
+        }
+      }
+    }
+  ]
+}

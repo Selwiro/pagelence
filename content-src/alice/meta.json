@@ -1,0 +1,593 @@
+{
+  "schemaVersion": 2,
+  "id": "alice-1866",
+  "creator": "Pagelence",
+  "version": "1.0.0",
+  "language": "en",
+  "level": "B1",
+  "levelNote": "Lexile 860L、ATOS 7.4；出版方多标 B1，对话密集、双关多。",
+  "contentStatus": "complete",
+  "wordCount": 26568,
+  "updatedAt": "2026-11-21",
+  "minAppVersionCode": 1,
+  "title": {
+    "zh": "爱丽丝漫游仙境记",
+    "en": "Alice's Adventures in Wonderland"
+  },
+  "author": "Lewis Carroll",
+  "edition": "1866 Macmillan (John Tenniel illustrations)",
+  "description": {
+    "zh": "一个下午，爱丽丝追着一只揣着怀表的白兔掉进兔子洞，走进一个讲规矩、也讲荒唐的世界。",
+    "en": "One afternoon Alice follows a waistcoat-wearing White Rabbit down a hole into a world that is as rule-bound as it is absurd."
+  },
+  "source": {
+    "publisher": "Macmillan and Co., London, 1866 printing",
+    "url": "https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland_(1866)",
+    "note": "Text from the Wikisource transcription of the 1866 Macmillan printing (PD worldwide; Carroll died 1898). Illustrations are not bundled."
+  },
+  "chapters": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "掉进兔子洞",
+        "en": "Down the Rabbit-Hole"
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "眼泪池",
+        "en": "The Pool of Tears"
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "一场会议式赛跑和一段长故事",
+        "en": "A Caucus-Race and a Long Tale"
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "兔子派小比尔进屋",
+        "en": "The Rabbit Sends in a Little Bill"
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "毛毛虫的建议",
+        "en": "Advice from a Caterpillar"
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "猪和胡椒",
+        "en": "Pig and Pepper"
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "疯狂的茶会",
+        "en": "A Mad Tea-Party"
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "王后的槌球场",
+        "en": "The Queen's Croquet-Ground"
+      }
+    },
+    {
+      "number": 9,
+      "title": {
+        "zh": "假海龟的故事",
+        "en": "The Mock Turtle's Story"
+      }
+    },
+    {
+      "number": 10,
+      "title": {
+        "zh": "龙虾四对舞",
+        "en": "The Lobster Quadrille"
+      }
+    },
+    {
+      "number": 11,
+      "title": {
+        "zh": "谁偷了馅饼",
+        "en": "Who Stole the Tarts?"
+      }
+    },
+    {
+      "number": 12,
+      "title": {
+        "zh": "爱丽丝的证词",
+        "en": "Alice's Evidence"
+      }
+    }
+  ],
+  "licenses": {
+    "source": {
+      "type": "public-domain",
+      "publicDomain": [
+        "CN",
+        "US"
+      ],
+      "url": "https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland_(1866)",
+      "note": "1866 年 Macmillan and Co.（伦敦）版；作者 1898 年去世，中国、美国均已进入公有领域。"
+    },
+    "creator": {
+      "type": "CC-BY-SA-4.0",
+      "name": "Creative Commons Attribution-ShareAlike 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "scope": "句译、导读、测验、提示、语法解析、长难句解析与版面"
+    }
+  },
+  "unitTargetWords": 280,
+  "unitRanges": {
+    "1": [
+      [
+        1,
+        4
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        12,
+        14
+      ],
+      [
+        15,
+        17
+      ],
+      [
+        18,
+        20
+      ],
+      [
+        21,
+        24
+      ]
+    ],
+    "2": [
+      [
+        1,
+        6
+      ],
+      [
+        7,
+        9
+      ],
+      [
+        10,
+        12
+      ],
+      [
+        13,
+        14
+      ],
+      [
+        15,
+        17
+      ],
+      [
+        18,
+        19
+      ],
+      [
+        20,
+        22
+      ],
+      [
+        23,
+        24
+      ],
+      [
+        25,
+        25
+      ]
+    ],
+    "3": [
+      [
+        1,
+        5
+      ],
+      [
+        6,
+        16
+      ],
+      [
+        17,
+        22
+      ],
+      [
+        23,
+        32
+      ],
+      [
+        33,
+        41
+      ],
+      [
+        42,
+        46
+      ],
+      [
+        47,
+        47
+      ]
+    ],
+    "4": [
+      [
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        8,
+        12
+      ],
+      [
+        13,
+        20
+      ],
+      [
+        21,
+        24
+      ],
+      [
+        25,
+        30
+      ],
+      [
+        31,
+        34
+      ],
+      [
+        35,
+        38
+      ],
+      [
+        39,
+        41
+      ]
+    ],
+    "5": [
+      [
+        1,
+        14
+      ],
+      [
+        15,
+        28
+      ],
+      [
+        29,
+        39
+      ],
+      [
+        40,
+        50
+      ],
+      [
+        51,
+        54
+      ],
+      [
+        55,
+        62
+      ],
+      [
+        63,
+        71
+      ],
+      [
+        72,
+        74
+      ],
+      [
+        75,
+        75
+      ]
+    ],
+    "6": [
+      [
+        1,
+        5
+      ],
+      [
+        6,
+        13
+      ],
+      [
+        14,
+        23
+      ],
+      [
+        24,
+        30
+      ],
+      [
+        31,
+        42
+      ],
+      [
+        43,
+        45
+      ],
+      [
+        46,
+        49
+      ],
+      [
+        50,
+        64
+      ],
+      [
+        65,
+        76
+      ],
+      [
+        77,
+        79
+      ]
+    ],
+    "7": [
+      [
+        1,
+        11
+      ],
+      [
+        12,
+        22
+      ],
+      [
+        23,
+        35
+      ],
+      [
+        36,
+        52
+      ],
+      [
+        53,
+        68
+      ],
+      [
+        69,
+        82
+      ],
+      [
+        83,
+        95
+      ],
+      [
+        96,
+        103
+      ]
+    ],
+    "8": [
+      [
+        1,
+        9
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        12,
+        19
+      ],
+      [
+        20,
+        33
+      ],
+      [
+        34,
+        42
+      ],
+      [
+        43,
+        45
+      ],
+      [
+        46,
+        50
+      ],
+      [
+        51,
+        61
+      ],
+      [
+        62,
+        65
+      ],
+      [
+        66,
+        72
+      ]
+    ],
+    "9": [
+      [
+        1,
+        6
+      ],
+      [
+        7,
+        18
+      ],
+      [
+        19,
+        29
+      ],
+      [
+        30,
+        36
+      ],
+      [
+        37,
+        46
+      ],
+      [
+        47,
+        54
+      ],
+      [
+        55,
+        70
+      ],
+      [
+        71,
+        84
+      ],
+      [
+        85,
+        92
+      ]
+    ],
+    "10": [
+      [
+        1,
+        16
+      ],
+      [
+        17,
+        24
+      ],
+      [
+        25,
+        31
+      ],
+      [
+        32,
+        43
+      ],
+      [
+        44,
+        53
+      ],
+      [
+        54,
+        64
+      ],
+      [
+        65,
+        74
+      ],
+      [
+        75,
+        79
+      ]
+    ],
+    "11": [
+      [
+        1,
+        3
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        9,
+        17
+      ],
+      [
+        18,
+        30
+      ],
+      [
+        31,
+        45
+      ],
+      [
+        46,
+        59
+      ],
+      [
+        60,
+        72
+      ],
+      [
+        73,
+        74
+      ]
+    ],
+    "12": [
+      [
+        1,
+        4
+      ],
+      [
+        5,
+        17
+      ],
+      [
+        18,
+        31
+      ],
+      [
+        32,
+        45
+      ],
+      [
+        46,
+        53
+      ],
+      [
+        54,
+        63
+      ],
+      [
+        64,
+        66
+      ],
+      [
+        67,
+        68
+      ]
+    ]
+  },
+  "category": {
+    "id": "literature",
+    "zh": "文学作品",
+    "en": "Literature"
+  },
+  "tags": [
+    {
+      "zh": "奇幻",
+      "en": "Fantasy"
+    },
+    {
+      "zh": "冒险",
+      "en": "Adventure"
+    },
+    {
+      "zh": "童话",
+      "en": "Fairy tale"
+    }
+  ]
+}

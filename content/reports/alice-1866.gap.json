@@ -1,0 +1,1740 @@
+{
+  "schemaVersion": 3,
+  "bookId": "alice-1866",
+  "source": {
+    "book": "Wikisource: Alice's Adventures in Wonderland (1866)",
+    "url": "https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland_(1866)",
+    "builtBy": "tools/build_alice_book.py"
+  },
+  "rules": {
+    "sentenceTranslations": "单元内每一句都要有 sentences[].zh；缺一句即计入缺口。",
+    "quiz": "unit.quiz 至少 1 题，每题至少 2 个选项、answer 合法、sentence 指回单元内 1 起的句序。",
+    "grammarAnalysis": "grammar 解析齐全：书内写全 form/explain/focus，或 pointIds 首个命中语法库的 form+function+pitfalls 且书中给出 focus。"
+  },
+  "notes": [
+    "全书 12 章 104 单元按书籍包内容规范补齐标题、导读、句译、测验与语法。",
+    "unitRanges 冻结在 content-src/alice/meta.json，重建不重算单元边界。"
+  ],
+  "totals": {
+    "chapters": 12,
+    "units": 104,
+    "paragraphs": 779,
+    "sentences": 1359,
+    "translatedSentences": 1359,
+    "words": 26568,
+    "unitsMissingTranslations": 0,
+    "unitsMissingQuiz": 0,
+    "unitsMissingGrammarAnalysis": 0,
+    "unitsMissingAll": 0,
+    "sentencesWithoutTranslation": 0,
+    "hints": 479
+  },
+  "chapters": [
+    {
+      "id": "chapter-01",
+      "number": 1,
+      "title": {
+        "zh": "掉进兔子洞",
+        "en": "Down the Rabbit-Hole"
+      },
+      "units": 8,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-02",
+      "number": 2,
+      "title": {
+        "zh": "眼泪池",
+        "en": "The Pool of Tears"
+      },
+      "units": 9,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-03",
+      "number": 3,
+      "title": {
+        "zh": "一场会议式赛跑和一段长故事",
+        "en": "A Caucus-Race and a Long Tale"
+      },
+      "units": 7,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-04",
+      "number": 4,
+      "title": {
+        "zh": "兔子派小比尔进屋",
+        "en": "The Rabbit Sends in a Little Bill"
+      },
+      "units": 10,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-05",
+      "number": 5,
+      "title": {
+        "zh": "毛毛虫的建议",
+        "en": "Advice from a Caterpillar"
+      },
+      "units": 9,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-06",
+      "number": 6,
+      "title": {
+        "zh": "猪和胡椒",
+        "en": "Pig and Pepper"
+      },
+      "units": 10,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-07",
+      "number": 7,
+      "title": {
+        "zh": "疯狂的茶会",
+        "en": "A Mad Tea-Party"
+      },
+      "units": 8,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-08",
+      "number": 8,
+      "title": {
+        "zh": "王后的槌球场",
+        "en": "The Queen's Croquet-Ground"
+      },
+      "units": 10,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-09",
+      "number": 9,
+      "title": {
+        "zh": "假海龟的故事",
+        "en": "The Mock Turtle's Story"
+      },
+      "units": 9,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-10",
+      "number": 10,
+      "title": {
+        "zh": "龙虾四对舞",
+        "en": "The Lobster Quadrille"
+      },
+      "units": 8,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-11",
+      "number": 11,
+      "title": {
+        "zh": "谁偷了馅饼",
+        "en": "Who Stole the Tarts?"
+      },
+      "units": 8,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    },
+    {
+      "id": "chapter-12",
+      "number": 12,
+      "title": {
+        "zh": "爱丽丝的证词",
+        "en": "Alice's Evidence"
+      },
+      "units": 8,
+      "missingTranslations": 0,
+      "missingQuiz": 0,
+      "missingGrammarAnalysis": 0
+    }
+  ],
+  "units": [
+    {
+      "id": "chapter-01-u01",
+      "chapterId": "chapter-01",
+      "unitNumber": 1,
+      "title": {
+        "zh": "一只看怀表的兔子",
+        "en": "The Rabbit with a Watch"
+      },
+      "paragraphs": 4,
+      "sentences": 6,
+      "translatedSentences": 6,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-01-u02",
+      "chapterId": "chapter-01",
+      "unitNumber": 2,
+      "title": {
+        "zh": "掉进深井",
+        "en": "Down a Very Deep Well"
+      },
+      "paragraphs": 3,
+      "sentences": 7,
+      "translatedSentences": 7,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-01-u03",
+      "chapterId": "chapter-01",
+      "unitNumber": 3,
+      "title": {
+        "zh": "四千英里之下",
+        "en": "Four Thousand Miles Down"
+      },
+      "paragraphs": 2,
+      "sentences": 12,
+      "translatedSentences": 12,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-01-u04",
+      "chapterId": "chapter-01",
+      "unitNumber": 4,
+      "title": {
+        "zh": "猫吃蝙蝠吗",
+        "en": "Do Cats Eat Bats?"
+      },
+      "paragraphs": 2,
+      "sentences": 13,
+      "translatedSentences": 13,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-01-u05",
+      "chapterId": "chapter-01",
+      "unitNumber": 5,
+      "title": {
+        "zh": "帘子后的小门",
+        "en": "The Door Behind the Curtain"
+      },
+      "paragraphs": 3,
+      "sentences": 8,
+      "translatedSentences": 8,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-01-u06",
+      "chapterId": "chapter-01",
+      "unitNumber": 6,
+      "title": {
+        "zh": "写着“喝我”的瓶子",
+        "en": "A Bottle Says DRINK ME"
+      },
+      "paragraphs": 3,
+      "sentences": 4,
+      "translatedSentences": 4,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-01-u07",
+      "chapterId": "chapter-01",
+      "unitNumber": 7,
+      "title": {
+        "zh": "缩到十英寸高",
+        "en": "Ten Inches Tall"
+      },
+      "paragraphs": 3,
+      "sentences": 6,
+      "translatedSentences": 6,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-01-u08",
+      "chapterId": "chapter-01",
+      "unitNumber": 8,
+      "title": {
+        "zh": "写着“吃我”的蛋糕",
+        "en": "A Cake Says EAT ME"
+      },
+      "paragraphs": 4,
+      "sentences": 8,
+      "translatedSentences": 8,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u01",
+      "chapterId": "chapter-02",
+      "unitNumber": 1,
+      "title": {
+        "zh": "给双脚寄靴子",
+        "en": "Boots by Post"
+      },
+      "paragraphs": 6,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u02",
+      "chapterId": "chapter-02",
+      "unitNumber": 2,
+      "title": {
+        "zh": "我是谁？",
+        "en": "Who in the World Am I?"
+      },
+      "paragraphs": 3,
+      "sentences": 17,
+      "translatedSentences": 17,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u03",
+      "chapterId": "chapter-02",
+      "unitNumber": 3,
+      "title": {
+        "zh": "怎么也背不对",
+        "en": "Nothing Comes Out Right"
+      },
+      "paragraphs": 3,
+      "sentences": 11,
+      "translatedSentences": 11,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u04",
+      "chapterId": "chapter-02",
+      "unitNumber": 4,
+      "title": {
+        "zh": "白兔的手套",
+        "en": "The Rabbit's Glove"
+      },
+      "paragraphs": 2,
+      "sentences": 9,
+      "translatedSentences": 9,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u05",
+      "chapterId": "chapter-02",
+      "unitNumber": 5,
+      "title": {
+        "zh": "门又关上了",
+        "en": "The Door Shuts Again"
+      },
+      "paragraphs": 3,
+      "sentences": 8,
+      "translatedSentences": 8,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u06",
+      "chapterId": "chapter-02",
+      "unitNumber": 6,
+      "title": {
+        "zh": "水里还有谁",
+        "en": "Something in the Water"
+      },
+      "paragraphs": 2,
+      "sentences": 5,
+      "translatedSentences": 5,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u07",
+      "chapterId": "chapter-02",
+      "unitNumber": 7,
+      "title": {
+        "zh": "一句法语惹的祸",
+        "en": "A French Question"
+      },
+      "paragraphs": 3,
+      "sentences": 14,
+      "translatedSentences": 14,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u08",
+      "chapterId": "chapter-02",
+      "unitNumber": 8,
+      "title": {
+        "zh": "换个话题：狗",
+        "en": "Talking of Dogs"
+      },
+      "paragraphs": 2,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-02-u09",
+      "chapterId": "chapter-02",
+      "unitNumber": 9,
+      "title": {
+        "zh": "池子里挤满了",
+        "en": "The Pool Gets Crowded"
+      },
+      "paragraphs": 1,
+      "sentences": 2,
+      "translatedSentences": 2,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-03-u01",
+      "chapterId": "chapter-03",
+      "unitNumber": 1,
+      "title": {
+        "zh": "最“干”的东西",
+        "en": "The Driest Thing I Know"
+      },
+      "paragraphs": 5,
+      "sentences": 12,
+      "translatedSentences": 12,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-03-u02",
+      "chapterId": "chapter-03",
+      "unitNumber": 2,
+      "title": {
+        "zh": "请说人话",
+        "en": "Speak English!"
+      },
+      "paragraphs": 11,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-03-u03",
+      "chapterId": "chapter-03",
+      "unitNumber": 3,
+      "title": {
+        "zh": "绕圈子的赛跑",
+        "en": "A Race in a Circle"
+      },
+      "paragraphs": 6,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-03-u04",
+      "chapterId": "chapter-03",
+      "unitNumber": 4,
+      "title": {
+        "zh": "顶针也当奖品",
+        "en": "A Thimble for a Prize"
+      },
+      "paragraphs": 10,
+      "sentences": 13,
+      "translatedSentences": 13,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-03-u05",
+      "chapterId": "chapter-03",
+      "unitNumber": 5,
+      "title": {
+        "zh": "尾巴，还是故事？",
+        "en": "A Tail or a Tale?"
+      },
+      "paragraphs": 9,
+      "sentences": 17,
+      "translatedSentences": 17,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-03-u06",
+      "chapterId": "chapter-03",
+      "unitNumber": 6,
+      "title": {
+        "zh": "别提起黛娜",
+        "en": "Don't Mention Dinah"
+      },
+      "paragraphs": 5,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-03-u07",
+      "chapterId": "chapter-03",
+      "unitNumber": 7,
+      "title": {
+        "zh": "远处又有脚步声",
+        "en": "Footsteps in the Distance"
+      },
+      "paragraphs": 1,
+      "sentences": 6,
+      "translatedSentences": 6,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u01",
+      "chapterId": "chapter-04",
+      "unitNumber": 1,
+      "title": {
+        "zh": "快跑，玛丽·安！",
+        "en": "Run, Mary Ann!"
+      },
+      "paragraphs": 2,
+      "sentences": 11,
+      "translatedSentences": 11,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u02",
+      "chapterId": "chapter-04",
+      "unitNumber": 2,
+      "title": {
+        "zh": "给兔子当女仆",
+        "en": "A Message for a Rabbit"
+      },
+      "paragraphs": 2,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u03",
+      "chapterId": "chapter-04",
+      "unitNumber": 3,
+      "title": {
+        "zh": "没有标签的瓶子",
+        "en": "The Bottle with No Label"
+      },
+      "paragraphs": 3,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u04",
+      "chapterId": "chapter-04",
+      "unitNumber": 4,
+      "title": {
+        "zh": "长大以后的麻烦",
+        "en": "The Trouble with Growing Up"
+      },
+      "paragraphs": 5,
+      "sentences": 14,
+      "translatedSentences": 14,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u05",
+      "chapterId": "chapter-04",
+      "unitNumber": 5,
+      "title": {
+        "zh": "窗外的胳膊",
+        "en": "An Arm in the Window"
+      },
+      "paragraphs": 8,
+      "sentences": 21,
+      "translatedSentences": 21,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u06",
+      "chapterId": "chapter-04",
+      "unitNumber": 6,
+      "title": {
+        "zh": "没人愿意去的差事",
+        "en": "Nobody Wants the Job"
+      },
+      "paragraphs": 4,
+      "sentences": 12,
+      "translatedSentences": 12,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u07",
+      "chapterId": "chapter-04",
+      "unitNumber": 7,
+      "title": {
+        "zh": "烟囱里的访客",
+        "en": "A Visitor in the Chimney"
+      },
+      "paragraphs": 6,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u08",
+      "chapterId": "chapter-04",
+      "unitNumber": 8,
+      "title": {
+        "zh": "飞进窗口的石头",
+        "en": "Pebbles at the Window"
+      },
+      "paragraphs": 4,
+      "sentences": 11,
+      "translatedSentences": 11,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u09",
+      "chapterId": "chapter-04",
+      "unitNumber": 9,
+      "title": {
+        "zh": "树林里的大狗崽",
+        "en": "A Puppy in the Wood"
+      },
+      "paragraphs": 4,
+      "sentences": 7,
+      "translatedSentences": 7,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-04-u10",
+      "chapterId": "chapter-04",
+      "unitNumber": 10,
+      "title": {
+        "zh": "蘑菇上面有什么？",
+        "en": "What Is on the Mushroom?"
+      },
+      "paragraphs": 3,
+      "sentences": 9,
+      "translatedSentences": 9,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u01",
+      "chapterId": "chapter-05",
+      "unitNumber": 1,
+      "title": {
+        "zh": "你是谁？",
+        "en": "Who Are You?"
+      },
+      "paragraphs": 14,
+      "sentences": 18,
+      "translatedSentences": 18,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u02",
+      "chapterId": "chapter-05",
+      "unitNumber": 2,
+      "title": {
+        "zh": "一句要紧的话",
+        "en": "Something Important to Say"
+      },
+      "paragraphs": 14,
+      "sentences": 17,
+      "translatedSentences": 17,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u03",
+      "chapterId": "chapter-05",
+      "unitNumber": 3,
+      "title": {
+        "zh": "背一首歪诗",
+        "en": "A Poem Gone Wrong"
+      },
+      "paragraphs": 11,
+      "sentences": 13,
+      "translatedSentences": 13,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u04",
+      "chapterId": "chapter-05",
+      "unitNumber": 4,
+      "title": {
+        "zh": "三英寸的尊严",
+        "en": "Three Inches Tall"
+      },
+      "paragraphs": 11,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u05",
+      "chapterId": "chapter-05",
+      "unitNumber": 5,
+      "title": {
+        "zh": "掰开蘑菇",
+        "en": "Which Side Is Which?"
+      },
+      "paragraphs": 4,
+      "sentences": 6,
+      "translatedSentences": 6,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u06",
+      "chapterId": "chapter-05",
+      "unitNumber": 6,
+      "title": {
+        "zh": "鸽子眼中的蛇",
+        "en": "A Serpent, Surely"
+      },
+      "paragraphs": 8,
+      "sentences": 14,
+      "translatedSentences": 14,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u07",
+      "chapterId": "chapter-05",
+      "unitNumber": 7,
+      "title": {
+        "zh": "三个星期没合眼",
+        "en": "Three Weeks Without Sleep"
+      },
+      "paragraphs": 9,
+      "sentences": 18,
+      "translatedSentences": 18,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u08",
+      "chapterId": "chapter-05",
+      "unitNumber": 8,
+      "title": {
+        "zh": "生蛋与熟蛋",
+        "en": "Raw Eggs and Little Girls"
+      },
+      "paragraphs": 3,
+      "sentences": 5,
+      "translatedSentences": 5,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-05-u09",
+      "chapterId": "chapter-05",
+      "unitNumber": 9,
+      "title": {
+        "zh": "四英尺高的房子",
+        "en": "A House Four Feet High"
+      },
+      "paragraphs": 1,
+      "sentences": 8,
+      "translatedSentences": 8,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u01",
+      "chapterId": "chapter-06",
+      "unitNumber": 1,
+      "title": {
+        "zh": "门口的两个仆人",
+        "en": "Two Footmen at the Door"
+      },
+      "paragraphs": 5,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u02",
+      "chapterId": "chapter-06",
+      "unitNumber": 2,
+      "title": {
+        "zh": "敲门有什么用",
+        "en": "No Use in Knocking"
+      },
+      "paragraphs": 8,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u03",
+      "chapterId": "chapter-06",
+      "unitNumber": 3,
+      "title": {
+        "zh": "满屋胡椒",
+        "en": "Too Much Pepper"
+      },
+      "paragraphs": 10,
+      "sentences": 19,
+      "translatedSentences": 19,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u04",
+      "chapterId": "chapter-06",
+      "unitNumber": 4,
+      "title": {
+        "zh": "飞来的锅碗",
+        "en": "Flying Saucepans"
+      },
+      "paragraphs": 7,
+      "sentences": 13,
+      "translatedSentences": 13,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u05",
+      "chapterId": "chapter-06",
+      "unitNumber": 5,
+      "title": {
+        "zh": "摇篮曲与斧头",
+        "en": "A Lullaby and an Axe"
+      },
+      "paragraphs": 12,
+      "sentences": 17,
+      "translatedSentences": 17,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u06",
+      "chapterId": "chapter-06",
+      "unitNumber": 6,
+      "title": {
+        "zh": "把孩子抱出去",
+        "en": "Out into the Open Air"
+      },
+      "paragraphs": 3,
+      "sentences": 9,
+      "translatedSentences": 9,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u07",
+      "chapterId": "chapter-06",
+      "unitNumber": 7,
+      "title": {
+        "zh": "越看越不像孩子",
+        "en": "Not Quite a Baby"
+      },
+      "paragraphs": 4,
+      "sentences": 11,
+      "translatedSentences": 11,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u08",
+      "chapterId": "chapter-06",
+      "unitNumber": 8,
+      "title": {
+        "zh": "该往哪边走",
+        "en": "Which Way to Go?"
+      },
+      "paragraphs": 15,
+      "sentences": 21,
+      "translatedSentences": 21,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u09",
+      "chapterId": "chapter-06",
+      "unitNumber": 9,
+      "title": {
+        "zh": "这里人人都疯",
+        "en": "We're All Mad Here"
+      },
+      "paragraphs": 12,
+      "sentences": 19,
+      "translatedSentences": 19,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-06-u10",
+      "chapterId": "chapter-06",
+      "unitNumber": 10,
+      "title": {
+        "zh": "猫没了，笑还在",
+        "en": "A Grin Without a Cat"
+      },
+      "paragraphs": 3,
+      "sentences": 7,
+      "translatedSentences": 7,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u01",
+      "chapterId": "chapter-07",
+      "unitNumber": 1,
+      "title": {
+        "zh": "大桌子，没位子",
+        "en": "A Table with No Room"
+      },
+      "paragraphs": 11,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u02",
+      "chapterId": "chapter-07",
+      "unitNumber": 2,
+      "title": {
+        "zh": "一句话的两种说法",
+        "en": "Two Ways to Say It"
+      },
+      "paragraphs": 11,
+      "sentences": 14,
+      "translatedSentences": 14,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u03",
+      "chapterId": "chapter-07",
+      "unitNumber": 3,
+      "title": {
+        "zh": "一只不报钟点的表",
+        "en": "A Watch Without Hours"
+      },
+      "paragraphs": 13,
+      "sentences": 19,
+      "translatedSentences": 19,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u04",
+      "chapterId": "chapter-07",
+      "unitNumber": 4,
+      "title": {
+        "zh": "时间是个先生",
+        "en": "Time Is a Person"
+      },
+      "paragraphs": 17,
+      "sentences": 29,
+      "translatedSentences": 29,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u05",
+      "chapterId": "chapter-07",
+      "unitNumber": 5,
+      "title": {
+        "zh": "桌子为什么总摆着茶",
+        "en": "Why the Table Is Always Laid"
+      },
+      "paragraphs": 16,
+      "sentences": 25,
+      "translatedSentences": 25,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u06",
+      "chapterId": "chapter-07",
+      "unitNumber": 6,
+      "title": {
+        "zh": "糖浆井底的三姐妹",
+        "en": "Three Sisters in a Treacle Well"
+      },
+      "paragraphs": 14,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u07",
+      "chapterId": "chapter-07",
+      "unitNumber": 7,
+      "title": {
+        "zh": "画画，还是打水？",
+        "en": "Drawing, or Drawing Water?"
+      },
+      "paragraphs": 13,
+      "sentences": 19,
+      "translatedSentences": 19,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-07-u08",
+      "chapterId": "chapter-07",
+      "unitNumber": 8,
+      "title": {
+        "zh": "树上的门",
+        "en": "The Door in the Tree"
+      },
+      "paragraphs": 8,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u01",
+      "chapterId": "chapter-08",
+      "unitNumber": 1,
+      "title": {
+        "zh": "玫瑰为什么被涂红",
+        "en": "Why Paint the Roses Red?"
+      },
+      "paragraphs": 9,
+      "sentences": 14,
+      "translatedSentences": 14,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u02",
+      "chapterId": "chapter-08",
+      "unitNumber": 2,
+      "title": {
+        "zh": "一队奇怪的队伍",
+        "en": "A Very Odd Procession"
+      },
+      "paragraphs": 2,
+      "sentences": 9,
+      "translatedSentences": 9,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u03",
+      "chapterId": "chapter-08",
+      "unitNumber": 3,
+      "title": {
+        "zh": "王后开口问话",
+        "en": "The Queen Asks Questions"
+      },
+      "paragraphs": 8,
+      "sentences": 13,
+      "translatedSentences": 13,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u04",
+      "chapterId": "chapter-08",
+      "unitNumber": 4,
+      "title": {
+        "zh": "快把他们翻过来",
+        "en": "Turn Them Over!"
+      },
+      "paragraphs": 14,
+      "sentences": 19,
+      "translatedSentences": 19,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u05",
+      "chapterId": "chapter-08",
+      "unitNumber": 5,
+      "title": {
+        "zh": "白兔的悄悄话",
+        "en": "The Rabbit's Whisper"
+      },
+      "paragraphs": 9,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u06",
+      "chapterId": "chapter-08",
+      "unitNumber": 6,
+      "title": {
+        "zh": "最难的一场球",
+        "en": "The Hardest Game"
+      },
+      "paragraphs": 3,
+      "sentences": 4,
+      "translatedSentences": 4,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u07",
+      "chapterId": "chapter-08",
+      "unitNumber": 7,
+      "title": {
+        "zh": "空中的笑",
+        "en": "A Grin in the Air"
+      },
+      "paragraphs": 5,
+      "sentences": 8,
+      "translatedSentences": 8,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u08",
+      "chapterId": "chapter-08",
+      "unitNumber": 8,
+      "title": {
+        "zh": "猫也有权看国王",
+        "en": "A Cat May Look at a King"
+      },
+      "paragraphs": 11,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u09",
+      "chapterId": "chapter-08",
+      "unitNumber": 9,
+      "title": {
+        "zh": "刺猬、火烈鸟和球门",
+        "en": "Hedgehogs, Flamingoes, Arches"
+      },
+      "paragraphs": 4,
+      "sentences": 7,
+      "translatedSentences": 7,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-08-u10",
+      "chapterId": "chapter-08",
+      "unitNumber": 10,
+      "title": {
+        "zh": "谁来砍这个头",
+        "en": "Who Cuts Off This Head?"
+      },
+      "paragraphs": 7,
+      "sentences": 8,
+      "translatedSentences": 8,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u01",
+      "chapterId": "chapter-09",
+      "unitNumber": 1,
+      "title": {
+        "zh": "胡椒与寓意",
+        "en": "Pepper and Morals"
+      },
+      "paragraphs": 6,
+      "sentences": 12,
+      "translatedSentences": 12,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u02",
+      "chapterId": "chapter-09",
+      "unitNumber": 2,
+      "title": {
+        "zh": "尖下巴与火烈鸟",
+        "en": "A Sharp Chin and a Flamingo"
+      },
+      "paragraphs": 12,
+      "sentences": 17,
+      "translatedSentences": 17,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u03",
+      "chapterId": "chapter-09",
+      "unitNumber": 3,
+      "title": {
+        "zh": "芥末矿与猪会飞",
+        "en": "Mustard Mines and Flying Pigs"
+      },
+      "paragraphs": 11,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u04",
+      "chapterId": "chapter-09",
+      "unitNumber": 4,
+      "title": {
+        "zh": "王后驾到",
+        "en": "The Queen Arrives"
+      },
+      "paragraphs": 7,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u05",
+      "chapterId": "chapter-09",
+      "unitNumber": 5,
+      "title": {
+        "zh": "假海龟是什么？",
+        "en": "What Is a Mock Turtle?"
+      },
+      "paragraphs": 10,
+      "sentences": 17,
+      "translatedSentences": 17,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u06",
+      "chapterId": "chapter-09",
+      "unitNumber": 6,
+      "title": {
+        "zh": "岩石上的叹息",
+        "en": "Sighs on a Rock"
+      },
+      "paragraphs": 8,
+      "sentences": 14,
+      "translatedSentences": 14,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u07",
+      "chapterId": "chapter-09",
+      "unitNumber": 7,
+      "title": {
+        "zh": "海底的学校",
+        "en": "School in the Sea"
+      },
+      "paragraphs": 16,
+      "sentences": 23,
+      "translatedSentences": 23,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u08",
+      "chapterId": "chapter-09",
+      "unitNumber": 8,
+      "title": {
+        "zh": "丑化与拖长腔",
+        "en": "Uglification and Drawling"
+      },
+      "paragraphs": 14,
+      "sentences": 20,
+      "translatedSentences": 20,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-09-u09",
+      "chapterId": "chapter-09",
+      "unitNumber": 9,
+      "title": {
+        "zh": "一天比一天少",
+        "en": "Fewer Every Day"
+      },
+      "paragraphs": 8,
+      "sentences": 10,
+      "translatedSentences": 10,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u01",
+      "chapterId": "chapter-10",
+      "unitNumber": 1,
+      "title": {
+        "zh": "海底怎么跳舞",
+        "en": "How to Dance Under the Sea"
+      },
+      "paragraphs": 16,
+      "sentences": 21,
+      "translatedSentences": 21,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u02",
+      "chapterId": "chapter-10",
+      "unitNumber": 2,
+      "title": {
+        "zh": "围着爱丽丝跳",
+        "en": "Dancing Round Alice"
+      },
+      "paragraphs": 8,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u03",
+      "chapterId": "chapter-10",
+      "unitNumber": 3,
+      "title": {
+        "zh": "蜗牛不肯跳",
+        "en": "The Snail Says No"
+      },
+      "paragraphs": 7,
+      "sentences": 14,
+      "translatedSentences": 14,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u04",
+      "chapterId": "chapter-10",
+      "unitNumber": 4,
+      "title": {
+        "zh": "尾巴为什么在嘴里",
+        "en": "Why the Tail Is in the Mouth"
+      },
+      "paragraphs": 12,
+      "sentences": 26,
+      "translatedSentences": 26,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u05",
+      "chapterId": "chapter-10",
+      "unitNumber": 5,
+      "title": {
+        "zh": "海豚还是目的",
+        "en": "A Porpoise or a Purpose"
+      },
+      "paragraphs": 10,
+      "sentences": 12,
+      "translatedSentences": 12,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u06",
+      "chapterId": "chapter-10",
+      "unitNumber": 6,
+      "title": {
+        "zh": "背错的诗",
+        "en": "The Wrong Poem"
+      },
+      "paragraphs": 11,
+      "sentences": 17,
+      "translatedSentences": 17,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u07",
+      "chapterId": "chapter-10",
+      "unitNumber": 7,
+      "title": {
+        "zh": "再跳一段，还是唱歌",
+        "en": "Another Figure, or a Song?"
+      },
+      "paragraphs": 10,
+      "sentences": 21,
+      "translatedSentences": 21,
+      "quizItems": 2,
+      "hints": 3,
+      "missing": []
+    },
+    {
+      "id": "chapter-10-u08",
+      "chapterId": "chapter-10",
+      "unitNumber": 8,
+      "title": {
+        "zh": "远处的一声喊",
+        "en": "A Cry in the Distance"
+      },
+      "paragraphs": 5,
+      "sentences": 12,
+      "translatedSentences": 12,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u01",
+      "chapterId": "chapter-11",
+      "unitNumber": 1,
+      "title": {
+        "zh": "这是谁的审判？",
+        "en": "Whose Trial Is This?"
+      },
+      "paragraphs": 3,
+      "sentences": 6,
+      "translatedSentences": 6,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u02",
+      "chapterId": "chapter-11",
+      "unitNumber": 2,
+      "title": {
+        "zh": "陪审员在写什么？",
+        "en": "What Are the Jurors Writing?"
+      },
+      "paragraphs": 5,
+      "sentences": 12,
+      "translatedSentences": 12,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u03",
+      "chapterId": "chapter-11",
+      "unitNumber": 3,
+      "title": {
+        "zh": "证人手里的茶杯",
+        "en": "A Witness with a Teacup"
+      },
+      "paragraphs": 9,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u04",
+      "chapterId": "chapter-11",
+      "unitNumber": 4,
+      "title": {
+        "zh": "三个日期，一顶帽子",
+        "en": "Three Dates and One Hat"
+      },
+      "paragraphs": 13,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u05",
+      "chapterId": "chapter-11",
+      "unitNumber": 5,
+      "title": {
+        "zh": "会“闪烁”的茶",
+        "en": "Tea That Twinkles"
+      },
+      "paragraphs": 15,
+      "sentences": 18,
+      "translatedSentences": 18,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u06",
+      "chapterId": "chapter-11",
+      "unitNumber": 6,
+      "title": {
+        "zh": "装进布袋的喝彩",
+        "en": "A Cheer in a Canvas Bag"
+      },
+      "paragraphs": 14,
+      "sentences": 18,
+      "translatedSentences": 18,
+      "quizItems": 2,
+      "hints": 4,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u07",
+      "chapterId": "chapter-11",
+      "unitNumber": 7,
+      "title": {
+        "zh": "胡椒味的馅饼",
+        "en": "Tarts Made of Pepper"
+      },
+      "paragraphs": 13,
+      "sentences": 20,
+      "translatedSentences": 20,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-11-u08",
+      "chapterId": "chapter-11",
+      "unitNumber": 8,
+      "title": {
+        "zh": "下一个名字",
+        "en": "The Next Name on the List"
+      },
+      "paragraphs": 2,
+      "sentences": 6,
+      "translatedSentences": 6,
+      "quizItems": 2,
+      "hints": 2,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u01",
+      "chapterId": "chapter-12",
+      "unitNumber": 1,
+      "title": {
+        "zh": "一声“到！”的后果",
+        "en": "One Word, One Crash"
+      },
+      "paragraphs": 4,
+      "sentences": 5,
+      "translatedSentences": 5,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u02",
+      "chapterId": "chapter-12",
+      "unitNumber": 2,
+      "title": {
+        "zh": "重要，还是不重要",
+        "en": "Important or Not?"
+      },
+      "paragraphs": 13,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u03",
+      "chapterId": "chapter-12",
+      "unitNumber": 3,
+      "title": {
+        "zh": "一张没有署名的纸",
+        "en": "A Paper with No Name"
+      },
+      "paragraphs": 14,
+      "sentences": 16,
+      "translatedSentences": 16,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u04",
+      "chapterId": "chapter-12",
+      "unitNumber": 4,
+      "title": {
+        "zh": "没有签名反而更糟",
+        "en": "Worse for Not Signing"
+      },
+      "paragraphs": 14,
+      "sentences": 18,
+      "translatedSentences": 18,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u05",
+      "chapterId": "chapter-12",
+      "unitNumber": 5,
+      "title": {
+        "zh": "一句诗里的证据",
+        "en": "Evidence in a Line"
+      },
+      "paragraphs": 8,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u06",
+      "chapterId": "chapter-12",
+      "unitNumber": 6,
+      "title": {
+        "zh": "一副纸牌飞了起来",
+        "en": "The Cards Take Flight"
+      },
+      "paragraphs": 10,
+      "sentences": 15,
+      "translatedSentences": 15,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u07",
+      "chapterId": "chapter-12",
+      "unitNumber": 7,
+      "title": {
+        "zh": "姐姐的梦",
+        "en": "Her Sister's Dream"
+      },
+      "paragraphs": 3,
+      "sentences": 3,
+      "translatedSentences": 3,
+      "quizItems": 2,
+      "hints": 6,
+      "missing": []
+    },
+    {
+      "id": "chapter-12-u08",
+      "chapterId": "chapter-12",
+      "unitNumber": 8,
+      "title": {
+        "zh": "睁眼与闭眼之间",
+        "en": "Between Dreams and Reality"
+      },
+      "paragraphs": 2,
+      "sentences": 2,
+      "translatedSentences": 2,
+      "quizItems": 2,
+      "hints": 5,
+      "missing": []
+    }
+  ]
+}

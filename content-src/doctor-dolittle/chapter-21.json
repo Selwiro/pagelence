@@ -1,0 +1,451 @@
+{
+  "chapter": 21,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "六便士看双头兽",
+        "en": "Sixpence for a Two-Headed Animal"
+      },
+      "introduction": {
+        "zh": "三月的风、四月的雨都过去了，六月的阳光照在田野上，约翰·杜立德终于回到自己的国家——却没有回帕德尔比的家。他赶着吉卜赛大车走集市，招牌上写着：六便士，看非洲丛林来的双头怪兽。他为什么不回家？",
+        "en": "Spring is over and the June sun is on the English fields. John Dolittle is back in his own country — but not in Puddleby. He drives a painted wagon from fair to fair, with a sign: sixpence to see the two-headed animal from Africa. Why isn’t he going home?"
+      },
+      "paragraphs": {
+        "chapter-21-p001": {
+          "sentences": [
+            "三月的风来了又走了；四月的阵雨过去了；五月的花苞开成了花；六月的阳光照在宜人的田野上，这时约翰·杜立德终于回到了自己的国家。"
+          ],
+          "hints": [
+            {
+              "id": "john-dolittle",
+              "kind": "word",
+              "target": "John Dolittle",
+              "sentence": 1,
+              "zh": "约翰·杜立德，就是医生本人；书里说正经事时才会连名带姓地叫他。",
+              "en": "John Dolittle: the Doctor himself; the book uses his full name when the tone is serious."
+            }
+          ]
+        },
+        "chapter-21-p002": {
+          "sentences": [
+            "可是他还没有回帕德尔比的家。",
+            "他先带着「推我拉你」乘一辆吉卜赛大车周游各地，在每个乡村集市上停下来。",
+            "在那里，一边是杂技艺人，另一边是潘趣与朱迪木偶戏，他们就挂出一块大招牌，上面写着：「快来看来自非洲丛林的神奇双头动物。",
+            "门票六便士。」"
+          ],
+          "hints": [
+            {
+              "id": "puddleby",
+              "kind": "word",
+              "target": "Puddleby",
+              "sentence": 2,
+              "zh": "帕德尔比，医生的家乡小镇；全名「沼泽边的帕德尔比」。",
+              "en": "Puddleby: the Doctor’s home town, short for Puddleby-on-the-Marsh."
+            },
+            {
+              "id": "pushmi-pullyu",
+              "kind": "word",
+              "target": "pushmi-pullyu",
+              "sentence": 3,
+              "zh": "「推我拉你」，那头两个头的动物，医生从非洲带回来的。",
+              "en": "The pushmi-pullyu (“push me, pull you”): the two-headed animal he brought back from Africa."
+            },
+            {
+              "id": "punch-and-judy",
+              "kind": "word",
+              "target": "Punch-and-Judy",
+              "sentence": 4,
+              "zh": "潘趣与朱迪，英国街头常见的木偶戏。",
+              "en": "Punch-and-Judy: a traditional English puppet show, played in the street."
+            }
+          ]
+        },
+        "chapter-21-p003": {
+          "sentences": [
+            "「推我拉你」待在车里，别的动物就躺在车子底下。",
+            "医生坐在车前的椅子上收六便士，一边看着人们走进去，一边冲他们笑；达布达布则一直忙着数落他，因为只要她一不留神，他就会让孩子们白看。"
+          ],
+          "hints": [
+            {
+              "id": "dab-dab",
+              "kind": "word",
+              "target": "Dab-Dab",
+              "sentence": 7,
+              "zh": "达布达布，医生的鸭子，管着家里的钱和规矩。",
+              "en": "Dab-Dab, the Doctor’s duck, who keeps an eye on the money and the rules."
+            }
+          ]
+        },
+        "chapter-21-p004": {
+          "sentences": [
+            "还有巡回动物园的老板和马戏团的人跑来，请医生把这头奇怪的动物卖给他们，说愿意为他出一大笔钱。",
+            "可医生总是摇摇头说："
+          ],
+          "hints": [
+            {
+              "id": "menagerie-keepers",
+              "kind": "word",
+              "target": "menagerie-keepers",
+              "sentence": 8,
+              "zh": "巡回动物园的老板；menagerie 指流动展出的动物。",
+              "en": "Menagerie-keepers: owners of travelling collections of animals."
+            }
+          ]
+        },
+        "chapter-21-p005": {
+          "sentences": [
+            "「不行。",
+            "「推我拉你」绝不能被关进笼子里。",
+            "他应该永远自由地来去，就像你我一样。」"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Dab-Dab keep scolding the Doctor?",
+          "options": [
+            "He lets children in without paying.",
+            "He charges too much for the show.",
+            "He forgets to feed the animals."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "原文说只要达布达布没留神，医生就会让孩子们白看，所以她一直忙着数落他。",
+            "en": "The text says he would let the children in for nothing whenever she was not looking, so she was kept busy scolding him."
+          }
+        },
+        {
+          "question": "What does the Doctor refuse to do?",
+          "options": [
+            "Sell the pushmi-pullyu to a circus",
+            "Show the animal at country fairs",
+            "Take the sixpences himself"
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "马戏团和动物园的人出大钱要买这头动物，医生每次都摇头：他要让它自由来去，绝不关进笼子。",
+            "en": "Menagerie-keepers and circus-men offered a lot of money, but he always shook his head: the animal must be free, never shut in a cage."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "they would hang out a big sign",
+        "pointIds": [
+          "cefrj-142"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "would hang out 不是「愿意挂」，而是说过去每到一处集市都这么挂：一种旧习惯。",
+          "en": "Would hang out does not mean willingness or the future: it describes what they did again and again at every fair."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "想回帕德尔比了",
+        "en": "Tired of the Road"
+      },
+      "introduction": {
+        "zh": "一路上的新鲜事不少，可比不上在外国见过的大事。几个星期后，马戏班的日子又长又闷，人人都开始想家；小车前排队的人却越来越多。这样的日子还要过多久？",
+        "en": "There are new sights on the road, but after Africa they look ordinary. A few weeks of fairs and the animals are tired of it; they want their own beds and their own garden. Yet the crowds at the wagon grow bigger every day. How long can this go on?"
+      },
+      "paragraphs": {
+        "chapter-21-p006": {
+          "sentences": [
+            "在这段漂泊的日子里，他们见过许多稀奇的东西和事情；可比起他们在外国见过的、做过的大事，这些全都显得平平常常。",
+            "一开始，多少算马戏班的一分子，还挺有意思；可几个星期之后，他们全都厌烦得不行，医生和大家一样都盼着回家。"
+          ],
+          "hints": []
+        },
+        "chapter-21-p007": {
+          "sentences": [
+            "可是来的人太多了，他们成群结队地涌向那辆小车，付六便士进去看「推我拉你」，所以没过多久，医生就不用再当班主了。"
+          ],
+          "hints": [
+            {
+              "id": "showman",
+              "kind": "word",
+              "target": "showman",
+              "sentence": 3,
+              "zh": "跑江湖的班主，靠展览、表演赚钱的人。",
+              "en": "A showman: someone who earns money by putting on shows."
+            }
+          ]
+        },
+        "chapter-21-p008": {
+          "sentences": [
+            "有一天，正当蜀葵开得满满的时候，他回到了帕德尔比，成了一个有钱人，住进那座带大花园的小房子。"
+          ],
+          "hints": []
+        },
+        "chapter-21-p009": {
+          "sentences": [
+            "马厩里那匹瘸腿的老马见到他很高兴；那些已经在他屋檐下筑了巢、还孵出了雏鸟的燕子也一样高兴。",
+            "达布达布也很高兴回到她那么熟悉的屋子——尽管要打扫的地方实在太多，到处都是蛛网。"
+          ],
+          "hints": []
+        },
+        "chapter-21-p010": {
+          "sentences": [
+            "吉普跑去把它的金项圈给隔壁那条自以为了不起的牧羊犬看过之后，回来就在花园里像发了疯一样到处跑，找它很久以前埋下的骨头，还把老鼠从工具棚里赶出去；咕咕则把墙角那棵长到三英尺高的辣根拱了出来。"
+          ],
+          "hints": [
+            {
+              "id": "conceited-collie",
+              "kind": "phrase",
+              "target": "conceited collie",
+              "sentence": 7,
+              "zh": "隔壁那条自以为了不起的牧羊犬；collie 是牧羊犬。",
+              "en": "The conceited collie next door: a proud sheepdog."
+            },
+            {
+              "id": "jip",
+              "kind": "word",
+              "target": "Jip",
+              "sentence": 7,
+              "zh": "吉普，医生的狗。",
+              "en": "Jip, the Doctor’s dog."
+            },
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 7,
+              "zh": "咕咕，医生的小猪。",
+              "en": "Gub-Gub, the Doctor’s little pig."
+            },
+            {
+              "id": "horseradish",
+              "kind": "word",
+              "target": "horseradish",
+              "sentence": 7,
+              "zh": "辣根，根茎辛辣的植物；猪爱把它拱出来啃。",
+              "en": "Horseradish: a plant with a hot root, which pigs like to dig up."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why do the Doctor and the animals get tired of the wandering life?",
+          "options": [
+            "The fairs seem ordinary after what they saw in Africa.",
+            "The wagon is too small for all of them.",
+            "Nobody comes to see the two-headed animal."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "原文说这些新鲜事比起他们在外国见过、做过的大事都显得平常，几个星期后大家就都厌倦了。",
+            "en": "The text says the sights looked quite ordinary after the great things they had seen abroad, and after a few weeks they were all tired of it."
+          }
+        },
+        {
+          "question": "What does the crowd at the little wagon make possible?",
+          "options": [
+            "The Doctor can stop being a showman.",
+            "The Doctor can buy a bigger wagon.",
+            "The animals can stop working at night."
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "来的人太多，六便士的门票源源不断，所以没过多久医生就不用再当班主了。",
+            "en": "So many people paid sixpence to go in that very soon the Doctor was able to give up being a showman."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "after Jip had gone and shown his golden collar",
+        "pointIds": [
+          "cefrj-67"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had gone and shown 比 came back 更早：吉普先给隔壁的狗看项圈，然后才跑回花园。",
+          "en": "Had gone and shown happened before came back: first he showed the collar to the dog next door, then he ran back into the garden."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "钱是个麻烦东西",
+        "en": "Money Is a Nuisance"
+      },
+      "introduction": {
+        "zh": "回到帕德尔比，医生的钱多到要把旧存钱盒装满，还得再买三个。他拿这些钱去还债、买礼物，也给白鼠买回一架钢琴。可远在非洲的猴子们，夜里还在问同一个问题。",
+        "en": "Back in Puddleby the Doctor has more money than his old money-box can hold, so he buys three more. He pays back old debts, buys presents, and gives the white mice a new piano. Far away in Africa, the monkeys still ask one question at night. What is it?"
+      },
+      "paragraphs": {
+        "chapter-21-p011": {
+          "sentences": [
+            "医生去看望了那个把船借给他的水手，给他买了两条新船，又给他的宝宝买了一个橡皮娃娃；他还把欠杂货店老板的钱付了——去非洲的路上，那些食物是老板赊给他的。",
+            "他又买了一架钢琴，把白鼠放回琴里——因为它们说五斗柜的抽屉漏风。"
+          ],
+          "hints": []
+        },
+        "chapter-21-p012": {
+          "sentences": [
+            "即使把餐具柜搁板上那个旧存钱盒装满了，他剩下的钱还是很多；他只好又买了三个一样大的存钱盒，把其余的钱装进去。"
+          ],
+          "hints": [
+            {
+              "id": "dresser-shelf",
+              "kind": "word",
+              "target": "dresser-shelf",
+              "sentence": 3,
+              "zh": "餐具柜上的搁板；dresser 这里指厨房里的餐具柜。",
+              "en": "The shelf of the dresser: the kitchen cupboard where plates are kept."
+            }
+          ]
+        },
+        "chapter-21-p013": {
+          "sentences": [
+            "「钱，」他说，「真是个麻烦东西。",
+            "不过不用操心钱的事，倒挺好。」"
+          ],
+          "hints": []
+        },
+        "chapter-21-p014": {
+          "sentences": [
+            "「是啊，」正在给他烤茶点小圆饼的达布达布说，「说得太对了！」"
+          ],
+          "hints": [
+            {
+              "id": "muffins",
+              "kind": "word",
+              "target": "muffins",
+              "sentence": 6,
+              "zh": "英式小圆饼，烤热了抹上黄油，配茶吃。",
+              "en": "Muffins: small round cakes, toasted and eaten with butter at tea."
+            }
+          ]
+        },
+        "chapter-21-p015": {
+          "sentences": [
+            "等到冬天又来了，雪花打在厨房的窗户上，晚饭后医生和他的动物们就围坐在又大又暖的火炉边；他会从书里念故事给他们听。"
+          ],
+          "hints": []
+        },
+        "chapter-21-p016": {
+          "sentences": [
+            "可在遥远的非洲，猴子们在棕榈树上叽叽喳喳，然后在又大又黄的月亮下上床睡觉之前，他们会互相说："
+          ],
+          "hints": []
+        },
+        "chapter-21-p017": {
+          "sentences": [
+            "「不知道那位好人现在在做什么——在那边，在白人的地方！",
+            "你觉得他还会回来吗？」"
+          ],
+          "hints": [
+            {
+              "id": "the-good-man",
+              "kind": "phrase",
+              "target": "The Good Man",
+              "sentence": 9,
+              "zh": "「好人」，猴子们对杜立德的称呼。",
+              "en": "“The Good Man”: what the monkeys call the Doctor."
+            },
+            {
+              "id": "land-of-the-white-men",
+              "kind": "phrase",
+              "target": "the Land of the White Men",
+              "sentence": 9,
+              "zh": "「白人的地方」，猴子眼中的远方，指英国。",
+              "en": "“The Land of the White Men”: Britain, as the monkeys picture it."
+            }
+          ]
+        },
+        "chapter-21-p018": {
+          "sentences": [
+            "波利尼西亚就会从藤蔓里尖声叫出来："
+          ],
+          "hints": [
+            {
+              "id": "polynesia",
+              "kind": "word",
+              "target": "Polynesia",
+              "sentence": 11,
+              "zh": "波利尼西亚，医生的鹦鹉。",
+              "en": "Polynesia, the Doctor’s parrot."
+            },
+            {
+              "id": "squeak-out",
+              "kind": "phrase",
+              "target": "squeak out",
+              "sentence": 11,
+              "zh": "尖声叫出来；squeak 是老鼠、小鸟那种又高又细的声音。",
+              "en": "To squeak out: to say something in a high, thin voice."
+            }
+          ]
+        },
+        "chapter-21-p019": {
+          "sentences": [
+            "「我想他会——我猜他会——我希望他会！」"
+          ],
+          "hints": []
+        },
+        "chapter-21-p020": {
+          "sentences": [
+            "这时鳄鱼会从河里的黑泥中朝他们咕哝："
+          ],
+          "hints": []
+        },
+        "chapter-21-p021": {
+          "sentences": [
+            "「我敢肯定他会——睡觉吧！」"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Doctor do with his money first?",
+          "options": [
+            "He pays back the sailor and the grocer.",
+            "He buys a bigger house.",
+            "He sends it to the monkeys in Africa."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "他给借船的水手买了两条新船和一个橡皮娃娃，又付清了路上赊账的食物钱。",
+            "en": "He bought two new ships and a rubber doll for the sailor who lent him the boat, and paid the grocer for the food."
+          }
+        },
+        {
+          "question": "What do the monkeys in Africa talk about at night?",
+          "options": [
+            "What the Good Man is doing and whether he will come back",
+            "How to find more palm-trees",
+            "Where the crocodile sleeps"
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "棕榈树上的猴子们互相问：那位好人在白人的地方做什么，他还会不会回来。",
+            "en": "Up in the palm-trees the monkeys ask each other what the Good Man is doing over there, and whether he will ever come back."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I wonder what The Good Man’s doing now",
+        "pointIds": [
+          "cefrj-153"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "wonder 后面接 what 从句，从句用陈述语序 The Good Man’s doing，不能说 what is he doing。",
+          "en": "Wonder takes a wh-clause with statement order: what The Good Man’s doing, not what is he doing."
+        }
+      }
+    }
+  ]
+}

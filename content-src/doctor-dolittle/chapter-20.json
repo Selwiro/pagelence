@@ -1,0 +1,651 @@
+{
+  "chapter": 20,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "火柴又灭了",
+        "en": "The Match Goes Out"
+      },
+      "introduction": {
+        "zh": "追着地道走到尽头，医生终于在黑洞里摸到了那个失踪的渔夫。他轻轻把人摇醒，火柴却在这时又灭了。黑暗里忽然挥来一双拳头——那人以为回来的是谁？",
+        "en": "At the end of the tunnel the Doctor finds the missing uncle at last. He wakes him very gently. Then the match goes out, and in the dark two fists swing at the Doctor. Who does the man think has come back?"
+      },
+      "paragraphs": {
+        "chapter-20-p001": {
+          "sentences": [
+            "于是，医生轻轻地——非常轻地，把那个人摇醒了。"
+          ],
+          "hints": []
+        },
+        "chapter-20-p002": {
+          "sentences": [
+            "可就在这时，火柴又灭了。",
+            "那个人以为是本·阿里回来了，就在黑暗里挥拳打医生。"
+          ],
+          "hints": [
+            {
+              "id": "ben-ali",
+              "kind": "word",
+              "target": "Ben Ali",
+              "sentence": 3,
+              "zh": "本·阿里，海盗头子，这条海盗船原来的主人。",
+              "en": "Ben Ali, the pirate captain whose ship this was."
+            }
+          ]
+        },
+        "chapter-20-p003": {
+          "sentences": [
+            "可是等约翰·杜立德告诉他来的人是谁，又说他的小外甥平平安安地待在船上，那个人高兴极了，还说自己很抱歉跟医生动了手。",
+            "不过他没把医生打伤多少——因为天太黑，拳头打不准。",
+            "然后他给了医生一撮鼻烟。"
+          ],
+          "hints": [
+            {
+              "id": "john-dolittle",
+              "kind": "word",
+              "target": "John Dolittle",
+              "sentence": 4,
+              "zh": "约翰·杜立德，就是杜立德医生，那位会给动物看病的人。",
+              "en": "John Dolittle: Doctor Dolittle, the man who can talk to animals."
+            },
+            {
+              "id": "pinch-of-snuff",
+              "kind": "phrase",
+              "target": "pinch of snuff",
+              "sentence": 6,
+              "zh": "一撮鼻烟：把烟粉吸进鼻子里提神的东西。",
+              "en": "A pinch of snuff: powdered tobacco sniffed up the nose."
+            }
+          ]
+        },
+        "chapter-20-p004": {
+          "sentences": [
+            "那个人讲起「巴巴里巨龙」怎样把他弄到这块岩石上扔下不管，因为他不肯答应去做海盗；还讲起他过去总睡在这个洞里，因为岩石上没有房子给他挡风御寒。"
+          ],
+          "hints": [
+            {
+              "id": "barbary-dragon",
+              "kind": "word",
+              "target": "Barbary Dragon",
+              "sentence": 7,
+              "zh": "「巴巴里巨龙」，海盗本·阿里的诨名。",
+              "en": "The Barbary Dragon: the nickname of the pirate Ben Ali."
+            }
+          ]
+        },
+        "chapter-20-p005": {
+          "sentences": [
+            "然后他说："
+          ],
+          "hints": []
+        },
+        "chapter-20-p006": {
+          "sentences": [
+            "「我已经四天没吃没喝了。",
+            "我就靠鼻烟活着。」"
+          ],
+          "hints": []
+        },
+        "chapter-20-p007": {
+          "sentences": [
+            "「你看吧！」吉普说。",
+            "「我跟你说过什么？」"
+          ],
+          "hints": [
+            {
+              "id": "jip",
+              "kind": "word",
+              "target": "Jip",
+              "sentence": 11,
+              "zh": "吉普，医生的狗。",
+              "en": "Jip, the Doctor’s dog."
+            }
+          ]
+        },
+        "chapter-20-p008": {
+          "sentences": [
+            "于是他们又划了几根火柴，顺着通道走到外面的天光下；医生催着那个人下到小船里，好让他喝点汤。"
+          ],
+          "hints": []
+        },
+        "chapter-20-p009": {
+          "sentences": [
+            "动物们和小男孩看见医生和吉普带着一个红头发的男人回到船上，就欢呼大叫，围着船跳起舞来。",
+            "头顶的燕子也放开嗓子尖声叫起来——成千上万只——表示它们也一样高兴：男孩那位勇敢的舅舅找到了。",
+            "它们闹出的声音太大，连远在海上的水手都以为一场可怕的风暴要来了。",
+            "「听东边那阵狂风在吼！」他们说。"
+          ],
+          "hints": [
+            {
+              "id": "hark-to",
+              "kind": "phrase",
+              "target": "Hark to",
+              "sentence": 17,
+              "zh": "hark 是旧时「听」的说法，hark to 就是「听那……」；gale 指大风。",
+              "en": "Hark is an old word for listen: “listen to that gale.”"
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why did the man begin to punch the Doctor in the dark?",
+          "options": [
+            "He thought Ben Ali had come back.",
+            "He was angry because the Doctor woke him.",
+            "He wanted the Doctor’s matches."
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "火柴灭了，那人以为回来的是本·阿里，所以朝黑暗里的人挥拳，并不知道对方是医生。",
+            "en": "The match went out and the man thought Ben Ali was coming back, so he hit out in the dark without knowing who was there."
+          }
+        },
+        {
+          "question": "What had the man been living on for four days?",
+          "options": [
+            "Snuff",
+            "Soup and bread",
+            "Sea water"
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "他说四天没吃没喝，「I have lived on snuff」——只靠鼻烟撑着。",
+            "en": "He says he has had nothing to eat or drink for four days and has lived on snuff."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "it was too dark to punch properly",
+        "pointIds": [
+          "cefrj-44"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "too dark to punch 是「太黑，打不准」：too + 形容词 + to do 本身含否定，不能读成「太黑去打」。",
+          "en": "Too dark to punch means it was so dark that he could not punch well; too + adjective + to do carries the negative idea."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "岸上有人等着",
+        "en": "Someone Waits on the Shore"
+      },
+      "introduction": {
+        "zh": "吉普立了大功，却努力装出一脸不在乎。船头一转，朝着红头发渔夫说的地方开去。山脚下的小镇岸边，有个女人又笑又哭地朝船跑来——她在那儿已经等了多久？",
+        "en": "Jip has done something clever, and he tries hard not to look pleased with himself. Then the ship turns towards the red-haired fisherman’s town. On the shore a woman runs towards them, laughing and crying at once. How long has she been waiting?"
+      },
+      "paragraphs": {
+        "chapter-20-p010": {
+          "sentences": [
+            "吉普得意极了——尽管他竭力不露出自命不凡的样子。",
+            "达布达布走过来对他说：「吉普，我真没想到你这么聪明！」他只是把头一扬，回答说："
+          ],
+          "hints": [
+            {
+              "id": "awfully",
+              "kind": "word",
+              "target": "awfully",
+              "sentence": 1,
+              "zh": "awfully proud 是「得意得不得了」；awfully 在这里等于 very，不是「可怕地」。",
+              "en": "Awfully proud means very proud; here awfully simply means very."
+            },
+            {
+              "id": "tossed-his-head",
+              "kind": "phrase",
+              "target": "tossed his head",
+              "sentence": 2,
+              "zh": "把头一扬：一副不以为然、又有点得意的样子。",
+              "en": "Tossed his head: jerked his head up, looking cool and rather pleased."
+            },
+            {
+              "id": "dab-dab",
+              "kind": "word",
+              "target": "Dab-Dab",
+              "sentence": 2,
+              "zh": "达布达布，医生的鸭子。",
+              "en": "Dab-Dab, the Doctor’s duck."
+            }
+          ]
+        },
+        "chapter-20-p011": {
+          "sentences": [
+            "「哦，这没什么了不起的。",
+            "不过你知道，要找一个人，非得狗才行。",
+            "干这种事，鸟是不行的。」"
+          ],
+          "hints": []
+        },
+        "chapter-20-p012": {
+          "sentences": [
+            "接着医生问那个红头发的渔夫家在哪里。",
+            "等他说了之后，医生就请燕子先把船领到那儿去。"
+          ],
+          "hints": []
+        },
+        "chapter-20-p013": {
+          "sentences": [
+            "等他们到了那个人说的那片陆地，只见一座多石的山脚下有个小小的渔镇；那个人指出了他住的那所房子。"
+          ],
+          "hints": []
+        },
+        "chapter-20-p014": {
+          "sentences": [
+            "他们正在抛锚的时候，小男孩的母亲（她也是那个人的姐姐）从岸上跑下来迎接他们，一边笑一边哭。",
+            "她在山上坐了二十天，望着大海，等他们回来。"
+          ],
+          "hints": [
+            {
+              "id": "letting-down-anchor",
+              "kind": "phrase",
+              "target": "letting down the anchor",
+              "sentence": 9,
+              "zh": "抛锚：把锚放下，让船停住。",
+              "en": "Letting down the anchor: lowering it to stop the ship."
+            }
+          ]
+        },
+        "chapter-20-p015": {
+          "sentences": [
+            "她亲了医生好多下，弄得他像女学生一样咯咯笑，脸都红了。",
+            "她还想亲吉普；可吉普跑开了，躲进船里。"
+          ],
+          "hints": []
+        },
+        "chapter-20-p016": {
+          "sentences": [
+            "「亲来亲去这种事，真是傻气，」他说。",
+            "「我可不赞成这一套。",
+            "要是她非得亲点什么，就让她去亲咕咕吧。」"
+          ],
+          "hints": [
+            {
+              "id": "hold-by",
+              "kind": "phrase",
+              "target": "hold by",
+              "sentence": 14,
+              "zh": "hold by 是旧时的说法，「赞成、认同」；I don’t hold by it 就是「我不吃这一套」。",
+              "en": "Hold by is an old way of saying approve of; I don’t hold by it means I don’t approve of it."
+            },
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 15,
+              "zh": "咕咕，医生的小猪。",
+              "en": "Gub-Gub, the Doctor’s little pig."
+            }
+          ]
+        },
+        "chapter-20-p017": {
+          "sentences": [
+            "渔夫和他的姐姐不愿医生这么快就又走。",
+            "他们求他在他们家待几天。",
+            "于是约翰·杜立德和他的动物们只好在他们家待了整整一个星期六、一个星期天，还有半个星期一。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Jip say is needed to find a man?",
+          "options": [
+            "A dog",
+            "A bird",
+            "A fast ship"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "吉普说「it takes a dog to find a man」，还说鸟干这种事不行——它把功劳都算在狗身上。",
+            "en": "Jip says it takes a dog to find a man, and that birds are no good for a game like that."
+          }
+        },
+        {
+          "question": "How long had the little boy’s mother been waiting on the hill?",
+          "options": [
+            "Twenty days",
+            "Four days",
+            "Two days"
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "原文说她在山上坐了二十天，一直望着海，等他们回来。",
+            "en": "She had been sitting on a hill for twenty days, watching the sea and waiting for them to return."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the Doctor asked the swallows to guide the ship there first",
+        "pointIds": [
+          "cefrj-209"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "asked the swallows to guide 是 ask + 宾语 + to do：请燕子去领航，to 后面用动词原形。",
+          "en": "Asked the swallows to guide follows ask + object + to do: he asked the birds to lead the way."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "镇长带着喇叭来了",
+        "en": "The Mayor and the Trumpets"
+      },
+      "introduction": {
+        "zh": "渔村的孩子们挤在海滩上，小声议论那条红帆大船和戴高礼帽的老先生。这两天半里，镇上的人争着请医生喝茶吃饭。就在他要走时，镇长带着一群人来了——他们想干什么？",
+        "en": "The village boys whisper about the red-sailed ship and the old gentleman in the high hat. For two days and a half the town feeds the Doctor and sends him flowers. Then, just as he is leaving, the Mayor arrives with men in fine clothes. What do they want?"
+      },
+      "paragraphs": {
+        "chapter-20-p018": {
+          "sentences": [
+            "渔村里的小男孩们都跑到海滩上，指着停在那儿的大船，小声地你一句我一句："
+          ],
+          "hints": []
+        },
+        "chapter-20-p019": {
+          "sentences": [
+            "「瞧！",
+            "那是条海盗船——本·阿里的——是古往今来航行七大洋最可怕的海盗！",
+            "那位戴高礼帽的老先生，就住在特里维廉太太",
+            "家——他把船从「巴巴里巨龙」手里夺了过来——还把那家伙变成了农夫。",
+            "谁能想到他会干这种事——他看上去那么斯文，那么和气！……",
+            "瞧那大红帆！",
+            "这条船瞧着一副凶相——还跑得飞快？——我的天！」"
+          ],
+          "hints": [
+            {
+              "id": "seven-seas",
+              "kind": "phrase",
+              "target": "Seven Seas",
+              "sentence": 3,
+              "zh": "「七大洋」，旧时对全世界海洋的统称。",
+              "en": "The Seven Seas: an old name for all the oceans of the world."
+            },
+            {
+              "id": "trevelyan",
+              "kind": "word",
+              "target": "Trevelyan’s",
+              "sentence": 5,
+              "zh": "特里维廉太太家：她在渔夫镇出租房间，医生就住在那儿。",
+              "en": "Mrs. Trevelyan’s: she lets rooms in the town, and the Doctor is staying there."
+            },
+            {
+              "id": "made-him-into-a-farmer",
+              "kind": "phrase",
+              "target": "made him into a farmer",
+              "sentence": 5,
+              "zh": "把海盗变成了农夫：船被夺走，他只能上岸种地。",
+              "en": "Made him into a farmer: with his ship gone, the pirate had to farm for a living."
+            },
+            {
+              "id": "ain-t-she",
+              "kind": "phrase",
+              "target": "Ain’t she",
+              "sentence": 8,
+              "zh": "ain’t 是 isn’t 的土话说法；这里是感叹：「这条船多凶啊！」",
+              "en": "Ain’t is a folksy way of saying isn’t; here it is an exclamation: “isn’t she a fierce-looking ship!”"
+            }
+          ]
+        },
+        "chapter-20-p020": {
+          "sentences": [
+            "医生在那个小渔镇待的两天半里，人们不停地请他出去喝茶、赴午宴、吃晚饭、参加聚会；太太们纷纷送来一盒盒鲜花和糖果；村里的乐队每天晚上都在他窗下奏曲子。"
+          ],
+          "hints": [
+            {
+              "id": "teas-and-luncheons",
+              "kind": "phrase",
+              "target": "teas and luncheons",
+              "sentence": 9,
+              "zh": "tea 指下午茶点，luncheon 是正式的午宴，都比 dinner 轻。",
+              "en": "Teas are light afternoon meals and luncheons are formal midday meals."
+            }
+          ]
+        },
+        "chapter-20-p021": {
+          "sentences": [
+            "最后医生说："
+          ],
+          "hints": []
+        },
+        "chapter-20-p022": {
+          "sentences": [
+            "「好心的人们，我现在得回家了。",
+            "你们真是太好了。",
+            "我会永远记得这份情意。",
+            "可我必须回家——因为我还有事情要做。」"
+          ],
+          "hints": []
+        },
+        "chapter-20-p023": {
+          "sentences": [
+            "后来，就在医生正要动身的时候，镇长沿着大街走来，身边还跟着许多穿着体面衣服的人。",
+            "镇长在医生住的那所房子前停下；村里的人都围拢过来，想看看要出什么事。"
+          ],
+          "hints": []
+        },
+        "chapter-20-p024": {
+          "sentences": [
+            "六个小侍童吹响锃亮的喇叭，让人群安静下来之后，医生走到台阶上，镇长开口讲话了。"
+          ],
+          "hints": [
+            {
+              "id": "page-boys",
+              "kind": "word",
+              "target": "page-boys",
+              "sentence": 17,
+              "zh": "page-boy 是穿号衣的小听差，仪式上吹号、跑腿的少年。",
+              "en": "Page-boys were young servants in uniform who ran errands and played trumpets at ceremonies."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What did the townspeople do while the Doctor was staying there?",
+          "options": [
+            "They kept inviting him to teas, dinners and parties.",
+            "They asked him to take them out to sea.",
+            "They stayed away from him."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "原文说人们不断请他喝茶、赴午宴、参加聚会，太太们送花送糖，乐队每晚在他窗下演奏。",
+            "en": "People kept asking him out to teas, luncheons, dinners and parties, the ladies sent flowers and candies, and the band played under his window."
+          }
+        },
+        {
+          "question": "Why did the six page-boys blow on their trumpets?",
+          "options": [
+            "To make the people stop talking",
+            "To welcome the ship",
+            "To call the children home"
+          ],
+          "answer": 0,
+          "sentence": 17,
+          "feedback": {
+            "zh": "原文说六个小侍童吹喇叭，是为了让众人安静下来，之后医生才走到台阶上。",
+            "en": "The page-boys blew their trumpets to make the people stop talking before the Doctor came out."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "That old gentleman with the high hat, who’s staying up at Mrs. Trevelyan’s",
+        "pointIds": [
+          "cefrj-181"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "who’s staying… 是逗号隔开的非限制性定语从句，补充说明那位老先生住在哪儿；主句的主语是后面的 he。",
+          "en": "Who’s staying up at Mrs. Trevelyan’s is a non-restrictive relative clause, set off by commas; the main clause still needs its own subject, he."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "更大的那个包裹",
+        "en": "The Bigger Parcel"
+      },
+      "introduction": {
+        "zh": "镇长站在台阶上，先说了一番客气话，又递上一份厚礼。接着他又从口袋里掏出一个更大的包裹，却先问：「那只狗在哪儿？」——大包裹里装的是什么？",
+        "en": "On the steps the Mayor makes a fine speech and gives the Doctor one present. Then he takes out a bigger parcel — and asks a strange question first: “Where is the dog?” The whole village starts hunting for Jip. What is in the parcel?"
+      },
+      "paragraphs": {
+        "chapter-20-p025": {
+          "sentences": [
+            "「约翰·杜立德医生，」他说，「能代表我们这座可敬的镇子里满怀感激的百姓，把这份小小的纪念品献给这位为海上除掉了巴巴里巨龙的人，我深感荣幸。」"
+          ],
+          "hints": [
+            {
+              "id": "token",
+              "kind": "word",
+              "target": "token",
+              "sentence": 1,
+              "zh": "纪念品、表示心意的小东西，不是「代币」。",
+              "en": "A token here is a small gift that stands for thanks, not a coin."
+            },
+            {
+              "id": "rid-the-seas-of",
+              "kind": "phrase",
+              "target": "rid the seas of",
+              "sentence": 1,
+              "zh": "rid A of B：把 B 从 A 里清除掉；这里说医生为海上除掉了那个海盗。",
+              "en": "Rid the seas of him: clear him out of the seas for good."
+            }
+          ]
+        },
+        "chapter-20-p026": {
+          "sentences": [
+            "镇长从口袋里取出一个小小的薄纸包，打开来，把一只背面镶着真钻石、漂亮极了的手表递给医生。"
+          ],
+          "hints": []
+        },
+        "chapter-20-p027": {
+          "sentences": [
+            "接着镇长又从口袋里掏出一个更大的包裹，说："
+          ],
+          "hints": []
+        },
+        "chapter-20-p028": {
+          "sentences": [
+            "「那只狗在哪儿？」"
+          ],
+          "hints": []
+        },
+        "chapter-20-p029": {
+          "sentences": [
+            "于是大家开始找吉普。",
+            "最后达布达布在村子另一头的马厩院子里找到了他，附近一带的狗都围着他站着，佩服得说不出话来。"
+          ],
+          "hints": [
+            {
+              "id": "speechless-with-admiration",
+              "kind": "phrase",
+              "target": "speechless with admiration",
+              "sentence": 6,
+              "zh": "佩服得说不出话：speechless 由 emotion 或 admiration 引起，不是真的不能说话。",
+              "en": "Speechless with admiration: so full of respect that they could not say a word."
+            }
+          ]
+        },
+        "chapter-20-p030": {
+          "sentences": [
+            "吉普被带到医生身边时，镇长打开了那个大包裹；里面是一只纯金打的狗项圈！",
+            "镇长弯下腰，亲手把它系在狗的脖子上，村里人发出一片惊叹的低语。"
+          ],
+          "hints": [
+            {
+              "id": "solid-gold",
+              "kind": "phrase",
+              "target": "solid gold",
+              "sentence": 7,
+              "zh": "纯金、实心的金子，不是镀金。",
+              "en": "Solid gold: real gold all the way through, not just gold-coloured."
+            }
+          ]
+        },
+        "chapter-20-p031": {
+          "sentences": [
+            "因为项圈上用大字写着这样一句话：「吉普——世上最聪明的狗。」"
+          ],
+          "hints": []
+        },
+        "chapter-20-p032": {
+          "sentences": [
+            "然后整个人群都往海滩走去，给他们送行。",
+            "等红头发的渔夫、他的姐姐和小男孩一遍又一遍地向医生和他的狗道过谢，那条挂着红帆、又大又快的船又一次掉头朝向帕德尔比，驶向大海，村里的乐队在岸上奏着音乐。"
+          ],
+          "hints": [
+            {
+              "id": "puddleby",
+              "kind": "word",
+              "target": "Puddleby",
+              "sentence": 11,
+              "zh": "帕德尔比，医生的家乡，远在英格兰。",
+              "en": "Puddleby, the Doctor’s home town, far away in England."
+            },
+            {
+              "id": "see-them-off",
+              "kind": "phrase",
+              "target": "see them off",
+              "sentence": 10,
+              "zh": "see sb off 是「给某人送行」，看着他们出发。",
+              "en": "See them off: go to the shore to say goodbye as they leave."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why did the Mayor ask where the dog was?",
+          "options": [
+            "He had a second present for the dog.",
+            "He wanted to buy the dog.",
+            "He was afraid of the dog."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "大包裹里是一只纯金狗项圈，镇长要亲手给吉普戴上，所以才先找它。",
+            "en": "The larger parcel held a dog-collar of solid gold, which the Mayor wanted to fasten round Jip’s neck himself."
+          }
+        },
+        {
+          "question": "Where was Jip found?",
+          "options": [
+            "In a stable-yard on the other side of the village",
+            "On the beach beside the boat",
+            "Inside the Doctor’s room"
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "达布达布在村子另一头的马厩院子里找到他，周围的狗都围着他，佩服得说不出话。",
+            "en": "Dab-Dab found him in a stable-yard on the other side of the village, with all the local dogs standing round him in silence."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "a dog-collar made of solid gold",
+        "pointIds": [
+          "cefrj-171"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "made of solid gold 是过去分词短语，放在 dog-collar 后面说明它用什么做的，等于「纯金做的狗项圈」。",
+          "en": "Made of solid gold is a past-participle phrase after dog-collar, telling us what it is made of."
+        }
+      }
+    }
+  ]
+}

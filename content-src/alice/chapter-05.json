@@ -1,0 +1,1377 @@
+{
+  "chapter": 5,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "你是谁？",
+        "en": "Who Are You?"
+      },
+      "introduction": {
+        "zh": "蘑菇旁边，爱丽丝遇见一条抽水烟的毛毛虫。它慢吞吞地开口，只问了一句“你是谁？”。可爱丽丝刚变过好几次大小，连自己都答不上来；她越解释，对方好像越不认账。",
+        "en": "Beside a mushroom Alice meets a Caterpillar smoking a hookah. It asks her, slowly, who she is. Alice has changed size so often that day that she cannot really answer, and nothing she says seems to satisfy it."
+      },
+      "paragraphs": {
+        "chapter-05-p001": {
+          "sentences": [
+            "毛毛虫和爱丽丝一言不发地对看了好一会儿：最后，毛毛虫把水烟筒从嘴里抽出来，用慵懒、困倦的声音跟她说话。"
+          ],
+          "hints": [
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 1,
+              "zh": "爱丽丝，本书主角，追着白兔掉进兔子洞的小姑娘。",
+              "en": "Alice, the girl who followed the White Rabbit down the hole and is the heroine of the book."
+            },
+            {
+              "id": "caterpillar",
+              "kind": "word",
+              "target": "Caterpillar",
+              "sentence": 1,
+              "zh": "毛毛虫，抽水烟、说话简短生硬，本章一直追问爱丽丝是谁的虫子。",
+              "en": "The Caterpillar, a hookah-smoking insect who keeps asking Alice who she is."
+            },
+            {
+              "id": "hookah",
+              "kind": "word",
+              "target": "hookah",
+              "sentence": 1,
+              "zh": "水烟筒，一种用长管吸的烟具。",
+              "en": "A hookah: a water pipe smoked through a long tube."
+            }
+          ]
+        },
+        "chapter-05-p002": {
+          "sentences": [
+            "“你是谁？”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p003": {
+          "sentences": [
+            "这样的开场白，可不太利于谈下去。",
+            "爱丽丝相当羞怯地回答：“我——我眼下也说不清，先生——至少今天早上起床的时候，我还知道我是谁；可我想，从那以后我一定已经变过好几回了。”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p004": {
+          "sentences": [
+            "“你这话是什么意思？”毛毛虫严厉地说。",
+            "“把你自己解释清楚！”"
+          ],
+          "hints": [
+            {
+              "id": "explain-yourself",
+              "kind": "phrase",
+              "target": "Explain yourself",
+              "sentence": 6,
+              "zh": "字面是“解释你自己”，通常的意思是“把你的意思说清楚”；毛毛虫故意按字面来理解。",
+              "en": "Literally 'explain yourself'; the usual meaning is 'make your meaning clear', but the Caterpillar takes it literally."
+            }
+          ]
+        },
+        "chapter-05-p005": {
+          "sentences": [
+            "“恐怕我没法解释我自己，先生，”爱丽丝说，“因为你看，我现在不是我自己了。”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p006": {
+          "sentences": [
+            "“我看不出来。”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p007": {
+          "sentences": [
+            "“恐怕我没法说得更清楚了，”爱丽丝非常有礼貌地回答，“因为这事我自己一开始就弄不明白；一天里变这么多个不同的尺寸，实在太让人糊涂了。”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p008": {
+          "sentences": [
+            "“一点也不糊涂。”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p009": {
+          "sentences": [
+            "“嗯，也许你还没觉得是这样，”爱丽丝说，“不过等你不得不变成蛹的时候——你知道，你总有一天会的——然后再变成蝴蝶，我想你多少会觉得有点别扭吧，是不是？"
+          ],
+          "hints": [
+            {
+              "id": "chrysalis",
+              "kind": "word",
+              "target": "chrysalis",
+              "sentence": 11,
+              "zh": "蛹，毛毛虫变成蝴蝶之前的形态。",
+              "en": "A chrysalis: the pupa stage before a caterpillar becomes a butterfly."
+            }
+          ]
+        },
+        "chapter-05-p010": {
+          "sentences": [
+            "“一点也不。”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p011": {
+          "sentences": [
+            "“嗯，也许你的感觉跟我不一样，”爱丽丝说，“我只知道，要是换了我，会觉得非常别扭。”"
+          ],
+          "hints": [
+            {
+              "id": "queer",
+              "kind": "word",
+              "target": "queer",
+              "sentence": 13,
+              "zh": "奇怪的、别扭的；这里指感觉很不自在。",
+              "en": "Strange or odd; here it means feeling uncomfortable."
+            }
+          ]
+        },
+        "chapter-05-p012": {
+          "sentences": [
+            "“你！”毛毛虫轻蔑地说。",
+            "“你是谁？”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p013": {
+          "sentences": [
+            "于是他们又回到了这场对话的开头。",
+            "毛毛虫总这样三言两语，爱丽丝有点恼了；她挺直身子，非常严肃地说：“我想，你应该先告诉我你是谁。”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p014": {
+          "sentences": [
+            "“为什么？”毛毛虫说。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why can't Alice say who she is?",
+          "options": [
+            "She has forgotten her own name.",
+            "She has changed size several times that day.",
+            "She is too frightened to speak."
+          ],
+          "answer": 1,
+          "sentence": 4,
+          "feedback": {
+            "zh": "爱丽丝说，早上起床时她还知道自己是谁，可从那以后一定已经变过好几回，所以现在答不上来。",
+            "en": "Alice says she knew who she was that morning but must have changed several times since, so she cannot answer."
+          }
+        },
+        {
+          "question": "What does Alice find irritating about the Caterpillar?",
+          "options": [
+            "It keeps smoking without a word.",
+            "It answers only with very short remarks.",
+            "It laughs at her size."
+          ],
+          "answer": 1,
+          "sentence": 17,
+          "feedback": {
+            "zh": "毛毛虫总用“我看不出来”“一点也不”这样的短话回她，爱丽丝因此有点恼火，才挺直身子反问它。",
+            "en": "The Caterpillar answers with short remarks like 'I don't see' and 'Not a bit', which is what irritates Alice."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I think I must have been changed several times since then",
+        "pointIds": [
+          "cefrj-145"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "must have been changed 是“情态动词 + have + 过去分词”，表示对过去的推测：她认定自己一定已经变过好几回。",
+          "en": "Must have been changed is a modal with have and a past participle: it shows Alice's firm guess that the change really happened."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "一句要紧的话",
+        "en": "Something Important to Say"
+      },
+      "introduction": {
+        "zh": "爱丽丝转身要走，毛毛虫却在背后叫住她，说有话要讲。她回来等着，等到的却只有一句“沉住气”。这条虫子到底要说什么？",
+        "en": "Alice turns to leave, but the Caterpillar calls her back: it has something important to say. She comes back and waits, and what she gets is 'Keep your temper'. What is the creature really after?"
+      },
+      "paragraphs": {
+        "chapter-05-p015": {
+          "sentences": [
+            "这又是一个让人犯难的问题；爱丽丝想不出什么好理由，而毛毛虫似乎心情很不好，于是她转身走开了。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p016": {
+          "sentences": [
+            "“回来！”毛毛虫在她身后喊。",
+            "“我有要紧的话要说！”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p017": {
+          "sentences": [
+            "这话听起来倒确实有希望：爱丽丝转过身，又走了回来。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p018": {
+          "sentences": [
+            "“沉住气。”毛毛虫说。"
+          ],
+          "hints": [
+            {
+              "id": "keep-your-temper",
+              "kind": "phrase",
+              "target": "Keep your temper",
+              "sentence": 5,
+              "zh": "沉住气，别发脾气。",
+              "en": "Keep your temper: stay calm and do not get angry."
+            }
+          ]
+        },
+        "chapter-05-p019": {
+          "sentences": [
+            "“就这些？”爱丽丝说，尽力把怒气咽下去。"
+          ],
+          "hints": [
+            {
+              "id": "swallowing-down",
+              "kind": "phrase",
+              "target": "swallowing down",
+              "sentence": 6,
+              "zh": "把（怒气）咽下去，强忍下去。",
+              "en": "Swallowing down: forcing her anger down and holding it in."
+            }
+          ]
+        },
+        "chapter-05-p020": {
+          "sentences": [
+            "“不是。”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p021": {
+          "sentences": [
+            "爱丽丝想，反正自己也没别的事可做，不如就等着；说不定它终究会告诉她一些值得一听的事。",
+            "它一连几分钟只顾喷烟，一声不响；后来终于伸开双臂，又把水烟筒从嘴里取出来，说：“那么，你认为自己变了，是吗？”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p022": {
+          "sentences": [
+            "“恐怕是这样，先生，”爱丽丝说，“我记不住事情了，不像从前那样——而且我连十分钟都保持不住同一个尺寸！”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p023": {
+          "sentences": [
+            "“记不住什么事情？”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p024": {
+          "sentences": [
+            "“嗯，我想背‘小小蜜蜂多勤劳’，可背出来全变了样！”",
+            "爱丽丝用非常忧郁的声音回答。"
+          ],
+          "hints": [
+            {
+              "id": "busy-bee",
+              "kind": "phrase",
+              "target": "How doth the little busy bee",
+              "sentence": 12,
+              "zh": "《小小蜜蜂多勤劳》，瓦茨的儿童诗，原诗劝孩子勤快；爱丽丝背出来的却是另一套。doth 是古体的 does。",
+              "en": "The opening of Isaac Watts's poem 'How Doth the Little Busy Bee'; doth is an old form of does."
+            },
+            {
+              "id": "melancholy",
+              "kind": "word",
+              "target": "melancholy",
+              "sentence": 13,
+              "zh": "忧郁的、伤感的。",
+              "en": "Sad and low in spirits."
+            }
+          ]
+        },
+        "chapter-05-p025": {
+          "sentences": [
+            "“背一背‘你老了，威廉爸爸’。”毛毛虫说。"
+          ],
+          "hints": [
+            {
+              "id": "father-william",
+              "kind": "phrase",
+              "target": "You are old, Father William",
+              "sentence": 14,
+              "zh": "《你老了，威廉爸爸》，一首戏仿诗，原诗劝老人安分，这里的老先生却一个劲儿卖弄本事。",
+              "en": "A parody of Southey's poem 'The Old Man's Comforts'; this old man boasts instead of preaching."
+            }
+          ]
+        },
+        "chapter-05-p026": {
+          "sentences": [
+            "爱丽丝双手交叠，开口念道：——"
+          ],
+          "hints": []
+        },
+        "chapter-05-p027": {
+          "sentences": [
+            "“你老了，威廉爸爸，”年轻人说，“你的头发已经白得很；可你还是不停地拿大顶——你觉得，你这把年纪，这样合适吗？”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p028": {
+          "sentences": [
+            "“我年轻的时候，”威廉爸爸回答儿子，“也怕这样会伤到脑子；可如今我确信自己压根没有脑子，所以嘛，我就一遍又一遍地做。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice decide to wait?",
+          "options": [
+            "She has nothing else to do and hopes to hear something worth hearing.",
+            "She is afraid to walk away from the mushroom.",
+            "The Caterpillar offers her a share of the hookah."
+          ],
+          "answer": 0,
+          "sentence": 8,
+          "feedback": {
+            "zh": "爱丽丝想，反正没别的事可做，不如等等，说不定它终究会说些值得一听的话。",
+            "en": "Alice waits because she has nothing else to do and hopes the Caterpillar may yet say something worth hearing."
+          }
+        },
+        {
+          "question": "What is the important thing the Caterpillar has to say?",
+          "options": [
+            "That Alice should eat the mushroom.",
+            "That Alice should keep her temper.",
+            "That Alice should recite a poem."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "毛毛虫叫住她，郑重说出的要紧话只有一句：“沉住气。”爱丽丝忍不住反问“就这些？”。",
+            "en": "The Caterpillar calls her back only to say 'Keep your temper', and Alice asks whether that is all."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Alice thought she might as well wait",
+        "pointIds": [
+          "cefrj-133"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "might as well 后接动词原形，意思是“反正没别的可做，不如……”，本句说她索性等着。",
+          "en": "Might as well plus a bare verb means 'there is no better reason not to, so…'; here Alice decides to wait."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "背一首歪诗",
+        "en": "A Poem Gone Wrong"
+      },
+      "introduction": {
+        "zh": "毛毛虫要爱丽丝背一首《你老了，威廉爸爸》。她合起双手念起来，可诗里那位老先生越念越离谱：翻跟头、卖药膏、连鹅骨头都嚼了。毛毛虫会怎么说？",
+        "en": "The Caterpillar asks Alice to recite 'You are old, Father William'. She folds her hands and begins, and the old man in the poem grows stranger with every verse: somersaults, ointment for sale, a goose eaten bones and all."
+      },
+      "paragraphs": {
+        "chapter-05-p029": {
+          "sentences": [
+            "“你老了，”年轻人说，“这我先前就说过，而且你胖得实在不寻常；可你进门时还翻了个后空翻——请问，这又是怎么回事？”"
+          ],
+          "hints": [
+            {
+              "id": "back-somersault",
+              "kind": "word",
+              "target": "back-somersault",
+              "sentence": 1,
+              "zh": "后空翻，向后翻的跟头。",
+              "en": "A backward somersault."
+            }
+          ]
+        },
+        "chapter-05-p030": {
+          "sentences": [
+            "“我年轻的时候，”长者晃着灰白的头发说，“靠用这种药膏，把四肢保持得非常柔软——一先令一盒——让我卖你两盒好不好？”"
+          ],
+          "hints": [
+            {
+              "id": "ointment",
+              "kind": "word",
+              "target": "ointment",
+              "sentence": 2,
+              "zh": "药膏、软膏。",
+              "en": "A cream or soft medicine rubbed on the skin."
+            },
+            {
+              "id": "one-shilling",
+              "kind": "phrase",
+              "target": "one shilling the box",
+              "sentence": 2,
+              "zh": "一先令一盒。先令是英国旧币制里的银币，这里老先生正兜售他的药膏。",
+              "en": "One shilling a box; a shilling was an old British silver coin, and the old man is trying to sell the ointment."
+            }
+          ]
+        },
+        "chapter-05-p031": {
+          "sentences": [
+            "“你老了，”年轻人说，“你的牙床连比板油硬一点的东西都嚼不动；可你把那只鹅连骨头带嘴全吃光了——请问，你是怎么做到的？”"
+          ],
+          "hints": [
+            {
+              "id": "suet",
+              "kind": "word",
+              "target": "suet",
+              "sentence": 3,
+              "zh": "板油，牛羊腹部的硬脂肪，常用来做布丁。",
+              "en": "Suet: hard fat from beef or mutton, used in puddings."
+            }
+          ]
+        },
+        "chapter-05-p032": {
+          "sentences": [
+            "“我年轻的时候，”他父亲说，“我干上了法律这一行，每桩案子都跟我妻子争辩；而争辩给下颌添的那股力气，一直管了我后半辈子。”"
+          ],
+          "hints": [
+            {
+              "id": "took-to-the-law",
+              "kind": "phrase",
+              "target": "took to the law",
+              "sentence": 4,
+              "zh": "干起了法律这一行，当了律师。",
+              "en": "Took to the law: went into the legal profession."
+            }
+          ]
+        },
+        "chapter-05-p033": {
+          "sentences": [
+            "“你老了，”年轻人说，“谁也想不到你的眼神还跟从前一样稳；可你却在鼻尖上顶住了一条鳗鱼——你怎么会这么厉害？”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p034": {
+          "sentences": [
+            "“我已经回答了三个问题，这就够了，”他父亲说，“你别摆架子！",
+            "你以为我能整天听这些废话吗？",
+            "滚开，不然我就把你踢下楼去！”"
+          ],
+          "hints": [
+            {
+              "id": "give-yourself-airs",
+              "kind": "phrase",
+              "target": "give yourself airs",
+              "sentence": 6,
+              "zh": "摆架子，自以为了不起。",
+              "en": "Give yourself airs: behave as if you are more important than you are."
+            }
+          ]
+        },
+        "chapter-05-p035": {
+          "sentences": [
+            "“背得不对。”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p036": {
+          "sentences": [
+            "“恐怕是不太对，”爱丽丝怯生生地说，“有些词给改掉了。”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p037": {
+          "sentences": [
+            "“从头到尾都错了。”毛毛虫断然说道，随后两人沉默了几分钟。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p038": {
+          "sentences": [
+            "毛毛虫先开了口。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p039": {
+          "sentences": [
+            "“你想变成多大？”它问。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Caterpillar think of Alice's recitation?",
+          "options": [
+            "It is word-perfect.",
+            "Only a few words are wrong.",
+            "It is wrong from beginning to end."
+          ],
+          "answer": 2,
+          "sentence": 11,
+          "feedback": {
+            "zh": "毛毛虫听完，断然说这首诗“从头到尾都错了”，随后两人沉默了几分钟。",
+            "en": "The Caterpillar says the recitation is wrong from beginning to end, and then there is silence for some minutes."
+          }
+        },
+        {
+          "question": "What does Father William say gave his jaw its strength?",
+          "options": [
+            "Arguing cases in his law years.",
+            "Eating goose with the bones.",
+            "Standing on his head every day."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "老威廉说，他年轻时干法律，每桩案子都跟妻子争辩，争辩给下颌添的力气一直管到后半辈子。",
+            "en": "Father William says that arguing each case with his wife in his law years gave his jaw a strength that lasted the rest of his life."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "And the muscular strength, which it gave to my jaw, Has lasted the rest of my life.",
+        "pointIds": [
+          "cefrj-181"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "逗号后的 which 指前面的 the muscular strength，补一句这股力气是争辩练出来的；去掉它，主句照样成立。",
+          "en": "The which after the comma refers back to the muscular strength and adds a comment; without that clause the main sentence still stands."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "三英寸的尊严",
+        "en": "Three Inches Tall"
+      },
+      "introduction": {
+        "zh": "毛毛虫问爱丽丝想变成多大。她说三英寸实在太矮，没想到这话正戳中了对方——它自己正好三英寸高。这条被惹恼的虫子会拿她怎么办？",
+        "en": "The Caterpillar asks what size Alice would like to be. She says three inches is a wretched height, which happens to be exactly the Caterpillar's own height. So what will the creature give her?"
+      },
+      "paragraphs": {
+        "chapter-05-p040": {
+          "sentences": [
+            "“哦，我对大小倒不讲究，”爱丽丝急忙回答，“只是你也知道，谁都不喜欢这样频繁地变来变去。”"
+          ],
+          "hints": [
+            {
+              "id": "not-particular",
+              "kind": "phrase",
+              "target": "not particular as to",
+              "sentence": 1,
+              "zh": "对……不讲究、不挑剔。",
+              "en": "Not particular as to: not fussy about."
+            }
+          ]
+        },
+        "chapter-05-p041": {
+          "sentences": [
+            "“我不知道。”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p042": {
+          "sentences": [
+            "爱丽丝什么也没说：她一辈子还没被人这样一次次顶撞过，她觉得自己快要发脾气了。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p043": {
+          "sentences": [
+            "“你现在满意了吗？”毛毛虫说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p044": {
+          "sentences": [
+            "“嗯，要是你不介意的话，先生，我想再大一点点，”爱丽丝说，“三英寸这个身高实在太可怜了。”"
+          ],
+          "hints": [
+            {
+              "id": "wretched",
+              "kind": "word",
+              "target": "wretched",
+              "sentence": 5,
+              "zh": "糟糕的、可怜的；这里形容三英寸这个身高太不像样。",
+              "en": "Miserable or pitiful; here a wretched height means a very poor one."
+            }
+          ]
+        },
+        "chapter-05-p045": {
+          "sentences": [
+            "“这身高确实好得很！”毛毛虫生气地说，一边说一边把身子直直地立起来（它正好三英寸高）。"
+          ],
+          "hints": [
+            {
+              "id": "rearing-itself",
+              "kind": "phrase",
+              "target": "rearing itself upright",
+              "sentence": 6,
+              "zh": "把身子直挺挺地立起来。",
+              "en": "Rearing itself upright: raising its body straight up."
+            }
+          ]
+        },
+        "chapter-05-p046": {
+          "sentences": [
+            "“可我还不习惯呀！”可怜的爱丽丝用哀怜的声调恳求道。",
+            "她心里想：“但愿这些家伙别这么容易生气。”"
+          ],
+          "hints": [
+            {
+              "id": "piteous",
+              "kind": "word",
+              "target": "piteous",
+              "sentence": 7,
+              "zh": "可怜的、哀怜的，形容声音让人听了心软。",
+              "en": "Piteous: sad and pitiful, asking for sympathy."
+            }
+          ]
+        },
+        "chapter-05-p047": {
+          "sentences": [
+            "“你慢慢就会习惯的。”毛毛虫说，又把水烟筒塞进嘴里，重新抽了起来。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p048": {
+          "sentences": [
+            "这一回，爱丽丝耐心地等着，直到它愿意再开口。",
+            "过了一两分钟，毛毛虫把水烟筒从嘴里拿出来，打了一两个哈欠，抖了抖身子。",
+            "然后它从蘑菇上下来，爬进草丛，一路只说了句：“一边会让你长高，另一边会让你变矮。”"
+          ],
+          "hints": [
+            {
+              "id": "remarking",
+              "kind": "word",
+              "target": "remarking",
+              "sentence": 12,
+              "zh": "说、评论；remark 作动词是“说道”，不是“注意到”。",
+              "en": "Remarking: saying or commenting; as a verb, remark means 'to say'."
+            }
+          ]
+        },
+        "chapter-05-p049": {
+          "sentences": [
+            "“什么的哪一边？",
+            "那另一边又是什么的另一边呢？”爱丽丝心里想。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p050": {
+          "sentences": [
+            "“蘑菇的。”毛毛虫说，就好像她刚才大声问了出来似的；转眼间它就不见了。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Caterpillar become angry?",
+          "options": [
+            "Alice calls three inches a wretched height, and that is his own height.",
+            "Alice refuses to try the mushroom.",
+            "Alice laughs at the way he smokes."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "爱丽丝嫌三英寸太矮，而毛毛虫正好三英寸高，它气得把身子直直立起来反驳。",
+            "en": "Alice calls three inches a wretched height, and the Caterpillar, exactly three inches high, rears up angrily to contradict her."
+          }
+        },
+        {
+          "question": "What does the Caterpillar tell Alice about the mushroom?",
+          "options": [
+            "One side makes her taller, the other shorter.",
+            "Both sides make her grow taller.",
+            "She must eat the whole mushroom at once."
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "毛毛虫爬走时只说：蘑菇一边会让人长高，另一边会让人变矮。",
+            "en": "As it crawls away, the Caterpillar says only that one side of the mushroom makes you grow taller and the other shorter."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I wish the creatures wouldn't be so easily offended.",
+        "pointIds": [
+          "cefrj-218"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "wish 后接 wouldn't + 动词原形，表示希望别人别这么做；本句是爱丽丝盼着这些家伙别动不动就生气。",
+          "en": "Wish plus wouldn't and a bare verb expresses a wish about someone else's behaviour: Alice wants the creatures not to take offence so easily."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "掰开蘑菇",
+        "en": "Which Side Is Which?"
+      },
+      "introduction": {
+        "zh": "蘑菇圆得看不出哪边是哪边，爱丽丝只好两手各掰下一块。她先啃了右手那块，下巴立刻撞上了脚。她慌忙去啃另一块，只盼这一回能让身子别再缩下去。",
+        "en": "The mushroom is so round that Alice cannot tell one side from the other, so she breaks off a piece with each hand. She nibbles the right-hand piece, and her chin hits her foot. She hurries to nibble the other, hoping it will put her right."
+      },
+      "paragraphs": {
+        "chapter-05-p051": {
+          "sentences": [
+            "爱丽丝仍待在那儿，若有所思地对着蘑菇看了一会儿，想弄清它的两边到底是哪两边；可蘑菇圆得没有一丝棱角，她觉得这个问题实在太难了。",
+            "不过，她最后还是尽量伸长双臂把蘑菇抱住，两手各从边上掰下一小块。"
+          ],
+          "hints": [
+            {
+              "id": "make-out",
+              "kind": "phrase",
+              "target": "make out",
+              "sentence": 1,
+              "zh": "分辨出、弄清楚。",
+              "en": "Make out: to work out or tell apart."
+            }
+          ]
+        },
+        "chapter-05-p052": {
+          "sentences": [
+            "“可现在哪块是哪块呢？”她自言自语，又啃了一点右手那块试试效果：转眼间，她感到下巴底下被狠狠撞了一下；原来是她的脚踢到了下巴！"
+          ],
+          "hints": [
+            {
+              "id": "nibbled",
+              "kind": "word",
+              "target": "nibbled",
+              "sentence": 3,
+              "lemma": "nibble",
+              "pos": "verb",
+              "zh": "小口小口地啃。",
+              "en": "Nibbled: took small bites."
+            }
+          ]
+        },
+        "chapter-05-p053": {
+          "sentences": [
+            "这突如其来的变化把她吓得不轻，可她觉得不能再耽搁了，因为她正在飞快地缩小；于是她立刻动手去吃另一块。",
+            "她的下巴紧紧压着脚，几乎没有张嘴的余地；不过她终于张开了嘴，勉强咽下了一小口左手那块。"
+          ],
+          "hints": [
+            {
+              "id": "good-deal",
+              "kind": "phrase",
+              "target": "a good deal",
+              "sentence": 4,
+              "zh": "很、非常；a good deal frightened 就是“吓得不轻”。",
+              "en": "A good deal: very much; 'a good deal frightened' means badly frightened."
+            }
+          ]
+        },
+        "chapter-05-p054": {
+          "sentences": [
+            "***** **** ***** “好啦，我的脑袋总算自由了！”爱丽丝高兴地说；可转眼间，这高兴就变成了惊慌——她发现自己的肩膀不知去向了：低头看去，能看见的只有一段长得不得了的脖子，像根茎秆似的，从远远下方一片绿叶的海洋里升起来。"
+          ],
+          "hints": [
+            {
+              "id": "stalk",
+              "kind": "word",
+              "target": "stalk",
+              "sentence": 6,
+              "zh": "植物的茎、秆。",
+              "en": "Stalk: the stem of a plant."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why is it hard for Alice to tell the two sides of the mushroom apart?",
+          "options": [
+            "It is perfectly round.",
+            "It is buried in the grass.",
+            "It is too small to hold."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "蘑菇是浑圆的，看不出哪一边算“这一边”，爱丽丝只好两手各掰一块。",
+            "en": "The mushroom is perfectly round, so Alice cannot tell which side is which and breaks off a piece with each hand."
+          }
+        },
+        {
+          "question": "What happens just after Alice nibbles the right-hand piece?",
+          "options": [
+            "She grows taller than the trees.",
+            "Her own foot strikes her under the chin.",
+            "The mushroom crumbles in her hands."
+          ],
+          "answer": 1,
+          "sentence": 3,
+          "feedback": {
+            "zh": "她刚啃了右手那块，就感到下巴底下挨了重重一击——原来是自己的脚踢到了下巴。",
+            "en": "Right after she nibbles the right-hand piece, something strikes her under the chin: it is her own foot."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Her chin was pressed so closely against her foot, that there was hardly room to open her mouth",
+        "pointIds": [
+          "cefrj-45"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "so closely ... that 把“下巴贴得那么紧”和结果“几乎张不开嘴”连起来，that 从句讲结果。",
+          "en": "So closely … that links the tightness of her chin against her foot to the result: there was hardly room to open her mouth."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "鸽子眼中的蛇",
+        "en": "A Serpent, Surely"
+      },
+      "introduction": {
+        "zh": "爱丽丝的脖子变得又长又软，能像蛇一样四处弯。她想低头看看自己的手，却被一只鸽子扑了满脸。鸽子一口咬定她是蛇，根本不听她分辩。她要怎么证明自己不是？",
+        "en": "Alice's neck has grown long and bendable, and it twists like a serpent's. When she tries to look down at her hands, a Pigeon flies into her face, certain that she is a serpent and unwilling to hear otherwise."
+      },
+      "paragraphs": {
+        "chapter-05-p055": {
+          "sentences": [
+            "“那些绿油油的东西到底是什么？”爱丽丝说。",
+            "“我的肩膀又到哪儿去了？",
+            "还有，哦，我可怜的手啊，我怎么就看不见你们呢？”",
+            "她说话时正把手来回动着，可除了远处绿叶间一点轻微的晃动，似乎什么反应也没有。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p056": {
+          "sentences": [
+            "看来把手举到脑袋那儿是没指望了，她便试着把脑袋低下去凑手，结果惊喜地发现，她的脖子能像蛇一样，朝任何方向轻松弯来弯去。",
+            "她刚把脖子弯成一个优美的之字形，正要扎进叶丛——她发现那不过是她刚才在下面游荡的那些树的树梢——这时一声尖利的嘶响吓得她急忙缩回来：一只大鸽子直扑到她脸上，用翅膀狠狠拍打她。"
+          ],
+          "hints": [
+            {
+              "id": "serpent",
+              "kind": "word",
+              "target": "serpent",
+              "sentence": 5,
+              "zh": "蛇，尤指大蛇；鸽子正是用它来骂爱丽丝。",
+              "en": "Serpent: a snake, especially a large one."
+            },
+            {
+              "id": "zigzag",
+              "kind": "word",
+              "target": "zigzag",
+              "sentence": 6,
+              "zh": "之字形，左右来回折的线。",
+              "en": "Zigzag: a line that turns sharply from side to side."
+            }
+          ]
+        },
+        "chapter-05-p057": {
+          "sentences": [
+            "“蛇！”鸽子尖叫道。"
+          ],
+          "hints": [
+            {
+              "id": "pigeon",
+              "kind": "word",
+              "target": "Pigeon",
+              "sentence": 7,
+              "zh": "鸽子，把爱丽丝当成蛇、拼命护着自己窝里蛋的鸟。",
+              "en": "The Pigeon, who mistakes Alice for a serpent and is guarding the eggs in its nest."
+            }
+          ]
+        },
+        "chapter-05-p058": {
+          "sentences": [
+            "“我不是蛇！”爱丽丝愤愤地说。",
+            "“别碰我！”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p059": {
+          "sentences": [
+            "“蛇，我再说一遍！”鸽子重复道，不过语气低了些，又带着一种哽咽补充说，“什么法子我都试过了，可好像怎么都不能让它们满意！”"
+          ],
+          "hints": [
+            {
+              "id": "subdued",
+              "kind": "word",
+              "target": "subdued",
+              "sentence": 10,
+              "zh": "压低的、缓和下来的（声音或语气）。",
+              "en": "Subdued: quieter and less forceful."
+            }
+          ]
+        },
+        "chapter-05-p060": {
+          "sentences": [
+            "“我一点儿也听不懂你在说什么。”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p061": {
+          "sentences": [
+            "“我试过树根，试过土坡，也试过树篱，”鸽子不理她，只管往下说，“可那些蛇啊！",
+            "怎么都没法让它们称心！”"
+          ],
+          "hints": [
+            {
+              "id": "banks",
+              "kind": "word",
+              "target": "banks",
+              "sentence": 12,
+              "zh": "河岸、土坡；这里指鸽子试过筑巢的地方。",
+              "en": "Banks: raised ground along a river; here, places the Pigeon tried to nest."
+            }
+          ]
+        },
+        "chapter-05-p062": {
+          "sentences": [
+            "爱丽丝越来越糊涂，但她觉得在鸽子说完之前，再多说什么也没用。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Pigeon fly at Alice?",
+          "options": [
+            "It takes her for a serpent coming after its eggs.",
+            "It wants the mushroom in her hands.",
+            "It is angry that she has climbed its tree."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "鸽子把爱丽丝长而弯的脖子当成蛇，扑上来用翅膀打她，还一口咬定“蛇！”。",
+            "en": "The Pigeon takes her long, bending neck for a serpent, flies at her, and screams 'Serpent!'"
+          }
+        },
+        {
+          "question": "What does Alice do when she cannot lift her hands to her head?",
+          "options": [
+            "She calls the Caterpillar for help.",
+            "She bends her neck down towards her hands.",
+            "She eats more of the mushroom."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "手举不到头，爱丽丝就试着把头低下去凑手，发现脖子能像蛇一样朝各个方向弯。",
+            "en": "When her hands will not reach her head, Alice bends her head down to them and finds her neck bends easily in any direction."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "She had just succeeded in curving it down into a graceful zigzag",
+        "pointIds": [
+          "cefrj-67",
+          "cefrj-110"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had just succeeded 是过去完成时，把“刚把脖子弯好”放在鸽子扑来之前；in curving 是介词后接 -ing。",
+          "en": "Had just succeeded is past perfect, placing the curving of her neck before the pigeon flew at her; in curving is a preposition with an -ing form."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "三个星期没合眼",
+        "en": "Three Weeks Without Sleep"
+      },
+      "introduction": {
+        "zh": "鸽子越说越激动：为了守住窝里的蛋，它已经三个星期没合眼，而“蛇”总从树上爬下来。爱丽丝想说自己是小姑娘，可话到嘴边又没了底气。这回她能说服它吗？",
+        "en": "The Pigeon grows more and more upset: it has not slept for three weeks, guarding its eggs from serpents that keep coming down from the trees. Alice wants to say she is a little girl, but the words come out without much confidence."
+      },
+      "paragraphs": {
+        "chapter-05-p063": {
+          "sentences": [
+            "“光孵蛋就够麻烦了，”鸽子说，“可我还得日夜提防着蛇！",
+            "哎呀，我这三个星期连眼都没合过一下！”"
+          ],
+          "hints": [
+            {
+              "id": "look-out",
+              "kind": "phrase",
+              "target": "on the look-out for",
+              "sentence": 1,
+              "zh": "提防着、留心着。",
+              "en": "On the look-out for: watching out for."
+            },
+            {
+              "id": "wink-of-sleep",
+              "kind": "phrase",
+              "target": "a wink of sleep",
+              "sentence": 2,
+              "zh": "一点觉；not had a wink of sleep 就是“一觉没睡”。",
+              "en": "A wink of sleep: even a moment of sleep."
+            }
+          ]
+        },
+        "chapter-05-p064": {
+          "sentences": [
+            "“让你这么烦心，我很抱歉。”爱丽丝说，她开始明白它的意思了。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p065": {
+          "sentences": [
+            "“我好不容易占下了林子里最高的那棵树，”鸽子继续说着，把声音尖成了叫喊，“我正想着总算可以摆脱它们了，它们偏偏要从天上扭着身子爬下来！",
+            "呃，蛇！”"
+          ],
+          "hints": [
+            {
+              "id": "must-needs",
+              "kind": "phrase",
+              "target": "must needs",
+              "sentence": 4,
+              "zh": "偏要、硬是；旧式说法，带抱怨的语气。",
+              "en": "Must needs: had to, of all things; an old phrase with a complaining tone."
+            }
+          ]
+        },
+        "chapter-05-p066": {
+          "sentences": [
+            "“可我告诉你，我不是蛇！”爱丽丝说。",
+            "“我是一个——我是一个——”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p067": {
+          "sentences": [
+            "“好啊！",
+            "那你倒是什么？”鸽子说。",
+            "“我看得出来，你正想编出个什么来！”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p068": {
+          "sentences": [
+            "“我——我是个小姑娘。”爱丽丝说得相当没底气，因为她想起了自己这一天经历过的那么多次变化。"
+          ],
+          "hints": []
+        },
+        "chapter-05-p069": {
+          "sentences": [
+            "“说得倒像真的！”鸽子用极其轻蔑的口气说。",
+            "“我这一辈子见过不少小姑娘，可从来没见过谁长着那样一条脖子！",
+            "不对，不对！",
+            "你就是条蛇；否认也没用。",
+            "我猜你接下来要说，你从来没尝过蛋！”"
+          ],
+          "hints": [
+            {
+              "id": "likely-story",
+              "kind": "sentence",
+              "target": "A likely story indeed!",
+              "sentence": 12,
+              "zh": "反话：“说得倒像真的！”意思是根本不信。",
+              "en": "Sarcastic: 'A likely story!' means it does not believe a word of it."
+            },
+            {
+              "id": "in-my-time",
+              "kind": "phrase",
+              "target": "in my time",
+              "sentence": 13,
+              "zh": "我这一辈子、我这些年。",
+              "en": "In my time: in my life, over the years."
+            }
+          ]
+        },
+        "chapter-05-p070": {
+          "sentences": [
+            "“我确实尝过蛋，”爱丽丝说，她是个非常诚实的孩子，“可你知道，小姑娘吃蛋跟蛇吃蛋一样多呢。”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p071": {
+          "sentences": [
+            "“我不信，”鸽子说，“就算她们真吃，那她们也算是一种蛇，我只能这么说。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why has the Pigeon had no sleep for three weeks?",
+          "options": [
+            "It has been hatching eggs and watching for serpents night and day.",
+            "It has been flying from tree to tree.",
+            "It has been arguing with Alice all night."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "鸽子说，除了孵蛋，它还得日夜提防蛇，所以三个星期没合眼。",
+            "en": "Besides hatching the eggs, the Pigeon must watch for serpents day and night, which is why it has not slept for three weeks."
+          }
+        },
+        {
+          "question": "What does the Pigeon refuse to believe?",
+          "options": [
+            "That little girls eat eggs.",
+            "That Alice's neck can bend.",
+            "That its tree is the highest in the wood."
+          ],
+          "answer": 0,
+          "sentence": 18,
+          "feedback": {
+            "zh": "爱丽丝说小姑娘吃蛋和蛇一样多，鸽子却说“我不信”，还顺势断定小姑娘也算一种蛇。",
+            "en": "Alice says little girls eat eggs as much as serpents do; the Pigeon does not believe it and decides little girls must be a kind of serpent."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I suppose you'll be telling me next that you never tasted an egg!",
+        "pointIds": [
+          "cefrj-70"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "you'll be telling me 是将来进行时 will be + -ing；这里带讥讽，意思是“你接下来大概要说……”。",
+          "en": "You'll be telling me is future continuous (will be + -ing), used with a sneer: 'no doubt you'll say next that…'"
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "生蛋与熟蛋",
+        "en": "Raw Eggs and Little Girls"
+      },
+      "introduction": {
+        "zh": "鸽子丢下一句“你是小姑娘还是蛇，跟我有什么相干”，转身回窝。爱丽丝却说，这事对她很要紧；而且她并不爱吃生蛋。等她终于想起手里的蘑菇，要回到原来的身高还得先弄清哪一块管用。",
+        "en": "The Pigeon mutters that it does not care whether Alice is a little girl or a serpent, and settles back into its nest. Alice says it matters a great deal to her, and that she does not even like raw eggs. Then she remembers the mushroom in her hands."
+      },
+      "paragraphs": {
+        "chapter-05-p072": {
+          "sentences": [
+            "这想法对爱丽丝来说太新鲜了，她竟一言不发地待了一两分钟，这正好让鸽子有机会补上一句：“你在找蛋，这我清楚得很；你是小姑娘还是蛇，对我又有什么要紧？”"
+          ],
+          "hints": []
+        },
+        "chapter-05-p073": {
+          "sentences": [
+            "“对我来说可要紧得很。”爱丽丝急忙说，“不过碰巧我并不是在找蛋；就算我在找，我也不会要你的蛋：我不喜欢生着吃。”"
+          ],
+          "hints": [
+            {
+              "id": "as-it-happens",
+              "kind": "phrase",
+              "target": "as it happens",
+              "sentence": 2,
+              "zh": "碰巧、恰好。",
+              "en": "As it happens: by chance, actually."
+            },
+            {
+              "id": "raw",
+              "kind": "word",
+              "target": "raw",
+              "sentence": 2,
+              "zh": "生的、没煮过的。",
+              "en": "Raw: not cooked."
+            }
+          ]
+        },
+        "chapter-05-p074": {
+          "sentences": [
+            "“好吧，那就走吧！”鸽子闷闷不乐地说，重新落回窝里。",
+            "爱丽丝尽量在树间蹲低身子，因为她的脖子老是缠在树枝里，不时得停下来把它解开。",
+            "过了一会儿，她想起手里还拿着那两块蘑菇，于是非常小心地动起手来，先啃一块，再啃另一块，一会儿变高，一会儿变矮，最后终于把自己降回到了平常的身高。"
+          ],
+          "hints": [
+            {
+              "id": "sulky",
+              "kind": "word",
+              "target": "sulky",
+              "sentence": 3,
+              "zh": "闷闷不乐、板着脸的。",
+              "en": "Sulky: silent and bad-tempered."
+            },
+            {
+              "id": "entangled",
+              "kind": "word",
+              "target": "entangled",
+              "sentence": 4,
+              "lemma": "entangle",
+              "pos": "verb",
+              "zh": "缠住、绞在一起。",
+              "en": "Entangled: twisted and caught in something."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Alice say about the eggs?",
+          "options": [
+            "She is looking for some to take home.",
+            "She is not looking for eggs, and would not want them raw.",
+            "She would like one of the Pigeon's eggs."
+          ],
+          "answer": 1,
+          "sentence": 2,
+          "feedback": {
+            "zh": "爱丽丝说，碰巧她并不是在找蛋；就算在找，也不会要它的蛋——她不喜欢生着吃。",
+            "en": "Alice says she is not looking for eggs, and would not want the Pigeon's even if she were, because she does not like them raw."
+          }
+        },
+        {
+          "question": "How does Alice get back to her usual height?",
+          "options": [
+            "She eats a whole mushroom in one bite.",
+            "She nibbles first one piece and then the other.",
+            "The Pigeon brings her something to eat."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "她想起手里还拿着两块蘑菇，便轮流小口啃，时高时矮，最后降回平常的身高。",
+            "en": "She remembers the two pieces of mushroom and nibbles first one and then the other until she is back to her usual height."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "and if I was, I shouldn't want yours",
+        "pointIds": [
+          "cefrj-215"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if 从句用过去式 was、主句用 shouldn't + 动词原形，说的是与现在相反的假设；口语里 if I was 常代替 if I were。",
+          "en": "A past-tense if-clause with shouldn't and a bare verb describes an unreal present: 'if I were looking, I wouldn't want yours'; in speech if I was often replaces if I were."
+        }
+      }
+    },
+    {
+      "number": 9,
+      "title": {
+        "zh": "四英尺高的房子",
+        "en": "A House Four Feet High"
+      },
+      "introduction": {
+        "zh": "爱丽丝终于回到原来的身高，计划也算完成了一半。前面就是那座美丽的花园，可空地上那座小房子只有四英尺高。以她现在的个子走过去，会出什么事？",
+        "en": "Alice is her right size again, and half of her plan is done. Ahead lies the beautiful garden, but the little house in the clearing is only four feet high. What would happen if she walked up to it as she is?"
+      },
+      "paragraphs": {
+        "chapter-05-p075": {
+          "sentences": [
+            "她已经很久没有过接近正常的身高了，所以起初觉得很不习惯；不过几分钟后她就习惯了，又像平常那样自言自语起来。",
+            "“好了，我的计划现在已经完成一半了！",
+            "这些变化可真让人摸不着头脑！",
+            "我这一分钟都不知道下一分钟会变成什么样！",
+            "不过，我已经恢复成原来的大小了：接下来就是进那座美丽的花园——我该怎么进去呢？”",
+            "说着说着，她忽然来到一片空地上，那里有一座约四英尺高的小房子。",
+            "“不管是谁住在那里，”爱丽丝心想，“以我这么个尺寸出现在人家面前可绝对不行：哎呀，我会把他们吓得魂都没了！”",
+            "于是她又开始啃右手那块，一直把自己缩到九英寸高，才敢走近那座房子。"
+          ],
+          "hints": [
+            {
+              "id": "open-place",
+              "kind": "phrase",
+              "target": "open place",
+              "sentence": 6,
+              "zh": "空地，林中开阔的地方。",
+              "en": "An open place: a clearing."
+            },
+            {
+              "id": "never-do",
+              "kind": "phrase",
+              "target": "it'll never do",
+              "sentence": 7,
+              "zh": "那可不行、绝对使不得。",
+              "en": "It'll never do: that will not do at all."
+            },
+            {
+              "id": "out-of-their-wits",
+              "kind": "phrase",
+              "target": "frighten them out of their wits",
+              "sentence": 7,
+              "zh": "把他们吓得魂飞魄散、不知所措。",
+              "en": "Frighten them out of their wits: scare them badly."
+            },
+            {
+              "id": "venture",
+              "kind": "word",
+              "target": "venture",
+              "sentence": 8,
+              "zh": "敢、壮着胆子（去做）。",
+              "en": "Venture: dare to go or do something."
+            },
+            {
+              "id": "nine-inches",
+              "kind": "phrase",
+              "target": "nine inches",
+              "sentence": 8,
+              "zh": "九英寸，约二十三厘米；这比她原来的身高矮得多。",
+              "en": "Nine inches: about 23 cm, far shorter than her usual height."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Alice plan to do next?",
+          "options": [
+            "Find the Caterpillar and thank it.",
+            "Get into the beautiful garden.",
+            "Go back to her sister."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "爱丽丝说，恢复原来的大小只算完成了计划的一半，接下来要进那座美丽的花园。",
+            "en": "Alice says getting back to her right size is only half her plan; next she wants to get into the beautiful garden."
+          }
+        },
+        {
+          "question": "Why does Alice stop short of the little house?",
+          "options": [
+            "She is still too big and fears she would frighten whoever lives there.",
+            "The house has no door.",
+            "She has eaten all of her mushroom."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "她担心自己这副个子会吓坏屋里的人，于是又啃起右手那块蘑菇，缩到九英寸高才敢靠近。",
+            "en": "She is afraid her size would frighten whoever lives there, so she nibbles the right-hand piece down to nine inches before going near."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "\"Whoever lives there,\" thought Alice",
+        "pointIds": [
+          "cefrj-188"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "Whoever 引导的从句作 thought 的内容，意思是“不管谁住在那里”；whoever 相当于 anyone who。",
+          "en": "Whoever introduces the clause that Alice thinks: it means 'anyone who lives there'."
+        }
+      }
+    }
+  ]
+}

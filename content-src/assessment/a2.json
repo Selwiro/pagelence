@@ -1,0 +1,793 @@
+{
+  "updatedAt": "2026-11-21",
+  "passages": [
+    {
+      "id": "passage-a2-rainy-saturday",
+      "level": "A2",
+      "title": "A Rainy Saturday",
+      "text": "Saturday morning was grey and wet. Emma wanted to go to the park with her dog, but the rain did not stop. She made a cup of tea and looked out of the window. Then she had an idea. She put on her old coat and took an umbrella. The dog jumped up and down when he saw the coat. They walked to the small cafe near the river. Emma had a warm sandwich, and the dog sat under the table. By the time they went home, the rain had stopped. Emma was happy: it was a good day after all."
+    },
+    {
+      "id": "passage-a2-moving-day",
+      "level": "A2",
+      "title": "Moving Day",
+      "text": "On Friday morning, Leo's family moved to a new flat on the other side of the city. There were twelve boxes in the living room, and Leo could not find his school bag. \"It is in the blue box,\" said his mother. She was right, but the blue box was under three heavy ones.\n\nAt noon, a woman from the flat next door knocked at the door. Her name was Mrs Bell, and she brought a warm apple cake. \"Welcome to the building,\" she said. Leo's father made tea for everyone, and they sat on the floor because the chairs were still in the truck.\n\nIn the afternoon, Leo went to look for the cat. Mimi was not in the kitchen or in the bedroom. At last he found her in an empty box near the window, asleep on his old jacket. She looked very comfortable.\n\nIn the evening, the family ate pizza on the balcony and watched the lights of the city. Leo missed his old street, but the new flat had a bigger window and a small garden. \"We can plant tomatoes here,\" his father said. Leo smiled. Maybe the new place was not so bad after all."
+    },
+    {
+      "id": "passage-a2-lost-ticket",
+      "level": "A2",
+      "title": "The Lost Ticket",
+      "text": "Ben was going to visit his grandmother on Saturday. She lived in a small town by the sea, and the train took about two hours. His mother gave him a ticket and said, \"Keep it in your pocket.\"\n\nAt the station, the wind was strong. Ben took the ticket out to read the number of his seat, and a big gust pulled it from his hand. The ticket flew across the platform and stopped under a bench. Ben ran after it, but a man with a big bag stepped in front of him, and the ticket was gone.\n\nBen's face went red. He had no money for a second ticket. A woman in a blue coat saw him looking under the benches. \"Are you looking for this?\" she asked. She was holding his ticket. The wind had carried it to the other end of the platform, and she had caught it.\n\nBen thanked her many times. On the train, he put the ticket inside his book, not in his pocket. When he arrived, his grandmother was waiting at the gate with a smile. Ben told her the story, and she laughed. \"Next time,\" she said, \"take a photo of it too.\""
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-a2-v01",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "He {{blank}} his keys, so he could not open the door.",
+      "options": [
+        "found",
+        "borrowed",
+        "lost",
+        "bought"
+      ],
+      "answer": 2,
+      "explanation": {
+        "zh": "lost 是「丢了」；丢了钥匙才打不开门。",
+        "en": "Lost means he no longer had the keys, so he could not open the door."
+      },
+      "point": "lex-lost"
+    },
+    {
+      "id": "q-a2-v02",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "I am very {{blank}} . Can I have a glass of water?",
+      "options": [
+        "hungry",
+        "thirsty",
+        "sleepy",
+        "angry"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "thirsty 是「渴」，所以想喝水。",
+        "en": "Thirsty means needing a drink, which is why water is asked for."
+      },
+      "point": "lex-thirsty"
+    },
+    {
+      "id": "q-a2-v03",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "My sister is a {{blank}} . She works in a hospital.",
+      "options": [
+        "teacher",
+        "nurse",
+        "driver",
+        "farmer"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "nurse 是护士，在医院工作。",
+        "en": "A nurse works in a hospital."
+      },
+      "point": "lex-nurse"
+    },
+    {
+      "id": "q-a2-v04",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "We need to {{blank}} the bus at the next stop because this is our station.",
+      "options": [
+        "get off",
+        "get up",
+        "get on",
+        "get in"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "get off 是「下车」；get on 是「上车」。",
+        "en": "Get off means to leave the bus; get on means to board it."
+      },
+      "point": "lex-get-off"
+    },
+    {
+      "id": "q-a2-v05",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "The film was so {{blank}} that I fell asleep.",
+      "options": [
+        "boring",
+        "bored",
+        "interesting",
+        "exciting"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "boring 形容事物「令人无聊」；bored 形容人「感到无聊」。",
+        "en": "Boring describes the film; bored would describe how a person feels."
+      },
+      "point": "cefrj-114"
+    },
+    {
+      "id": "q-a2-v06",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "Please {{blank}} the window. It is cold in here.",
+      "options": [
+        "open",
+        "close",
+        "break",
+        "carry"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "屋里冷，所以要关窗；close 是关上。",
+        "en": "It is cold inside, so the window should be closed."
+      },
+      "point": "lex-close"
+    },
+    {
+      "id": "q-a2-v07",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "He is very {{blank}} . He always helps other people.",
+      "options": [
+        "kind",
+        "late",
+        "quiet",
+        "strong"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "kind 是善良、乐于助人。",
+        "en": "Kind means caring about other people."
+      },
+      "point": "lex-kind"
+    },
+    {
+      "id": "q-a2-v08",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "Can I {{blank}} by card?",
+      "options": [
+        "pay",
+        "spend",
+        "cost",
+        "take"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "pay by card 是刷卡付款；spend 的主语是人花钱，cost 的主语是物。",
+        "en": "Pay by card is the fixed phrase; spend and cost take different subjects."
+      },
+      "point": "lex-pay"
+    },
+    {
+      "id": "q-a2-v09",
+      "level": "A2",
+      "skill": "vocab",
+      "prompt": "The soup is too {{blank}} . Please add some water.",
+      "options": [
+        "sweet",
+        "salty",
+        "sour",
+        "bitter"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "太咸才需要加水；salty 是咸的。",
+        "en": "Salty soup is the reason to add water."
+      },
+      "point": "lex-salty"
+    },
+    {
+      "id": "q-a2-g01",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "She {{blank}} to school every day.",
+      "options": [
+        "go",
+        "goes",
+        "going",
+        "gone"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "一般现在时第三人称单数，动词加 -s。",
+        "en": "Simple present, third person singular: the verb takes -s."
+      },
+      "point": "cefrj-60"
+    },
+    {
+      "id": "q-a2-g02",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "There {{blank}} some milk in the fridge.",
+      "options": [
+        "is",
+        "are",
+        "have",
+        "has"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "milk 不可数，there be 用 is。",
+        "en": "Milk is uncountable, so there be takes is."
+      },
+      "point": "cefrj-146"
+    },
+    {
+      "id": "q-a2-g03",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "I {{blank}} my homework yesterday.",
+      "options": [
+        "do",
+        "does",
+        "did",
+        "doing"
+      ],
+      "answer": 2,
+      "explanation": {
+        "zh": "yesterday 是一般过去时的标志，用 did。",
+        "en": "Yesterday marks the simple past, so did is used."
+      },
+      "point": "cefrj-65"
+    },
+    {
+      "id": "q-a2-g04",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "He is {{blank}} than his brother.",
+      "options": [
+        "tall",
+        "taller",
+        "tallest",
+        "more tall"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "than 前面用比较级 taller。",
+        "en": "Than requires the comparative form taller."
+      },
+      "point": "cefrj-38"
+    },
+    {
+      "id": "q-a2-g05",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "{{blank}} you like coffee?",
+      "options": [
+        "Do",
+        "Are",
+        "Does",
+        "Is"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "实义动词 like 的疑问句用 Do 开头。",
+        "en": "Questions with the main verb like use Do."
+      },
+      "point": "cefrj-59"
+    },
+    {
+      "id": "q-a2-g06",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "She has lived here {{blank}} 2019.",
+      "options": [
+        "for",
+        "since",
+        "from",
+        "at"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "since 接时间点，for 接时间段。",
+        "en": "Since takes a point in time; for takes a length of time."
+      },
+      "point": "cefrj-62"
+    },
+    {
+      "id": "q-a2-g07",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "This is the book {{blank}} I told you about.",
+      "options": [
+        "who",
+        "that",
+        "what",
+        "whose"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "先行词是物，用 that 或 which；what 不能引导定语从句。",
+        "en": "For a thing, use that or which; what cannot introduce a relative clause."
+      },
+      "point": "cefrj-179"
+    },
+    {
+      "id": "q-a2-g08",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "If it {{blank}} tomorrow, we will stay at home.",
+      "options": [
+        "rain",
+        "rains",
+        "will rain",
+        "rained"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "if 条件句用一般现在时表将来。",
+        "en": "In a first conditional, the if-clause uses the simple present."
+      },
+      "point": "cefrj-156"
+    },
+    {
+      "id": "q-a2-g09",
+      "level": "A2",
+      "skill": "grammar",
+      "prompt": "They {{blank}} TV when I called.",
+      "options": [
+        "watch",
+        "watched",
+        "were watching",
+        "are watching"
+      ],
+      "answer": 2,
+      "explanation": {
+        "zh": "过去某一时刻正在做，用过去进行时。",
+        "en": "An action in progress at a past moment takes the past continuous."
+      },
+      "point": "cefrj-66"
+    },
+    {
+      "id": "q-a2-r01",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-rainy-saturday",
+      "prompt": "What was the weather like on Saturday morning?",
+      "options": [
+        "Sunny and hot",
+        "Grey and wet",
+        "Cold and snowy",
+        "Windy and dry"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "第一句说 Saturday morning was grey and wet。",
+        "en": "The first sentence says the morning was grey and wet."
+      },
+      "point": "read-a2-rainy-1"
+    },
+    {
+      "id": "q-a2-r02",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-rainy-saturday",
+      "prompt": "Why did Emma stay at home at first?",
+      "options": [
+        "She was ill",
+        "It was raining",
+        "She was working",
+        "Her dog was asleep"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "雨一直没停，所以她没有去公园。",
+        "en": "The rain did not stop, so she did not go to the park."
+      },
+      "point": "read-a2-rainy-2"
+    },
+    {
+      "id": "q-a2-r03",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-rainy-saturday",
+      "prompt": "Where did Emma and her dog go?",
+      "options": [
+        "To the park",
+        "To a cafe near the river",
+        "To the library",
+        "To a friend's house"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "他们去了河边的小咖啡馆。",
+        "en": "They walked to the small cafe near the river."
+      },
+      "point": "read-a2-rainy-3"
+    },
+    {
+      "id": "q-a2-r04",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-rainy-saturday",
+      "prompt": "What did Emma have at the cafe?",
+      "options": [
+        "A cup of tea",
+        "A warm sandwich",
+        "A cold drink",
+        "Some cake"
+      ],
+      "answer": 1,
+      "explanation": {
+        "zh": "她在咖啡馆吃了热三明治；茶是出门前在家喝的。",
+        "en": "She had a warm sandwich there; the tea was at home before she left."
+      },
+      "point": "read-a2-rainy-4"
+    },
+    {
+      "id": "q-a2-v10",
+      "level": "A2",
+      "skill": "vocab",
+      "point": "lex-recipe",
+      "prompt": "Follow the {{blank}} on the box and the cake will be ready in an hour.",
+      "options": [
+        "recipe",
+        "receipt",
+        "ticket",
+        "menu"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "recipe 是食谱，盒子上写着做蛋糕的步骤。",
+        "en": "A recipe tells you how to cook something, so it is what you follow on a cake box."
+      }
+    },
+    {
+      "id": "q-a2-v11",
+      "level": "A2",
+      "skill": "vocab",
+      "point": "lex-cancel",
+      "prompt": "We had to {{blank}} the picnic because of the heavy rain.",
+      "options": [
+        "cancel",
+        "begin",
+        "enjoy",
+        "repeat"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "cancel 是取消，大雨让野餐办不成了。",
+        "en": "Cancel means to decide an event will not happen, which is what heavy rain forces."
+      }
+    },
+    {
+      "id": "q-a2-v12",
+      "level": "A2",
+      "skill": "vocab",
+      "point": "lex-crowded",
+      "prompt": "The bus was very {{blank}} this morning, so I had to stand all the way.",
+      "options": [
+        "crowded",
+        "empty",
+        "quiet",
+        "clean"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "crowded 是拥挤的，人多没有座位才要一直站着。",
+        "en": "Crowded means full of people, which is why there was no seat."
+      }
+    },
+    {
+      "id": "q-a2-v13",
+      "level": "A2",
+      "skill": "vocab",
+      "point": "lex-borrow",
+      "prompt": "Can I {{blank}} your pen for a minute? I forgot mine.",
+      "options": [
+        "borrow",
+        "lend",
+        "sell",
+        "lose"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "borrow 是「借入」，我借你的笔；lend 是「借出」。",
+        "en": "Borrow means to take something for a short time; lend goes the other way."
+      }
+    },
+    {
+      "id": "q-a2-v14",
+      "level": "A2",
+      "skill": "vocab",
+      "point": "lex-hurry",
+      "prompt": "We need to {{blank}}, or we will miss the train.",
+      "options": [
+        "hurry",
+        "wait",
+        "rest",
+        "stop"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "hurry 是赶快，不快一点就赶不上火车。",
+        "en": "Hurry means to move quickly, which is needed to catch the train."
+      }
+    },
+    {
+      "id": "q-a2-v15",
+      "level": "A2",
+      "skill": "vocab",
+      "point": "lex-fix",
+      "prompt": "My bike is broken. Can you {{blank}} it this afternoon?",
+      "options": [
+        "fix",
+        "wash",
+        "ride",
+        "sell"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "fix 是修理，坏了的东西需要修。",
+        "en": "Fix means to repair, which is what a broken bike needs."
+      }
+    },
+    {
+      "id": "q-a2-g10",
+      "level": "A2",
+      "skill": "grammar",
+      "point": "cefrj-73",
+      "prompt": "In this factory, about two hundred cars {{blank}} every day.",
+      "options": [
+        "are produced",
+        "produce",
+        "is produced",
+        "have produced"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "主语 cars 是动作的承受者，一般现在时被动语态用 are produced。",
+        "en": "The cars receive the action, so the present passive are produced is needed."
+      }
+    },
+    {
+      "id": "q-a2-g11",
+      "level": "A2",
+      "skill": "grammar",
+      "point": "cefrj-69",
+      "prompt": "Look at those dark clouds! It {{blank}} rain in a few minutes.",
+      "options": [
+        "is going to",
+        "going to",
+        "was going to",
+        "is going"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "有眼前证据的预测用 be going to，主语 it 配 is。",
+        "en": "A prediction based on what we can see uses be going to, with is for it."
+      }
+    },
+    {
+      "id": "q-a2-g12",
+      "level": "A2",
+      "skill": "grammar",
+      "point": "cefrj-61",
+      "prompt": "Please be quiet. The baby {{blank}} at the moment.",
+      "options": [
+        "is sleeping",
+        "sleeps",
+        "slept",
+        "has slept"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "at the moment 表示此刻正在进行，用现在进行时 is sleeping。",
+        "en": "At the moment points to an action happening now, so the present continuous is used."
+      }
+    },
+    {
+      "id": "q-a2-g13",
+      "level": "A2",
+      "skill": "grammar",
+      "point": "cefrj-32",
+      "prompt": "My father {{blank}} walks to the office, but today he took the bus.",
+      "options": [
+        "usually",
+        "yesterday",
+        "tomorrow",
+        "ago"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "频度副词 usually 放在实义动词前，表示平时如此。",
+        "en": "The frequency adverb usually goes before the main verb and marks a habit."
+      }
+    },
+    {
+      "id": "q-a2-g14",
+      "level": "A2",
+      "skill": "grammar",
+      "point": "cefrj-39",
+      "prompt": "This film is {{blank}} than the one we saw last week.",
+      "options": [
+        "more interesting",
+        "interesting",
+        "most interesting",
+        "more interested"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "多音节形容词的比较级用 more + 原级，than 前用 more interesting。",
+        "en": "Long adjectives form the comparative with more, and than requires that form."
+      }
+    },
+    {
+      "id": "q-a2-g15",
+      "level": "A2",
+      "skill": "grammar",
+      "point": "cefrj-37",
+      "prompt": "The new road is {{blank}} as the old one.",
+      "options": [
+        "as wide",
+        "so wide",
+        "wider",
+        "the widest"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "肯定句表示「一样……」用 as + 原级 + as。",
+        "en": "An affirmative equal comparison uses as + adjective + as."
+      }
+    },
+    {
+      "id": "q-a2-r05",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-moving-day",
+      "point": "read-a2-moving-day-1",
+      "prompt": "How many boxes were there in the living room?",
+      "options": [
+        "Twelve",
+        "Three",
+        "Five",
+        "Twenty"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "第一段说客厅里有十二个箱子。",
+        "en": "The first paragraph says there were twelve boxes in the living room."
+      }
+    },
+    {
+      "id": "q-a2-r06",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-moving-day",
+      "point": "read-a2-moving-day-2",
+      "prompt": "In the passage, the word \"comfortable\" tells us that Mimi was",
+      "options": [
+        "warm and relaxed",
+        "cold and wet",
+        "hungry and noisy",
+        "ill and weak"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "猫睡在旧外套上，comfortable 指它暖和又舒服。",
+        "en": "The cat is asleep on an old jacket, so comfortable means warm and relaxed."
+      }
+    },
+    {
+      "id": "q-a2-r07",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-moving-day",
+      "point": "read-a2-moving-day-3",
+      "prompt": "What can we learn about Mimi from the passage?",
+      "options": [
+        "She found a quiet place to sleep",
+        "She was afraid of the new flat",
+        "She ran away to the garden",
+        "She ate part of the apple cake"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "猫躲进空箱子睡着，说明它自己找了个安静角落。",
+        "en": "Mimi is asleep in an empty box, so she found a quiet place for herself."
+      }
+    },
+    {
+      "id": "q-a2-r08",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-moving-day",
+      "point": "read-a2-moving-day-4",
+      "prompt": "What is the passage mainly about?",
+      "options": [
+        "A family's first day in a new home",
+        "How to make an apple cake",
+        "A cat that cannot find its food",
+        "A long bus ride across the city"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "全文按时间顺序写搬家第一天的经历与心情。",
+        "en": "The text follows one moving day from morning to evening in the new flat."
+      }
+    },
+    {
+      "id": "q-a2-r09",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-lost-ticket",
+      "point": "read-a2-lost-ticket-1",
+      "prompt": "Why did Ben take the ticket out of his pocket at the station?",
+      "options": [
+        "To read his seat number",
+        "To show it to a friend",
+        "To buy a second ticket",
+        "To put it in his book"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "文中说他拿出车票看座位号，风就在这时把票吹走了。",
+        "en": "He took it out to read the number of his seat."
+      }
+    },
+    {
+      "id": "q-a2-r10",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-lost-ticket",
+      "point": "read-a2-lost-ticket-2",
+      "prompt": "In the passage, \"a big gust\" is",
+      "options": [
+        "a strong wind",
+        "a loud shout",
+        "a heavy bag",
+        "a fast train"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "gust 指一阵强风，正是它把票从本手里吹走。",
+        "en": "A gust is a sudden strong wind, which pulled the ticket from his hand."
+      }
+    },
+    {
+      "id": "q-a2-r11",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-lost-ticket",
+      "point": "read-a2-lost-ticket-3",
+      "prompt": "How did Ben feel after the ticket was gone?",
+      "options": [
+        "Worried",
+        "Bored",
+        "Proud",
+        "Sleepy"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "他脸红了，又没钱再买票，可见他很着急。",
+        "en": "His face went red and he had no money for another ticket, so he was worried."
+      }
+    },
+    {
+      "id": "q-a2-r12",
+      "level": "A2",
+      "skill": "reading",
+      "passageId": "passage-a2-lost-ticket",
+      "point": "read-a2-lost-ticket-4",
+      "prompt": "What does the story suggest about the woman in the blue coat?",
+      "options": [
+        "She was kind and helpful",
+        "She was in a hurry to leave",
+        "She worked on the train",
+        "She knew Ben's grandmother"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "她拾到票主动问本是不是在找，可见她善良又乐于助人。",
+        "en": "She picked up the ticket and asked if he was looking for it, so she was kind."
+      }
+    }
+  ]
+}

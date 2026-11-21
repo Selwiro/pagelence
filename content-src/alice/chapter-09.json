@@ -1,0 +1,1450 @@
+{
+  "chapter": 9,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "胡椒与寓意",
+        "en": "Pepper and Morals"
+      },
+      "introduction": {
+        "zh": "球场上，公爵夫人忽然亲热地挽住爱丽丝的胳膊，一口一个“亲爱的老东西”。爱丽丝刚松了口气，就发现这位夫人有个怪毛病：不论说什么，她都要从里头找出一条“寓意”。胡椒、汤、醋，样样都有教训。这些寓意真的站得住脚吗？",
+        "en": "On the croquet ground the Duchess takes Alice's arm and calls her a dear old thing. Alice is relieved, until she notices that the Duchess finds a moral in everything, from pepper to soup. Do these morals really hold?"
+      },
+      "paragraphs": {
+        "chapter-09-p001": {
+          "sentences": [
+            "“你真想不到我再见你有多高兴，你这亲爱的老东西！”公爵夫人说着，亲热地把胳膊挽进爱丽丝的臂弯，两个人一起走开了。"
+          ],
+          "hints": [
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 1,
+              "zh": "爱丽丝，本书主角，追着白兔掉进兔子洞的小姑娘。",
+              "en": "Alice, the girl who followed the White Rabbit down the hole and is the heroine of the book."
+            },
+            {
+              "id": "duchess",
+              "kind": "word",
+              "target": "Duchess",
+              "sentence": 1,
+              "zh": "公爵夫人，脾气古怪的贵妇，不管说什么都要从中找出一条“寓意”。",
+              "en": "The Duchess, an odd noblewoman who finds a moral in whatever is said."
+            }
+          ]
+        },
+        "chapter-09-p002": {
+          "sentences": [
+            "爱丽丝很高兴见她脾气这么好，心里想：也许她们在厨房见面时，她那么凶只是因为胡椒。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p003": {
+          "sentences": [
+            "“等我做了公爵夫人，”她自言自语（不过语气并不怎么有指望），“我的厨房里一点儿胡椒都不放。”",
+            "“汤里不放也很好——也许让人脾气火爆的总是胡椒，”她继续说，为自己发现了一条新规律而十分得意，“让人发酸的是醋——让人发苦的是洋甘菊——还有——还有大麦糖之类的东西，让孩子们脾气温和。”",
+            "“我真希望人们知道这一点：那样他们就不会在这上头这么吝啬了，你知道——”"
+          ],
+          "hints": [
+            {
+              "id": "hot-tempered",
+              "kind": "phrase",
+              "target": "hot-tempered",
+              "sentence": 4,
+              "zh": "脾气火爆的、容易发火的；temper 指脾气，hot 指火气。",
+              "en": "Hot-tempered: easily made angry; temper means a person's disposition."
+            },
+            {
+              "id": "barley-sugar",
+              "kind": "word",
+              "target": "barley-sugar",
+              "sentence": 4,
+              "zh": "大麦糖，用大麦糖浆熬成的硬糖，味甜。",
+              "en": "Barley sugar: a hard, sweet candy made from barley syrup."
+            }
+          ]
+        },
+        "chapter-09-p004": {
+          "sentences": [
+            "这时她早把公爵夫人忘得干干净净，忽然听见声音就在耳边，倒吓了一跳。",
+            "“你在想事情呢，亲爱的，一想事就忘了说话。",
+            "这会儿我还说不出这里头的寓意是什么，不过我过一会儿就会想起来的。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p005": {
+          "sentences": [
+            "“也许它根本没什么寓意，”爱丽丝壮着胆子说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p006": {
+          "sentences": [
+            "“啧，啧，孩子！”公爵夫人说。",
+            "“样样东西都有寓意，只要你能找出来。”",
+            "说着，她把自己挤得更紧，贴到爱丽丝身边。"
+          ],
+          "hints": [
+            {
+              "id": "tut-tut",
+              "kind": "phrase",
+              "target": "Tut, tut",
+              "sentence": 10,
+              "zh": "啧啧，表示不赞成或嗔怪的口头语。",
+              "en": "Tut-tut: an old-fashioned sound of mild disapproval."
+            },
+            {
+              "id": "moral",
+              "kind": "word",
+              "target": "moral",
+              "sentence": 11,
+              "zh": "寓意、教训；公爵夫人不管说什么都要从中找出一条“寓意”，这是本章反复出现的玩笑。",
+              "en": "A moral: the lesson drawn from something. The Duchess draws one from everything, which is the running joke of the chapter."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice think the Duchess is in a better temper now?",
+          "options": [
+            "Because the pepper is gone.",
+            "Because the Duchess has just won a game.",
+            "Because Alice has grown taller."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "爱丽丝想，也许她们在厨房见面时她那么凶，只是因为胡椒；眼下没了那股火气，人就和气了。",
+            "en": "Alice decides that the pepper was probably what made the Duchess so savage when they met in the kitchen."
+          }
+        },
+        {
+          "question": "What does the Duchess say everything has?",
+          "options": [
+            "A moral.",
+            "A price.",
+            "A name."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "公爵夫人说，样样东西都有寓意，只要你能找出来——这是她一路上的口头禅。",
+            "en": "The Duchess insists that everything has a moral, if only you can find it."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I only wish people knew that",
+        "pointIds": [
+          "cefrj-218"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "wish 后面用过去式 knew，说的却是现在：但愿人们知道，可他们并不知道。",
+          "en": "After wish, knew is a past form about the present: people do not know, and Alice wishes they did."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "尖下巴与火烈鸟",
+        "en": "A Sharp Chin and a Flamingo"
+      },
+      "introduction": {
+        "zh": "公爵夫人贴得越来越近，尖尖的小下巴硌着爱丽丝的肩膀，嘴里还在找“寓意”：爱、各管各的事、物以类聚。爱丽丝忍不住纠正了一句，对方却越发夸她聪明。接着话题转到火烈鸟和芥末，这两样都会“咬”人吗？",
+        "en": "The Duchess keeps close, resting her sharp little chin on Alice's shoulder and finding a moral in everything. Alice corrects her once and is praised for being so clear. Then the talk turns to flamingos, mustard, and which of them can bite."
+      },
+      "paragraphs": {
+        "chapter-09-p007": {
+          "sentences": [
+            "爱丽丝不太喜欢她贴得这么近：第一，公爵夫人长得很难看；第二，她的个头正好能把下巴搁在爱丽丝肩上，而那下巴尖得让人难受。",
+            "不过她又不想失礼，只好尽量忍着。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p008": {
+          "sentences": [
+            "“现在球赛进行得顺一些了，”她说，算是把话头往下接一接。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p009": {
+          "sentences": [
+            "“是这样，”公爵夫人说，“这里头的寓意就是——‘哦，是爱，是爱，让世界转个不停！’”"
+          ],
+          "hints": [
+            {
+              "id": "tis",
+              "kind": "word",
+              "target": "'Tis",
+              "sentence": 4,
+              "zh": "it is 的古旧缩略形式，旧诗和方言里常见。",
+              "en": "'Tis: an old contraction of 'it is', still heard in poetry and dialect."
+            }
+          ]
+        },
+        "chapter-09-p010": {
+          "sentences": [
+            "“有人说，”爱丽丝小声说，“那是靠各人管好各人的事！”"
+          ],
+          "hints": [
+            {
+              "id": "minding-their-own-business",
+              "kind": "phrase",
+              "target": "minding their own business",
+              "sentence": 5,
+              "zh": "各管各的事，别去多管闲事。",
+              "en": "Minding their own business: looking after their own affairs and not interfering."
+            }
+          ]
+        },
+        "chapter-09-p011": {
+          "sentences": [
+            "“啊，好吧！",
+            "意思差不多是一回事，”公爵夫人说着，把尖尖的小下巴往爱丽丝肩上一顶，又补上一句，“这里头的寓意就是——‘照看好意思，声音自会照看好自己。’”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p012": {
+          "sentences": [
+            "“她多爱从东西里找寓意啊！”",
+            "爱丽丝心里想。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p013": {
+          "sentences": [
+            "“我敢说你在纳闷，我为什么不搂着你的腰，”公爵夫人停了一下说，“原因是，我对你那只火烈鸟的脾气没把握。",
+            "要不要试一试？”"
+          ],
+          "hints": [
+            {
+              "id": "flamingo",
+              "kind": "word",
+              "target": "flamingo",
+              "sentence": 10,
+              "zh": "火烈鸟，奇境里被当作槌球杆用的长腿鸟。",
+              "en": "A flamingo: the long-legged bird used as a croquet mallet in Wonderland."
+            }
+          ]
+        },
+        "chapter-09-p014": {
+          "sentences": [
+            "“它可能会咬人，”爱丽丝小心地回答，一点也不希望真去试。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p015": {
+          "sentences": [
+            "“说得对，”公爵夫人说，“火烈鸟和芥末都会‘咬’人。",
+            "这里头的寓意就是——‘物以类聚，人以群分。’”"
+          ],
+          "hints": [
+            {
+              "id": "both-bite",
+              "kind": "phrase",
+              "target": "both bite",
+              "sentence": 13,
+              "zh": "火烈鸟会咬人，芥末会“呛”人；bite 在这里同时指“咬”和“刺激、呛”。",
+              "en": "Both bite: a flamingo can bite with its beak, and mustard 'bites' the tongue — bite covers both."
+            },
+            {
+              "id": "birds-of-a-feather",
+              "kind": "phrase",
+              "target": "Birds of a feather flock together",
+              "sentence": 14,
+              "zh": "谚语：羽毛相同的鸟聚在一起，即“物以类聚，人以群分”。",
+              "en": "A proverb: birds of the same feathers flock together, that is, similar people keep company."
+            }
+          ]
+        },
+        "chapter-09-p016": {
+          "sentences": [
+            "“可芥末不是鸟啊，”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p017": {
+          "sentences": [
+            "“跟平常一样，说得对，”公爵夫人说，“你说话多清楚啊！”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p018": {
+          "sentences": [
+            "“我想，它是一种矿物，”爱丽丝说。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Duchess quote \"Birds of a feather flock together\"?",
+          "options": [
+            "Because she has just said that flamingoes and mustard both bite.",
+            "Because Alice has asked about the croquet game.",
+            "Because she wants Alice to stop talking."
+          ],
+          "answer": 0,
+          "sentence": 14,
+          "feedback": {
+            "zh": "公爵夫人刚说火烈鸟和芥末都会“咬”人，紧接着就引了这句谚语，意思是同类才相聚。",
+            "en": "She has just said that flamingoes and mustard both bite, and then quotes the proverb about birds of a feather."
+          }
+        },
+        {
+          "question": "What does Alice point out about mustard?",
+          "options": [
+            "It is not a bird.",
+            "It cannot bite.",
+            "It is a kind of flamingo."
+          ],
+          "answer": 0,
+          "sentence": 15,
+          "feedback": {
+            "zh": "爱丽丝指出芥末不是鸟，随后又说它大概是一种矿物，把公爵夫人的寓意顶了回去。",
+            "en": "Alice points out that mustard is not a bird, and then suggests it must be a mineral."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "she bore it as well as she could",
+        "pointIds": [
+          "cefrj-37"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "as well as she could 是同级比较，第二个 as 后面接从句，说明她忍到了自己能忍的程度。",
+          "en": "As well as she could is an equal comparison: the second as introduces the clause that sets the limit of what she could bear."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "芥末矿与猪会飞",
+        "en": "Mustard Mines and Flying Pigs"
+      },
+      "introduction": {
+        "zh": "公爵夫人对爱丽丝说的每句话都点头称是，还能立刻配一条“寓意”。她甚至说附近就有一座芥末矿，又讲出一句关于“我的”和“你的”的怪话。爱丽丝越听越糊涂。夫人说，她还能讲得更久——爱丽丝要怎么脱身？",
+        "en": "The Duchess agrees with every word Alice says and adds a moral to each. She even claims there is a large mustard mine nearby, and offers a saying about 'mine' and 'yours'. Alice cannot follow any of it. What can she say to stop the flow?"
+      },
+      "paragraphs": {
+        "chapter-09-p019": {
+          "sentences": [
+            "“当然是矿物，”公爵夫人说——她似乎随时准备同意爱丽丝说的每句话，“这附近就有一座大芥末矿。",
+            "这里头的寓意就是——‘我的越多，你的就越少。’”"
+          ],
+          "hints": [
+            {
+              "id": "mustard-mine",
+              "kind": "word",
+              "target": "mustard-mine",
+              "sentence": 1,
+              "zh": "芥末矿；mine 既指“矿”，也指“我的”，公爵夫人就拿这两个意思玩文字游戏。",
+              "en": "A mustard-mine: mine means both 'a mine' and 'belonging to me', and the Duchess plays on the two meanings."
+            }
+          ]
+        },
+        "chapter-09-p020": {
+          "sentences": [
+            "“哦，我知道了！”爱丽丝喊道，她根本没留意刚才那句话，“它是一种蔬菜。",
+            "它看着不像，可实际上就是。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p021": {
+          "sentences": [
+            "“我完全同意你，”公爵夫人说，“这里头的寓意就是——‘做你看起来像的那个样子’——或者，如果你愿意把它说得更简单些——‘永远不要想象你自己不是别人看来你可能的样子；也不要以为，你过去是或可能曾经是的样子，会不同于你过去在别人眼里若是另一副样子时本会呈现的那个样子。’”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p022": {
+          "sentences": [
+            "“我想，要是把它写下来，我会更明白些，”爱丽丝非常有礼貌地说，“可你这么说出来，我不太跟得上。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p023": {
+          "sentences": [
+            "“这比起我要是愿意就能说的话，算不了什么，”公爵夫人得意地回答。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p024": {
+          "sentences": [
+            "“请不必费心再多说了，”爱丽丝说。"
+          ],
+          "hints": [
+            {
+              "id": "pray",
+              "kind": "word",
+              "target": "Pray",
+              "sentence": 8,
+              "zh": "请（古旧、客气的说法），相当于 please。",
+              "en": "Pray: an old-fashioned, polite way of saying please."
+            }
+          ]
+        },
+        "chapter-09-p025": {
+          "sentences": [
+            "“哦，别说什么费心！”公爵夫人说。",
+            "“我说过的话，全都白送给你。”"
+          ],
+          "hints": [
+            {
+              "id": "make-a-present-of",
+              "kind": "phrase",
+              "target": "make you a present of",
+              "sentence": 10,
+              "zh": "把……当作礼物白送给你；公爵夫人是说自己那些话全送给爱丽丝了。",
+              "en": "To make somebody a present of something: to give it away as a gift; here, all the words she has spoken."
+            }
+          ]
+        },
+        "chapter-09-p026": {
+          "sentences": [
+            "“可真是一份便宜的礼物！”爱丽丝想。",
+            "“幸好人家不送这样的生日礼物！”",
+            "不过她没敢大声说出来。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p027": {
+          "sentences": [
+            "“又在想事情了？”公爵夫人问，尖下巴又顶了一下。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p028": {
+          "sentences": [
+            "“我有权想事情，”爱丽丝尖声说，她开始有点发慌了。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p029": {
+          "sentences": [
+            "“权利嘛，跟猪会飞差不多，”公爵夫人说，“至于那个‘寓’——”"
+          ],
+          "hints": [
+            {
+              "id": "pigs-fly",
+              "kind": "phrase",
+              "target": "as pigs have to fly",
+              "sentence": 16,
+              "zh": "像猪会飞一样，指根本不可能的事。",
+              "en": "As pigs have to fly: a way of saying something is impossible."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Duchess claim is near them?",
+          "options": [
+            "A large mustard mine.",
+            "A vegetable garden.",
+            "A second croquet ground."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "公爵夫人说附近就有一座大芥末矿，还立刻从“矿”这个字里又找出一条寓意。",
+            "en": "The Duchess says there is a large mustard mine nearby, and turns even that into another moral."
+          }
+        },
+        {
+          "question": "Why does Alice ask the Duchess not to go on?",
+          "options": [
+            "She cannot follow the Duchess's long sayings.",
+            "She is afraid the Queen is listening.",
+            "She wants to go back to the game."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "那句绕来绕去的寓意她听不下去——她说要是写下来也许还能看懂，可听人念就跟不上。",
+            "en": "Alice says she might understand the moral if it were written down, but cannot follow it when it is spoken."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "The more there is of mine, the less there is of yours",
+        "pointIds": [
+          "cefrj-50"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "两个 the + 比较级连用：前一半是条件，后一半跟着变，“越……就越……”。",
+          "en": "Two the + comparative clauses are paired: the first sets the condition, the second the result."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "王后驾到",
+        "en": "The Queen Arrives"
+      },
+      "introduction": {
+        "zh": "话音未落，公爵夫人的声音忽然低了下去，连“寓意”都只说了一半，挽着爱丽丝的胳膊也抖了起来。爱丽丝抬头，看见王后抱着双臂站在面前，眉头皱得像一场雷雨。王后开口了，她要公爵夫人做一个选择。",
+        "en": "In the middle of her favourite word the Duchess's voice fades, and the arm linked in Alice's begins to tremble. Alice looks up: the Queen stands there with folded arms, frowning like a thunderstorm. She has a warning to give and a choice to offer."
+      },
+      "paragraphs": {
+        "chapter-09-p030": {
+          "sentences": [
+            "可就在这时，让爱丽丝大为惊讶的是，公爵夫人的声音低了下去，连她最爱说的“寓意”一词都只说了半截，挽着她的那条胳膊也开始发抖。",
+            "爱丽丝抬头一看，王后正站在她们面前，双臂交叉抱在胸前，眉头皱得像一场雷暴。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p031": {
+          "sentences": [
+            "“天气真好，陛下！”公爵夫人用又低又弱的声音开口。"
+          ],
+          "hints": [
+            {
+              "id": "your-majesty",
+              "kind": "phrase",
+              "target": "your Majesty",
+              "sentence": 3,
+              "zh": "陛下，对君主的尊称。",
+              "en": "Your Majesty: the title used when speaking to a king or queen."
+            }
+          ]
+        },
+        "chapter-09-p032": {
+          "sentences": [
+            "“听着，我正正经经警告你，”王后一边跺脚一边喊，“要么你走，要么你的脑袋走，而且就在一眨眼的工夫！",
+            "你挑吧！”"
+          ],
+          "hints": [
+            {
+              "id": "half-no-time",
+              "kind": "phrase",
+              "target": "half no time",
+              "sentence": 4,
+              "zh": "卡罗尔自造的短语，意思是“一眨眼的工夫”“马上”。",
+              "en": "Half no time: a phrase Carroll invented, meaning 'in next to no time'."
+            },
+            {
+              "id": "must-be-off",
+              "kind": "phrase",
+              "target": "must be off",
+              "sentence": 4,
+              "zh": "必须走开；配 your head 一起说，就是“脑袋得搬家”，是个双关。",
+              "en": "Must be off: must leave; paired with your head, it also means 'your head must come off'."
+            }
+          ]
+        },
+        "chapter-09-p033": {
+          "sentences": [
+            "公爵夫人做出了选择，转眼就不见了。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p034": {
+          "sentences": [
+            "“我们接着打球吧，”王后对爱丽丝说；爱丽丝吓得一句话也说不出来，只得慢慢跟着她回到槌球场。"
+          ],
+          "hints": [
+            {
+              "id": "croquet-ground",
+              "kind": "word",
+              "target": "croquet-ground",
+              "sentence": 7,
+              "zh": "槌球场，用木槌把球打过铁圈的场地。",
+              "en": "A croquet-ground: the lawn where croquet is played."
+            }
+          ]
+        },
+        "chapter-09-p035": {
+          "sentences": [
+            "别的客人趁王后不在，都在阴凉里歇着；可他们一看见她，就赶紧跑回球局。王后只淡淡地说了一句：耽搁片刻就要他们的命。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p036": {
+          "sentences": [
+            "打球的时候，王后一直不停地跟别的球手争吵，喊着“砍掉他的脑袋！”或者“砍掉她的脑袋！”",
+            "被她判了刑的人由士兵押起来——士兵们当然得先不当拱门才能干这事——结果大约过了半个钟头，一个拱门也不剩了；除了国王、王后和爱丽丝，所有球手都被押着，判了处决。"
+          ],
+          "hints": [
+            {
+              "id": "arches",
+              "kind": "word",
+              "target": "arches",
+              "sentence": 10,
+              "zh": "拱门，槌球里要穿过的铁圈；这里士兵被当成拱门用，一被叫走，拱门就少了。",
+              "en": "Arches: the hoops a croquet ball must pass through; here the soldiers serve as arches."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What choice does the Queen give the Duchess?",
+          "options": [
+            "To leave, or to lose her head.",
+            "To play croquet, or to go home.",
+            "To apologise, or to be silent."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "王后让公爵夫人二选一：要么人走开，要么脑袋走开，而且限她“一眨眼”的工夫。",
+            "en": "The Queen says that either the Duchess or her head must be off, and very soon."
+          }
+        },
+        {
+          "question": "What happens to the players the Queen sentences?",
+          "options": [
+            "Soldiers take them into custody.",
+            "They are sent to the kitchen.",
+            "They have to become arches again."
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "王后判过的人由士兵押走；士兵原本当拱门，一走开，场上的拱门就越来越少。",
+            "en": "The soldiers take the sentenced players into custody, so fewer and fewer arches are left on the ground."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "was too much frightened to say a word",
+        "pointIds": [
+          "cefrj-44"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "too…to 结构：too 后的形容词表示程度过了头，to say a word 是她做不到的事。",
+          "en": "Too … to: the adjective after too is an excess, and the to-clause names what cannot happen."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "假海龟是什么？",
+        "en": "What Is a Mock Turtle?"
+      },
+      "introduction": {
+        "zh": "王后带爱丽丝去看假海龟，可爱丽丝连假海龟是什么都不知道。路上她听见国王低声对众人说了一句话，随后她们在一只睡着的狮鹫跟前停下。这只怪兽醒来后只是咯咯笑，说了一句让人摸不着头脑的话。",
+        "en": "The Queen leads Alice off to meet the Mock Turtle, though Alice has no idea what one is. On the way she hears the King say something to the crowd. Then they stop beside a Gryphon asleep in the sun, and the creature wakes up laughing."
+      },
+      "paragraphs": {
+        "chapter-09-p037": {
+          "sentences": [
+            "后来王后停了下来，喘得上气不接下气，对爱丽丝说：“你见过假海龟了吗？”"
+          ],
+          "hints": [
+            {
+              "id": "mock-turtle",
+              "kind": "word",
+              "target": "Mock Turtle",
+              "sentence": 1,
+              "zh": "假海龟，因为“假海龟汤”这道菜而被造出来的一只海龟，整章都在讲自己的伤心史。",
+              "en": "The Mock Turtle, a creature invented from the dish Mock Turtle Soup; he tells his sad history in this chapter."
+            }
+          ]
+        },
+        "chapter-09-p038": {
+          "sentences": [
+            "“没有，”爱丽丝说。",
+            "“我连假海龟是什么都不知道。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p039": {
+          "sentences": [
+            "“它就是做假海龟汤用的那种东西，”王后说。"
+          ],
+          "hints": [
+            {
+              "id": "mock-turtle-soup",
+              "kind": "phrase",
+              "target": "Mock Turtle Soup",
+              "sentence": 4,
+              "zh": "假海龟汤，一种用牛犊肉仿制龟汤的菜；奇境里照这道菜造出了一只“假海龟”。",
+              "en": "Mock turtle soup: a dish made from veal to imitate green turtle soup; Wonderland turns the dish into a creature."
+            }
+          ]
+        },
+        "chapter-09-p040": {
+          "sentences": [
+            "“我从没见过，也没听说过，”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p041": {
+          "sentences": [
+            "“那就来吧，”王后说，“让他给你讲讲他的经历。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p042": {
+          "sentences": [
+            "她们一起走开时，爱丽丝听见国王低声对大家说：“你们都被赦免了。”",
+            "“嘿，这倒是件好事！”她自言自语，因为王后判了那么多次处决，她心里一直很不好受。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p043": {
+          "sentences": [
+            "她们很快遇见一只狮鹫，正躺在太阳底下睡得正香。（你要是不知道狮鹫长什么样，就看看图吧。）“起来，懒东西！”王后说，“带这位小姐去看假海龟，听他的经历。",
+            "我得回去看看我判的那些处决办得怎么样了。”说完她就走了，把爱丽丝一个人留下和狮鹫在一起。",
+            "爱丽丝不太喜欢这家伙的样子，不过总的来说，她觉得留在它这儿跟跟着那个凶恶的王后走一样安全：于是她就等着。"
+          ],
+          "hints": [
+            {
+              "id": "gryphon",
+              "kind": "word",
+              "target": "Gryphon",
+              "sentence": 9,
+              "zh": "狮鹫，狮身鹰头、长着鹰翼的怪兽，这里是王后的随从。",
+              "en": "The Gryphon: a monster with a lion's body and an eagle's head and wings, serving the Queen."
+            }
+          ]
+        },
+        "chapter-09-p044": {
+          "sentences": [
+            "狮鹫坐起来揉揉眼睛：然后看着王后，直到她走出视线：接着它咯咯笑了起来。",
+            "“真好玩！”狮鹫说，一半对自己，一半对爱丽丝。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p045": {
+          "sentences": [
+            "“有什么好玩的？”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p046": {
+          "sentences": [
+            "“嘿，就是她呀，”狮鹫说。",
+            "“那全是她自己想出来的：他们谁也不处决，你知道的。",
+            "走吧！”"
+          ],
+          "hints": [
+            {
+              "id": "fancy",
+              "kind": "word",
+              "target": "fancy",
+              "sentence": 16,
+              "zh": "想象、幻想；狮鹫说这一切都是王后自己想出来的。",
+              "en": "Fancy: imagination; the Gryphon says it is all in the Queen's imagination."
+            },
+            {
+              "id": "never-executes-nobody",
+              "kind": "phrase",
+              "target": "they never executes nobody",
+              "sentence": 16,
+              "zh": "双重否定，等于“他们谁也不处决”；executes 还用了不合语法的形式，是狮鹫的粗俗口吻。",
+              "en": "A double negative meaning 'they never execute anybody'; the verb form is also non-standard, in the Gryphon's rough speech."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Queen say a Mock Turtle is?",
+          "options": [
+            "The thing Mock Turtle Soup is made from.",
+            "A kind of very large fish.",
+            "A turtle that has learnt to talk."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "王后的答案是：假海龟就是做假海龟汤用的那种东西——等于没有解释。",
+            "en": "The Queen's answer is that a Mock Turtle is the thing Mock Turtle Soup is made from, which explains nothing."
+          }
+        },
+        {
+          "question": "What does Alice hear the King say?",
+          "options": [
+            "That everyone is pardoned.",
+            "That the game is over.",
+            "That the Queen is tired."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "她们走开时，爱丽丝听见国王低声对众人说“你们都被赦免了”，她这才放下心。",
+            "en": "As they walk away, Alice hears the King tell the company in a low voice that they are all pardoned."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I don't even know what a Mock Turtle is",
+        "pointIds": [
+          "cefrj-153"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "know 后面接 what 引导的小句，用陈述语序：a Mock Turtle 在前，is 在后，不是问句语序。",
+          "en": "After know, the what-clause keeps statement order: a Mock Turtle comes before is."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "岩石上的叹息",
+        "en": "Sighs on a Rock"
+      },
+      "introduction": {
+        "zh": "狮鹫领着爱丽丝去找假海龟。远远地，那只海龟孤零零坐在岩石上，叹气叹得像心都要碎了。可一问它为什么伤心，狮鹫的回答还是刚才那句话。等假海龟终于开口，它只说了一句，就久久不出声了。",
+        "en": "The Gryphon leads Alice to the Mock Turtle, who sits alone on a rock, sighing as if his heart would break. Asked why he is sad, the Gryphon gives the same answer as before. At last the Mock Turtle speaks one short sentence, then falls silent."
+      },
+      "paragraphs": {
+        "chapter-09-p047": {
+          "sentences": [
+            "“这儿人人都说‘走吧！’”爱丽丝一边想，一边慢吞吞地跟在它后面，“我这辈子还从没被人这么呼来喝去过，从来没有！”"
+          ],
+          "hints": [
+            {
+              "id": "ordered-about",
+              "kind": "phrase",
+              "target": "ordered about",
+              "sentence": 1,
+              "zh": "被人支使来支使去、呼来喝去。",
+              "en": "Ordered about: told to go here and there by other people."
+            }
+          ]
+        },
+        "chapter-09-p048": {
+          "sentences": [
+            "他们没走多远，就看见远处的假海龟，孤零零、凄凄惨惨地坐在一块突出的岩石上；走近些，爱丽丝能听见他叹气，像是心都要碎了。",
+            "她非常同情他。",
+            "“他为什么伤心？”她问狮鹫，狮鹫几乎还是用先前那句话回答：“那全是他的幻想：他没有半点伤心事，你知道的。",
+            "走吧！”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p049": {
+          "sentences": [
+            "于是他们走到假海龟跟前，他睁着盈满泪水的大眼睛望着两人，却一句话也不说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p050": {
+          "sentences": [
+            "“这位小姐，”狮鹫说，“她想听听你的经历，她真想听。”"
+          ],
+          "hints": [
+            {
+              "id": "this-here",
+              "kind": "phrase",
+              "target": "This here young lady",
+              "sentence": 7,
+              "zh": "this here 是粗俗、乡下的说法，等于 this；后面 she wants for to know 也不合语法，是狮鹫的口气。",
+              "en": "This here is a rough, rustic way of saying this; she wants for to know is likewise non-standard, in the Gryphon's voice."
+            }
+          ]
+        },
+        "chapter-09-p051": {
+          "sentences": [
+            "“我会讲给她听，”假海龟用低沉空洞的声音说，“你们俩都坐下，我讲完之前一句话也别说。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p052": {
+          "sentences": [
+            "于是他们坐下来，好几分钟谁也没说话。",
+            "爱丽丝心里想：“要是他不开始，我看不出他怎么能讲完。”",
+            "可她还是耐心等着。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p053": {
+          "sentences": [
+            "“从前，”假海龟终于深深叹了口气说，“我是一只真正的海龟。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p054": {
+          "sentences": [
+            "这句话说完，是很长一阵沉默，只有狮鹫偶尔一声“赫克噜！”和假海龟不停的沉重抽泣，才把这沉默打断。",
+            "爱丽丝几乎要站起来说：“先生，谢谢你讲的有趣故事，”可她忍不住想，后面一定还有，于是坐着不动，什么也没说。"
+          ],
+          "hints": [
+            {
+              "id": "hjckrrh",
+              "kind": "word",
+              "target": "Hjckrrh!",
+              "sentence": 13,
+              "zh": "狮鹫发出的怪叫，无法翻译的拟声词。",
+              "en": "Hjckrrh!: an untranslatable noise made by the Gryphon."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice pity the Mock Turtle at first?",
+          "options": [
+            "He sits alone on a rock, sighing as if his heart would break.",
+            "He has lost all his school books.",
+            "The Gryphon keeps shouting at him."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "假海龟孤零零坐在岩石上，叹气叹得像心要碎了，爱丽丝因此非常同情它。",
+            "en": "The Mock Turtle sits alone on a rock, sighing as if his heart would break, and Alice pities him deeply."
+          }
+        },
+        {
+          "question": "Why doesn't Alice get up and thank the Mock Turtle?",
+          "options": [
+            "She thinks there must be more of the story to come.",
+            "She is afraid of the Gryphon.",
+            "She has not heard what he said."
+          ],
+          "answer": 0,
+          "sentence": 14,
+          "feedback": {
+            "zh": "她几乎要起身道谢，可又觉得故事一定还有下文，于是坐着不动。",
+            "en": "She almost gets up to thank him, but thinks there must be more to come, so she stays seated."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Alice could hear him sighing as if his heart would break",
+        "pointIds": [
+          "cefrj-211"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "hear + 宾语 + 现在分词 sighing，表示听见的是正在进行、还没结束的叹气。",
+          "en": "Hear + object + present participle sighing: Alice hears the sighing as it goes on, not as a finished action."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "海底的学校",
+        "en": "School in the Sea"
+      },
+      "introduction": {
+        "zh": "假海龟讲起小时候在海里的学校：老师是一只老海龟，他们却管他叫“陆龟”。爱丽丝问了一句为什么，两个家伙都认定她太笨。接着他们说起课程和学费账单，越说越得意。海底的学校究竟教些什么？",
+        "en": "The Mock Turtle describes his school at the bottom of the sea, where the master was an old Turtle they called Tortoise. Alice asks why, and both creatures decide she is very dull. Then they begin to boast about their lessons and their school bills."
+      },
+      "paragraphs": {
+        "chapter-09-p055": {
+          "sentences": [
+            "“我们小的时候，”假海龟终于又往下讲，平静了些，虽然还不时抽泣一下，“我们在海里上学。",
+            "老师是一只老海龟——我们往常叫他陆龟——”"
+          ],
+          "hints": [
+            {
+              "id": "tortoise",
+              "kind": "word",
+              "target": "Tortoise",
+              "sentence": 2,
+              "zh": "陆龟；Tortoise 与 taught us（他教我们）读音相近，这是假海龟的谐音玩笑。",
+              "en": "Tortoise: a land turtle. The word sounds like 'taught us', which is the Mock Turtle's joke."
+            }
+          ]
+        },
+        "chapter-09-p056": {
+          "sentences": [
+            "“他既然不是陆龟，你们为什么叫他陆龟？”",
+            "爱丽丝问。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p057": {
+          "sentences": [
+            "“我们叫他陆龟，因为他教我们，”假海龟气呼呼地说，“你可真够迟钝的！”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p058": {
+          "sentences": [
+            "“问这么简单的问题，你该为自己害臊，”狮鹫补了一句；然后他们两个都一声不响地坐着，看着可怜的爱丽丝，她恨不得钻进地缝里去。",
+            "最后狮鹫对假海龟说：“接着说呀，老伙计！",
+            "别磨蹭一整天！”于是他又接着这样说道："
+          ],
+          "hints": [
+            {
+              "id": "drive-on",
+              "kind": "phrase",
+              "target": "Drive on",
+              "sentence": 7,
+              "zh": "原意是“赶车往前走”，这里指“接着往下讲”。",
+              "en": "Drive on: literally 'drive the cart on', here 'go on with your story'."
+            }
+          ]
+        },
+        "chapter-09-p059": {
+          "sentences": [
+            "“是啊，我们在海里上学，尽管你也许不信——”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p060": {
+          "sentences": [
+            "“我从没说过我不信！”爱丽丝打断他。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p061": {
+          "sentences": [
+            "“你说过，”假海龟说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p062": {
+          "sentences": [
+            "“住嘴！”爱丽丝还没来得及再开口，狮鹫就补了一句。",
+            "假海龟继续讲。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p063": {
+          "sentences": [
+            "“我们受的是最好的教育——事实上，我们每天都去上学——”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p064": {
+          "sentences": [
+            "“我也上过走读学校，”爱丽丝说，“你用不着这么得意。”"
+          ],
+          "hints": [
+            {
+              "id": "day-school",
+              "kind": "word",
+              "target": "day-school",
+              "sentence": 15,
+              "zh": "走读学校，学生每天回家，不住校。",
+              "en": "A day-school: a school where pupils go home every day instead of boarding."
+            }
+          ]
+        },
+        "chapter-09-p065": {
+          "sentences": [
+            "“有额外课程吗？”假海龟有点着急地问。"
+          ],
+          "hints": [
+            {
+              "id": "extras",
+              "kind": "word",
+              "target": "extras",
+              "sentence": 16,
+              "zh": "额外收费的课程或项目，如音乐、绘画之类。",
+              "en": "Extras: lessons or subjects charged on top of the ordinary fees."
+            }
+          ]
+        },
+        "chapter-09-p066": {
+          "sentences": [
+            "“有，”爱丽丝说，“我们学法语和音乐。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p067": {
+          "sentences": [
+            "“还有洗衣课吗？”假海龟说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p068": {
+          "sentences": [
+            "“当然没有！”爱丽丝愤愤地说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p069": {
+          "sentences": [
+            "“啊！",
+            "那么你上的算不上真正的好学校，”假海龟用大为宽慰的语气说。",
+            "“我们学校的账单末尾就写着：‘法语、音乐和洗衣——额外收费。’”"
+          ],
+          "hints": [
+            {
+              "id": "washing-extra",
+              "kind": "phrase",
+              "target": "French, music, and washing—extra",
+              "sentence": 22,
+              "zh": "学校账单末尾的额外收费项目；海底的学校把“游泳”也算成一门“洗衣”课。",
+              "en": "The list of extras at the end of the school bill; in a sea school, swimming counts as 'washing'."
+            },
+            {
+              "id": "bill",
+              "kind": "word",
+              "target": "bill",
+              "sentence": 22,
+              "zh": "账单；这里指学校的收费单，不是人名“比尔”。",
+              "en": "Bill here means the school's bill for fees, not the name Bill."
+            }
+          ]
+        },
+        "chapter-09-p070": {
+          "sentences": [
+            "“你大概也不会太想要它，”爱丽丝说，“你们住在海底呀。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why did they call the old Turtle \"Tortoise\"?",
+          "options": [
+            "Because he taught them.",
+            "Because he was very slow.",
+            "Because he lived on land."
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "假海龟说他们叫他 Tortoise，是因为他教他们（taught us）——这是拿谐音当理由，爱丽丝却当真了。",
+            "en": "The Mock Turtle says they called him Tortoise because he taught them; it is a pun on 'taught us', not a real reason."
+          }
+        },
+        {
+          "question": "What did the Mock Turtle say was at the end of their school bill?",
+          "options": [
+            "\"French, music, and washing—extra.\"",
+            "\"Ten hours of lessons a day.\"",
+            "\"No extras at all.\""
+          ],
+          "answer": 0,
+          "sentence": 22,
+          "feedback": {
+            "zh": "他说他们学校账单末尾写着“法语、音乐和洗衣——额外收费”，还把“洗衣”当成一门正经课程。",
+            "en": "He says their bill ended with 'French, music, and washing—extra', treating washing as a real subject."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "You ought to be ashamed of yourself",
+        "pointIds": [
+          "cefrj-137"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "ought to 是“应该”，比 should 更带责备意味；狮鹫在说爱丽丝该为自己害臊。",
+          "en": "Ought to means 'should', with a stronger note of blame: the Gryphon says Alice ought to feel ashamed."
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "丑化与拖长腔",
+        "en": "Uglification and Drawling"
+      },
+      "introduction": {
+        "zh": "假海龟报出一串奇怪的课名：旋转、扭动，还有算术的各个分支。爱丽丝只问了一句“丑化”是什么，狮鹫就举起两只前爪，说她是个傻瓜。接着又是“拖长腔”“盘成一团地昏倒”——这些课到底怎么上？",
+        "en": "The Mock Turtle lists his subjects: Reeling and Writhing, then the branches of Arithmetic. Alice asks what Uglification is, and the Gryphon lifts both paws and calls her a simpleton. More strange lessons follow, taught by an old conger-eel and an old crab."
+      },
+      "paragraphs": {
+        "chapter-09-p071": {
+          "sentences": [
+            "“我学不起，”假海龟叹了口气说。",
+            "“我只上了常规课程。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p072": {
+          "sentences": [
+            "“那是什么？”爱丽丝问。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p073": {
+          "sentences": [
+            "“当然，先学‘打转’和‘扭动’，”假海龟回答，“然后是算术的各个分支——‘野心’、‘分心’、‘丑化’和‘嘲笑’。”"
+          ],
+          "hints": [
+            {
+              "id": "reeling-and-writhing",
+              "kind": "phrase",
+              "target": "Reeling and Writhing",
+              "sentence": 4,
+              "zh": "谐音 reading and writing（读和写）；假海龟把学校的科目都说成了谐音笑话。",
+              "en": "A pun on 'reading and writing': the Mock Turtle turns every school subject into a pun."
+            },
+            {
+              "id": "arithmetic-branches",
+              "kind": "phrase",
+              "target": "Ambition, Distraction, Uglification, and Derision",
+              "sentence": 4,
+              "zh": "四则运算的谐音：addition（加）、subtraction（减）、multiplication（乘）、division（除）。",
+              "en": "Puns on the four operations: addition, subtraction, multiplication and division."
+            }
+          ]
+        },
+        "chapter-09-p074": {
+          "sentences": [
+            "“我从没听说过‘丑化’这门课，”爱丽丝壮着胆说。",
+            "“那是什么？”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p075": {
+          "sentences": [
+            "狮鹫惊讶地举起两只前爪。",
+            "“没听说过‘丑化’！”它叫道。",
+            "“你总该知道‘美化’是什么意思吧？”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p076": {
+          "sentences": [
+            "“知道，”爱丽丝迟疑地说，“意思是——把——什么东西——弄得——更好看。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p077": {
+          "sentences": [
+            "“那么，”狮鹫说，“你要是不知道‘丑化’是什么意思，你就是个傻瓜。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p078": {
+          "sentences": [
+            "爱丽丝觉得不便再问这个了，就转向假海龟，说：“你们还要学什么？”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p079": {
+          "sentences": [
+            "“嗯，还有‘秘史’，”假海龟回答，一边用鳍数着科目，“古代和现代的‘秘史’，再加上‘海洋地理’：然后是‘拖长腔’——教拖长腔的老师是一条老海鳗，每星期来一次：他教我们拖长腔、伸展，还有盘成一团地昏倒。”"
+          ],
+          "hints": [
+            {
+              "id": "mystery-seaography",
+              "kind": "phrase",
+              "target": "Mystery, ancient and modern, with Seaography",
+              "sentence": 13,
+              "zh": "谐音 history（历史）和 geography（地理）；“古代和现代”是历史的说法。",
+              "en": "Puns on 'history' and 'geography'; 'ancient and modern' is how history is usually described."
+            },
+            {
+              "id": "drawling-stretching",
+              "kind": "phrase",
+              "target": "Drawling, Stretching, and Fainting in Coils",
+              "sentence": 13,
+              "zh": "谐音 drawing（素描）、sketching（写生）、painting in oils（油画）；字面却是“拖长腔、伸展、盘成一团地昏倒”。",
+              "en": "Puns on 'drawing', 'sketching' and 'painting in oils', though the words say 'drawling, stretching and fainting'."
+            }
+          ]
+        },
+        "chapter-09-p080": {
+          "sentences": [
+            "“那是什么样的？”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p081": {
+          "sentences": [
+            "“嗯，我自己没法做给你看，”假海龟说，“我太僵硬了。",
+            "再说狮鹫从没学过。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p082": {
+          "sentences": [
+            "“没时间，”狮鹫说，“不过我去上过古典文学老师的课。",
+            "他是一只老螃蟹，真的。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p083": {
+          "sentences": [
+            "“我从没上过他的课，”假海龟叹着气说，“他们常说，他教‘笑’和‘悲’。”"
+          ],
+          "hints": [
+            {
+              "id": "laughing-and-grief",
+              "kind": "phrase",
+              "target": "Laughing and Grief",
+              "sentence": 19,
+              "zh": "谐音 Latin and Greek（拉丁文和希腊文），正是古典文学老师教的科目。",
+              "en": "A pun on 'Latin and Greek', the subjects a classical master would teach."
+            }
+          ]
+        },
+        "chapter-09-p084": {
+          "sentences": [
+            "“他是教这些，他是教这些，”狮鹫说着，也叹了口气，两个家伙都把脸埋进了爪子。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Gryphon call Alice a simpleton?",
+          "options": [
+            "She does not know what \"uglify\" means.",
+            "She cannot swim.",
+            "She has never been to school."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "狮鹫先问她知不知道 beautify（美化），她答上来了；可她说不出 uglify，于是被叫作傻瓜。",
+            "en": "Alice can explain 'beautify' but not 'uglify', so the Gryphon calls her a simpleton."
+          }
+        },
+        {
+          "question": "Which subjects did the Drawling-master teach?",
+          "options": [
+            "Drawling, Stretching, and Fainting in Coils.",
+            "Laughing and Grief.",
+            "Reeling and Writhing."
+          ],
+          "answer": 0,
+          "sentence": 13,
+          "feedback": {
+            "zh": "假海龟说，教“拖长腔”的老师是一条老海鳗，教的是拖长腔、伸展和盘成一团地昏倒。",
+            "en": "The Mock Turtle says the old conger-eel taught Drawling, Stretching, and Fainting in Coils."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "if you don't know what to uglify is, you are a simpleton",
+        "pointIds": [
+          "cefrj-156"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "if 从句用现在时 don't know，主句也用现在时 you are：真实条件，条件一成立结论就成立。",
+          "en": "Both clauses take the present: don't know in the if-clause, you are in the main clause — a real condition."
+        }
+      }
+    },
+    {
+      "number": 9,
+      "title": {
+        "zh": "一天比一天少",
+        "en": "Fewer Every Day"
+      },
+      "introduction": {
+        "zh": "爱丽丝赶紧把话题转到功课上，问他们一天上几个小时的课。假海龟答得干脆：第一天十小时，第二天九小时。这个安排让爱丽丝觉得古怪，狮鹫却给出一个听起来挺有道理的解释。那么第十一天呢？",
+        "en": "Alice hurries to change the subject and asks how many hours of lessons they had each day. Ten the first day, nine the next, says the Mock Turtle. Alice finds the plan curious, and the Gryphon offers an explanation that almost sounds reasonable."
+      },
+      "paragraphs": {
+        "chapter-09-p085": {
+          "sentences": [
+            "“你们一天上几个小时的课？”爱丽丝说，急着换个话题。"
+          ],
+          "hints": [
+            {
+              "id": "change-the-subject",
+              "kind": "phrase",
+              "target": "in a hurry to change the subject",
+              "sentence": 1,
+              "zh": "急着换个话题，不想再谈刚才那件事。",
+              "en": "In a hurry to change the subject: eager to talk about something else."
+            }
+          ]
+        },
+        "chapter-09-p086": {
+          "sentences": [
+            "“第一天十小时，”假海龟说，“第二天九小时，依此类推。”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p087": {
+          "sentences": [
+            "“多古怪的安排！”爱丽丝叫道。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p088": {
+          "sentences": [
+            "“这就是为什么管它们叫‘课’，”狮鹫说，“因为它们一天比一天少。”"
+          ],
+          "hints": [
+            {
+              "id": "lessen",
+              "kind": "word",
+              "target": "lessen",
+              "sentence": 4,
+              "zh": "减少；与 lessons（课）读音相近，狮鹫就拿这个谐音解释“课”为什么叫 lesson。",
+              "en": "Lessen: to become less. It sounds like 'lessons', which is the Gryphon's joke."
+            }
+          ]
+        },
+        "chapter-09-p089": {
+          "sentences": [
+            "这对爱丽丝来说是个全新的想法，她想了一会儿才说下一句话。",
+            "“那么第十一天一定放假了？”"
+          ],
+          "hints": []
+        },
+        "chapter-09-p090": {
+          "sentences": [
+            "“当然放假，”假海龟说。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p091": {
+          "sentences": [
+            "“那第十二天你们怎么办呢？”",
+            "爱丽丝急切地追问。"
+          ],
+          "hints": []
+        },
+        "chapter-09-p092": {
+          "sentences": [
+            "“课的事说得够多了，”狮鹫用非常决断的口气打断，“现在给她讲讲游戏的事吧。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "How many hours of lessons did they have on the second day?",
+          "options": [
+            "Nine.",
+            "Ten.",
+            "Eleven."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "假海龟说第一天十小时，第二天九小时，以后每天再少一小时。",
+            "en": "The Mock Turtle says ten hours the first day and nine the next, one hour less each day."
+          }
+        },
+        {
+          "question": "What reason does the Gryphon give for the name \"lessons\"?",
+          "options": [
+            "They lessen from day to day.",
+            "They are taught in the sea.",
+            "They are always extras."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "狮鹫说，正因为一天比一天少（lessen），这些课才叫 lessons——又是拿谐音当解释。",
+            "en": "The Gryphon says they are called lessons because they lessen from day to day, another pun."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "What a curious plan!",
+        "pointIds": [
+          "cefrj-192"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "What + a + 形容词 + 名词，主语和 be 全省了；完整说法是 What a curious plan it is!",
+          "en": "What + a + adjective + noun, with subject and verb left out: the full form would be 'What a curious plan it is!'"
+        }
+      }
+    }
+  ]
+}

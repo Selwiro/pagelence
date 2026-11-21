@@ -1,0 +1,728 @@
+{
+  "chapter": 11,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "悄悄穿过乔利金基",
+        "en": "Softly Through Jolliginki"
+      },
+      "introduction": {
+        "zh": "和几千只猴子一一告过别，医生带着宠物独自上路，要悄悄穿过乔利金基。波利尼西亚压低声音提醒：国王为那次捉弄还在生气。可医生心里挂着另一件事——回帕德尔比的船，到哪里去找？",
+        "en": "After saying goodbye to thousands of monkeys, the Doctor and his pets set off alone. Polynesia warns them to keep quiet: the King is still angry. But the Doctor has another worry — where will they find a boat to take them home?"
+      },
+      "paragraphs": {
+        "chapter-11-p001": {
+          "sentences": [
+            "到了河边，他们停下脚步，互相道别。"
+          ]
+        },
+        "chapter-11-p002": {
+          "sentences": [
+            "这道别花了很长时间，因为那成千上万只猴子都想跟约翰·杜立德握握手。"
+          ],
+          "hints": [
+            {
+              "id": "john-dolittle",
+              "kind": "word",
+              "target": "John Dolittle",
+              "sentence": 2,
+              "zh": "约翰·杜立德，本书的主角，一位能给动物看病的医生。",
+              "en": "John Dolittle, the Doctor who can talk to animals and cure them."
+            }
+          ]
+        },
+        "chapter-11-p003": {
+          "sentences": [
+            "之后，医生带着宠物们独自上路，波利尼西亚说："
+          ],
+          "hints": [
+            {
+              "id": "polynesia",
+              "kind": "word",
+              "target": "Polynesia",
+              "sentence": 3,
+              "zh": "波利尼西亚，医生的鹦鹉，会说人话，也最爱出主意。",
+              "en": "Polynesia, the Doctor’s parrot, who can talk and loves to make plans."
+            }
+          ]
+        },
+        "chapter-11-p004": {
+          "sentences": [
+            "「穿过乔利金基的地界时，咱们走路要轻，说话要低声。",
+            "要是让国王听见，他又会派士兵来抓咱们；我敢肯定，他为上次我捉弄他那件事还在生气。」"
+          ],
+          "hints": [
+            {
+              "id": "jolliginki",
+              "kind": "word",
+              "target": "Jolliginki",
+              "sentence": 4,
+              "zh": "乔利金基，非洲的一个王国，国王先前把医生一行关进过牢里。",
+              "en": "Jolliginki, the African kingdom whose King once locked the Doctor up."
+            },
+            {
+              "id": "the-trick",
+              "kind": "phrase",
+              "target": "the trick I played on him",
+              "sentence": 5,
+              "zh": "我捉弄他的那件事；指波利尼西亚装成隐身医生吓国王，让他开牢放人。",
+              "en": "The trick she played on him: she pretended to be the invisible Doctor and frightened the King into opening the prison."
+            }
+          ]
+        },
+        "chapter-11-p005": {
+          "sentences": [
+            "「我一直在想，」医生说，「咱们上哪儿再弄一条船回家去……",
+            "唉，好吧，也许海滩上就停着一条没人用的船。『没走到栅门，就别急着抬脚。』」"
+          ],
+          "hints": [
+            {
+              "id": "never-lift-your-foot",
+              "kind": "sentence",
+              "target": "Never lift your foot till you come to the stile",
+              "sentence": 7,
+              "zh": "一句老话，字面是「没走到栅门前，别抬脚跨过去」；意思是先别为还没到的难关发愁。",
+              "en": "An old saying: don’t step over the gate before you reach it — don’t worry about a trouble that has not come yet."
+            }
+          ]
+        },
+        "chapter-11-p006": {
+          "sentences": [
+            "有一天，他们正穿过森林里枝叶最密的一片地方，奇奇走到前面去给大家找椰子。",
+            "就在他离开的时候，医生和其余那些不太认得丛林小路的动物，在密林深处迷了路。",
+            "他们转来转去，怎么也找不到下山去海边的路。"
+          ],
+          "hints": [
+            {
+              "id": "chee-chee",
+              "kind": "word",
+              "target": "Chee-Chee",
+              "sentence": 8,
+              "zh": "奇奇，医生养的那只猴子，最认得丛林里的路。",
+              "en": "Chee-Chee, the Doctor’s monkey, who knows the jungle paths best."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does it take so long to say goodbye at the river?",
+          "options": [
+            "Thousands of monkeys want to shake the Doctor’s hand.",
+            "The monkeys are too sick to let him go.",
+            "The Doctor has lost his trunk near the water."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "原文说这道别花了很长时间，因为成千上万只猴子都想跟约翰·杜立德握手。",
+            "en": "The text says it took a long time because all those thousands of monkeys wanted to shake John Dolittle by the hand."
+          }
+        },
+        {
+          "question": "What is the Doctor wondering about as they go on alone?",
+          "options": [
+            "How to pay the monkeys for their help.",
+            "Where they will get another boat to go home in.",
+            "Whether the King is still angry with them."
+          ],
+          "answer": 1,
+          "sentence": 6,
+          "feedback": {
+            "zh": "医生想的是「上哪儿再弄一条船回家去」；国王生不生气是波利尼西亚担心的事。",
+            "en": "The Doctor wonders where they are going to get another boat to go home in; it is Polynesia who worries about the angry King."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "We must tread softly and talk low as we go through the land of the Jolliginki",
+        "pointIds": [
+          "cefrj-157"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as 在这里是「当……的时候」，引出同时发生的事：穿过乔利金基的整段时间都得放轻脚步、压低声音。",
+          "en": "As here means “while”: during the whole time they cross Jolliginki they must walk softly and talk low."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "走不出的密林",
+        "en": "Lost in the Deep Woods"
+      },
+      "introduction": {
+        "zh": "奇奇爬上高树，喊着每只动物的名字，可林子里一点回音也没有。医生一行越走越偏，藤蔓缠脚，泥沼陷腿，还差点丢了药箱。林中没有路，他们只能往前闯——前面等着的是什么？",
+        "en": "Chee-Chee climbs the tallest trees and calls every animal by name, but nothing answers. Meanwhile the Doctor and the others push deeper into the jungle, tangled in vines and stuck in mud. There is no path anywhere. What waits for them up ahead?"
+      },
+      "paragraphs": {
+        "chapter-11-p007": {
+          "sentences": [
+            "奇奇四处都看不见他们，急得不得了。",
+            "他爬上高树，从树梢上张望，想看见医生的高礼帽；他又挥手又喊叫，把每只动物的名字都叫了一遍。",
+            "可是没有用。",
+            "他们好像完完全全消失了。"
+          ]
+        },
+        "chapter-11-p008": {
+          "sentences": [
+            "他们的确是迷得厉害。",
+            "他们早已偏离小路很远，丛林里灌木、爬藤和藤蔓密得有时几乎挪不动步，医生只好掏出小折刀，一路砍出一条道来。",
+            "他们跌进湿软的泥沼；被粗粗的旋花藤缠住；让荆棘划破了皮；还有两次差点把药箱丢在灌木丛里。",
+            "他们的麻烦好像没完没了，哪儿也碰不上一条路。"
+          ],
+          "hints": [
+            {
+              "id": "convolvulus",
+              "kind": "word",
+              "target": "convolvulus-runners",
+              "sentence": 7,
+              "zh": "旋花，一种缠着别的植物往上爬的野草；runners 是它伸出去的藤。",
+              "en": "Convolvulus is a climbing weed; its runners are the long stems it puts out."
+            },
+            {
+              "id": "under-brush",
+              "kind": "word",
+              "target": "under-brush",
+              "sentence": 7,
+              "zh": "即 underbrush，树林下层的灌木和杂草。",
+              "en": "Underbrush: the bushes and weeds growing low in the wood."
+            }
+          ]
+        },
+        "chapter-11-p009": {
+          "sentences": [
+            "就这样乱撞了许多天，衣服扯破了，脸上糊满了泥，最后他们竟糊里糊涂一头闯进了国王的后花园。",
+            "国王的手下立刻跑过来，把他们抓住了。"
+          ],
+          "hints": [
+            {
+              "id": "blundering-about",
+              "kind": "phrase",
+              "target": "blundering about",
+              "sentence": 9,
+              "zh": "跌跌撞撞地乱走、瞎撞；指他们在林子里没有方向地乱转了许多天。",
+              "en": "Blundering about means moving on clumsily with no idea of the way."
+            },
+            {
+              "id": "kings-men",
+              "kind": "phrase",
+              "target": "The King’s men",
+              "sentence": 10,
+              "zh": "国王手下的士兵、卫兵。",
+              "en": "The King’s men: the King’s soldiers and guards."
+            }
+          ]
+        },
+        "chapter-11-p010": {
+          "sentences": [
+            "可波利尼西亚飞进了花园里的一棵树，谁也没看见，就躲了起来。",
+            "医生和其他动物被带到了国王面前。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What happens after the Doctor and the animals wander for many days?",
+          "options": [
+            "They find a path down to the seashore.",
+            "They walk into the King’s back-garden by mistake.",
+            "Chee-Chee finds them and leads them back."
+          ],
+          "answer": 1,
+          "sentence": 9,
+          "feedback": {
+            "zh": "他们在林子里乱撞了许多天，最后「糊里糊涂」闯进了国王的后花园；海边一直没找到。",
+            "en": "After many days of blundering about they walked right into the King’s back-garden by mistake; they never found the seashore."
+          }
+        },
+        {
+          "question": "What does Polynesia do when the others are caught?",
+          "options": [
+            "She flies off to look for Chee-Chee.",
+            "She calls the monkeys to come and help.",
+            "She flies into a tree and hides where nobody sees her."
+          ],
+          "answer": 2,
+          "sentence": 11,
+          "feedback": {
+            "zh": "原文说波利尼西亚飞进花园里的一棵树，谁也没看见，就躲了起来，所以没被抓走。",
+            "en": "The parrot flew into a tree in the garden without anybody seeing her and hid herself, so she was not caught."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the jungle was so thick with bushes and creepers and vines that sometimes they could hardly move at all",
+        "pointIds": [
+          "cefrj-45"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "so + 形容词 + that 引出结果：密到「常常几乎挪不动步」的地步；thick 后面先接 with 短语，再接 that 从句。",
+          "en": "So thick … that introduces the result: the jungle was thick to the point that they could hardly move; thick takes a with-phrase before the that-clause."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "锁上加锁",
+        "en": "Double Locks"
+      },
+      "introduction": {
+        "zh": "国王大笑，吩咐给牢门加上双锁，还让这位「白人」一辈子给他擦厨房地板。医生惦记着帕德尔比，还有那位会把船当成被偷了的水手。牢门结实得很。而花园的树上，波利尼西亚一声不响，只是眨眼。",
+        "en": "The King laughs and orders double locks on the prison door. The Doctor will scrub the kitchen floor for the rest of his life, and he still worries about the sailor whose ship he borrowed. Outside, Polynesia sits in a garden tree, silent, blinking her eyes."
+      },
+      "paragraphs": {
+        "chapter-11-p011": {
+          "sentences": [
+            "「哈，哈！」国王大叫。",
+            "「这么说你们又被抓住了！",
+            "这一回你们可跑不掉了。",
+            "把他们统统带回牢里，门上再加两道锁。",
+            "这个白人得给我擦一辈子的厨房地板！」"
+          ],
+          "hints": [
+            {
+              "id": "this-white-man",
+              "kind": "phrase",
+              "target": "This White Man",
+              "sentence": 5,
+              "zh": "国王口中的「这个白人」，指的是杜立德医生。",
+              "en": "“This White Man” is how the King speaks of Doctor Dolittle."
+            }
+          ]
+        },
+        "chapter-11-p012": {
+          "sentences": [
+            "于是医生和他的宠物们被带回牢房关了起来。",
+            "医生还被告知，第二天早上就得开始擦厨房地板。"
+          ]
+        },
+        "chapter-11-p013": {
+          "sentences": [
+            "他们都愁坏了。"
+          ]
+        },
+        "chapter-11-p014": {
+          "sentences": [
+            "「真是麻烦透了，」医生说。",
+            "「我真得回帕德尔比去。",
+            "要是不能早点回去，那个可怜的水手会以为我把他的船偷走了……",
+            "不知道那几副合页松不松。」"
+          ],
+          "hints": [
+            {
+              "id": "puddleby",
+              "kind": "word",
+              "target": "Puddleby",
+              "sentence": 10,
+              "zh": "帕德尔比，医生的家乡，全名「沼泽边的帕德尔比」。",
+              "en": "Puddleby, the Doctor’s home town, short for Puddleby-on-the-Marsh."
+            },
+            {
+              "id": "that-poor-sailor",
+              "kind": "phrase",
+              "target": "That poor sailor",
+              "sentence": 11,
+              "zh": "那个可怜的水手；指把船借给医生的人，船在非洲海岸撞坏了。",
+              "en": "The sailor who lent the Doctor his boat — it was broken on the rocks when they reached Africa."
+            }
+          ]
+        },
+        "chapter-11-p015": {
+          "sentences": [
+            "可牢门又结实，锁得又牢。",
+            "看样子是没机会出去了。",
+            "这时咕咕又哭了起来。"
+          ],
+          "hints": [
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 15,
+              "zh": "咕咕，医生养的小猪，一着急就哭。",
+              "en": "Gub-Gub, the Doctor’s little pig, who cries whenever he is frightened."
+            }
+          ]
+        },
+        "chapter-11-p016": {
+          "sentences": [
+            "这工夫，波利尼西亚一直坐在王宫花园的那棵树上。",
+            "她一声不响，只是眨着眼睛。"
+          ]
+        },
+        "chapter-11-p017": {
+          "sentences": [
+            "在波利尼西亚身上，这可是个很坏的兆头。",
+            "每当她一声不响、眨着眼睛，就说明有人闯了祸，而她正在琢磨什么法子把事情扳回来。",
+            "给波利尼西亚或她的朋友添麻烦的人，事后几乎总是要后悔的。"
+          ],
+          "hints": [
+            {
+              "id": "put-things-right",
+              "kind": "phrase",
+              "target": "put things right",
+              "sentence": 19,
+              "zh": "把事情摆平、纠正过来；这里指想法子把大家救出来。",
+              "en": "Put things right: to fix the trouble and make it good again."
+            }
+          ]
+        },
+        "chapter-11-p018": {
+          "sentences": [
+            "不一会儿，她瞧见奇奇在树间荡来荡去，还在找医生。",
+            "奇奇一看见她，就落到她那棵树上，问她医生到底怎么样了。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the King say the Doctor must do?",
+          "options": [
+            "Scrub the kitchen-floor for the rest of his life.",
+            "Show the King where the gold is hidden.",
+            "Write a book about the animals of the jungle."
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "国王下令把牢门加双锁，还说这个白人得给他擦一辈子的厨房地板。",
+            "en": "The King orders double locks on the door and says the White Man shall scrub his kitchen-floor for the rest of his life."
+          }
+        },
+        {
+          "question": "What does it mean when Polynesia says nothing and blinks her eyes?",
+          "options": [
+            "She is too tired to speak.",
+            "She is angry with the Doctor.",
+            "She is thinking out a way to put things right."
+          ],
+          "answer": 2,
+          "sentence": 19,
+          "feedback": {
+            "zh": "原文解释：她一声不响、眨着眼睛，就说明有人闯了祸，她正在琢磨法子把事情扳回来——所以这是个「很坏的兆头」。",
+            "en": "The text explains that whenever she is silent and blinks, somebody has made trouble and she is thinking out some way to put things right."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "This time you shall not escape.",
+        "pointIds": [
+          "cefrj-138"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "shall 用在第二、三人称，表示说话人的意志和命令：国王是在宣告「你们这次逃不掉」，不是单纯讲将来。",
+          "en": "Shall with you or he does not simply talk about the future: it shows the speaker’s will — the King is declaring that they will not get away."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "树下的王子",
+        "en": "The Prince Beneath the Tree"
+      },
+      "introduction": {
+        "zh": "奇奇终于找到波利尼西亚，才知道大家又落进了国王手里，忍不住埋怨她没带好路。波利尼西亚把责任推给咕咕，话没说完，忽然压低声音：有人进花园了。两个藏在树上的家伙，只好一动不动。",
+        "en": "Chee-Chee finds Polynesia at last and hears what happened. He scolds her for losing the way; she blames Gub-Gub for running off. Then she stops short: someone is coming into the garden. Two watchers up in the tree hold their breath."
+      },
+      "paragraphs": {
+        "chapter-11-p019": {
+          "sentences": [
+            "「医生和所有的动物都被国王的手下抓住，又关起来了，」波利尼西亚小声说。",
+            "「我们在丛林里迷了路，稀里糊涂闯进了王宫花园。」"
+          ]
+        },
+        "chapter-11-p020": {
+          "sentences": [
+            "「可你不会给他们带路吗？」奇奇问；接着他就数落起鹦鹉来：他不过离开去找椰子，她竟让他们迷了路。"
+          ],
+          "hints": [
+            {
+              "id": "scold-the-parrot",
+              "kind": "phrase",
+              "target": "began to scold the parrot",
+              "sentence": 3,
+              "zh": "scold sb for sth 是为某事数落、责怪某人；这里奇奇怪波利尼西亚没把大家带好。",
+              "en": "To scold somebody for something is to tell them off about it; Chee-Chee blames the parrot for losing the way."
+            }
+          ]
+        },
+        "chapter-11-p021": {
+          "sentences": [
+            "「全怪那头笨猪，」波利尼西亚说。",
+            "「他老是跑出小路去找姜根。",
+            "我忙着追他、把他带回来，走到沼泽那儿就拐错了，该往右却往左了。——嘘！——看！",
+            "邦波王子正走进花园呢！",
+            "绝不能让他看见咱们。——不管怎么样，都别动！」"
+          ],
+          "hints": [
+            {
+              "id": "ginger-roots",
+              "kind": "word",
+              "target": "ginger-roots",
+              "sentence": 5,
+              "zh": "姜的根茎，咕咕跑出小路去找的就是这东西。",
+              "en": "Ginger-roots: the root of the ginger plant, which Gub-Gub was hunting for."
+            },
+            {
+              "id": "prince-bumpo",
+              "kind": "word",
+              "target": "Prince Bumpo",
+              "sentence": 7,
+              "zh": "邦波王子，乔利金基国王的儿子，也就是「黑王子」。",
+              "en": "Prince Bumpo, the son of the King of Jolliginki — the Black Prince."
+            }
+          ]
+        },
+        "chapter-11-p022": {
+          "sentences": [
+            "果然，国王的儿子邦波王子正在打开花园的门。",
+            "他胳膊下夹着一本童话书。",
+            "他顺着碎石小路慢慢走来，哼着一支忧伤的歌，一直走到鹦鹉和猴子藏身的那棵树下的一张石凳前。",
+            "然后他在石凳上躺下，自己看起童话来。"
+          ],
+          "hints": [
+            {
+              "id": "sure-enough",
+              "kind": "phrase",
+              "target": "sure enough",
+              "sentence": 9,
+              "zh": "果然、果不其然；表示事情正像刚才说的那样发生了。",
+              "en": "Sure enough means “just as expected”: it happened exactly as she had said."
+            }
+          ]
+        },
+        "chapter-11-p023": {
+          "sentences": [
+            "奇奇和波利尼西亚看着他，一动不动，一声不响。"
+          ]
+        },
+        "chapter-11-p024": {
+          "sentences": [
+            "过了一会儿，国王的儿子放下书，疲倦地叹了口气。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Polynesia blame for their losing the way?",
+          "options": [
+            "Chee-Chee, who was away too long.",
+            "Gub-Gub, who kept running off the path.",
+            "The King’s men, who blocked the path."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "波利尼西亚说全怪那头笨猪：他老是跑出小路去找姜根，她忙着追他，走到沼泽就拐错了方向。",
+            "en": "Polynesia says it was all the stupid pig’s fault: he kept running off the path for ginger-roots, and while she chased him she turned the wrong way at the swamp."
+          }
+        },
+        {
+          "question": "What does Prince Bumpo do when he reaches the stone seat?",
+          "options": [
+            "He lies down and reads his fairy-stories to himself.",
+            "He calls out to the parrot up in the tree.",
+            "He falls asleep and drops his book on the ground."
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "他哼着歌走到树下，在石凳上躺下，自己看起童话来；他并没有发现树上的两个家伙。",
+            "en": "He lies down on the seat under the tree and begins reading the fairy-stories to himself; he never notices who is hiding above him."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "He would keep running off the path hunting for ginger-roots",
+        "pointIds": [
+          "cefrj-142"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "would + 动词原形表示过去反复发生的事，这里带抱怨语气：他老是跑出小路；keep + -ing 又强调没完没了。",
+          "en": "Would + base verb describes something that kept happening in the past, with a note of complaint: he would keep running off the path."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "想变白的王子",
+        "en": "A Prince Who Wants to Be White"
+      },
+      "introduction": {
+        "zh": "国王的儿子邦波坐在树下，合上童话书，叹着气说：要是我是位白人王子就好了。忽然，一个又细又高的声音从树上传下来，自称是仙女皇后。王子四下张望——他信了吗？",
+        "en": "The King’s son sits under the tree, closes his book of fairy-tales and sighs: if only he were a white prince! Then a small, high voice comes down from the leaves. It says it is the Queen of the Fairies. The Prince looks around — does he believe it?"
+      },
+      "paragraphs": {
+        "chapter-11-p025": {
+          "sentences": [
+            "「我要是个白人王子就好了！」他说，眼里带着一种做梦似的、飘远的神情。"
+          ]
+        },
+        "chapter-11-p026": {
+          "sentences": [
+            "这时，鹦鹉用又细又高的声音，像个小姑娘似的，大声说："
+          ]
+        },
+        "chapter-11-p027": {
+          "sentences": [
+            "「邦波，说不定有人能把你变成白人王子呢。」"
+          ],
+          "hints": [
+            {
+              "id": "thee",
+              "kind": "word",
+              "target": "thee",
+              "sentence": 3,
+              "zh": "古英语里「你」的宾格，相当于现在的 you；下文 thou、thy、sayest 也是古语。",
+              "en": "Thee is the old object form of “you”; thou, thy and sayest later in the chapter are old forms too."
+            }
+          ]
+        },
+        "chapter-11-p028": {
+          "sentences": [
+            "国王的儿子从石凳上猛地跳起来，四下张望。"
+          ],
+          "hints": [
+            {
+              "id": "started-up",
+              "kind": "phrase",
+              "target": "started up",
+              "sentence": 4,
+              "zh": "start up 这里不是「开始」，而是「猛地站起、惊起」。",
+              "en": "Started up does not mean “began”: he jumped up suddenly from the seat."
+            }
+          ]
+        },
+        "chapter-11-p029": {
+          "sentences": [
+            "「我听见的是什么？」他叫道。",
+            "「我仿佛听见仙女的银铃般的声音，从那边的树荫里传来甜美的乐音！",
+            "真怪！」"
+          ],
+          "hints": [
+            {
+              "id": "methought",
+              "kind": "word",
+              "target": "Methought",
+              "sentence": 6,
+              "zh": "古语，等于 it seemed to me / I thought，「我仿佛觉得」。",
+              "en": "Methought is old English for “it seemed to me”, or “I thought”."
+            }
+          ]
+        },
+        "chapter-11-p030": {
+          "sentences": [
+            "「尊贵的王子，」波利尼西亚一动不动，好让邦波看不见她，「你说的是带着翅膀的真话。",
+            "因为跟你说话的正是我，仙女皇后特里普西廷卡。",
+            "我藏在一朵玫瑰花苞里。」"
+          ],
+          "hints": [
+            {
+              "id": "winged-words",
+              "kind": "phrase",
+              "target": "winged words of truth",
+              "sentence": 8,
+              "zh": "字面是「长翅膀的真话」；古语里「有翼的话」指真切、会飞快传开的话。",
+              "en": "Winged words are words that fly: in old poetry it means words that are true and quickly spread."
+            },
+            {
+              "id": "tripsitinka",
+              "kind": "word",
+              "target": "Tripsitinka",
+              "sentence": 9,
+              "zh": "特里普西廷卡，波利尼西亚临时编出来的仙女皇后名号。",
+              "en": "Tripsitinka, the name Polynesia makes up for the Queen of the Fairies."
+            }
+          ]
+        },
+        "chapter-11-p031": {
+          "sentences": [
+            "「哦，告诉我吧，仙女皇后，」邦波高兴得双手紧握，叫道，「谁能把我变成白人？」"
+          ]
+        },
+        "chapter-11-p032": {
+          "sentences": [
+            "「在你父亲的牢里，」鹦鹉说，「关着一位有名的魔法师，名叫约翰·杜立德。",
+            "他懂得许多医道和法术，还干过了不起的大事。",
+            "可你那位当国王的父亲，却让他一天天憔悴下去。",
+            "勇敢的邦波，等太阳落了，你悄悄去找他；到时候，你就会变成有史以来赢得美人芳心的最白的王子！",
+            "我说得够多了。",
+            "我现在得回仙境去了。",
+            "再见了！」"
+          ],
+          "hints": [
+            {
+              "id": "languishing",
+              "kind": "word",
+              "target": "languishing",
+              "sentence": 14,
+              "zh": "日渐消瘦、苦苦熬着；指医生被关在牢里受折磨。",
+              "en": "Languishing means growing weak and miserable, as the Doctor does in prison."
+            }
+          ]
+        },
+        "chapter-11-p033": {
+          "sentences": [
+            "「再见！」王子叫道。",
+            "「万分感谢你，好心的特里普西廷卡！」"
+          ]
+        },
+        "chapter-11-p034": {
+          "sentences": [
+            "他又在石凳上坐下，脸上带着微笑，等着太阳落山。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the King’s son wish for?",
+          "options": [
+            "To be a white prince.",
+            "To be King of the Jolliginki.",
+            "To catch the two-headed animal."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "他合上书叹气，说的是「我要是个白人王子就好了」；他想要的是换个身份，不是王位。",
+            "en": "He sighs and says, “If I were only a white prince!” — what he wants is to be someone else, not to take his father’s throne."
+          }
+        },
+        {
+          "question": "What does the voice tell Bumpo to do?",
+          "options": [
+            "Ask his father to set the wizard free.",
+            "Go secretly to the wizard in the prison after sunset.",
+            "Bring a rose to the fairy queen at once."
+          ],
+          "answer": 1,
+          "sentence": 15,
+          "feedback": {
+            "zh": "「仙女」让他等太阳落山后悄悄去找牢里的魔法师约翰·杜立德，说那就能变白；还特意说「我藏在玫瑰花苞里」，没让他送花。",
+            "en": "She tells him to go secretly to the wizard John Dolittle in his father’s prison when the sun has set; the rose-bud is only where she says she is hiding."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "If I were only a white prince!",
+        "pointIds": [
+          "cefrj-222"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if only + 过去式表示与现在相反的愿望：要是我是白人王子就好了；were 是虚拟语气，这里只有从句，主句省略了。",
+          "en": "If only + past tense expresses a wish about now that is not true: if only I were a white prince. Were is the unreal form, and the main clause is left out."
+        }
+      }
+    }
+  ]
+}

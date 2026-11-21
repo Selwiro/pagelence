@@ -1,0 +1,787 @@
+{
+  "chapter": 5,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "六个星期的航程",
+        "en": "Six Weeks at Sea"
+      },
+      "introduction": {
+        "zh": "为了给非洲的猴子治病，杜立德医生带着一船动物出海，一只燕子提着灯笼在船前领路。船越往南开，天越热，动物们的日子也越来越难熬。非洲到底还有多远？",
+        "en": "The Doctor's ship has been at sea for six weeks. A swallow with a tiny lantern flies ahead to show the way. The further south they sail, the hotter it gets, and not every animal enjoys the heat. How far is Africa?"
+      },
+      "paragraphs": {
+        "chapter-05-p001": {
+          "sentences": [
+            "就这样，整整六个星期，他们在起伏的大海上一路向前，跟着那只燕子——她飞在船的前面，给他们指路。",
+            "夜里她提着一盏小灯笼，好让他们在黑暗中不会跟丢她；过往船上的人都说，那道光一定是颗流星。"
+          ]
+        },
+        "chapter-05-p002": {
+          "sentences": [
+            "他们越往南航行，天气就越来越热。",
+            "波利尼西亚、奇奇和鳄鱼都喜欢这大太阳，喜欢得不得了。",
+            "他们跑来跑去，笑着往船舷外张望，看是不是已经能看见非洲了。"
+          ],
+          "hints": [
+            {
+              "id": "polynesia",
+              "kind": "word",
+              "target": "Polynesia",
+              "sentence": 4,
+              "zh": "波利尼西亚，医生的鹦鹉，见多识广，会说人话。",
+              "en": "Polynesia, the Doctor's parrot, who has seen a great deal of the world and can talk."
+            },
+            {
+              "id": "chee-chee",
+              "kind": "word",
+              "target": "Chee-Chee",
+              "sentence": 4,
+              "zh": "奇奇，那只猴子。",
+              "en": "Chee-Chee, the monkey."
+            },
+            {
+              "id": "no-end",
+              "kind": "phrase",
+              "target": "no end",
+              "sentence": 4,
+              "zh": "口语里表示「没完没了地、极其」，enjoyed it no end 就是喜欢得不得了。",
+              "en": "An informal phrase meaning “very much”: enjoyed the sun no end."
+            }
+          ]
+        },
+        "chapter-05-p003": {
+          "sentences": [
+            "可是在这样的天气里，猪、狗和猫头鹰图图什么也做不了，只能坐在船尾一只大木桶的阴凉里，伸着舌头，喝柠檬水。"
+          ],
+          "hints": [
+            {
+              "id": "too-too",
+              "kind": "word",
+              "target": "Too-Too",
+              "sentence": 6,
+              "zh": "图图，医生的猫头鹰。",
+              "en": "Too-Too, the Doctor's owl."
+            }
+          ]
+        },
+        "chapter-05-p004": {
+          "sentences": [
+            "鸭子达布达布常常跳进海里，游在船后面，好让自己凉快凉快。",
+            "每隔一阵子，等她头顶晒得太烫了，她就潜到船底下，从另一边冒出来。",
+            "她也用这个法子，在星期二和星期五抓鲱鱼——那两天船上的人都吃鱼，好让牛肉能多撑些日子。"
+          ],
+          "hints": [
+            {
+              "id": "dab-dab",
+              "kind": "word",
+              "target": "Dab-Dab",
+              "sentence": 7,
+              "zh": "达布达布，医生的鸭子。",
+              "en": "Dab-Dab, the Doctor's duck."
+            },
+            {
+              "id": "make-beef-last",
+              "kind": "phrase",
+              "target": "make the beef last longer",
+              "sentence": 9,
+              "zh": "让牛肉能多吃几天、撑得更久；last 在这里是「维持、用下去」。",
+              "en": "To make the beef last longer: to make the meat go further, so it is not eaten up too soon."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the swallow fly in front of the ship?",
+          "options": [
+            "To show them the way.",
+            "To find other ships in the dark.",
+            "To carry the lantern home."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "原文说燕子「飞在船前面给他们指路」，夜里还提着灯，好让他们不跟丢。",
+            "en": "The text says the swallow flew before the ship to show them the way, and at night she carried a lantern so they would not lose her."
+          }
+        },
+        {
+          "question": "What do the pig, the dog and the owl do in the hot weather?",
+          "options": [
+            "They sit in the shade of a big barrel and drink lemonade.",
+            "They swim behind the ship to keep cool.",
+            "They climb the mast and look for land."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "他们热得什么也做不了，只能坐在大木桶的阴凉里伸着舌头喝柠檬水；游泳的是鸭子。",
+            "en": "They can do nothing in the heat, so they sit in the shade of a big barrel with their tongues out, drinking lemonade; it is the duck who swims."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "following the swallow who flew before the ship to show them the way",
+        "pointIds": [
+          "cefrj-172"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "who 指前面的 the swallow，是从句的主语：who flew before the ship 说明是哪只燕子。",
+          "en": "Who points back to the swallow and is the subject of its own clause: who flew before the ship tells us which swallow."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "海上的访客",
+        "en": "Visitors from the Sea"
+      },
+      "introduction": {
+        "zh": "船快到赤道时，海面上先来了会飞的鱼，接着又是一群海豚——它们好像都认得杜立德医生的名字。可船上偏偏缺了一样不起眼的东西。海里的朋友能帮上忙吗？",
+        "en": "Near the Equator, flying-fish leap towards the ship, and a school of porpoises dances through the waves. They all seem to know the Doctor's name. But the ship has run short of something small and ordinary. Can the sea help them?"
+      },
+      "paragraphs": {
+        "chapter-05-p005": {
+          "sentences": [
+            "当他们驶近赤道时，看见一些飞鱼朝他们游过来。",
+            "那些鱼问鹦鹉，这是不是杜立德医生的船。",
+            "她回答说是，它们听了很高兴，因为非洲的猴子们一直担心他再也不会来了。",
+            "波利尼西亚问它们还要走多少英里；飞鱼们说，现在离非洲海岸只有五十五英里了。"
+          ],
+          "hints": [
+            {
+              "id": "equator",
+              "kind": "word",
+              "target": "the Equator",
+              "sentence": 1,
+              "zh": "赤道；船从北往南驶近这条线，越过去天就更热了。",
+              "en": "The Equator: the line round the middle of the earth. Sailing south towards it, the ship meets hotter weather."
+            },
+            {
+              "id": "doctor-dolittle",
+              "kind": "word",
+              "target": "Doctor Dolittle",
+              "sentence": 2,
+              "zh": "杜立德医生，这本书的主角，一位会给动物看病的医生。",
+              "en": "Doctor Dolittle, the hero of the book: a doctor who can speak with animals and treat them."
+            }
+          ]
+        },
+        "chapter-05-p006": {
+          "sentences": [
+            "还有一次，一整群海豚在浪里跳着舞过来；它们也问波利尼西亚，这是不是那位名医的船。",
+            "听说确实是他，它们就问鹦鹉，医生这趟路需不需要带点什么。"
+          ],
+          "hints": [
+            {
+              "id": "school-of-porpoises",
+              "kind": "phrase",
+              "target": "a whole school of porpoises",
+              "sentence": 5,
+              "zh": "school 这里不是「学校」，而是「一群」鱼或海兽；porpoise 是鼠海豚，常成群游动。",
+              "en": "A school is a group of sea animals, not a place of learning; porpoises are small dolphins that swim together."
+            }
+          ]
+        },
+        "chapter-05-p007": {
+          "sentences": [
+            "波利尼西亚说：「有。",
+            "我们的洋葱吃完了。」"
+          ],
+          "hints": [
+            {
+              "id": "run-short-of",
+              "kind": "phrase",
+              "target": "run short of",
+              "sentence": 8,
+              "zh": "快用完了、不够了；run short of onions 就是洋葱快没了。",
+              "en": "To run short of something is to have almost none left: they are running out of onions."
+            }
+          ]
+        },
+        "chapter-05-p008": {
+          "sentences": [
+            "「离这儿不远有一座岛，」海豚们说，「那里的野洋葱长得又高又壮。",
+            "你们一直往前开——我们去弄一些，再追上你们。」"
+          ],
+          "hints": [
+            {
+              "id": "keep-straight-on",
+              "kind": "phrase",
+              "target": "Keep straight on",
+              "sentence": 10,
+              "zh": "一直朝前开，别拐弯、别停下。",
+              "en": "Keep straight on: go on in the same direction without turning."
+            }
+          ]
+        },
+        "chapter-05-p009": {
+          "sentences": [
+            "于是海豚们飞快地穿过大海游走了。",
+            "很快，鹦鹉又看见了它们：它们从后面赶上来，用海草做成的大网拖着洋葱穿过浪头。"
+          ]
+        },
+        "chapter-05-p010": {
+          "sentences": [
+            "第二天傍晚，太阳正在落下去的时候，医生说："
+          ]
+        },
+        "chapter-05-p011": {
+          "sentences": [
+            "「奇奇，把望远镜给我。",
+            "我们的旅程快结束了。",
+            "很快我们应该就能看见非洲的海岸了。」"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What do the flying-fishes say about the monkeys in Africa?",
+          "options": [
+            "They are getting worried that the Doctor will never come.",
+            "They have already left Africa.",
+            "They have plenty of onions to give him."
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "飞鱼说非洲的猴子一直担心医生永远不会来，所以听说这正是他的船就很高兴。",
+            "en": "The flying-fishes say the monkeys were getting worried that he would never come, so they were glad to hear it was his ship."
+          }
+        },
+        {
+          "question": "How do the porpoises bring the onions to the ship?",
+          "options": [
+            "They drag them through the waves in big nets made of seaweed.",
+            "They carry them in their mouths one by one.",
+            "They leave them on the island for the ship to collect."
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "海豚游到长野洋葱的岛上，用海草编成大网，拖着洋葱从后面追上船来。",
+            "en": "The porpoises swim to the island where the wild onions grow and come up behind the ship, dragging the onions in big nets made of seaweed."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "asked them how many miles they had yet to go",
+        "pointIds": [
+          "cefrj-203"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "ask + 人 + 疑问词从句要用陈述语序：how many miles they had yet to go，不能说 had they。",
+          "en": "After ask + person, the wh-clause keeps statement order: how many miles they had yet to go, not had they."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "一声巨响",
+        "en": "A Great BANG"
+      },
+      "introduction": {
+        "zh": "夜里他们以为看见了陆地，风暴却先扑了上来。一声巨响之后，船停住、歪向一边，水正往船底的大洞里灌。不会游泳的奇奇和咕咕，怎么才能上岸？",
+        "en": "They think they can see land in the dark, and then the storm hits. After a great BANG the ship stops and rolls over, and water pours through a hole in the bottom. Chee-Chee and Gub-Gub cannot swim. How will they reach the shore?"
+      },
+      "paragraphs": {
+        "chapter-05-p012": {
+          "sentences": [
+            "大约半小时后，果然，他们觉得前面好像能看见点什么，也许是陆地。",
+            "可是天越来越黑，他们没法确定。"
+          ]
+        },
+        "chapter-05-p013": {
+          "sentences": [
+            "接着来了一场大风暴，伴着雷电。",
+            "狂风怒吼；大雨倾盆而下；浪头高得直接泼过了船身。"
+          ]
+        },
+        "chapter-05-p014": {
+          "sentences": [
+            "不一会儿，只听轰的一声巨响！",
+            "船停住了，向一侧翻倒。"
+          ],
+          "hints": [
+            {
+              "id": "presently",
+              "kind": "word",
+              "target": "Presently",
+              "sentence": 5,
+              "zh": "旧式用法，意思是「不一会儿、很快」，不是「现在」。",
+              "en": "An old-fashioned word here meaning “soon” or “in a moment”, not “at present”."
+            }
+          ]
+        },
+        "chapter-05-p015": {
+          "sentences": [
+            "「出什么事了？」医生从下面走上来，问道。"
+          ]
+        },
+        "chapter-05-p016": {
+          "sentences": [
+            "「我说不准，」鹦鹉说，「不过我想我们是触礁失事了。",
+            "叫鸭子出去看看。」"
+          ],
+          "hints": [
+            {
+              "id": "ship-wrecked",
+              "kind": "word",
+              "target": "ship-wrecked",
+              "sentence": 8,
+              "zh": "船只失事、触礁沉没；这里指船撞坏了，走不了了。",
+              "en": "Ship-wrecked: having lost or broken the ship, as in a wreck."
+            }
+          ]
+        },
+        "chapter-05-p017": {
+          "sentences": [
+            "于是达布达布一头扎进浪里。",
+            "等她浮上来，她说他们撞上了礁石；船底有个大洞；水正往里灌；船在下沉，而且沉得很快。"
+          ]
+        },
+        "chapter-05-p018": {
+          "sentences": [
+            "「我们一定是撞上非洲了，」医生说。",
+            "「天哪，天哪！——好吧——我们大家都得游到岸上去。」"
+          ],
+          "hints": [
+            {
+              "id": "dear-me",
+              "kind": "phrase",
+              "target": "Dear me",
+              "sentence": 13,
+              "zh": "感叹语，「天哪、哎呀」，表示吃惊或着急，不是说「亲爱的我」。",
+              "en": "An old exclamation of surprise or worry, not a way of addressing anyone."
+            }
+          ]
+        },
+        "chapter-05-p019": {
+          "sentences": [
+            "可是奇奇和咕咕不会游泳。"
+          ],
+          "hints": [
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 14,
+              "zh": "咕咕，医生的宠物小猪。",
+              "en": "Gub-Gub, the Doctor's little pig."
+            }
+          ]
+        },
+        "chapter-05-p020": {
+          "sentences": [
+            "「把绳子拿来！」波利尼西亚说。",
+            "「我早说过它会有用的。",
+            "那只鸭子呢？",
+            "过来，达布达布。",
+            "抓住绳子这一头，飞到岸上，把它系在一棵棕榈树上；我们把另一头拉在船上。",
+            "这样，那些不会游泳的就得顺着绳子爬，一直爬到岸上。",
+            "这就叫『救生索』。」"
+          ],
+          "hints": [
+            {
+              "id": "come-in-handy",
+              "kind": "phrase",
+              "target": "come in handy",
+              "sentence": 16,
+              "zh": "派得上用场、迟早有用。",
+              "en": "To come in handy: to turn out to be useful."
+            },
+            {
+              "id": "life-line",
+              "kind": "word",
+              "target": "life-line",
+              "sentence": 21,
+              "zh": "救生索；这里指从岸上拉到船上的一根绳子，不会游泳的顺着它爬过去。",
+              "en": "A life-line: here, a rope stretched from the shore to the ship for the animals to climb along."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What happens to the ship in the storm?",
+          "options": [
+            "It strikes a rock, and water starts coming in through a hole.",
+            "It sails safely to the coast of Africa.",
+            "It turns round and goes back to Puddleby."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "达布达布潜下去看，回来说他们撞上了礁石，船底破了个大洞，水正往里灌，船在下沉。",
+            "en": "Dab-Dab dives down and reports that they have struck a rock: there is a big hole in the bottom, water is coming in and the ship is sinking."
+          }
+        },
+        {
+          "question": "Why does Polynesia want the rope?",
+          "options": [
+            "So the animals that cannot swim can climb along it to the land.",
+            "To tie the ship to a palm-tree and stop it sinking.",
+            "To pull the Doctor's trunk out of the water."
+          ],
+          "answer": 0,
+          "sentence": 20,
+          "feedback": {
+            "zh": "她让鸭子把一头系在岸上的棕榈树上，另一头留在船上，不会游泳的就顺着绳子爬上岸。",
+            "en": "She tells the duck to tie one end to a palm-tree on the shore and keep the other on the ship, so those who cannot swim can climb along the rope."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the waves got so high they splashed right over the boat",
+        "pointIds": [
+          "cefrj-45"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "so + 形容词 + 从句表示结果：浪高到直接泼过了船身；这里省略了 that。",
+          "en": "So + adjective + clause shows a result: the waves were so high that they splashed over the boat; that is left out."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "船碎了，岸到了",
+        "en": "Ashore at Last"
+      },
+      "introduction": {
+        "zh": "大家都平安上了岸，可船在礁石上撞成了碎片，行李只剩一只箱子。他们在崖上找到一个山洞躲雨，第二天太阳出来才看清这片新土地。医生的高礼帽又漂到哪里去了？",
+        "en": "Everyone gets safely ashore, but the ship breaks up on the rocks and the animals have only one trunk left. They shelter in a cave until the sun comes out. Then the Doctor finds that his high hat is gone. Where is it now?"
+      },
+      "paragraphs": {
+        "chapter-05-p021": {
+          "sentences": [
+            "于是他们都平安到了岸上——有的游水，有的飞；那些顺着绳子爬过来的，还把医生的箱子和手提包带了过来。"
+          ],
+          "hints": [
+            {
+              "id": "trunk",
+              "kind": "word",
+              "target": "trunk",
+              "sentence": 1,
+              "zh": "这里指大行李箱，不是「树干」。",
+              "en": "Here a trunk is a large travelling case, not part of a tree."
+            }
+          ]
+        },
+        "chapter-05-p022": {
+          "sentences": [
+            "可那条船已经不能再用了——船底有个大洞；不久，汹涌的海浪把它在礁石上撞得粉碎，船板四散漂走。"
+          ]
+        },
+        "chapter-05-p023": {
+          "sentences": [
+            "于是他们躲进高崖上找到的一个干爽的好山洞，一直待到风暴过去。"
+          ]
+        },
+        "chapter-05-p024": {
+          "sentences": [
+            "第二天早上太阳出来，他们下到沙滩上，把身上弄干。"
+          ]
+        },
+        "chapter-05-p025": {
+          "sentences": [
+            "「亲爱的老非洲！」波利尼西亚叹了口气。",
+            "「回来真好。",
+            "你想想——到明天，我离开这儿就整整一百六十九年了！",
+            "而且它一点都没变！——还是那些老棕榈树；还是那片老红土；还是那些老黑蚂蚁！",
+            "没有哪个地方比得上家！」"
+          ],
+          "hints": [
+            {
+              "id": "to-morrow",
+              "kind": "word",
+              "target": "to-morrow",
+              "sentence": 7,
+              "zh": "旧式拼法，即现代拼写的 tomorrow，意思是「明天」。",
+              "en": "An old spelling of “tomorrow”."
+            },
+            {
+              "id": "no-place-like-home",
+              "kind": "phrase",
+              "target": "There’s no place like home",
+              "sentence": 9,
+              "zh": "谚语「没有哪个地方比得上家」；她回到故乡，最想说的就是这一句。",
+              "en": "A well-known saying: home is better than anywhere else."
+            }
+          ]
+        },
+        "chapter-05-p026": {
+          "sentences": [
+            "其他人都注意到她眼里含着泪——能再见到自己的故乡，她太高兴了。"
+          ]
+        },
+        "chapter-05-p027": {
+          "sentences": [
+            "后来医生发现他的高礼帽不见了；原来它在风暴中被吹进了海里。",
+            "于是达布达布出去找。",
+            "不一会儿，她就看见了它，远远地漂在水上，像一只玩具小船。"
+          ],
+          "hints": [
+            {
+              "id": "missed",
+              "kind": "word",
+              "target": "missed",
+              "sentence": 11,
+              "zh": "这里是「发现（东西）不见了」，不是「想念」：医生发现高礼帽丢了。",
+              "en": "Here missed means “noticed that something was gone”, not “felt sad about its absence”."
+            }
+          ]
+        },
+        "chapter-05-p028": {
+          "sentences": [
+            "她飞下去拿的时候，发现里面坐着其中一只白鼠，吓得要命。"
+          ],
+          "hints": [
+            {
+              "id": "white-mice",
+              "kind": "phrase",
+              "target": "the white mice",
+              "sentence": 14,
+              "zh": "白鼠；这些白鼠原本养在医生家的钢琴里，出发时被留在帕德尔比。",
+              "en": "The white mice that used to live in the Doctor's piano at home; they were meant to stay behind in Puddleby."
+            }
+          ]
+        },
+        "chapter-05-p029": {
+          "sentences": [
+            "「你在这儿干什么？」鸭子问。",
+            "「早就让你留在帕德尔比了。」"
+          ],
+          "hints": [
+            {
+              "id": "puddleby",
+              "kind": "word",
+              "target": "Puddleby",
+              "sentence": 16,
+              "zh": "帕德尔比，医生的家乡，全名是「沼泽边的帕德尔比」。",
+              "en": "Puddleby, the Doctor's home town, short for Puddleby-on-the-Marsh."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What happens to the ship after everyone reaches the shore?",
+          "options": [
+            "The rough sea beats it to pieces on the rocks.",
+            "The animals pull it up the beach and mend it.",
+            "It floats away with the trunk still inside."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "船底破了大洞，已经不能用了；不久汹涌的海浪把它在礁石上撞得粉碎，木头都漂散了。",
+            "en": "With the big hole in the bottom the ship is no good any more, and the rough sea soon beats it to pieces on the rocks."
+          }
+        },
+        {
+          "question": "What does Dab-Dab find inside the Doctor's hat?",
+          "options": [
+            "One of the white mice, very frightened.",
+            "A small toy boat.",
+            "A young monkey from the jungle."
+          ],
+          "answer": 0,
+          "sentence": 14,
+          "feedback": {
+            "zh": "她飞下去拿帽子，发现里面坐着其中一只白鼠，吓得要命——这只白鼠本来该留在帕德尔比。",
+            "en": "She flies down for the hat and finds one of the white mice sitting inside it, very frightened — a mouse that was supposed to stay in Puddleby."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "in a nice dry cave they found, high up in the cliffs",
+        "pointIds": [
+          "cefrj-179"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "cave 后面省略了关系词：they found 的宾语就是 cave，作宾语时 that/which 可以省。",
+          "en": "The relative pronoun after cave is left out: cave is the object of they found, and an object pronoun can be dropped."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "丛林里的脚步声",
+        "en": "Footsteps in the Jungle"
+      },
+      "introduction": {
+        "zh": "帽子捞上来了，里面却坐着一位谁也没想到的乘客。大家还没来得及问清楚，奇奇忽然听见丛林里有脚步声。来的会是谁？",
+        "en": "The hat is pulled out of the sea, and there is a passenger inside that nobody expected. Before anyone can ask questions, Chee-Chee hears footsteps in the jungle. Who is coming, and what does he want?"
+      },
+      "paragraphs": {
+        "chapter-05-p030": {
+          "sentences": [
+            "「我不想被留下，」老鼠说。",
+            "「我想看看非洲是什么样子——我在这儿有亲戚。",
+            "所以我藏在行李里，跟着硬饼干一起被搬上了船。",
+            "船沉的时候我吓坏了——因为我游不了多远。",
+            "我拼命游，能游多久就游多久，可很快就累得一点力气都没有，觉得自己要沉下去了。",
+            "就在这时，老头子的帽子漂了过来；我就爬了进去，因为我不想被淹死。」"
+          ],
+          "hints": [
+            {
+              "id": "hard-tack",
+              "kind": "word",
+              "target": "hard-tack",
+              "sentence": 3,
+              "zh": "硬饼干，船上给水手和乘客吃的干粮。",
+              "en": "Hard-tack: hard dry biscuit kept on ships as food."
+            }
+          ]
+        },
+        "chapter-05-p031": {
+          "sentences": [
+            "于是鸭子叼起装着老鼠的帽子，把它带到岸上的医生那儿。",
+            "大家都围过来看。"
+          ]
+        },
+        "chapter-05-p032": {
+          "sentences": [
+            "「这就叫『偷渡客』，」鹦鹉说。"
+          ],
+          "hints": [
+            {
+              "id": "stowaway",
+              "kind": "word",
+              "target": "stowaway",
+              "sentence": 9,
+              "zh": "偷渡客，藏在船或行李里偷偷搭乘的人。",
+              "en": "A stowaway: someone who hides on a ship or in the luggage and travels without being seen."
+            }
+          ]
+        },
+        "chapter-05-p033": {
+          "sentences": [
+            "不一会儿，他们正想给白鼠在箱子里找一个能舒舒服服待着的地方，猴子奇奇忽然说："
+          ]
+        },
+        "chapter-05-p034": {
+          "sentences": [
+            "「嘘！",
+            "我听见丛林里有脚步声！」"
+          ]
+        },
+        "chapter-05-p035": {
+          "sentences": [
+            "大家都停下来听。",
+            "很快，一个黑人男子从树林里走出来，问他们在那里做什么。"
+          ]
+        },
+        "chapter-05-p036": {
+          "sentences": [
+            "「我叫约翰·杜立德——医学博士，」医生说。",
+            "「有人请我到非洲来，给生病的猴子治病。」"
+          ],
+          "hints": [
+            {
+              "id": "md",
+              "kind": "word",
+              "target": "M.D.",
+              "sentence": 15,
+              "zh": "医学博士（Doctor of Medicine）的缩写，报全名时一起说出，表示自己是有执照的医生。",
+              "en": "Short for Doctor of Medicine: he gives it with his name to show he is a properly qualified doctor."
+            }
+          ]
+        },
+        "chapter-05-p037": {
+          "sentences": [
+            "「你们都得去见国王，」那个黑人说。"
+          ]
+        },
+        "chapter-05-p038": {
+          "sentences": [
+            "「什么国王？」医生问，他不想浪费一点时间。"
+          ],
+          "hints": [
+            {
+              "id": "waste-any-time",
+              "kind": "phrase",
+              "target": "didn’t want to waste any time",
+              "sentence": 18,
+              "zh": "不想浪费一点时间，急着去给猴子治病。",
+              "en": "Didn't want to waste any time: he was in a hurry to get on with his work."
+            }
+          ]
+        },
+        "chapter-05-p039": {
+          "sentences": [
+            "「乔利金基的国王，」那人回答。",
+            "「这些土地都归他所有；所有外乡人都得带到他面前。",
+            "跟我来。」"
+          ],
+          "hints": [
+            {
+              "id": "jolliginki",
+              "kind": "word",
+              "target": "Jolliginki",
+              "sentence": 19,
+              "zh": "乔利金基，非洲的这个王国；「乔利金基国王」统治这片土地，外乡人都得先去见他。",
+              "en": "Jolliginki, the African kingdom; its King rules these lands, and every stranger must be brought before him."
+            }
+          ]
+        },
+        "chapter-05-p040": {
+          "sentences": [
+            "于是他们收拾好行李，跟着那个人穿过丛林走了。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why did the mouse hide in the baggage?",
+          "options": [
+            "It wanted to see Africa, and it has relatives there.",
+            "The Doctor had asked it to come along.",
+            "It was looking for the ship's hard-tack."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "老鼠说它不想被留下，想看看非洲是什么样子，还说自己在非洲有亲戚，所以才藏进行李上了船。",
+            "en": "The mouse says it did not want to be left behind: it wanted to see what Africa was like, and it has relatives there."
+          }
+        },
+        {
+          "question": "What does the man from the jungle tell them to do?",
+          "options": [
+            "Come before the King of the Jolliginki.",
+            "Go back to their ship at once.",
+            "Wait in the cave until morning."
+          ],
+          "answer": 0,
+          "sentence": 17,
+          "feedback": {
+            "zh": "那人说这一带的土地都归乔利金基国王，所有外乡人都必须带到他面前，于是叫他们跟着走。",
+            "en": "The man says all these lands belong to the King of the Jolliginki and every stranger must be brought before him, so they must follow him."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I swam as long as I could",
+        "pointIds": [
+          "cefrj-37"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as … as 是同级比较：as long as I could 就是「能游多久就游多久」，第二个 as 后面接从句。",
+          "en": "As … as compares two things as equal: as long as I could means “for as long as I was able”; the second as starts a clause."
+        }
+      }
+    }
+  ]
+}

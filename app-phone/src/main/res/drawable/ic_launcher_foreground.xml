@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 与 work/web/icon.svg 同形：摊开的书页。内容按自适应图标安全区居中。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:translateX="22"
+        android:translateY="22">
+        <path
+            android:fillColor="#F5F2EA"
+            android:pathData="M12,21c7,-1 13,0 18,4v24c-5,-4 -11,-5 -18,-4V21ZM34,35c5,-5 11,-7 18,-7v17c-7,-1 -13,0 -18,4V35Z" />
+        <path
+            android:fillColor="#E2BC73"
+            android:pathData="M34,23c4,-6 9,-10 15,-11v12c-5,0 -11,3 -15,7v-8Z" />
+    </group>
+</vector>

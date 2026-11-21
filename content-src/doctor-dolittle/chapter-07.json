@@ -1,0 +1,995 @@
+{
+  "chapter": 7,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "国王大发雷霆",
+        "en": "The King in a Fury"
+      },
+      "introduction": {
+        "zh": "那一夜，埃明特鲁德王后从没见过丈夫气成这副样子：他咬牙切齿，把牙刷扔向宫里的猫，连夜把整支军队赶进丛林。就在同一刻，杜立德医生带着动物在森林里拼命跑；咕咕腿短，很快就跑不动了。",
+        "en": "Queen Ermintrude has never seen her husband so angry. That night the King throws his tooth-brush at the palace cat and sends his whole army into the jungle to catch the Doctor. The Doctor’s animals run through the forest, but Gub-Gub’s short legs soon give out."
+      },
+      "paragraphs": {
+        "chapter-07-p001": {
+          "sentences": [
+            "埃明特鲁德王后一辈子没见过丈夫像那天夜里那样可怕。",
+            "他气得咬牙切齿。",
+            "他骂所有人都是蠢货。",
+            "他把牙刷朝宫里的猫扔过去。",
+            "他穿着睡袍满屋子乱转，把整支军队都叫醒，派他们进丛林去抓医生。",
+            "接着他又把所有仆人都打发去了——厨子、园丁、理发师，还有邦波王子的家庭教师——就连跳舞跳累了、鞋子又紧的王后，也被打发去帮着士兵一起搜。"
+          ],
+          "hints": [
+            {
+              "id": "ermintrude",
+              "kind": "word",
+              "target": "Ermintrude",
+              "sentence": 1,
+              "zh": "埃明特鲁德王后，乔利金基国王的妻子。",
+              "en": "Queen Ermintrude, the wife of the King of Jolliginki."
+            },
+            {
+              "id": "gnashed-teeth",
+              "kind": "phrase",
+              "target": "gnashed his teeth",
+              "sentence": 2,
+              "zh": "咬牙切齿，形容气到极点。",
+              "en": "Ground his teeth together in fury."
+            },
+            {
+              "id": "night-shirt",
+              "kind": "word",
+              "target": "night-shirt",
+              "sentence": 5,
+              "zh": "睡袍，旧时男人睡觉穿的长衫；国王就穿着它冲了出去。",
+              "en": "A long shirt worn in bed; the King runs out in his."
+            },
+            {
+              "id": "bumpos-tutor",
+              "kind": "phrase",
+              "target": "Prince Bumpo’s tutor",
+              "sentence": 6,
+              "zh": "邦波王子的家庭教师；邦波是国王的儿子。",
+              "en": "Prince Bumpo’s tutor; Bumpo is the King’s son."
+            }
+          ]
+        },
+        "chapter-07-p002": {
+          "sentences": [
+            "这期间，医生和他的动物们一直在森林里飞奔，朝着猴子国拼命赶路。"
+          ],
+          "hints": [
+            {
+              "id": "land-of-monkeys",
+              "kind": "phrase",
+              "target": "the Land of the Monkeys",
+              "sentence": 7,
+              "zh": "猴子国，猴子们住的地方，也是医生这趟要去的终点。",
+              "en": "The Land of the Monkeys, where the monkeys live and where the Doctor is heading."
+            }
+          ]
+        },
+        "chapter-07-p003": {
+          "sentences": [
+            "咕咕腿短，很快就累了；医生只好抱着他——他们身边还带着大皮箱和手提包，这就更难了。"
+          ],
+          "hints": [
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 8,
+              "zh": "咕咕，医生的小猪，腿短，走不快。",
+              "en": "Gub-Gub, the Doctor’s pig, whose legs are short."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the King throw at the palace cat?",
+          "options": [
+            "His tooth-brush",
+            "His night-shirt",
+            "A book from the palace"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "国王气极了，抓起牙刷就朝宫里的猫扔过去；课文还写他咬牙切齿、骂所有人是蠢货。",
+            "en": "The King is in such a rage that he throws his tooth-brush at the palace cat."
+          }
+        },
+        {
+          "question": "Why does the Doctor have to carry Gub-Gub?",
+          "options": [
+            "Gub-Gub’s legs are short and he soon gets tired",
+            "Gub-Gub has hurt one of his feet",
+            "Gub-Gub has fallen asleep on the road"
+          ],
+          "answer": 0,
+          "sentence": 8,
+          "feedback": {
+            "zh": "咕咕腿短，很快就走累了，医生只好抱着他；他们同时还带着大皮箱和手提包，所以格外吃力。",
+            "en": "Gub-Gub has short legs and soon gets tired, so the Doctor carries him — hard work with the trunk and the hand-bag as well."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Then he made all his servants go too",
+        "pointIds": [
+          "cefrj-206"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "made all his servants go：make 表示「让、使」，后面接宾语和动词原形 go，不加 to。",
+          "en": "Made + servants + go: make takes an object and the bare verb, with no to."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "树洞里的长夜",
+        "en": "A Long Night in a Tree"
+      },
+      "introduction": {
+        "zh": "国王以为，在自己的地盘上抓一个外乡人很容易，可他没算到带路的是猴子奇奇。追兵在林子四周搜了一整夜，说话声近得能听见。他们藏身的地方，除了奇奇，连别的猴子都不知道。天亮以后，他们还走得成吗？",
+        "en": "The King thinks his army will find the Doctor easily: the man is a stranger and does not know the paths. But Chee-Chee the monkey knows every path in the jungle. All night the soldiers search and talk nearby. Only Chee-Chee knows the hiding-place. Can they get away at daylight?"
+      },
+      "paragraphs": {
+        "chapter-07-p004": {
+          "sentences": [
+            "乔利金基国王以为他的军队找到他们很容易，因为医生身在异乡，不认得路。",
+            "但他错了：猴子奇奇熟悉丛林里所有的路——甚至比国王的手下还熟。",
+            "他把医生和他的宠物们带到森林最密的地方——一个从来没有人到过的地方——把他们全藏进高岩之间一棵空心的大树里。"
+          ],
+          "hints": [
+            {
+              "id": "king-of-jolliginki",
+              "kind": "phrase",
+              "target": "King of the Jolliginki",
+              "sentence": 1,
+              "zh": "乔利金基国王，杜立德医生一行正在逃离的那位国王。",
+              "en": "The King of Jolliginki, the ruler the Doctor and his animals are running from."
+            },
+            {
+              "id": "chee-chee",
+              "kind": "word",
+              "target": "Chee-Chee",
+              "sentence": 2,
+              "zh": "奇奇，那只猴子，熟悉丛林里的每一条路。",
+              "en": "Chee-Chee, the monkey who knows every path in the jungle."
+            },
+            {
+              "id": "kings-men",
+              "kind": "phrase",
+              "target": "the King’s men",
+              "sentence": 2,
+              "zh": "国王的手下，这里指他派出来搜山的士兵。",
+              "en": "The King’s men: the soldiers he has sent to search for the Doctor."
+            }
+          ]
+        },
+        "chapter-07-p005": {
+          "sentences": [
+            "「我们最好在这儿等着，」奇奇说，「等士兵们回去睡了。",
+            "然后我们就可以继续赶路，进猴子国了。」"
+          ]
+        },
+        "chapter-07-p006": {
+          "sentences": [
+            "他们就这样在那儿待了整整一夜。"
+          ]
+        },
+        "chapter-07-p007": {
+          "sentences": [
+            "他们不时听见国王的手下在四周的丛林里搜寻、说话。",
+            "但他们很安全，因为除了奇奇，没人知道那个藏身之处——连别的猴子也不知道。"
+          ],
+          "hints": [
+            {
+              "id": "but-except",
+              "kind": "phrase",
+              "target": "but Chee-Chee",
+              "sentence": 8,
+              "zh": "这里的 but 是「除了」，不是「但是」：除了奇奇，谁也不知道这个地方。",
+              "en": "Here but means “except”: nobody knew the hiding-place except Chee-Chee."
+            }
+          ]
+        },
+        "chapter-07-p008": {
+          "sentences": [
+            "最后，当晨光开始透过头顶厚厚的树叶照下来时，他们听见埃明特鲁德王后用十分疲倦的声音说，再找下去也没用了——大家不妨回去睡一觉。"
+          ],
+          "hints": [
+            {
+              "id": "no-use-looking",
+              "kind": "phrase",
+              "target": "it was no use looking any more",
+              "sentence": 9,
+              "zh": "再找下去也没用了；no use doing 表示做某事没有意义。",
+              "en": "There was no point in searching any longer."
+            }
+          ]
+        },
+        "chapter-07-p009": {
+          "sentences": [
+            "士兵们全都回家去之后，奇奇就把医生和他的动物们从藏身处领出来，他们动身前往猴子国。"
+          ],
+          "hints": [
+            {
+              "id": "set-off",
+              "kind": "phrase",
+              "target": "set off",
+              "sentence": 10,
+              "zh": "出发、动身。",
+              "en": "Set off: started on their way."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why was the King wrong about finding the Doctor easily?",
+          "options": [
+            "Chee-Chee knew the jungle paths better than the King’s men",
+            "The Doctor had a map of the jungle",
+            "The army went to the wrong country"
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "国王以为外乡人不认路，可奇奇熟悉丛林里所有的路，甚至比国王的手下还熟，把他们藏进了空心树。",
+            "en": "The King counted on the Doctor being a stranger, but Chee-Chee knew every path and hid them in a hollow tree."
+          }
+        },
+        {
+          "question": "What did the Queen say to the soldiers when daylight came?",
+          "options": [
+            "That it was no use looking and they might as well go back to sleep",
+            "That they must search the jungle for another week",
+            "That the Doctor had been caught in the night"
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "天亮时王后疲倦地说，再找下去也没用了，大家不妨回去睡一觉——士兵们这才撤走。",
+            "en": "At daylight the Queen said in a tired voice that it was no use looking any more and they might as well go back and sleep."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "We had better wait here",
+        "pointIds": [
+          "cefrj-126"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had better + 动词原形 wait：表示「最好」，是奇奇的建议，跟过去时无关。",
+          "en": "Had better + wait: a fixed pattern for “it would be best to”, not a past tense."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "篝火边的夜晚",
+        "en": "Evenings by the Fire"
+      },
+      "introduction": {
+        "zh": "路很长很长，咕咕常常喊累，可每次都能喝到椰子里的奶。丛林里能吃的东西多得数不清，奇奇和波利尼西亚总能弄到——连医生想抽的烟也有。到了夜里，他们围着小小的火堆坐下来，听歌，也听故事。",
+        "en": "The way is long and Gub-Gub often cries with tiredness, but there is always milk from the cocoanuts. Chee-Chee and Polynesia can find fruit, nuts and honey, and even tobacco for the Doctor. At night everyone sits round a little fire. What do they hear there?"
+      },
+      "paragraphs": {
+        "chapter-07-p010": {
+          "sentences": [
+            "路很长很长；他们常常累得不行——尤其是咕咕。",
+            "可他一哭，他们就给他喝椰子里的奶，他特别喜欢这个。"
+          ],
+          "hints": [
+            {
+              "id": "cocoanuts",
+              "kind": "word",
+              "target": "cocoanuts",
+              "sentence": 2,
+              "zh": "椰子；cocoanut 是 coconut 的旧拼法。",
+              "en": "Cocoanuts: an old spelling of coconuts."
+            }
+          ]
+        },
+        "chapter-07-p011": {
+          "sentences": [
+            "他们总有吃不完喝不完的东西；因为奇奇和波利尼西亚认得丛林里生长的各种水果和蔬菜，也知道上哪儿去找——比如椰枣、无花果、花生、姜和山药。",
+            "他们常拿野橙子的汁做柠檬水，再掺上从空心树里的蜂巢取来的蜂蜜。",
+            "不管他们要什么，奇奇和波利尼西亚似乎总能弄到——或者弄到差不多的东西。",
+            "有一天，他把随身带来的烟抽完了，正想抽烟，他们甚至替他弄到了一些烟草。"
+          ],
+          "hints": [
+            {
+              "id": "polynesia",
+              "kind": "word",
+              "target": "Polynesia",
+              "sentence": 3,
+              "zh": "波利尼西亚，医生的鹦鹉，见多识广，认得丛林里的各种吃食。",
+              "en": "Polynesia, the Doctor’s parrot, who knows the jungle and its food."
+            },
+            {
+              "id": "yams",
+              "kind": "word",
+              "target": "yams",
+              "sentence": 3,
+              "zh": "山药，热带地方当粮食的块根。",
+              "en": "Yams: large starchy roots eaten as food in hot countries."
+            },
+            {
+              "id": "ground-nuts",
+              "kind": "word",
+              "target": "ground-nuts",
+              "sentence": 3,
+              "zh": "花生，果实长在地下的坚果。",
+              "en": "Ground-nuts: peanuts, which grow underground."
+            },
+            {
+              "id": "no-matter-what",
+              "kind": "phrase",
+              "target": "No matter what it was they asked for",
+              "sentence": 5,
+              "zh": "不管他们提出要什么；no matter what 引出让步从句。",
+              "en": "Whatever they asked for: no matter what introduces the concession."
+            }
+          ]
+        },
+        "chapter-07-p012": {
+          "sentences": [
+            "夜里他们睡在棕榈叶搭的帐篷里，铺着厚厚的、软软的干草床。",
+            "过了一阵子，他们习惯了这样长途走路，不再那么累，也很喜欢这种旅行的生活。"
+          ],
+          "hints": [
+            {
+              "id": "got-used-to",
+              "kind": "phrase",
+              "target": "got used to walking",
+              "sentence": 8,
+              "zh": "习惯了走这么多路；get used to 后接 -ing，和 used to do（过去常做）不是一回事。",
+              "en": "Got used to walking: became accustomed to it; get used to takes an -ing form."
+            }
+          ]
+        },
+        "chapter-07-p013": {
+          "sentences": [
+            "不过每当夜晚来临、他们停下来歇息时，大家总是很高兴。",
+            "那时医生常会用树枝生起一小堆火；吃过晚饭，他们就围成一圈坐着，听波利尼西亚唱关于大海的歌，或者听奇奇讲丛林里的故事。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What did the travellers make their lemonade from?",
+          "options": [
+            "Juice of wild oranges, sweetened with honey",
+            "River water and sugar from the jungle",
+            "Milk taken out of the cocoanuts"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "他们把野橙子的汁挤出来当柠檬水，再加上从空心树蜂巢里取来的蜂蜜。椰子里的是奶，不是柠檬水。",
+            "en": "They made lemonade from the juice of wild oranges and sweetened it with honey from bees’ nests."
+          }
+        },
+        {
+          "question": "How did they spend their evenings on the way?",
+          "options": [
+            "Sitting round a fire, listening to songs and stories",
+            "Sleeping in tents made of palm-leaves",
+            "Searching the jungle for fruit and honey"
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "晚上医生生一小堆火，大家吃过晚饭围成一圈，听波利尼西亚唱海上的歌，或听奇奇讲丛林的故事。",
+            "en": "The Doctor made a little fire, and after supper they sat in a ring listening to Polynesia’s songs or Chee-Chee’s stories."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "They used to make their lemonade out of the juice of wild oranges",
+        "pointIds": [
+          "cefrj-140"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "used to make：used to 后面跟动词原形，讲的是过去常常这样做。",
+          "en": "Used to make: used to + base verb describes a habit in the past."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "很久很久以前",
+        "en": "Long, Long Ago"
+      },
+      "introduction": {
+        "zh": "猴子没有史书，却记得发生过的一切——它们把事讲给孩子听。奇奇讲的是奶奶传下来的故事：大洪水以前的年月，人穿熊皮、住山洞，吃生肉，因为从没见过火。故事听得入神，火灭了都没人察觉。",
+        "en": "The monkeys have no history-books, but they remember everything by telling stories to their children. Chee-Chee repeats what his grandmother told him: men in bear-skins, mammoths as long as a train. The tales are so good that the fire goes out. Are they really as safe as they think?"
+      },
+      "paragraphs": {
+        "chapter-07-p014": {
+          "sentences": [
+            "奇奇讲的许多故事都非常有意思。",
+            "因为，虽说在杜立德医生来替它们写史书之前，猴子们并没有自己的史书，它们却靠把故事讲给孩子听，记住发生的一切。",
+            "奇奇讲了许多他奶奶告诉他的事——那些很久很久很久以前、诺亚与大洪水之前的故事——讲那时候的人穿着熊皮，住在岩洞里，吃生羊肉，因为他们不懂烹调——他们从没见过火。",
+            "他还给他们讲那些像火车一样长的巨猛犸和巨蜥，当年它们在群山中游荡，啃食树梢。",
+            "常常他们听得太入神，等他讲完，才发现火已经彻底灭了；他们只好赶紧四下里捡来更多树枝，重新生一堆。"
+          ],
+          "hints": [
+            {
+              "id": "doctor-dolittle",
+              "kind": "word",
+              "target": "Doctor Dolittle",
+              "sentence": 2,
+              "zh": "杜立德医生，这本书的主角，会给动物看病。",
+              "en": "Doctor Dolittle, the doctor who can talk to animals."
+            },
+            {
+              "id": "noah-flood",
+              "kind": "phrase",
+              "target": "Noah and the Flood",
+              "sentence": 3,
+              "zh": "诺亚与大洪水，《圣经》里的故事，这里用来指极遥远的古代。",
+              "en": "Noah and the Flood: the Bible story, used here to mean a very distant past."
+            },
+            {
+              "id": "bear-skins",
+              "kind": "word",
+              "target": "bear-skins",
+              "sentence": 3,
+              "zh": "熊皮，远古的人拿它当衣服穿。",
+              "en": "Bear-skins: bears’ skins worn as clothes."
+            },
+            {
+              "id": "mammoths-lizards",
+              "kind": "phrase",
+              "target": "the Great Mammoths and Lizards",
+              "sentence": 4,
+              "zh": "巨猛犸和巨蜥，远古时代的庞然巨兽。",
+              "en": "The Great Mammoths and Lizards: giant beasts of prehistoric times."
+            },
+            {
+              "id": "scurry",
+              "kind": "word",
+              "target": "scurry round",
+              "sentence": 5,
+              "zh": "急匆匆地跑；这里指赶紧四下里捡柴。",
+              "en": "Scurry round: hurry about in short quick movements."
+            }
+          ]
+        },
+        "chapter-07-p015": {
+          "sentences": [
+            "再说国王的军队回去报告国王说找不到医生，国王就又把他们派了出去，吩咐他们必须待在丛林里，直到抓住他为止。",
+            "所以这一路上，医生和他的动物们朝猴子国走，自以为很安全，其实一直被国王的手下跟着。",
+            "奇奇要是知道这一点，多半会再把他们藏起来。",
+            "可他并不知道。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "How do the monkeys remember everything that happens?",
+          "options": [
+            "By telling stories to their children",
+            "By keeping history-books of their own",
+            "By drawing pictures on the rocks"
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "猴子本来没有史书，它们靠把发生过的事讲给孩子听，一代代记下来。",
+            "en": "The monkeys had no history-books; they remember what happens by telling stories to their children."
+          }
+        },
+        {
+          "question": "Why did the fire go out while Chee-Chee was talking?",
+          "options": [
+            "They were listening so hard that nobody watched it",
+            "A heavy rain put it out",
+            "They had no more sticks to burn"
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "大家听得太入神，等故事讲完才发现火已经灭了；随后他们才赶紧去捡更多树枝重新生火。",
+            "en": "They were so interested in the tales that they only found the fire had gone right out when he finished; then they had to get more sticks."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "although the monkeys had no history-books of their own before Doctor Dolittle came to write them for them",
+        "pointIds": [
+          "cefrj-161"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "although 引出让步从句：猴子本来没有史书；主句 they remember 前不再加 but。",
+          "en": "Although introduces the concession, and the main clause needs no but."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "树梢上的欢呼",
+        "en": "A Welcome in the Trees"
+      },
+      "introduction": {
+        "zh": "奇奇爬上高岩，往树梢外一望，说快到了。傍晚，一群还没生病的猴子果然在沼泽边等着；一看见那位名医真的来了，它们就扯开嗓子欢呼，挥着树叶从枝头荡下来迎接。这声音传得很远。",
+        "en": "Chee-Chee climbs a high rock, looks out over the tree-tops and says they are nearly there. That evening a crowd of monkeys waits by a swamp. When they see the famous doctor, they cheer, wave leaves and swing down from the branches. The noise carries a long way."
+      },
+      "paragraphs": {
+        "chapter-07-p016": {
+          "sentences": [
+            "有一天，奇奇爬上一块高岩，朝树梢外眺望。",
+            "他下来以后说，他们现在已经离猴子国很近了，很快就能到。"
+          ]
+        },
+        "chapter-07-p017": {
+          "sentences": [
+            "就在那天傍晚，他们果然看见奇奇的表亲，还有一大群还没生病的猴子，坐在沼泽边的树上，朝他们这边望着，等着他们。",
+            "这些猴子见那位名医真的来了，就闹出极大的动静，欢呼着，挥动树叶，从枝头荡下来迎接他。"
+          ],
+          "hints": [
+            {
+              "id": "chee-chees-cousin",
+              "kind": "phrase",
+              "target": "Chee-Chee’s cousin",
+              "sentence": 3,
+              "zh": "奇奇的表亲，也是猴子；它带着一群还没生病的猴子来接他们。",
+              "en": "Chee-Chee’s cousin, a monkey waiting with the others who are not yet ill."
+            },
+            {
+              "id": "sure-enough",
+              "kind": "phrase",
+              "target": "sure enough",
+              "sentence": 3,
+              "zh": "果然，表示事情正像预料的那样发生了。",
+              "en": "Sure enough: and it happened just as expected."
+            },
+            {
+              "id": "not-yet-sick",
+              "kind": "phrase",
+              "target": "had not yet got sick",
+              "sentence": 3,
+              "zh": "还没生病；猴子国正闹病，这些是还没染上的猴子。",
+              "en": "Not yet ill: the sickness is the reason the Doctor is coming."
+            }
+          ]
+        },
+        "chapter-07-p018": {
+          "sentences": [
+            "它们要替他拿包、拿箱子，拿他所有的东西——其中一只大些的猴子还把又走累了的咕咕抱了起来。",
+            "接着有两只猴子抢先跑到前面，去告诉生病的猴子们：那位了不起的医生终于来了。"
+          ]
+        },
+        "chapter-07-p019": {
+          "sentences": [
+            "可是一直跟在后面的国王手下听见了猴子们的欢呼声；他们终于知道医生在哪儿，急忙赶上去抓他。"
+          ],
+          "hints": [
+            {
+              "id": "hastened-on",
+              "kind": "word",
+              "target": "hastened on",
+              "sentence": 7,
+              "zh": "急忙赶路；hasten 是较文的说法，相当于 hurry。",
+              "en": "Hastened on: hurried forward; hasten is a literary word for hurry."
+            }
+          ]
+        },
+        "chapter-07-p020": {
+          "sentences": [
+            "抱着咕咕的那只大猴子慢慢跟在后面，看见军队的上尉正从树间悄悄摸过来。",
+            "于是他赶紧追上医生，叫他快跑。"
+          ],
+          "hints": [
+            {
+              "id": "captain-of-army",
+              "kind": "phrase",
+              "target": "the Captain of the army",
+              "sentence": 8,
+              "zh": "这支军队的上尉，一路追他们的领头人。",
+              "en": "The Captain of the army, who is leading the chase."
+            }
+          ]
+        },
+        "chapter-07-p021": {
+          "sentences": [
+            "于是他们全都跑得比这辈子任何时候都快；国王的手下在后面追，也跟着跑起来；上尉跑得最快。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What did the monkeys do when they saw the Doctor really come?",
+          "options": [
+            "They cheered, waved leaves and swung down from the branches",
+            "They ran away into the swamp",
+            "They asked him to wait quietly in the trees"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "猴子们见名医真的来了，就欢呼、挥叶子、从枝头荡下来迎接他，闹出很大的动静。",
+            "en": "When they saw the famous doctor really come, the monkeys cheered, waved leaves and swung out of the branches to greet him."
+          }
+        },
+        {
+          "question": "How did the King’s men find out where the Doctor was?",
+          "options": [
+            "They heard the noise of the monkeys cheering",
+            "They found the marks of the Doctor’s fire",
+            "Chee-Chee went back and told them"
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "一直跟在后面的士兵听见了猴子欢呼的声音，这才知道医生在哪儿，急忙赶上来。",
+            "en": "The King’s men, still following, heard the noise of the monkeys cheering and at last knew where the Doctor was."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "So he hurried after the Doctor and told him to run",
+        "pointIds": [
+          "cefrj-209"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "told him to run：tell + 人 + to do，表示叫某人做某事，这里的 to 不能省。",
+          "en": "Told him to run: tell + person + to + verb; the to cannot be dropped."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "悬崖边上",
+        "en": "At the Edge of the Cliff"
+      },
+      "introduction": {
+        "zh": "医生被药箱绊倒，摔进泥里，追他的上尉眼看就要抓住他。这位上尉有一对很长的耳朵，头发却很短。而前面等着他们的，是一道陡崖，崖下是河——猴子国在河那边。",
+        "en": "The Doctor trips over his medicine-bag and falls in the mud, and the Captain thinks he has him. The Captain’s ears are very long. Ahead lies a steep cliff with a river below, and the Land of the Monkeys is on the far side. How can anyone cross?"
+      },
+      "paragraphs": {
+        "chapter-07-p022": {
+          "sentences": [
+            "这时医生被药箱绊了一下，摔进泥里，上尉觉得自己这回准能抓住他了。"
+          ],
+          "hints": [
+            {
+              "id": "tripped-over",
+              "kind": "phrase",
+              "target": "tripped over",
+              "sentence": 1,
+              "zh": "被……绊倒；trip over 后面接绊到脚的东西。",
+              "en": "Tripped over: caught his foot on it and fell."
+            }
+          ]
+        },
+        "chapter-07-p023": {
+          "sentences": [
+            "可上尉的耳朵非常长——尽管他的头发很短。",
+            "就在他纵身向前去抓医生的时候，一只耳朵牢牢卡在树上；其余的人只好停下来帮他。"
+          ],
+          "hints": [
+            {
+              "id": "sprang-forward",
+              "kind": "word",
+              "target": "sprang forward",
+              "sentence": 3,
+              "zh": "纵身向前扑；spring 的过去式是 sprang。",
+              "en": "Sprang forward: jumped forward suddenly; sprang is the past of spring."
+            },
+            {
+              "id": "caught-fast",
+              "kind": "phrase",
+              "target": "caught fast",
+              "sentence": 3,
+              "zh": "牢牢卡住，动不了。",
+              "en": "Caught fast: stuck and unable to move."
+            }
+          ]
+        },
+        "chapter-07-p024": {
+          "sentences": [
+            "这时候医生已经爬了起来，他们又继续往前跑，跑个不停。",
+            "奇奇喊道："
+          ]
+        },
+        "chapter-07-p025": {
+          "sentences": [
+            "「没事！",
+            "我们没多远了！」"
+          ]
+        },
+        "chapter-07-p026": {
+          "sentences": [
+            "可他们还没能进入猴子国，就来到一道陡崖前，崖下有条河在流。",
+            "这里是乔利金基王国的尽头；猴子国就在河对岸的另一边。"
+          ]
+        },
+        "chapter-07-p027": {
+          "sentences": [
+            "狗吉普从陡得吓人的崖边往下望，说："
+          ],
+          "hints": [
+            {
+              "id": "jip",
+              "kind": "word",
+              "target": "Jip",
+              "sentence": 10,
+              "zh": "吉普，医生的狗。",
+              "en": "Jip, the Doctor’s dog."
+            }
+          ]
+        },
+        "chapter-07-p028": {
+          "sentences": [
+            "「天哪！",
+            "我们到底要怎么过去啊？」"
+          ],
+          "hints": [
+            {
+              "id": "golly",
+              "kind": "word",
+              "target": "Golly",
+              "sentence": 11,
+              "zh": "天哪！表示惊讶的老式感叹词。",
+              "en": "Golly!: an old exclamation of surprise."
+            }
+          ]
+        },
+        "chapter-07-p029": {
+          "sentences": [
+            "「唉，天哪！」咕咕说。",
+            "「国王的手下已经离得很近了——你看他们！",
+            "我怕我们又要被抓回监狱去了。」",
+            "他哭了起来。"
+          ]
+        },
+        "chapter-07-p030": {
+          "sentences": [
+            "可抱着小猪的那只大猴子把咕咕放到地上，朝其他猴子大声喊："
+          ]
+        },
+        "chapter-07-p031": {
+          "sentences": [
+            "「伙计们——搭桥！",
+            "快！——搭座桥！",
+            "我们只有一分钟的时间。",
+            "他们把那上尉松开了，他正像鹿一样飞奔过来。",
+            "快点儿！",
+            "搭桥！",
+            "搭桥！」"
+          ],
+          "hints": [
+            {
+              "id": "get-lively",
+              "kind": "phrase",
+              "target": "Get lively",
+              "sentence": 22,
+              "zh": "快点儿、打起精神来；催人赶快动手的口语说法。",
+              "en": "Get lively!: hurry up, move quickly."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why couldn’t the Captain catch the Doctor?",
+          "options": [
+            "One of his long ears caught fast in a tree",
+            "He slipped and fell into the river",
+            "The Doctor hit him with the medicine-bag"
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "上尉纵身扑过去时，一只长耳朵牢牢卡在树上；其余士兵只好停下来帮他，医生趁机跑了。",
+            "en": "As he sprang forward, one of his long ears caught fast in a tree, and the rest of the army had to stop and help him."
+          }
+        },
+        {
+          "question": "What stopped the Doctor and his animals before the Land of the Monkeys?",
+          "options": [
+            "A steep cliff with a river flowing below",
+            "A high wall round the kingdom",
+            "A thick forest with no paths through it"
+          ],
+          "answer": 0,
+          "sentence": 8,
+          "feedback": {
+            "zh": "他们还没进猴子国，就到了一道陡崖前，崖下是河；猴子国在河对岸。",
+            "en": "Before they could get into the Land of the Monkeys, they came to a steep cliff with a river flowing below."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "as he sprang forward to take hold of the Doctor",
+        "pointIds": [
+          "cefrj-157"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as 引出时间从句：就在他纵身扑过去的时候，卡住耳朵这件事同时发生。",
+          "en": "As introduces the time clause: the two things happen at the same moment."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "用什么搭一座桥",
+        "en": "What Will the Bridge Be?"
+      },
+      "introduction": {
+        "zh": "医生四下张望，想不出他们拿什么搭桥：木板？藏起来的木头？等他回头看崖边，一座桥已经横在河上，材料却出乎他的意料。咕咕得走过这座窄桥，脚下是又高又远的河。",
+        "en": "The Doctor looks around for boards. What will they build a bridge from? When he turns back to the cliff, a bridge already hangs across the river, made of something he did not expect. Gub-Gub must walk over it, high above the water. Will it hold?"
+      },
+      "paragraphs": {
+        "chapter-07-p032": {
+          "sentences": [
+            "医生开始纳闷，他们到底要拿什么搭桥，就四下张望，看他们是不是在哪儿藏着木板。"
+          ]
+        },
+        "chapter-07-p033": {
+          "sentences": [
+            "可等他回头望那道崖，河上已经横着一座为他准备好的桥——竟是用活猴子搭成的！",
+            "原来趁他背过身去的时候，猴子们快得像闪电，手拉手、脚勾脚，把自己搭成了一座桥。"
+          ]
+        },
+        "chapter-07-p034": {
+          "sentences": [
+            "那只大猴子朝医生喊：「走过来！",
+            "都走过来——你们全都过来——快！」"
+          ]
+        },
+        "chapter-07-p035": {
+          "sentences": [
+            "咕咕有点害怕——走这么窄的一座桥，下面离河又那么高，让人眼晕。",
+            "不过他还是顺利过去了；其余大家也都过去了。"
+          ],
+          "hints": [
+            {
+              "id": "dizzy-height",
+              "kind": "phrase",
+              "target": "dizzy height",
+              "sentence": 6,
+              "zh": "高得让人头晕的高度。",
+              "en": "Dizzy height: so high that it makes you giddy."
+            }
+          ]
+        },
+        "chapter-07-p036": {
+          "sentences": [
+            "约翰·杜立德最后一个过桥。",
+            "就在他快要到对岸的时候，国王的手下冲到崖边来了。"
+          ]
+        },
+        "chapter-07-p037": {
+          "sentences": [
+            "他们挥着拳头，气得大叫。",
+            "因为他们看出自己来晚了。",
+            "医生和他的动物们已经安全地到了猴子国，那座桥也被拉到了对岸。"
+          ],
+          "hints": [
+            {
+              "id": "shook-fists",
+              "kind": "phrase",
+              "target": "shook their fists",
+              "sentence": 10,
+              "zh": "挥拳头，表示气愤又无可奈何。",
+              "en": "Shook their fists: a gesture of angry helplessness."
+            },
+            {
+              "id": "pulled-across",
+              "kind": "phrase",
+              "target": "pulled across",
+              "sentence": 12,
+              "zh": "拉过去；猴子们把桥收到自己这一岸，追兵就过不来了。",
+              "en": "Pulled across: the monkeys dragged the bridge over to their own side."
+            }
+          ]
+        },
+        "chapter-07-p038": {
+          "sentences": [
+            "奇奇转过身，对医生说："
+          ]
+        },
+        "chapter-07-p039": {
+          "sentences": [
+            "「许多了不起的探险家和胡子花白的博物学家，在丛林里一藏就是好几个星期，就等着看猴子们耍这一手。",
+            "可我们从来没让一个白人瞧见过。",
+            "你是头一个看到这有名的『猿猴桥』的人。」"
+          ],
+          "hints": [
+            {
+              "id": "gray-bearded-naturalists",
+              "kind": "phrase",
+              "target": "gray-bearded naturalists",
+              "sentence": 14,
+              "zh": "胡子花白的博物学家，旧时到野外研究动植物的人。",
+              "en": "Gray-bearded naturalists: old scholars who study plants and animals in the wild."
+            },
+            {
+              "id": "get-a-glimpse",
+              "kind": "phrase",
+              "target": "get a glimpse of it",
+              "sentence": 15,
+              "zh": "瞥见一眼；glimpse 指短暂地看到。",
+              "en": "Get a glimpse of it: see it for a moment."
+            },
+            {
+              "id": "bridge-of-apes",
+              "kind": "phrase",
+              "target": "Bridge of Apes",
+              "sentence": 16,
+              "zh": "「猿猴桥」，猴子们对自己搭桥本领的叫法。",
+              "en": "“Bridge of Apes”: the monkeys’ own name for the trick."
+            }
+          ]
+        },
+        "chapter-07-p040": {
+          "sentences": [
+            "医生心里非常得意。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What was the bridge across the river made of?",
+          "options": [
+            "Living monkeys holding hands and feet",
+            "Boards hidden among the rocks",
+            "Palm-leaves tied together with grass"
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "趁医生背过身，猴子们手拉手、脚勾脚，把自己搭成了一座横在河上的活桥。",
+            "en": "While his back was turned, the monkeys made themselves into a bridge just by holding hands and feet."
+          }
+        },
+        {
+          "question": "What did the King’s men see when they reached the cliff?",
+          "options": [
+            "The Doctor was safe on the other side and the bridge had been pulled across",
+            "The monkeys were still building the bridge",
+            "The Doctor was waiting for them at the edge"
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "他们冲到崖边时，医生和动物们已经安全到了猴子国，桥也被拉到对岸，他们只能挥拳大喊。",
+            "en": "They saw that they were too late: the Doctor and his animals were safe in the Land of the Monkeys and the bridge had been pulled across."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "just by holding hands and feet",
+        "pointIds": [
+          "cefrj-110"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "by + holding：by 加动词 -ing 表示方式，说明桥是「靠」手拉脚勾搭成的。",
+          "en": "By + holding: by with an -ing form tells us how the bridge was made."
+        }
+      }
+    }
+  ]
+}

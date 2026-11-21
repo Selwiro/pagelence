@@ -1,0 +1,636 @@
+{
+  "chapter": 16,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "楼下锁着的房间",
+        "en": "A Locked Room Below"
+      },
+      "introduction": {
+        "zh": "三条红帆的船载着医生和动物们往家走。达布达布跑上楼梯，满嘴都是楼下的好东西：丝被、银盘、五种沙丁鱼。她还发现一间锁着的小屋，谁都打不开。",
+        "en": "The ship with three red sails is taking the Doctor and his animals home. Dab-Dab runs up the stairs full of news: silk beds, silver dishes, five kinds of sardines. And one little door below that nobody can open."
+      },
+      "paragraphs": {
+        "chapter-16-p001": {
+          "sentences": [
+            "又一次谢过鲨鱼们的好意之后，医生和他的动物们乘着那条挂着三面红帆的快船，再次踏上回家的路。"
+          ],
+          "hints": []
+        },
+        "chapter-16-p002": {
+          "sentences": [
+            "船驶入外海时，动物们都下到舱里，去看他们的新船里面是什么样子；医生则叼着烟斗，靠在船尾的栏杆上，望着加那利群岛在傍晚蓝色的暮色中渐渐退远。"
+          ],
+          "hints": [
+            {
+              "id": "canary-islands",
+              "kind": "word",
+              "target": "Canary Islands",
+              "sentence": 2,
+              "zh": "加那利群岛，非洲西北面大西洋上的群岛，船从这儿往北开回家。",
+              "en": "The Canary Islands, a group of islands in the Atlantic off north-west Africa."
+            }
+          ]
+        },
+        "chapter-16-p003": {
+          "sentences": [
+            "他正站在那里，想着猴子们过得怎么样——也想着自己回到帕德尔比时，花园会是什么模样——达布达布满脸笑容、满肚子消息，连滚带爬地跑上楼梯。"
+          ],
+          "hints": [
+            {
+              "id": "puddleby",
+              "kind": "word",
+              "target": "Puddleby",
+              "sentence": 3,
+              "zh": "帕德尔比，医生的家乡，全名「沼泽边的帕德尔比」。",
+              "en": "Puddleby, the Doctor’s home town, short for Puddleby-on-the-Marsh."
+            },
+            {
+              "id": "getting-on",
+              "kind": "phrase",
+              "target": "getting on",
+              "sentence": 3,
+              "zh": "get on 在这里是「过得怎么样、进展如何」：他想知道猴子们近况如何。",
+              "en": "Get on here means to be getting along: he wonders how the monkeys are doing."
+            },
+            {
+              "id": "dab-dab",
+              "kind": "word",
+              "target": "Dab-Dab",
+              "sentence": 3,
+              "zh": "达布达布，医生的鸭子。",
+              "en": "Dab-Dab, the Doctor’s duck."
+            }
+          ]
+        },
+        "chapter-16-p004": {
+          "sentences": [
+            "「医生！」她喊道。",
+            "「海盗这条船真是漂亮——漂亮极了。",
+            "楼下的床是淡黄色丝绸做的——配着几百个大枕头和靠垫；地板上铺着又厚又软的地毯；盘子是银的；还有各种各样好吃的、好喝的——都是特别的东西；食品间嘛——唉，简直就像一家铺子，就这么回事。",
+            "你这辈子都没见过这样的东西——你想想——那些人居然存了五种不同的沙丁鱼！",
+            "来看看吧……",
+            "噢，我们还在下面发现一间小屋，门锁着；我们都急着想进去看看里面有什么。",
+            "吉普说，那一定是海盗存放财宝的地方。",
+            "可我们打不开那扇门。",
+            "你下来看看，能不能帮我们进去。」"
+          ],
+          "hints": [
+            {
+              "id": "primrose-silk",
+              "kind": "phrase",
+              "target": "primrose silk",
+              "sentence": 6,
+              "zh": "樱草色（淡黄色）的丝绸，当时是很贵重的料子。",
+              "en": "Primrose silk: silk in a pale yellow colour, an expensive stuff in those days."
+            },
+            {
+              "id": "jip",
+              "kind": "word",
+              "target": "Jip",
+              "sentence": 10,
+              "zh": "吉普，医生的狗。",
+              "en": "Jip, the Doctor’s dog."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is the one thing the animals cannot get to downstairs?",
+          "options": [
+            "A little room whose door is locked",
+            "The silver dishes in the larder",
+            "The beds made of primrose silk"
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "达布达布特意提到楼下有间门锁着的小屋，大家都急着想进去看，可谁也打不开门。",
+            "en": "Dab-Dab says they found a little room below with its door locked, and nobody can open it."
+          }
+        },
+        {
+          "question": "How does Dab-Dab seem when she comes up the stairs?",
+          "options": [
+            "Excited, with a lot to tell",
+            "Tired and cross",
+            "Quiet and frightened"
+          ],
+          "answer": 0,
+          "sentence": 3,
+          "feedback": {
+            "zh": "原文说她「满脸笑容、满肚子消息」，一开口就夸这条船漂亮极了。",
+            "en": "She comes tumbling up all smiles and full of news, and at once calls the ship simply beautiful."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "As they moved out into the open sea",
+        "pointIds": [
+          "cefrj-157"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "as 在这里相当于 when，引出「船驶入外海时」这个时间；从句在前，主语和主句之间用逗号隔开。",
+          "en": "As here means when: it sets the time — the moment the ship reached the open sea."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "满船宝贝，没有钥匙",
+        "en": "Treasure and No Key"
+      },
+      "introduction": {
+        "zh": "医生下楼去看那扇门。门把手转不动，动物们便分头找钥匙：垫子下、地毯下、柜子里、箱子里。翻找的时候，他们翻出了海盗从别的船上抢来的东西。",
+        "en": "Downstairs, the handle will not turn, so everyone hunts for the key — under the mat, under the carpets, inside every chest. On the way they find what the pirates stole from other ships."
+      },
+      "paragraphs": {
+        "chapter-16-p005": {
+          "sentences": [
+            "于是医生下了楼，看出这确实是一条漂亮的船。",
+            "他发现动物们都围在一扇小门旁边，七嘴八舌地同时说着话，猜里面是什么。",
+            "医生转了转门把手，门却打不开。",
+            "于是大家开始到处找钥匙。",
+            "他们看了垫子底下；看了所有地毯底下；查看了所有的碗柜、抽屉和储物柜——还有船上餐厅里那些大箱子；他们哪儿都找过了。"
+          ],
+          "hints": []
+        },
+        "chapter-16-p006": {
+          "sentences": [
+            "找的过程中，他们发现了许多新奇好看的东西，一定是海盗从别的船上抢来的：薄得像蛛网、绣着金花的克什米尔披肩；一罐罐牙买加的上等烟草；装满俄罗斯茶叶的雕花象牙盒；一把断了弦、背面有画的旧小提琴；一副用珊瑚和琥珀雕成的大棋子；一根一拉把手、里面就露出剑来的手杖；六只杯口镶着绿松石和银子的酒杯；还有一只可爱的大糖罐，是用珍珠母做的。",
+            "可是整条船上，他们哪儿都找不到一把能开那把锁的钥匙。"
+          ],
+          "hints": [
+            {
+              "id": "kashmir-shawls",
+              "kind": "phrase",
+              "target": "Kashmir shawls",
+              "sentence": 6,
+              "zh": "克什米尔披肩，产自克什米尔，以极薄极软出名，当时非常珍贵。",
+              "en": "Kashmir shawls: very fine, soft shawls from Kashmir, much prized in those days."
+            },
+            {
+              "id": "chess-men",
+              "kind": "word",
+              "target": "chess-men",
+              "sentence": 6,
+              "zh": "棋子（单数 chess-man），不是「下棋的人」；这里指一副雕刻的大棋子。",
+              "en": "Chess-men are the pieces used in chess, not men playing it."
+            },
+            {
+              "id": "tourquoise",
+              "kind": "word",
+              "target": "tourquoise",
+              "sentence": 6,
+              "zh": "绿松石，一种蓝绿色宝石；今天多拼作 turquoise。",
+              "en": "Turquoise, a blue-green gemstone; the usual spelling today is turquoise."
+            },
+            {
+              "id": "mother-o-pearl",
+              "kind": "phrase",
+              "target": "mother o’ pearl",
+              "sentence": 6,
+              "zh": "珍珠母，贝壳内层那种带光泽的材料；o’ 是 of 的缩写。",
+              "en": "Mother o’ pearl is mother-of-pearl, the shiny inner layer of a shell; o’ is short for of."
+            }
+          ]
+        },
+        "chapter-16-p007": {
+          "sentences": [
+            "于是大家又回到那扇门前，吉普凑到钥匙孔上往里瞧。",
+            "可里面有什么东西靠墙立着，他什么也看不见。"
+          ],
+          "hints": [
+            {
+              "id": "peered",
+              "kind": "word",
+              "target": "peered",
+              "sentence": 8,
+              "zh": "peer 是「眯着眼使劲看」，不是「偷看」；吉普贴在钥匙孔上往里瞧。",
+              "en": "To peer is to look hard and closely, as Jip does through the keyhole."
+            }
+          ]
+        },
+        "chapter-16-p008": {
+          "sentences": [
+            "他们站在那里，不知该怎么办，猫头鹰图图忽然说："
+          ],
+          "hints": [
+            {
+              "id": "too-too",
+              "kind": "word",
+              "target": "Too-Too",
+              "sentence": 10,
+              "zh": "图图，医生的猫头鹰，耳朵极灵。",
+              "en": "Too-Too, the Doctor’s owl, whose hearing is very sharp."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why do the animals still not get the door open?",
+          "options": [
+            "No key on the ship fits that lock",
+            "The door is locked from the outside",
+            "Jip has hidden the key"
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "他们把整条船都找遍了，也找不到一把能开那把锁的钥匙。",
+            "en": "They search the whole boat but find no key that fits the lock."
+          }
+        },
+        {
+          "question": "What does Jip see through the keyhole?",
+          "options": [
+            "Nothing, because something stands against the door inside",
+            "A pile of gold in the dark",
+            "A man sitting on a chest"
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "门里面有个东西靠墙立着，挡住了钥匙孔，所以吉普什么也看不见。",
+            "en": "Something has been stood against the wall inside, so Jip can see nothing at all."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "a walking-stick which had a sword inside it",
+        "pointIds": [
+          "cefrj-173"
+        ],
+        "type": "review",
+        "focus": {
+          "zh": "which 指前面的 a walking-stick，在从句里作主语，说明这根手杖里藏着剑。",
+          "en": "Which refers back to a walking-stick and is the subject of the clause: the stick had a sword inside it."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "门后的声音",
+        "en": "A Sound Behind the Door"
+      },
+      "introduction": {
+        "zh": "图图忽然说门里有人。医生什么也没听见，觉得他一定弄错了。图图说，几乎一切都会发出声音，只要耳朵够灵。可门里那个人到底在做什么？",
+        "en": "Too-Too says there is someone behind the door. The Doctor hears nothing and thinks the owl must be wrong. Too-Too says almost everything makes a noise, if your ears are sharp enough. So what is that person doing in there?"
+      },
+      "paragraphs": {
+        "chapter-16-p009": {
+          "sentences": [
+            "「嘘！——听！——我真觉得里面有人！」"
+          ],
+          "hints": [
+            {
+              "id": "sh",
+              "kind": "word",
+              "target": "Sh!",
+              "sentence": 1,
+              "zh": "「嘘！」，叫人别出声的声音；图图一再这样让全家安静。",
+              "en": "Sh! is the sound people make to tell others to be quiet."
+            }
+          ]
+        },
+        "chapter-16-p010": {
+          "sentences": [
+            "大家都静静地待了一会儿。",
+            "然后医生说："
+          ],
+          "hints": []
+        },
+        "chapter-16-p011": {
+          "sentences": [
+            "「图图，你一定弄错了。",
+            "我什么也没听见。」"
+          ],
+          "hints": []
+        },
+        "chapter-16-p012": {
+          "sentences": [
+            "「我敢肯定，」猫头鹰说。",
+            "「嘘！——又来了——你听见没有？」"
+          ],
+          "hints": []
+        },
+        "chapter-16-p013": {
+          "sentences": [
+            "「没有，我没听见，」医生说。",
+            "「是什么样的声音？」"
+          ],
+          "hints": []
+        },
+        "chapter-16-p014": {
+          "sentences": [
+            "「我听见有人把手伸进口袋的声音，」猫头鹰说。"
+          ],
+          "hints": []
+        },
+        "chapter-16-p015": {
+          "sentences": [
+            "「可那几乎发不出什么声音啊，」医生说。",
+            "「在外面这儿，你不可能听见的。」"
+          ],
+          "hints": [
+            {
+              "id": "hardly",
+              "kind": "word",
+              "target": "hardly",
+              "sentence": 11,
+              "zh": "hardly 是「几乎不」，不是「努力地」（hard）：那几乎不发出声音。",
+              "en": "Hardly means almost not at all — not hard, the adverb of effort."
+            }
+          ]
+        },
+        "chapter-16-p016": {
+          "sentences": [
+            "「对不起，可我就是听得见，」图图说。",
+            "「我跟你说，那扇门另一边有个人正把手伸进口袋。",
+            "几乎样样东西都会发出点声音——只要你的耳朵够灵，能捕捉到它。",
+            "蝙蝠能听见鼹鼠在地底下的洞里走路——它们还自以为耳朵好使呢。",
+            "可我们猫头鹰只用一只耳朵，就能从小猫在黑暗里眨眼的动静，听出它是什么颜色的。」"
+          ],
+          "hints": [
+            {
+              "id": "pardon-me",
+              "kind": "phrase",
+              "target": "Pardon me",
+              "sentence": 13,
+              "zh": "「对不起／恕我直言」，这里用来礼貌地反驳对方。",
+              "en": "Pardon me here politely introduces a disagreement: excuse me, but I can."
+            },
+            {
+              "id": "some-one",
+              "kind": "phrase",
+              "target": "some one",
+              "sentence": 14,
+              "zh": "旧式写法，等于 someone「某人」；本书里都分成两个词写。",
+              "en": "An old-fashioned spelling of someone; this book always writes it as two words."
+            },
+            {
+              "id": "good-hearers",
+              "kind": "phrase",
+              "target": "good hearers",
+              "sentence": 16,
+              "zh": "听觉灵敏的动物；图图是在说蝙蝠自以为了不起，其实比不上猫头鹰。",
+              "en": "Good hearers are animals with sharp hearing; Too-Too means the bats only think they are."
+            }
+          ]
+        },
+        "chapter-16-p017": {
+          "sentences": [
+            "「哎呀，哎呀！」医生说。",
+            "「你真让我吃惊。",
+            "这太有意思了……",
+            "再听一次，告诉我他现在在做什么。」"
+          ],
+          "hints": []
+        },
+        "chapter-16-p018": {
+          "sentences": [
+            "「我还不确定，」图图说，「那到底是不是个男人。",
+            "也许是个女人。",
+            "把我举起来，让我贴着钥匙孔听一听，我马上就能告诉你。」"
+          ],
+          "hints": []
+        },
+        "chapter-16-p019": {
+          "sentences": [
+            "于是医生把猫头鹰举起来，凑近门上的锁。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Too-Too say he can hear through the door?",
+          "options": [
+            "Someone putting a hand in his pocket",
+            "Someone walking up and down",
+            "A bat moving in the dark"
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "图图说他听见有人把手伸进口袋的声音，医生却觉得那种动作根本不会出声。",
+            "en": "Too-Too hears someone putting his hand in his pocket, though the Doctor thinks that makes hardly any sound."
+          }
+        },
+        {
+          "question": "What does the Doctor think of Too-Too’s claim at first?",
+          "options": [
+            "That Too-Too must be mistaken",
+            "That a thief is hiding inside",
+            "That the door should be opened"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "医生开口就说「你一定弄错了」，还说自己什么也没听见。",
+            "en": "The Doctor says “You must be mistaken” and tells the owl that he hears nothing."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "if your ears are only sharp enough to catch it",
+        "pointIds": [
+          "cefrj-156"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if 从句提出条件「只要你的耳朵够灵」；主句说几乎一切都会发出声音，only 在这里是「只要」。",
+          "en": "The if-clause gives the condition — if your ears are sharp enough; only here means as long as."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "再听一次，别出声",
+        "en": "Hush — Listen Again"
+      },
+      "introduction": {
+        "zh": "图图把耳朵贴在钥匙孔上，一点一点说出门里那个人在做什么：抬起手、抹一把脸、把头发往后推。咕咕觉得这些说法靠不住，图图听了很不高兴。这些细小的声音，真能说明门里出了什么事吗？",
+        "en": "With his ear to the keyhole, Too-Too describes what the person inside does: a hand lifted, a face rubbed, hair pushed back. Gub-Gub thinks it is all guesswork, and the owl is not pleased. Can such tiny sounds really show what is happening in there?"
+      },
+      "paragraphs": {
+        "chapter-16-p020": {
+          "sentences": [
+            "过了一会儿，图图说："
+          ],
+          "hints": []
+        },
+        "chapter-16-p021": {
+          "sentences": [
+            "「现在他在用左手抹脸。",
+            "那是一只小手，一张小脸。",
+            "也许是个女人——不对。",
+            "现在他把头发从额头上往后推——是个男人，没错。」"
+          ],
+          "hints": [
+            {
+              "id": "all-right",
+              "kind": "phrase",
+              "target": "all right",
+              "sentence": 5,
+              "zh": "all right 在这里是「确实、没错」：It’s a man all right 就是「是个男人，错不了」。",
+              "en": "All right here means certainly: it’s a man all right = it is definitely a man."
+            }
+          ]
+        },
+        "chapter-16-p022": {
+          "sentences": [
+            "「女人有时也这样，」医生说。"
+          ],
+          "hints": []
+        },
+        "chapter-16-p023": {
+          "sentences": [
+            "「不错，」猫头鹰说。",
+            "「可她们这样做的时候，长头发发出的声音完全不一样……",
+            "嘘！",
+            "让那头坐不住的小猪别动。",
+            "现在大家都屏住呼吸，让我好好听一听。",
+            "我现在做的这事非常难——这扇该死的门又这么厚！",
+            "嘘！",
+            "大家都不许动——闭上眼睛，别喘气。」"
+          ],
+          "hints": [
+            {
+              "id": "hold-your-breath",
+              "kind": "phrase",
+              "target": "hold your breath",
+              "sentence": 11,
+              "zh": "屏住呼吸，暂时不喘气，好让耳朵听得更清楚。",
+              "en": "To hold your breath is to stop breathing for a moment."
+            }
+          ]
+        },
+        "chapter-16-p024": {
+          "sentences": [
+            "图图低下头，又非常用力地听了很久。"
+          ],
+          "hints": []
+        },
+        "chapter-16-p025": {
+          "sentences": [
+            "最后他抬起头，望着医生的脸说："
+          ],
+          "hints": []
+        },
+        "chapter-16-p026": {
+          "sentences": [
+            "「里面那个人很难过。",
+            "他在哭。",
+            "他特意不让自己放声大哭或抽鼻子，免得我们发觉他在哭。",
+            "可我听见了——清清楚楚地——一滴眼泪落在他袖子上的声音。」"
+          ],
+          "hints": [
+            {
+              "id": "blubber-sniffle",
+              "kind": "phrase",
+              "target": "blubber or sniffle",
+              "sentence": 19,
+              "zh": "blubber 是放声大哭，sniffle 是抽鼻子；他忍着不弄出这两种声音。",
+              "en": "To blubber is to cry noisily, to sniffle is to sniff; he keeps from making those sounds."
+            },
+            {
+              "id": "lest",
+              "kind": "word",
+              "target": "lest",
+              "sentence": 19,
+              "zh": "较旧的书面说法，「免得、以免」，后面常跟 should + 动词原形。",
+              "en": "Lest is an old, formal word for so that … not; it often takes should."
+            }
+          ]
+        },
+        "chapter-16-p027": {
+          "sentences": [
+            "「你怎么知道那不是从天花板上滴到他身上的一滴水呢？」咕咕问。"
+          ],
+          "hints": [
+            {
+              "id": "gub-gub",
+              "kind": "word",
+              "target": "Gub-Gub",
+              "sentence": 21,
+              "zh": "咕咕，医生养的小猪。",
+              "en": "Gub-Gub, the Doctor’s little pig."
+            }
+          ]
+        },
+        "chapter-16-p028": {
+          "sentences": [
+            "「呸！——真没见识！」图图哼了一声。",
+            "「从天花板上滴下来的一滴水，发出的响声会比这大十倍！」"
+          ],
+          "hints": [
+            {
+              "id": "sniffed",
+              "kind": "word",
+              "target": "sniffed",
+              "sentence": 22,
+              "zh": "sniff 在这里是「哼着鼻子说」，表示轻蔑，不是「闻」。",
+              "en": "Sniffed here means said with a scornful sniff, not smelled."
+            }
+          ]
+        },
+        "chapter-16-p029": {
+          "sentences": [
+            "「好吧，」医生说，「如果这可怜的人这么难过，我们总得进去看看他出了什么事。",
+            "给我找把斧头来，我把门劈开。」"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "How does Too-Too decide that the person inside is a man?",
+          "options": [
+            "By the sound the hair makes when it is pushed back",
+            "By the size of the shoes on the floor",
+            "By the way the door handle turns"
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "图图先猜是女人，接着听见他把头发往后推的声音，就断定是个男人。",
+            "en": "Too-Too thinks it might be a woman, then hears the hair pushed back and says it is a man all right."
+          }
+        },
+        {
+          "question": "Why does the Doctor want to break the door down?",
+          "options": [
+            "Because the person inside is unhappy",
+            "Because the key has been lost",
+            "Because the door is too old"
+          ],
+          "answer": 0,
+          "sentence": 24,
+          "feedback": {
+            "zh": "医生说，既然这位可怜的人这么难过，他们就得进去看看他出了什么事。",
+            "en": "The Doctor says that if the poor fellow is unhappy, they must get in and see what is the matter with him."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Make that fidgety pig keep still",
+        "pointIds": [
+          "cefrj-206"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "make + 宾语 + 动词原形：让那头小猪「保持不动」；keep still 就是「别动」。",
+          "en": "Make takes an object and the base verb: make that pig keep still = get the pig to stop moving."
+        }
+      }
+    }
+  ]
+}

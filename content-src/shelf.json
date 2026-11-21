@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-11-20",
+  "books": [
+    {
+      "id": "doctor-dolittle-1920",
+      "order": 1,
+      "status": "available",
+      "monogram": "怪",
+      "summary": {
+        "zh": "一位能听懂动物语言的医生，带着伙伴出海寻找失踪的动物。",
+        "en": "A doctor who can talk to animals sails off with his friends to find a lost creature."
+      }
+    },
+    {
+      "id": "alice-1866",
+      "order": 2,
+      "status": "available",
+      "monogram": "爱",
+      "summary": {
+        "zh": "爱丽丝掉进兔子洞，在奇境里遇见会说话的动物和古怪的规则。",
+        "en": "Alice falls down a rabbit hole into a world of talking animals and strange rules."
+      }
+    },
+    {
+      "id": "sign-of-four-1890",
+      "order": 3,
+      "status": "planned",
+      "title": {
+        "zh": "四签名",
+        "en": "The Sign of the Four"
+      },
+      "author": "Arthur Conan Doyle",
+      "level": "B2",
+      "levelSource": "estimated",
+      "monogram": "四",
+      "summary": {
+        "zh": "福尔摩斯与华生追查一桩失踪案，线索指向印度洋彼岸的旧日秘密。",
+        "en": "Holmes and Watson trace a disappearance to an old secret from across the Indian Ocean."
+      },
+      "category": {
+        "id": "literature",
+        "zh": "文学作品",
+        "en": "Literature"
+      },
+      "tags": [
+        {
+          "zh": "推理",
+          "en": "Mystery"
+        },
+        {
+          "zh": "侦探",
+          "en": "Detective"
+        }
+      ]
+    },
+    {
+      "id": "great-gatsby-1925",
+      "order": 4,
+      "status": "planned",
+      "title": {
+        "zh": "了不起的盖茨比",
+        "en": "The Great Gatsby"
+      },
+      "author": "F. Scott Fitzgerald",
+      "level": "C1",
+      "levelSource": "estimated",
+      "monogram": "盖",
+      "summary": {
+        "zh": "1920 年代的长岛，盖茨比用一场场盛宴等待旧日的恋人。",
+        "en": "On 1920s Long Island, Gatsby throws lavish parties while waiting for a past love."
+      },
+      "category": {
+        "id": "literature",
+        "zh": "文学作品",
+        "en": "Literature"
+      },
+      "tags": [
+        {
+          "zh": "爵士时代",
+          "en": "Jazz Age"
+        },
+        {
+          "zh": "爱情",
+          "en": "Love"
+        }
+      ]
+    },
+    {
+      "id": "scarlet-letter-1850",
+      "order": 5,
+      "status": "planned",
+      "title": {
+        "zh": "红字",
+        "en": "The Scarlet Letter"
+      },
+      "author": "Nathaniel Hawthorne",
+      "level": "C2",
+      "levelSource": "estimated",
+      "monogram": "红",
+      "summary": {
+        "zh": "清教小镇里的一桩通奸案，让海丝特终身佩戴红字。",
+        "en": "A Puritan town punishes Hester with a scarlet letter that she must wear for life."
+      },
+      "category": {
+        "id": "literature",
+        "zh": "文学作品",
+        "en": "Literature"
+      },
+      "tags": [
+        {
+          "zh": "历史",
+          "en": "Historical"
+        },
+        {
+          "zh": "清教",
+          "en": "Puritan"
+        }
+      ]
+    }
+  ]
+}

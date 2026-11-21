@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "books": [
+    {
+      "id": "alice-1866",
+      "title": {
+        "zh": "爱丽丝漫游仙境记",
+        "en": "Alice's Adventures in Wonderland"
+      },
+      "path": "books/alice-1866/book.json",
+      "schemaVersion": 2,
+      "sizeBytes": 1130996,
+      "sha256": "e603e142822483fe9cc1ab2555124bda95cd9dd02473d280059920647596fb4a",
+      "level": "B1",
+      "levelNote": "Lexile 860L、ATOS 7.4；出版方多标 B1，对话密集、双关多。",
+      "contentStatus": "complete",
+      "creator": "Pagelence",
+      "category": {
+        "id": "literature",
+        "zh": "文学作品",
+        "en": "Literature"
+      },
+      "tags": [
+        {
+          "zh": "奇幻",
+          "en": "Fantasy"
+        },
+        {
+          "zh": "冒险",
+          "en": "Adventure"
+        },
+        {
+          "zh": "童话",
+          "en": "Fairy tale"
+        }
+      ],
+      "licenses": {
+        "source": {
+          "type": "public-domain",
+          "publicDomain": [
+            "CN",
+            "US"
+          ],
+          "url": "https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland_(1866)",
+          "note": "1866 年 Macmillan and Co.（伦敦）版；作者 1898 年去世，中国、美国均已进入公有领域。"
+        },
+        "creator": {
+          "type": "CC-BY-SA-4.0",
+          "name": "Creative Commons Attribution-ShareAlike 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "scope": "句译、导读、测验、提示、语法解析、长难句解析与版面"
+        }
+      },
+      "chapters": 12,
+      "units": 104,
+      "paragraphs": 779,
+      "sentences": 1359,
+      "translatedSentences": 1359,
+      "words": 26568
+    },
+    {
+      "id": "doctor-dolittle-1920",
+      "title": {
+        "zh": "怪医杜立德",
+        "en": "The Story of Doctor Dolittle"
+      },
+      "path": "books/doctor-dolittle/book.json",
+      "schemaVersion": 2,
+      "sizeBytes": 1170921,
+      "sha256": "fd9bf07a0d3ac224f0bb5e8a28aa0bc6f9f5daa4add81d046e4ac2a9b34fe94a",
+      "level": "A2",
+      "levelNote": "Lexile 580L、ATOS 5.1；按 A2 带读，章长短、句子直白。",
+      "contentStatus": "complete",
+      "creator": "Pagelence",
+      "category": {
+        "id": "literature",
+        "zh": "文学作品",
+        "en": "Literature"
+      },
+      "tags": [
+        {
+          "zh": "冒险",
+          "en": "Adventure"
+        },
+        {
+          "zh": "动物",
+          "en": "Animals"
+        },
+        {
+          "zh": "航海",
+          "en": "Voyage"
+        }
+      ],
+      "licenses": {
+        "source": {
+          "type": "public-domain",
+          "publicDomain": [
+            "CN",
+            "US"
+          ],
+          "url": "https://www.gutenberg.org/ebooks/501",
+          "note": "1920 年 Frederick A. Stokes Company（纽约）版；中国、美国均已进入公有领域。"
+        },
+        "creator": {
+          "type": "CC-BY-SA-4.0",
+          "name": "Creative Commons Attribution-ShareAlike 4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "scope": "句译、导读、测验、提示、语法解析、长难句解析与版面"
+        }
+      },
+      "chapters": 21,
+      "units": 103,
+      "paragraphs": 729,
+      "sentences": 1724,
+      "translatedSentences": 1724,
+      "words": 25498
+    }
+  ]
+}

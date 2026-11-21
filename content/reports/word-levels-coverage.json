@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-21",
+  "source": "CEFR-J Wordlist 1.6 + Octanove C1/C2 (list); CEFR-Annotated WordNet (aligned); suffix inheritance (derived); ECDICT exam tags (tag); wordfreq 3.0.2 zipf (freq)",
+  "dictionary": {
+    "entries": 38229,
+    "originalForms": 33874,
+    "inflectedForms": 4354,
+    "properNouns": 1
+  },
+  "layers": {
+    "list": {
+      "slots": 9791
+    },
+    "aligned": {
+      "slots": 972
+    },
+    "derived": {
+      "slots": 1805
+    },
+    "tag": {
+      "slots": 7020
+    },
+    "freq": {
+      "slots": 15625
+    },
+    "contractions": 41,
+    "cutoffs": {
+      "determiner": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "verb": [
+        2.6,
+        2.8,
+        4.2,
+        5.0,
+        5.2
+      ],
+      "adjective": [
+        2.9,
+        3.0,
+        4.0,
+        5.2,
+        5.3
+      ],
+      "noun": [
+        2.2,
+        2.3,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "adverb": [
+        1.8,
+        2.7,
+        4.1,
+        4.7,
+        5.3
+      ],
+      "preposition": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "conjunction": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "pronoun": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "be-verb": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "other": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "modal auxiliary": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "interjection": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "do-verb": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "number": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ],
+      "have-verb": [
+        2.5,
+        2.6,
+        4.1,
+        4.8,
+        4.9
+      ]
+    }
+  },
+  "coverage": {
+    "originalFormsWithLevel": 29319,
+    "originalFormsShare": 0.8655,
+    "uncovered": 4555
+  },
+  "distribution": {
+    "A1": 1570,
+    "A2": 1583,
+    "B1": 3898,
+    "B2": 13221,
+    "C1": 5032,
+    "C2": 7840
+  },
+  "books": [
+    {
+      "id": "alice-1866",
+      "tokens": 25613,
+      "withLevel": 24920,
+      "share": 0.9729
+    },
+    {
+      "id": "doctor-dolittle-1920",
+      "tokens": 25059,
+      "withLevel": 24387,
+      "share": 0.9732
+    }
+  ],
+  "uncoveredSamples": [
+    {
+      "word": "aa",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "aaa",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "aachen",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "aah",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "aaron",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "ababa",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abbas",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abbott",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abbreviated",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abdel",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abdul",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abdullah",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abe",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abel",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abercrombie",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "aberdeen",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abergavenny",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abi",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abraham",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abram",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abs",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "abu",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "ac",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "acas",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "acc",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "ach",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "acheson",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "ackroyd",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "acquirer",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "ada",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adair",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adams",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adamson",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "addis",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "addison",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adelaide",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adele",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "aden",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adenauer",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adhd",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adios",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adler",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adolf",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adolph",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adoptee",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adorno",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "adrian",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "aea",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "affliction",
+      "reason": "wordfreq=0 或无可还原词根"
+    },
+    {
+      "word": "afghani",
+      "reason": "wordfreq=0 或无可还原词根"
+    }
+  ],
+  "sanity": {
+    "listSlotsPreserved": true,
+    "distributionAtLeastList": {
+      "A1": {
+        "list": 1064,
+        "now": 1570,
+        "ok": true
+      },
+      "A2": {
+        "list": 1229,
+        "now": 1583,
+        "ok": true
+      },
+      "B1": {
+        "list": 2123,
+        "now": 3898,
+        "ok": true
+      },
+      "B2": {
+        "list": 2452,
+        "now": 13221,
+        "ok": true
+      },
+      "C1": {
+        "list": 887,
+        "now": 5032,
+        "ok": true
+      },
+      "C2": {
+        "list": 828,
+        "now": 7840,
+        "ok": true
+      }
+    },
+    "allLevelsAtLeastList": true
+  }
+}

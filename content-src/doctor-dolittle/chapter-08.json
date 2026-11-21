@@ -1,0 +1,586 @@
+{
+  "chapter": 8,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "成千上万的病猴",
+        "en": "Thousands of Sick Monkeys"
+      },
+      "introduction": {
+        "zh": "丛林里成千上万只猴子病倒了，杜立德医生日夜不停地给它们打预防针。病猴越来越多，健康的猴子不够用，护理的人手眼看就要断了。他只好捎信去请狮子、豹子和羚羊。狮子首领会来当护士吗？",
+        "en": "Thousands of monkeys are ill in the jungle, and the Doctor vaccinates them day and night. Soon there are more sick monkeys than well ones to nurse them. So he sends for the lions, the leopards and the antelopes. What will the Leader of the Lions say?"
+      },
+      "paragraphs": {
+        "chapter-08-p001": {
+          "sentences": [
+            "约翰·杜立德这下可忙坏了，忙得昏天黑地。",
+            "他发现成千上万只猴子都病了——大猩猩、红毛猩猩、黑猩猩、狗脸狒狒、小狨猴、灰猴、红猴——什么种类都有。",
+            "而且很多已经死了。"
+          ],
+          "hints": [
+            {
+              "id": "john-dolittle",
+              "kind": "word",
+              "target": "John Dolittle",
+              "sentence": 1,
+              "zh": "约翰·杜立德，本书的主角，那位会给动物看病的医生。",
+              "en": "John Dolittle, the Doctor himself: the man who can cure animals."
+            },
+            {
+              "id": "orang-outangs",
+              "kind": "word",
+              "target": "orang-outangs",
+              "sentence": 2,
+              "zh": "红毛猩猩，产在东南亚的类人猿；前面的大猩猩、黑猩猩是另外几种。",
+              "en": "Orang-outangs: red-haired apes from South-East Asia, different from gorillas and chimpanzees."
+            }
+          ]
+        },
+        "chapter-08-p002": {
+          "sentences": [
+            "他做的第一件事，是把病猴和健康的猴子分开。",
+            "然后他叫奇奇和奇奇的表兄给他搭一间小草屋。",
+            "接下来：他让所有还没生病的猴子都过来接种疫苗。"
+          ],
+          "hints": [
+            {
+              "id": "chee-chee",
+              "kind": "word",
+              "target": "Chee-Chee",
+              "sentence": 5,
+              "zh": "奇奇，那只猴子，医生的朋友。",
+              "en": "Chee-Chee, the monkey, one of the Doctor's friends."
+            }
+          ]
+        },
+        "chapter-08-p003": {
+          "sentences": [
+            "一连三天三夜，猴子们不断从丛林里、山谷里、山岗上赶来，来到那间小草屋；医生就坐在那儿，白天黑夜不停地接种、接种。"
+          ]
+        },
+        "chapter-08-p004": {
+          "sentences": [
+            "接着他又让人盖了一间屋子——很大，里面放了许多张床；他把病猴全都安置在这间屋里。"
+          ]
+        },
+        "chapter-08-p005": {
+          "sentences": [
+            "可是病猴太多了，健康的猴子不够用，没人来做护理。",
+            "于是他给别的动物捎信——狮子、豹子、羚羊这一类——请它们来帮忙做护理。"
+          ]
+        },
+        "chapter-08-p006": {
+          "sentences": [
+            "可狮子首领是个非常骄傲的家伙。",
+            "他来到医生那间摆满床的大屋子时，看上去又生气又轻蔑。"
+          ]
+        },
+        "chapter-08-p007": {
+          "sentences": [
+            "「你敢来问我，先生？」他瞪着医生说。",
+            "「你敢叫我——叫我这个百兽之王——去伺候一群脏兮兮的猴子？",
+            "哼，我连拿它们当两顿饭之间的点心都不愿意！」"
+          ],
+          "hints": [
+            {
+              "id": "king-of-beasts",
+              "kind": "phrase",
+              "target": "King of Beasts",
+              "sentence": 14,
+              "zh": "百兽之王，狮子的称号；他拿这个头衔给自己撑面子。",
+              "en": "The King of Beasts: the lion's grand title for himself."
+            },
+            {
+              "id": "wait-on",
+              "kind": "phrase",
+              "target": "wait on",
+              "sentence": 14,
+              "zh": "伺候、服侍，不是「等待」。",
+              "en": "To wait on someone means to serve them, not to wait for them."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Doctor send messages to the lions and the leopards?",
+          "options": [
+            "Too many monkeys are sick and there are not enough well ones to nurse them.",
+            "He wants them to carry the sick monkeys to the grass house.",
+            "He needs their help to build a second house full of beds."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "原文说病猴太多，健康的猴子不够做护理，所以他才捎信请别的动物来帮忙；房子他已经盖好了。",
+            "en": "The text says there were not enough well monkeys to do the nursing, so he sent for other animals; the houses were already built."
+          }
+        },
+        {
+          "question": "How does the Leader of the Lions feel about nursing the monkeys?",
+          "options": [
+            "It is beneath him, because he is the King of Beasts.",
+            "He is afraid the monkeys will bite him.",
+            "He thinks the leopards should be asked first."
+          ],
+          "answer": 0,
+          "sentence": 14,
+          "feedback": {
+            "zh": "他觉得以「百兽之王」的身份去伺候一群脏猴子是丢脸的事，所以又生气又轻蔑。",
+            "en": "He thinks it is shameful for the King of Beasts to wait on a lot of dirty monkeys, and he is angry and scornful."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "he made all the monkeys who were still well come and be vaccinated",
+        "pointIds": [
+          "cefrj-206"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "made 后面先跟宾语 all the monkeys，再接动词原形 come：「让猴子们来」；who were still well 只是修饰宾语的定语。",
+          "en": "Made takes the object all the monkeys and then the bare verb come; the who-clause only describes the monkeys."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "狮子不肯当护士",
+        "en": "The Lion Says No"
+      },
+      "introduction": {
+        "zh": "被狮子首领一口回绝，豹子和羚羊也跟着推托，床上却还躺着几千只病猴。医生急得不知上哪儿找人。就在这时候，狮子首领回到洞里，母狮王后乱着头发跑出来迎他——出了什么事？",
+        "en": "The lions, the leopards and the antelopes all refuse to nurse the sick monkeys, and the Doctor cannot think where to find help. Then the Leader goes home, and the Queen Lioness runs out to meet him, her hair untidy. What has happened?"
+      },
+      "paragraphs": {
+        "chapter-08-p008": {
+          "sentences": [
+            "狮子看上去很凶，但医生还是竭力不露出怕他的样子。"
+          ]
+        },
+        "chapter-08-p009": {
+          "sentences": [
+            "「我没请你吃它们啊。」他平静地说。",
+            "「再说，它们也不脏。",
+            "今天早上它们都洗过澡了。",
+            "倒是你的毛看上去该刷一刷了——很该刷一刷。",
+            "你听我说，我告诉你一件事：总有一天，狮子也会生病。",
+            "要是你现在不肯帮助别的动物，等狮子自己遇上难处，也许会发现身边一个帮手都没有。",
+            "骄傲的家伙常常就是这个下场。」"
+          ]
+        },
+        "chapter-08-p010": {
+          "sentences": [
+            "「狮子从来不会遇上麻烦——狮子只制造麻烦。」首领说着，翘起了鼻子。",
+            "他昂着头走进丛林，觉得自己刚才十分机灵、十分高明。"
+          ],
+          "hints": [
+            {
+              "id": "turning-up-his-nose",
+              "kind": "phrase",
+              "target": "turning up his nose",
+              "sentence": 9,
+              "zh": "翘起鼻子，表示瞧不起、不屑。",
+              "en": "Turning up his nose: showing that he thinks something is beneath him."
+            },
+            {
+              "id": "stalked-away",
+              "kind": "phrase",
+              "target": "stalked away",
+              "sentence": 10,
+              "zh": "昂着身子、迈着大步走开，带着一股傲气。",
+              "en": "Stalked away: walked off stiffly and proudly."
+            }
+          ]
+        },
+        "chapter-08-p011": {
+          "sentences": [
+            "于是豹子也骄傲起来，说它们不肯帮忙。",
+            "接着当然轮到羚羊——它们太害羞、太胆小，不敢像狮子那样对医生无礼——只是一个劲儿地刨着地，傻乎乎地笑着，说自己从来没当过护士。"
+          ],
+          "hints": [
+            {
+              "id": "pawed-the-ground",
+              "kind": "phrase",
+              "target": "pawed the ground",
+              "sentence": 12,
+              "zh": "用蹄子刨地；动物不安、犹豫或不好意思时常这样。",
+              "en": "Pawed the ground: what animals do with their hooves when they are uneasy or shy."
+            }
+          ]
+        },
+        "chapter-08-p012": {
+          "sentences": [
+            "这下可怜的医生急得发狂，不知道上哪儿才能找到足够的人手，来照看床上这成千上万只猴子。"
+          ]
+        },
+        "chapter-08-p013": {
+          "sentences": [
+            "可狮子首领回到自己的洞穴时，看见妻子——母狮王后——头发乱蓬蓬地跑出来迎他。"
+          ],
+          "hints": [
+            {
+              "id": "queen-lioness",
+              "kind": "word",
+              "target": "Queen Lioness",
+              "sentence": 14,
+              "zh": "母狮王后，狮子首领的妻子。",
+              "en": "The Queen Lioness: the Leader's wife."
+            },
+            {
+              "id": "den",
+              "kind": "word",
+              "target": "den",
+              "sentence": 14,
+              "zh": "野兽的洞穴、窝，这里指狮子住的地方。",
+              "en": "A den: the cave or home of a wild animal."
+            }
+          ]
+        },
+        "chapter-08-p014": {
+          "sentences": [
+            "「有一只小狮子不肯吃东西。」她说。",
+            "「我拿他一点办法也没有。",
+            "从昨天晚上到现在，他一口东西都没吃。」"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Doctor say may happen to the lions one day?",
+          "options": [
+            "They may get sick and find nobody willing to help them.",
+            "They may lose their dens to the leopards.",
+            "They may have to leave the jungle for the plains."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "医生提醒他：狮子也会生病，到那时若没人肯帮，就会孤零零的；他说骄傲的人常常如此。",
+            "en": "The Doctor warns that the lions may get sick too, and if they have helped nobody they will be left all alone — as often happens to proud people."
+          }
+        },
+        {
+          "question": "What do the antelopes do when they are asked to help?",
+          "options": [
+            "They paw the ground, smile foolishly and say they have never been nurses.",
+            "They laugh at the Doctor and walk away.",
+            "They agree at once and follow the leopards."
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "羚羊不敢像狮子那样无礼，只是刨着地、傻笑，推说从来没当过护士——其实也是不肯帮忙。",
+            "en": "Too shy to be rude like the lion, the antelopes paw the ground and smile foolishly, saying they have never been nurses — which is still a refusal."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Although the lion looked very terrible, the Doctor tried hard not to seem afraid of him",
+        "pointIds": [
+          "cefrj-161"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "Although 引出让步从句「虽然狮子看上去很凶」，重点在主句：医生竭力不露怯；用了 although 就不再加 but。",
+          "en": "Although introduces the concession (the lion looked terrible); the main point is that the Doctor tried hard not to seem afraid."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "王后扯住了他的头发",
+        "en": "The Queen Pulls His Hair"
+      },
+      "introduction": {
+        "zh": "母狮王后哭得浑身发抖：一只小狮子从昨晚起就不肯吃东西。狮子首领这才把白天怎么回绝医生的话，一五一十说了出来。王后听完，气得扯住了他的头发。她会让他怎么办？",
+        "en": "The Queen Lioness is crying: one of the cubs has not eaten since last night. Then the Leader proudly tells her what he said to the Doctor. She is so angry that she pulls his hair. What will she make him do?"
+      },
+      "paragraphs": {
+        "chapter-08-p015": {
+          "sentences": [
+            "她紧张得哭了起来，浑身发抖——虽说她只是头母狮，却是个好母亲。"
+          ]
+        },
+        "chapter-08-p016": {
+          "sentences": [
+            "于是首领走进洞穴去看他的孩子——两只非常逗人喜爱的小狮子，躺在地上。",
+            "其中一只看上去病得不轻。"
+          ],
+          "hints": [
+            {
+              "id": "cunning",
+              "kind": "word",
+              "target": "cunning",
+              "sentence": 2,
+              "zh": "这里不是「狡猾」，而是「逗人喜爱、机灵可爱」，形容小狮子。",
+              "en": "Here cunning does not mean sly: it means charming and cute, said of the cubs."
+            },
+            {
+              "id": "poorly",
+              "kind": "word",
+              "target": "poorly",
+              "sentence": 3,
+              "zh": "形容词，「不舒服、有病」，不是「贫穷地」。",
+              "en": "Poorly as an adjective means unwell, not poor."
+            }
+          ]
+        },
+        "chapter-08-p017": {
+          "sentences": [
+            "接着，狮子非常得意地把对医生说过的话原原本本告诉了妻子。",
+            "她气得差点把他赶出洞穴。"
+          ]
+        },
+        "chapter-08-p018": {
+          "sentences": [
+            "「你从来就没有一丁点儿头脑！」她尖叫道。",
+            "「从这里到印度洋，所有的动物都在议论这位了不起的人，说他能治好任何一种病，说他多么善良——全世界唯一一个会说动物语言的人！",
+            "可现在，就在这会儿——我们手上还有个生病的孩子，你偏去得罪他！",
+            "你这个大笨蛋！",
+            "只有傻瓜才会对一位好医生无礼。",
+            "「你——」说着，她动手扯起丈夫的头发。"
+          ],
+          "hints": [
+            {
+              "id": "grain-of-sense",
+              "kind": "phrase",
+              "target": "a grain of sense",
+              "sentence": 6,
+              "zh": "一丁点儿头脑、一点儿常识；grain 本义是「一粒」，极言其少。",
+              "en": "A grain of sense: even a tiny bit of good sense. A grain is the smallest seed."
+            },
+            {
+              "id": "booby",
+              "kind": "word",
+              "target": "booby",
+              "sentence": 9,
+              "zh": "笨蛋、傻瓜，旧时骂人的话。",
+              "en": "Booby: an old-fashioned word for a silly fool."
+            }
+          ]
+        },
+        "chapter-08-p019": {
+          "sentences": [
+            "「马上回到那个白人那儿去，」她吼道，「去跟他说你错了。",
+            "把别的那些没脑子的狮子都带上——还有那些蠢豹子和蠢羚羊。",
+            "然后医生让你做什么，你就做什么。",
+            "像黑奴一样干活！",
+            "也许他心肠好，过后肯来看看小狮子。",
+            "快走！——我叫你快一点！",
+            "你根本不配当父亲！」"
+          ],
+          "hints": [
+            {
+              "id": "work-like-niggers",
+              "kind": "word",
+              "target": "niggers",
+              "sentence": 15,
+              "zh": "旧时对黑人的蔑称，原文用它形容「拼命干活」；这个词今天带有强烈的冒犯性。",
+              "en": "A cruel old word for black people. The book uses it to mean working like a slave; today it is deeply offensive."
+            }
+          ]
+        },
+        "chapter-08-p020": {
+          "sentences": [
+            "随后她走进隔壁的洞穴——那里住着另一头母狮——把这件事一五一十全告诉了她。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why is the Queen Lioness so angry with her husband?",
+          "options": [
+            "Their cub is sick, and he has just offended the one man who could cure it.",
+            "He has brought a lot of noisy monkeys into the den.",
+            "He has left the cub alone in the jungle all day."
+          ],
+          "answer": 0,
+          "sentence": 8,
+          "feedback": {
+            "zh": "她骂：家里正好有生病的孩子，你却偏偏去得罪那位能治病的医生——所以她气得扯他的头发。",
+            "en": "She says that with a sick baby at home he has just gone and offended the very man who can cure any sickness."
+          }
+        },
+        {
+          "question": "What does the Queen Lioness tell her husband to do?",
+          "options": [
+            "Go back to the white man and tell him he is sorry.",
+            "Wait and see whether the cub gets better by itself.",
+            "Send the leopards to say sorry in his place."
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "她吼着让他立刻回到白人那儿去认错，还要带上狮子、豹子、羚羊一起去帮忙。",
+            "en": "She yells at him to go back to the white man at once and say he is sorry — and to take all the other lions, leopards and antelopes with him."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "she got so angry she nearly drove him out of the den",
+        "pointIds": [
+          "cefrj-45"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "so angry 后面省了 that：气得（以至于）差点把他赶出去；so + 形容词再接结果。",
+          "en": "So angry is followed by a result clause with that left out: so angry (that) she nearly drove him out."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "碰巧路过的狮子",
+        "en": "A Lion Just Passing By"
+      },
+      "introduction": {
+        "zh": "狮子首领又出现在医生门口，说自己只是碰巧路过，顺便进来看看。他一边抱怨动物都不爱干活了，一边又提起家里那只不肯吃东西的小狮子。医生等得到帮手吗？",
+        "en": "The Leader of the Lions turns up again, saying he happened to be passing. He grumbles that animals no longer like work — and then mentions a cub at home that will not eat. Will the Doctor ever get his helpers?"
+      },
+      "paragraphs": {
+        "chapter-08-p021": {
+          "sentences": [
+            "于是狮子首领回到医生那里，说：「我碰巧路过这儿，心想不如进来看看。",
+            "找到帮手了吗？」"
+          ],
+          "hints": [
+            {
+              "id": "happened-to-be-passing",
+              "kind": "phrase",
+              "target": "happened to be passing this way",
+              "sentence": 1,
+              "zh": "碰巧路过这边；happen to do 表示「碰巧、正好」。",
+              "en": "Happened to be passing: it was chance — or so he says — that brought him this way."
+            },
+            {
+              "id": "look-in",
+              "kind": "phrase",
+              "target": "look in",
+              "sentence": 1,
+              "zh": "顺道进来看看、串个门。",
+              "en": "Look in: to drop by for a short visit."
+            }
+          ]
+        },
+        "chapter-08-p022": {
+          "sentences": [
+            "「没有。」医生说。",
+            "「还没有。我愁得要命。」"
+          ]
+        },
+        "chapter-08-p023": {
+          "sentences": [
+            "「这年头，帮手可不好找。」狮子说。",
+            "「动物们好像再也不愿意干活了。",
+            "你也不能怪它们——从某种意义上说……",
+            "好吧，既然你眼下有难处，我不介意尽力帮一把——纯粹是给你个面子——只要别让我给这些家伙洗澡就行。",
+            "我已经通知了别的所有食肉的动物，让它们也来尽一份力。",
+            "豹子们这会儿随时就该到了……",
+            "哦，对了，我们家有只小狮子病了。",
+            "我自己倒觉得它没什么大毛病。",
+            "可我妻子不放心。",
+            "要是你今晚正好往那边去，不妨给他看一看，行不行？」"
+          ],
+          "hints": [
+            {
+              "id": "seeing-that",
+              "kind": "phrase",
+              "target": "seeing you’re in difficulties",
+              "sentence": 8,
+              "zh": "seeing (that) 是「既然、考虑到」，不是「看见」。",
+              "en": "Seeing (that) means “since” or “considering”: since you are in difficulties."
+            },
+            {
+              "id": "so-long-as",
+              "kind": "phrase",
+              "target": "so long as",
+              "sentence": 8,
+              "zh": "只要，表示条件；相当于 as long as。",
+              "en": "So long as means “on condition that”."
+            },
+            {
+              "id": "do-their-share",
+              "kind": "phrase",
+              "target": "do their share",
+              "sentence": 9,
+              "zh": "各尽一份力、分担自己那一份活儿。",
+              "en": "Do their share: each do their part of the work."
+            },
+            {
+              "id": "much-the-matter",
+              "kind": "phrase",
+              "target": "much the matter with him",
+              "sentence": 12,
+              "zh": "something the matter with sb 是「某人哪儿不舒服」；much the matter 就是「病得不轻」。",
+              "en": "Something the matter with someone means they are ill; much the matter means seriously ill."
+            }
+          ]
+        },
+        "chapter-08-p024": {
+          "sentences": [
+            "医生这下高兴极了；因为所有的狮子、豹子、羚羊、长颈鹿和斑马——森林、高山和平原上所有的动物——都来帮他的忙。",
+            "来的动物实在太多，他只好打发走一些，只留下最聪明的。"
+          ]
+        },
+        "chapter-08-p025": {
+          "sentences": [
+            "很快，猴子们就开始好转了。",
+            "一个星期之后，那间摆满床的大屋子空了一半。",
+            "到第二个星期末，最后一只猴子也痊愈了。"
+          ]
+        },
+        "chapter-08-p026": {
+          "sentences": [
+            "医生的活儿干完了；他累得上了床，一睡就是三天，连身都没翻一下。"
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Leader of the Lions really come back to the Doctor?",
+          "options": [
+            "His own cub is ill at home, and his wife is anxious about it.",
+            "He wants to borrow beds for the lions' den.",
+            "He has decided that monkeys are clean after all."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "他嘴上说只是路过、顺便帮忙，可后来说漏了：家里有只小狮子病了，妻子不放心，还想请医生去看看。",
+            "en": "He says he is only passing by, but then lets slip that there is a sick cub at home and his wife is anxious — and asks the Doctor to look at it."
+          }
+        },
+        {
+          "question": "What happens once the lion sends word to the other animals?",
+          "options": [
+            "Animals from the forests, mountains and plains come to help, and the monkeys get better.",
+            "The leopards refuse again and the Doctor works alone.",
+            "The Doctor sends the sick monkeys away to the plains."
+          ],
+          "answer": 0,
+          "sentence": 15,
+          "feedback": {
+            "zh": "狮子、豹子、羚羊、长颈鹿、斑马都来了，人多得医生还要打发走一些；猴子很快好转，最后一只也痊愈了。",
+            "en": "Lions, leopards, antelopes, giraffes and zebras all come — so many that he sends some away — and the monkeys soon get better."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "you might take a look at him, will you?",
+        "pointIds": [
+          "cefrj-132"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "might take 不是「可能拿走」，而是客气的请求：用 might 把话说到很轻，句尾 will you 再确认一次。",
+          "en": "Might take is not about possibility here: it makes the request soft and polite, and will you asks for agreement."
+        }
+      }
+    }
+  ]
+}

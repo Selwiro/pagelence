@@ -1,0 +1,793 @@
+{
+  "updatedAt": "2026-11-21",
+  "passages": [
+    {
+      "id": "passage-c1-study-misread",
+      "level": "C1",
+      "title": "A Study, a Headline and a Missing Clause",
+      "text": "On Tuesday morning a national newspaper announced that screen time damages teenagers' memory. By lunchtime the claim had been repeated on three radio programmes; by evening it was being quoted in a school newsletter. The trouble is that the study it referred to said nothing of the kind.\n\nThe research, which followed 1,200 pupils for two years, found a modest correlation between evening screen use and lower scores on a single vocabulary test. The authors were careful. They noted that the effect disappeared once bedtime and sleep length were taken into account, and they warned explicitly that no causal link could be drawn from their data. That warning sits in the fourth paragraph of the paper, and in none of the coverage.\n\nNone of this is new. Journalists work to deadlines, press offices need headlines, and a correlation of minus 0.08 sounds far less alarming than a threat to memory. What is newer is the speed at which a simplified claim travels, and how hard it is to correct once it has settled into a school newsletter.\n\nThe lead author now spends part of each week answering emails from parents who want to know whether they should ban tablets. Her answer, familiar and unglamorous, is that sleep, conversation and a sensible bedtime matter more than the device itself."
+    },
+    {
+      "id": "passage-c1-museum-review",
+      "level": "C1",
+      "title": "A Quiet Exhibition That Refuses to Explain Itself",
+      "text": "The new exhibition at the City Gallery, Fragments of a Working Life, gathers some ninety objects from the estate of a factory inspector who died in 1978. There are no wall texts beyond names and dates; the curator has deliberately left the labels bare.\n\nThis will infuriate visitors who expect to be told what to think. It also, for about half an hour, works remarkably well. A worn leather satchel, a tin of blunt pencils and a stack of notebooks in three different hands acquire a strange weight when nothing explains them. The notebooks are the centre of the show: page after page of measurements, and, in the margins, small drawings of birds.\n\nThen the silence begins to feel like a mannerism. Without context the objects cannot build a story, only an atmosphere, and an hour of atmosphere is a long hour. The final room, which does offer a short timeline, is easily the most interesting space in the building, and its brevity looks less like a stylistic choice than an admission.\n\nStill, this is a thoughtful, carefully made exhibition, and the risk it takes is worth more than the polished certainties of the gallery's previous show. Go, and take someone who will argue with you about it."
+    },
+    {
+      "id": "passage-c1-telemedicine-policy",
+      "level": "C1",
+      "title": "Telemedicine After the Emergency",
+      "text": "During the pandemic most health systems discovered, almost overnight, that a great deal of routine care could be delivered by video call. Consultations that had once required an hour of travel and a morning off work became a fifteen-minute conversation. Many patients, especially those in rural areas, would like to keep it that way.\n\nThe policy question is not whether telemedicine works; the evidence on that is reasonably encouraging for follow-ups, long-term conditions and mental health support. The question is who pays for it, and on what terms. At present clinics are reimbursed at the same rate for a video appointment as for a face-to-face one, which makes the cheaper option the more profitable one. That is not a scandal in itself, but it does mean that convenience, rather than clinical need, may begin to decide the format of care.\n\nThere are quieter costs too. A physical examination cannot be conducted through a screen, and some diagnoses simply require a hand on the patient. Two health boards have started requiring a face-to-face review after three consecutive remote appointments, a rule that sounds bureaucratic until you read the case notes.\n\nThe sensible position is neither enthusiasm nor nostalgia. Telemedicine should be treated as one tool among several, chosen for the right patient and paid for in a way that does not reward whoever happens to own the better camera."
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-c1-v01",
+      "level": "C1",
+      "skill": "vocab",
+      "prompt": "The report was {{blank}} with inconsistencies.",
+      "options": [
+        "riddled",
+        "ruffled",
+        "rattled",
+        "rustled"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "be riddled with 是「满是（问题）」的固定搭配。",
+        "en": "Riddled with means full of something bad, a fixed collocation."
+      },
+      "point": "lex-riddled"
+    },
+    {
+      "id": "q-c1-v02",
+      "level": "C1",
+      "skill": "vocab",
+      "prompt": "His argument was {{blank}} , relying on assumptions rather than evidence.",
+      "options": [
+        "tenuous",
+        "tenacious",
+        "tedious",
+        "tentative"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "tenuous 是「薄弱的」；tenacious 是「顽强的」，tedious 是「冗长的」。",
+        "en": "Tenuous means weak or thin, which matches an argument built on assumptions."
+      },
+      "point": "lex-tenuous"
+    },
+    {
+      "id": "q-c1-v03",
+      "level": "C1",
+      "skill": "vocab",
+      "prompt": "The committee's decision was met with {{blank}} criticism.",
+      "options": [
+        "scathing",
+        "soothing",
+        "scattered",
+        "sweeping"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "scathing criticism 是「严厉的批评」。",
+        "en": "Scathing criticism is severe and harsh."
+      },
+      "point": "lex-scathing"
+    },
+    {
+      "id": "q-c1-v04",
+      "level": "C1",
+      "skill": "vocab",
+      "prompt": "She has an {{blank}} ability to remember names.",
+      "options": [
+        "uncanny",
+        "unfailing",
+        "unwitting",
+        "unsettling"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "uncanny 是「不可思议的」，常形容能力出奇。",
+        "en": "Uncanny means strange and remarkable, often of an ability."
+      },
+      "point": "lex-uncanny"
+    },
+    {
+      "id": "q-c1-v05",
+      "level": "C1",
+      "skill": "vocab",
+      "prompt": "The reforms were introduced {{blank}} , without consulting teachers and with no clear plan.",
+      "options": [
+        "haphazardly",
+        "methodically",
+        "harmoniously",
+        "unanimously"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "haphazardly 是「随意地、杂乱地」，与没有征询意见相呼应。",
+        "en": "Haphazardly means without plan or order, matching the lack of consultation."
+      },
+      "point": "lex-haphazardly"
+    },
+    {
+      "id": "q-c1-g01",
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Were it not for her support last year, we {{blank}} .",
+      "options": [
+        "would have failed",
+        "will fail",
+        "would fail",
+        "had failed"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "Were it not for 是虚拟条件句的倒装，指过去的事实，主句用 would have done。",
+        "en": "Were it not for is an inverted unreal conditional about the past, so would have failed."
+      },
+      "point": "cefrj-229"
+    },
+    {
+      "id": "q-c1-g02",
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "He spoke as though he {{blank}} the whole story.",
+      "options": [
+        "had known",
+        "knows",
+        "has known",
+        "knowing"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "as though 后接与过去事实相反的虚拟语气，用过去完成时。",
+        "en": "As though takes the past perfect for an unreal past situation."
+      },
+      "point": "cefrj-221"
+    },
+    {
+      "id": "q-c1-g03",
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "No sooner {{blank}} than the lights went out.",
+      "options": [
+        "had we sat down",
+        "we had sat down",
+        "did we sit down",
+        "we sat down"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "no sooner 置句首用部分倒装，且配过去完成时。",
+        "en": "No sooner at the start needs inversion and the past perfect."
+      },
+      "point": "cefrj-234"
+    },
+    {
+      "id": "q-c1-g04",
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "The proposal, {{blank}} merits are obvious, still needs funding.",
+      "options": [
+        "whose",
+        "which",
+        "that",
+        "of which"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "空格后是名词 merits，用关系代词 whose 表示「其优点」。",
+        "en": "A noun follows, so the possessive relative pronoun whose is needed."
+      },
+      "point": "cefrj-180"
+    },
+    {
+      "id": "q-c1-g05",
+      "level": "C1",
+      "skill": "grammar",
+      "prompt": "Little {{blank}} that he was being watched.",
+      "options": [
+        "did he know",
+        "he knew",
+        "he did know",
+        "knew he"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "little 表示否定并置于句首，需要部分倒装。",
+        "en": "Negative little at the start triggers inversion."
+      },
+      "point": "focus-little-inversion"
+    },
+    {
+      "id": "q-c1-v06",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-brunt",
+      "prompt": "Coastal towns bore the {{blank}} of the storm, while inland villages escaped the worst of it.",
+      "options": [
+        "brunt",
+        "blunt",
+        "brink",
+        "brace"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "bear the brunt of 意为「承受……的主要冲击」，是固定搭配。",
+        "en": "Bear the brunt of means to suffer the main force of something."
+      }
+    },
+    {
+      "id": "q-c1-v07",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-toll",
+      "prompt": "Years of night shifts had taken a heavy {{blank}} on her health.",
+      "options": [
+        "toll",
+        "levy",
+        "fee",
+        "fare"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "take a toll on 意为「对……造成损害」，是固定搭配。",
+        "en": "Take a toll on means to cause damage or harm over time."
+      }
+    },
+    {
+      "id": "q-c1-v08",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-wake",
+      "prompt": "In the {{blank}} of the scandal, three ministers resigned within a week.",
+      "options": [
+        "wake",
+        "trail",
+        "trace",
+        "track"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "in the wake of 意为「在……之后、随之而来」。",
+        "en": "In the wake of means following or as a result of an event."
+      }
+    },
+    {
+      "id": "q-c1-v09",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-mercy",
+      "prompt": "Cut off by the floods, the village was left at the {{blank}} of the river.",
+      "options": [
+        "mercy",
+        "pity",
+        "grace",
+        "favour"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "at the mercy of 意为「任……摆布、受……支配」。",
+        "en": "At the mercy of means completely in the power of something else."
+      }
+    },
+    {
+      "id": "q-c1-v10",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-disguise",
+      "prompt": "Losing that job turned out to be a blessing in {{blank}}.",
+      "options": [
+        "disguise",
+        "hiding",
+        "secret",
+        "cover"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "a blessing in disguise 指「因祸得福」。",
+        "en": "A blessing in disguise is something bad that turns out to be good."
+      }
+    },
+    {
+      "id": "q-c1-v11",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-amends",
+      "prompt": "He sent a long letter to make {{blank}} for his rudeness at dinner.",
+      "options": [
+        "amends",
+        "repairs",
+        "peace",
+        "good"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "make amends for 意为「为……赔罪、弥补」。",
+        "en": "Make amends for means to apologise and compensate for a wrong."
+      }
+    },
+    {
+      "id": "q-c1-v12",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-premium",
+      "prompt": "On match days parking near the stadium is at a {{blank}}, and drivers willingly pay three times the usual rate.",
+      "options": [
+        "premium",
+        "discount",
+        "loss",
+        "bargain"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "at a premium 意为「稀缺而昂贵」，与后文付三倍价钱呼应。",
+        "en": "At a premium means scarce and therefore expensive."
+      }
+    },
+    {
+      "id": "q-c1-v13",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-out",
+      "prompt": "The new evidence bears {{blank}} her original claim that the drug was safe.",
+      "options": [
+        "out",
+        "up",
+        "off",
+        "in"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "bear out 是「证实、支持（某种说法）」的固定搭配。",
+        "en": "Bear out means to confirm or support a claim."
+      }
+    },
+    {
+      "id": "q-c1-v14",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-paid",
+      "prompt": "A knee injury in training put {{blank}} to his chances of playing in the final.",
+      "options": [
+        "paid",
+        "end",
+        "stop",
+        "halt"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "put paid to 是英式固定说法，意为「使……彻底落空」。",
+        "en": "Put paid to means to put a definite end to something."
+      }
+    },
+    {
+      "id": "q-c1-v15",
+      "level": "C1",
+      "skill": "vocab",
+      "point": "lex-impunity",
+      "prompt": "The inspectors broke the rules with {{blank}}, confident that no one would ever report them.",
+      "options": [
+        "impunity",
+        "indemnity",
+        "exemption",
+        "reprieve"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "with impunity 意为「不受惩罚地」，与后文「确信无人举报」呼应。",
+        "en": "With impunity means without any fear of punishment."
+      }
+    },
+    {
+      "id": "q-c1-g06",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-228",
+      "prompt": "If it were not for the volunteers who give up their weekends, the centre {{blank}} to stay open.",
+      "options": [
+        "would struggle",
+        "will struggle",
+        "would have struggled",
+        "struggles"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "if it were not for 是现在虚拟条件，主句用 would + 动词原形。",
+        "en": "If it were not for states a present unreal condition, so the main clause takes would struggle."
+      }
+    },
+    {
+      "id": "q-c1-g07",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-231",
+      "prompt": "Had it not been for the quick thinking of a passing cyclist, the driver {{blank}} serious injuries.",
+      "options": [
+        "would have suffered",
+        "would suffer",
+        "had suffered",
+        "suffered"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "Had it not been for 是过去虚拟条件的倒装，主句用 would have done。",
+        "en": "Had it not been for is an inverted unreal past condition, so would have suffered follows."
+      }
+    },
+    {
+      "id": "q-c1-g08",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-219",
+      "prompt": "I wish I {{blank}} so blunt at the meeting; she has barely spoken to me since.",
+      "options": [
+        "had not been",
+        "were not",
+        "am not",
+        "would not be"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "wish 后接与过去事实相反的愿望，要用过去完成时。",
+        "en": "Wish about an unchangeable past event takes the past perfect."
+      }
+    },
+    {
+      "id": "q-c1-g09",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-223",
+      "prompt": "If only we {{blank}} the instructions before assembling the shelves; now we have to take them apart.",
+      "options": [
+        "had read",
+        "read",
+        "have read",
+        "would read"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "if only 表达对过去事情的懊悔，要用过去完成时。",
+        "en": "If only expresses regret about the past and therefore takes the past perfect."
+      }
+    },
+    {
+      "id": "q-c1-g10",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-181",
+      "prompt": "The Danube, {{blank}} flows through four capital cities, is Europe's second-longest river.",
+      "options": [
+        "which",
+        "that",
+        "what",
+        "it"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "逗号隔开的非限制性定语从句只能用 which，不能用 that。",
+        "en": "A non-restrictive relative clause after a comma can only be introduced by which."
+      }
+    },
+    {
+      "id": "q-c1-g11",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-184",
+      "prompt": "The scheme, {{blank}} many households depend, was quietly abandoned last month.",
+      "options": [
+        "on which",
+        "which",
+        "that",
+        "where"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "depend 要与介词 on 搭配，介词提到关系代词前时用 on which。",
+        "en": "Depend requires the preposition on, which is fronted as on which in the relative clause."
+      }
+    },
+    {
+      "id": "q-c1-g12",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-90",
+      "prompt": "She is believed {{blank}} the country shortly before the election.",
+      "options": [
+        "to have left",
+        "to leave",
+        "to be leaving",
+        "leaving"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "不定式动作发生在谓语动词之前，用完成式 to have done。",
+        "en": "When the infinitive action happened earlier than the main verb, the perfect infinitive is used."
+      }
+    },
+    {
+      "id": "q-c1-g13",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-92",
+      "prompt": "The manuscript is thought {{blank}} in the fire of 1666.",
+      "options": [
+        "to have been destroyed",
+        "to be destroyed",
+        "to have destroyed",
+        "being destroyed"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "不定式的完成被动式 to have been done 表示被动的动作先于谓语发生。",
+        "en": "The perfect passive infinitive marks a passive event completed before the main verb."
+      }
+    },
+    {
+      "id": "q-c1-g14",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-109",
+      "prompt": "{{blank}} of the risk, she took out insurance before the trip.",
+      "options": [
+        "Having been warned",
+        "Warning",
+        "To have warned",
+        "Warn"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "having been + 过去分词作状语，表示被动的动作先于主句动作发生。",
+        "en": "Having been + past participle is a participial clause for a passive event that happened first."
+      }
+    },
+    {
+      "id": "q-c1-g15",
+      "level": "C1",
+      "skill": "grammar",
+      "point": "cefrj-111",
+      "prompt": "I object to {{blank}} the room without telling me first.",
+      "options": [
+        "his using",
+        "he using",
+        "him to use",
+        "he uses"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "动名词的复合结构要用所有格 his + -ing，不能用主格或不定式。",
+        "en": "The gerund takes a possessive determiner (his using), not a subject pronoun or an infinitive."
+      }
+    },
+    {
+      "id": "q-c1-r05",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-study-misread",
+      "point": "read-c1-study-misread-1",
+      "prompt": "What did the study actually report?",
+      "options": [
+        "A weak link between evening screen use and one vocabulary test score.",
+        "That screens permanently damage teenagers' memory.",
+        "That a later bedtime improves vocabulary scores.",
+        "That all 1,200 pupils should stop using tablets."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "第二段明确说研究只发现晚间屏幕使用与一项词汇测试分数之间的微弱相关。",
+        "en": "The second paragraph says the study found only a modest correlation with one vocabulary test."
+      }
+    },
+    {
+      "id": "q-c1-r06",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-study-misread",
+      "point": "read-c1-study-misread-2",
+      "prompt": "In the last paragraph, the word \"unglamorous\" is closest in meaning to",
+      "options": [
+        "dull but practical.",
+        "hard to believe.",
+        "deliberately unkind.",
+        "out of date."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "unglamorous 在此指答案平淡、不吸引人却实用。",
+        "en": "Unglamorous here means plain and unexciting yet sensible."
+      }
+    },
+    {
+      "id": "q-c1-r07",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-study-misread",
+      "point": "read-c1-study-misread-3",
+      "prompt": "What can be inferred about the newspaper's article?",
+      "options": [
+        "It dropped the authors' warning that the data showed no cause.",
+        "It was based on a second, much larger study.",
+        "It was corrected before it reached any school.",
+        "It quoted the pupils who took part in the research."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "文中说作者的告诫只出现在论文第四段、报道中完全没有，可推知报道略去了这一限定。",
+        "en": "The warning appears in the paper but in none of the coverage, so the article left it out."
+      }
+    },
+    {
+      "id": "q-c1-r08",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-study-misread",
+      "point": "read-c1-study-misread-4",
+      "prompt": "Which sentence best states the writer's main point?",
+      "options": [
+        "Oversimplified research claims spread fast and are hard to undo.",
+        "Journalists should stop reporting on scientific research.",
+        "The study was poorly designed and proved nothing.",
+        "Parents ought to ban tablets for teenagers."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "全文围绕简化后的结论传播极快、且一旦扩散便难以纠正展开。",
+        "en": "The passage is about how quickly a simplified claim travels and how hard it is to correct."
+      }
+    },
+    {
+      "id": "q-c1-r09",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-museum-review",
+      "point": "read-c1-museum-review-1",
+      "prompt": "What does the reviewer say about the exhibition's labels?",
+      "options": [
+        "They give only names and dates.",
+        "They explain every object at length.",
+        "They were written by the factory inspector.",
+        "They were removed after visitors complained."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "第一段说除了名称和日期之外没有任何墙面说明文字。",
+        "en": "The first paragraph states that there are no wall texts beyond names and dates."
+      }
+    },
+    {
+      "id": "q-c1-r10",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-museum-review",
+      "point": "read-c1-museum-review-2",
+      "prompt": "In the third paragraph, \"mannerism\" is closest in meaning to",
+      "options": [
+        "an affected stylistic habit.",
+        "a generous gesture.",
+        "a factual error.",
+        "a recent addition."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "此处 mannerism 指刻意为之、渐显做作的风格习惯。",
+        "en": "Mannerism here means a stylistic habit that begins to look forced."
+      }
+    },
+    {
+      "id": "q-c1-r11",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-museum-review",
+      "point": "read-c1-museum-review-3",
+      "prompt": "What does the reviewer imply about the final room?",
+      "options": [
+        "Its short timeline concedes that context was needed.",
+        "It holds the most valuable objects in the show.",
+        "It was added at the last minute without the curator.",
+        "It is the only room visitors tend to skip."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "作者说最后一间展室提供简短时间内线却最有趣，其简短更像一种「承认」。",
+        "en": "The reviewer calls the final room's brevity an admission rather than a stylistic choice."
+      }
+    },
+    {
+      "id": "q-c1-r12",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-museum-review",
+      "point": "read-c1-museum-review-4",
+      "prompt": "The reviewer's overall attitude to the exhibition is best described as",
+      "options": [
+        "admiring, though doubtful about its refusal to explain.",
+        "dismissive and impatient with the whole show.",
+        "unsure whether the objects are genuine.",
+        "enthusiastic with no reservations at all."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "作者称展览「用心、值得」，同时批评其拒绝提供背景，态度是欣赏中带保留。",
+        "en": "The reviewer praises the show as thoughtful while criticising its lack of context."
+      }
+    },
+    {
+      "id": "q-c1-r13",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-telemedicine-policy",
+      "point": "read-c1-telemedicine-policy-1",
+      "prompt": "Why may clinics now favour video appointments?",
+      "options": [
+        "They are paid at the same rate as in-person visits but cost less to provide.",
+        "Patients refuse to travel to clinics for any appointment.",
+        "Video calls allow doctors to examine patients more thoroughly.",
+        "They require no trained staff at all."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "第二段指出视频问诊与人面对面问诊报销比例相同，成本却更低，因而更有利可图。",
+        "en": "Video visits are reimbursed at the same rate as in-person ones yet are cheaper to deliver."
+      }
+    },
+    {
+      "id": "q-c1-r14",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-telemedicine-policy",
+      "point": "read-c1-telemedicine-policy-2",
+      "prompt": "In the final paragraph, \"nostalgia\" is closest in meaning to",
+      "options": [
+        "a sentimental longing for the way things were.",
+        "a fear of using new technology.",
+        "a distrust of government guidance.",
+        "relief that the emergency is over."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "nostalgia 指对过去诊疗方式的怀旧式眷恋，与「一味热情」相对。",
+        "en": "Nostalgia means a sentimental attachment to the old way of doing things."
+      }
+    },
+    {
+      "id": "q-c1-r15",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-telemedicine-policy",
+      "point": "read-c1-telemedicine-policy-3",
+      "prompt": "The rule brought in by two health boards suggests that",
+      "options": [
+        "some conditions cannot be assessed reliably at a distance.",
+        "remote appointments are always the cheapest option.",
+        "patients dislike speaking to doctors on screen.",
+        "doctors are reluctant to learn new technology."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "要求连续三次远程问诊后必须面诊，说明某些诊断需要当面检查，可推知远程评估有局限。",
+        "en": "Requiring an in-person review after three remote visits implies distance has limits for some diagnoses."
+      }
+    },
+    {
+      "id": "q-c1-r16",
+      "level": "C1",
+      "skill": "reading",
+      "passageId": "passage-c1-telemedicine-policy",
+      "point": "read-c1-telemedicine-policy-4",
+      "prompt": "Which sentence best summarises the writer's argument?",
+      "options": [
+        "Telemedicine should be used selectively and paid for according to need, not convenience.",
+        "Telemedicine should replace nearly all face-to-face care.",
+        "Telemedicine was a temporary wartime measure and should now end.",
+        "Telemedicine is too costly to be worth continuing."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "结尾主张把远程医疗当作多种工具之一，按病人需要选用，并避免按便利程度付费。",
+        "en": "The writer wants telemedicine treated as one tool among several, chosen by need rather than convenience."
+      }
+    }
+  ]
+}

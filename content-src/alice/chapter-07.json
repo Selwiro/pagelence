@@ -1,0 +1,1405 @@
+{
+  "chapter": 7,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "大桌子，没位子",
+        "en": "A Table with No Room"
+      },
+      "introduction": {
+        "zh": "爱丽丝走到房子前，看见树下摆着一张很大的茶桌。三月兔、帽匠和一只睡鼠挤在桌子的一角，一见她来就齐声喊“没地方了！”。可桌上明明空着一大片——他们为什么这么说？",
+        "en": "Alice comes to a house and finds a big tea table under a tree. The March Hare, the Hatter and the Dormouse are squeezed into one corner, and they shout that there is no room. Yet most of the table is empty. Why do they say that?"
+      },
+      "paragraphs": {
+        "chapter-07-p001": {
+          "sentences": [
+            "房子前面的树下摆着一张桌子，三月兔和帽匠正坐在桌旁喝茶：一只睡鼠坐在他们中间，睡得很沉，另外两位把它当靠垫，胳膊肘支在它身上，隔着它的头顶说话。",
+            "“这对睡鼠来说太不舒服了，”爱丽丝想，“不过，既然它睡着了，我想它大概不会介意。”"
+          ],
+          "hints": [
+            {
+              "id": "march-hare",
+              "kind": "word",
+              "target": "March Hare",
+              "sentence": 1,
+              "zh": "三月兔，茶会的主人之一，说话爱抬杠。",
+              "en": "The March Hare, one of the tea-party hosts, who loves to argue."
+            },
+            {
+              "id": "hatter",
+              "kind": "word",
+              "target": "Hatter",
+              "sentence": 1,
+              "zh": "帽匠（疯帽匠），茶会的主人之一，说话古怪，爱出没有答案的谜语。",
+              "en": "The Hatter (the Mad Hatter), one of the hosts: odd, rude and fond of unanswerable riddles."
+            },
+            {
+              "id": "dormouse",
+              "kind": "word",
+              "target": "Dormouse",
+              "sentence": 1,
+              "zh": "睡鼠，茶会上总在打瞌睡的小动物。",
+              "en": "The Dormouse, a small animal that keeps falling asleep at the tea party."
+            },
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 2,
+              "zh": "爱丽丝，本书主角，在奇境里不断遇上怪事的小姑娘。",
+              "en": "Alice, the girl who keeps meeting strange things in Wonderland."
+            }
+          ]
+        },
+        "chapter-07-p002": {
+          "sentences": [
+            "桌子很大，可这三个人却全挤在桌子的一角：“没地方了！",
+            "没地方了！”他们看见爱丽丝走过来，便大声喊道。",
+            "“地方多着呢！”爱丽丝气愤地说，然后在桌子一头的一把大扶手椅上坐了下来。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p003": {
+          "sentences": [
+            "“来点葡萄酒吧，”三月兔用鼓励的语气说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p004": {
+          "sentences": [
+            "爱丽丝把桌子四下看了一遍，可桌上除了茶什么也没有。",
+            "“我没看见有什么葡萄酒。”她说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p005": {
+          "sentences": [
+            "“本来就没有。”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p006": {
+          "sentences": [
+            "“那你请我喝葡萄酒可不太礼貌。”爱丽丝生气地说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p007": {
+          "sentences": [
+            "“没人请你你就坐下，可也不太礼貌。”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p008": {
+          "sentences": [
+            "“我不知道这是你的桌子，”爱丽丝说，“这桌子摆的位子，可远远不止三个人。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p009": {
+          "sentences": [
+            "“你的头发该剪了。”帽匠说。",
+            "他带着极大的好奇打量了爱丽丝好一会儿，这是他开口说的第一句话。"
+          ],
+          "hints": [
+            {
+              "id": "wants-cutting",
+              "kind": "phrase",
+              "target": "wants cutting",
+              "sentence": 13,
+              "zh": "英国说法，等于 needs cutting，意思是“该剪了”。",
+              "en": "A British use of want: 'wants cutting' means 'needs cutting'."
+            }
+          ]
+        },
+        "chapter-07-p010": {
+          "sentences": [
+            "“你该学会不要对别人评头论足，”爱丽丝有些严厉地说，“这很不礼貌。”"
+          ],
+          "hints": [
+            {
+              "id": "personal-remarks",
+              "kind": "phrase",
+              "target": "personal remarks",
+              "sentence": 15,
+              "zh": "议论别人外貌或私事的评论，通常被认为不礼貌。",
+              "en": "Comments about someone's appearance or private life, usually thought rude."
+            }
+          ]
+        },
+        "chapter-07-p011": {
+          "sentences": [
+            "帽匠听了这话，把眼睛睁得大大的；可他只说了句：“为什么乌鸦像写字台？”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is strange about the table when Alice arrives?",
+          "options": [
+            "It is too small for three people.",
+            "It is large, yet the three sit crowded in one corner.",
+            "It is set for a party of thirty."
+          ],
+          "answer": 1,
+          "sentence": 3,
+          "feedback": {
+            "zh": "桌子很大，可三月兔、帽匠和睡鼠偏挤在一角，还冲爱丽丝喊没地方。",
+            "en": "The table is large, but the three are crowded into one corner and still shout that there is no room."
+          }
+        },
+        {
+          "question": "Why does Alice call the March Hare impolite?",
+          "options": [
+            "He offers her wine that does not exist.",
+            "He sits in the only arm-chair.",
+            "He refuses to pour her any tea."
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "爱丽丝看遍桌子也没找到酒，三月兔承认本来就没有，她便说这样请客不礼貌。",
+            "en": "Alice looks round, sees no wine and says so; when the March Hare admits there is none, she calls the offer uncivil."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "He had been looking at Alice for some time with great curiosity",
+        "pointIds": [
+          "cefrj-68"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had been looking 是过去完成进行时：从更早一直看到这一刻，强调已经持续了一阵。",
+          "en": "Had been looking is past perfect continuous: the looking went on for some time up to that moment."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "一句话的两种说法",
+        "en": "Two Ways to Say It"
+      },
+      "introduction": {
+        "zh": "帽匠出了一个关于乌鸦和写字台的怪谜语，爱丽丝以为自己终于等到好玩的时刻。可三月兔紧接着追问她“说”和“想”的区别，她越解释越绕。你能跟上他们的逻辑吗？",
+        "en": "The Hatter asks a riddle, and Alice thinks the fun is about to begin. But the March Hare starts asking what she means by what she says, and every answer leads her deeper into a tangle. Can you follow their logic?"
+      },
+      "paragraphs": {
+        "chapter-07-p012": {
+          "sentences": [
+            "“好啊，这下可有得玩了！”爱丽丝想。",
+            "“我很高兴他们开始出谜语了。——我相信我能猜出来。”她大声补了一句。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p013": {
+          "sentences": [
+            "“你的意思是，你认为你能找出答案？”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p014": {
+          "sentences": [
+            "“正是。”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p015": {
+          "sentences": [
+            "“那你就该说出你的意思。”三月兔接着说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p016": {
+          "sentences": [
+            "“我是这样啊，”爱丽丝急忙答道，“至少——至少我说什么就是什么意思——你知道，这是一回事。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p017": {
+          "sentences": [
+            "“根本不是一回事！”帽匠说。",
+            "“哎呀，你倒不如说，‘我看见我吃的东西’跟‘我吃我看见的东西’是一回事！”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p018": {
+          "sentences": [
+            "“你倒不如说，”三月兔补充道，“‘我喜欢我得到的东西’跟‘我得到我喜欢的东西’是一回事！”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p019": {
+          "sentences": [
+            "“你倒不如说，”睡鼠补充道，它像是在说梦话，“‘我睡觉时呼吸’跟‘我呼吸时睡觉’是一回事！”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p020": {
+          "sentences": [
+            "“对你来说就是一回事。”帽匠说。说到这里，谈话断了，大家沉默了一分钟；爱丽丝把脑子里记得的关于乌鸦和写字台的事都想了一遍——可惜并不多。"
+          ],
+          "hints": [
+            {
+              "id": "conversation-dropped",
+              "kind": "phrase",
+              "target": "conversation dropped",
+              "sentence": 11,
+              "zh": "谈话中断了、说不下去了。",
+              "en": "'The conversation dropped' means the talk simply stopped."
+            },
+            {
+              "id": "party",
+              "kind": "word",
+              "target": "party",
+              "sentence": 11,
+              "zh": "这里指在场的一伙人，不是“聚会”。",
+              "en": "Here 'party' means the group of people present, not a celebration."
+            }
+          ]
+        },
+        "chapter-07-p021": {
+          "sentences": [
+            "帽匠第一个打破了沉默。",
+            "“今天几号？”他转向爱丽丝说。他已经把怀表从口袋里掏了出来，不安地瞧着它，不时摇一摇，又贴到耳边听。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p022": {
+          "sentences": [
+            "爱丽丝想了想，说：“四号。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice think she has answered the March Hare?",
+          "options": [
+            "She believes saying what you mean and meaning what you say are the same.",
+            "She has guessed the riddle.",
+            "She has stopped listening to him."
+          ],
+          "answer": 0,
+          "sentence": 6,
+          "feedback": {
+            "zh": "爱丽丝认为“说出你的意思”和“说话算话”是一回事，所以觉得自己已经答上了。",
+            "en": "Alice thinks saying what you mean and meaning what you say are the same thing, so she believes she has answered."
+          }
+        },
+        {
+          "question": "What does the Hatter do with his watch while he asks Alice the date?",
+          "options": [
+            "He puts it back in his pocket.",
+            "He shakes it and holds it to his ear.",
+            "He hands it to the March Hare."
+          ],
+          "answer": 1,
+          "sentence": 13,
+          "feedback": {
+            "zh": "帽匠一边问日期，一边不安地看表、不时摇晃，还贴到耳边听。",
+            "en": "As he asks the date, the Hatter looks at the watch uneasily, shakes it and holds it to his ear."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "you might just as well say that 'I see what I eat' is the same thing as 'I eat what I see'!",
+        "pointIds": [
+          "cefrj-133"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "might just as well 后接动词原形，意思是“倒不如说”，帽匠用它来反讽爱丽丝的说法。",
+          "en": "Might just as well + verb means 'you could equally say'; the Hatter uses it to mock Alice's logic."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "一只不报钟点的表",
+        "en": "A Watch Without Hours"
+      },
+      "introduction": {
+        "zh": "帽匠掏出怀表，愁眉苦脸地摇一摇，又贴在耳边听。他说表慢了两天，还怪三月兔往机芯里抹了黄油。爱丽丝凑过去，想看看这只表究竟哪里不对——它真的还能报时吗？",
+        "en": "The Hatter pulls out his watch, shakes it and holds it to his ear. It is two days wrong, and he blames the March Hare for putting butter into the works. When Alice looks closer, she wonders what is wrong with it — can it still tell the time?"
+      },
+      "paragraphs": {
+        "chapter-07-p023": {
+          "sentences": [
+            "“慢了两天！”帽匠叹着气说。",
+            "“我跟你说过，黄油不适合机芯！”他补了一句，气冲冲地看着三月兔。"
+          ],
+          "hints": [
+            {
+              "id": "the-works",
+              "kind": "word",
+              "target": "the works",
+              "sentence": 2,
+              "zh": "机芯，钟表内部的机械装置。",
+              "en": "The works: the moving parts inside a clock or watch."
+            }
+          ]
+        },
+        "chapter-07-p024": {
+          "sentences": [
+            "“那可是最好的黄油。”三月兔温顺地回答。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p025": {
+          "sentences": [
+            "“是啊，可一定还掉进去一些面包屑，”帽匠嘟囔道，“你不该用面包刀把它抹进去。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p026": {
+          "sentences": [
+            "三月兔接过怀表，愁闷地看了看；然后把它浸到自己的茶杯里，又看了看；可他想不出比头一句更好的话，只能说：“你知道，那可是最好的黄油。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p027": {
+          "sentences": [
+            "爱丽丝一直带着几分好奇，从他的肩膀后面看着。",
+            "“这表真奇怪！”她说。",
+            "“它报日期，却不报几点钟！”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p028": {
+          "sentences": [
+            "“它为什么要报？”帽匠咕哝道。",
+            "“你的表会告诉你今年是哪一年吗？”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p029": {
+          "sentences": [
+            "“当然不会，”爱丽丝不假思索地回答，“可那是因为一年要过很久才换一次啊。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p030": {
+          "sentences": [
+            "“我的表正是这种情况。”帽匠说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p031": {
+          "sentences": [
+            "爱丽丝觉得非常困惑。",
+            "在她看来，帽匠的话似乎一点意思也没有，可那又确确实实是英语。",
+            "“我不太明白你的意思。”她尽量礼貌地说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p032": {
+          "sentences": [
+            "“睡鼠又睡着了。”帽匠说着，往它的鼻子上倒了一点热茶。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p033": {
+          "sentences": [
+            "睡鼠不耐烦地摇摇头，眼睛也没睁，说：“当然，当然；这正是我本来要说的。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p034": {
+          "sentences": [
+            "“你猜出那个谜语了吗？”帽匠又转向爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p035": {
+          "sentences": [
+            "“没有，我放弃了，”爱丽丝回答，“答案是什么？”"
+          ],
+          "hints": [
+            {
+              "id": "give-it-up",
+              "kind": "phrase",
+              "target": "give it up",
+              "sentence": 19,
+              "zh": "放弃（猜谜、尝试），这里指认输、不再猜了。",
+              "en": "'I give it up' means 'I stop trying'; Alice gives up on the riddle."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Hatter blame the March Hare?",
+          "options": [
+            "The March Hare has broken the watch.",
+            "The March Hare put butter in the works of the watch.",
+            "The March Hare told him the wrong date."
+          ],
+          "answer": 1,
+          "sentence": 2,
+          "feedback": {
+            "zh": "帽匠认定是三月兔把黄油抹进机芯，才害得表慢了两天。",
+            "en": "The Hatter is sure that the butter the March Hare put into the works has made the watch two days slow."
+          }
+        },
+        {
+          "question": "What is unusual about the Hatter's watch?",
+          "options": [
+            "It shows the year but not the month.",
+            "It tells the day of the month but not the hour.",
+            "It has stopped at six o'clock."
+          ],
+          "answer": 1,
+          "sentence": 8,
+          "feedback": {
+            "zh": "爱丽丝发现这表只报日期，不报钟点，这和普通怀表正好相反。",
+            "en": "Alice notices that the watch tells the day of the month but not the time, the opposite of a normal watch."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "you shouldn't have put it in with the bread-knife",
+        "pointIds": [
+          "cefrj-145"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "shouldn't have put 是“情态动词 + have + 过去分词”，责怪对方过去做了某事。",
+          "en": "Shouldn't have put is modal + have + past participle: it blames someone for a past action."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "时间是个先生",
+        "en": "Time Is a Person"
+      },
+      "introduction": {
+        "zh": "帽匠说，时间不是钟表上的刻度，而是一位可以得罪的“先生”。爱丽丝只知道自己学琴时要打拍子，这在她看来再自然不过。两个人说的明明是同一个词，为什么完全对不上？",
+        "en": "The Hatter talks about Time as if it were a person who can be offended. Alice only knows that she has to beat time when she learns music. They use the same word, yet they mean completely different things. Why can't they agree?"
+      },
+      "paragraphs": {
+        "chapter-07-p036": {
+          "sentences": [
+            "“我一点头绪也没有。”帽匠说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p037": {
+          "sentences": [
+            "“我也没有。”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p038": {
+          "sentences": [
+            "爱丽丝疲惫地叹了口气。",
+            "“我觉得你们本可以把时间拿去做点更好的事，”她说，“而不是浪费在出这些没有答案的谜语上。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p039": {
+          "sentences": [
+            "“你要是像我一样了解时间，”帽匠说，“就不会说什么浪费它了。",
+            "时间就是他。”"
+          ],
+          "hints": [
+            {
+              "id": "time",
+              "kind": "word",
+              "target": "Time",
+              "sentence": 5,
+              "zh": "时间；帽匠在这里把它当成一位可以交谈、可以得罪的先生。",
+              "en": "Time; the Hatter speaks of it as a person you can talk to and offend."
+            }
+          ]
+        },
+        "chapter-07-p040": {
+          "sentences": [
+            "“我不明白你是什么意思。”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p041": {
+          "sentences": [
+            "“你当然不明白！”帽匠轻蔑地一甩头说。",
+            "“我敢说你从来没跟时间说过话！”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p042": {
+          "sentences": [
+            "“也许没有，”爱丽丝小心地回答，“可我知道，我学音乐的时候得打拍子。”"
+          ],
+          "hints": [
+            {
+              "id": "beat-time",
+              "kind": "phrase",
+              "target": "beat time",
+              "sentence": 10,
+              "zh": "打拍子，按节拍用手或脚示意；帽匠却听成了“打时间”。",
+              "en": "'Beat time' means to mark the rhythm in music; the Hatter hears it as hitting Time."
+            }
+          ]
+        },
+        "chapter-07-p043": {
+          "sentences": [
+            "“啊！这就说得通了。”帽匠说。",
+            "“他可受不了别人打他。",
+            "你要是跟他处好关系，你想让钟指到几点，它几乎就能指到几点。",
+            "比如说，假定现在是早上九点，正好该开始上课：你只要跟时间悄悄提一句，一眨眼，钟就转过去了！",
+            "一点半，该吃午饭了！”"
+          ],
+          "hints": [
+            {
+              "id": "accounts-for-it",
+              "kind": "phrase",
+              "target": "accounts for it",
+              "sentence": 11,
+              "zh": "解释了原因，这里指“难怪会这样”。",
+              "en": "'That accounts for it' means 'that explains why it is so'."
+            },
+            {
+              "id": "on-good-terms",
+              "kind": "phrase",
+              "target": "on good terms with",
+              "sentence": 13,
+              "zh": "跟某人关系好、相处融洽。",
+              "en": "To be 'on good terms with' someone is to have a friendly relationship with them."
+            },
+            {
+              "id": "in-a-twinkling",
+              "kind": "phrase",
+              "target": "in a twinkling",
+              "sentence": 14,
+              "zh": "一眨眼之间，形容极快。",
+              "en": "'In a twinkling' means in a very short time, in an instant."
+            }
+          ]
+        },
+        "chapter-07-p044": {
+          "sentences": [
+            "（“我倒希望真是这样。”三月兔小声自言自语。）"
+          ],
+          "hints": []
+        },
+        "chapter-07-p045": {
+          "sentences": [
+            "“那当然好极了，”爱丽丝若有所思地说，“可是那样一来——你知道，我就不会饿得想吃午饭了。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p046": {
+          "sentences": [
+            "“也许一开始不饿，”帽匠说，“可你可以把时间一直保持在一点半，想保持多久就多久。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p047": {
+          "sentences": [
+            "“你们就是这么做的？”",
+            "爱丽丝问。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p048": {
+          "sentences": [
+            "帽匠伤心地摇了摇头。",
+            "“我没唱！”他回答。",
+            "“我们三月里吵了一架——就在他发疯之前，你知道——”他用茶匙指了指三月兔，“——那是在红心王后办的一场大型音乐会上，我不得不唱《一闪一闪，小蝙蝠！",
+            "我多想知道你在干什么！”"
+          ],
+          "hints": [
+            {
+              "id": "queen-of-hearts",
+              "kind": "word",
+              "target": "Queen of Hearts",
+              "sentence": 23,
+              "zh": "红心王后，奇境里的统治者，动不动就喊砍头。",
+              "en": "The Queen of Hearts, the ruler of Wonderland who is always shouting for heads to be cut off."
+            }
+          ]
+        },
+        "chapter-07-p049": {
+          "sentences": [
+            "你也许知道这首歌吧？”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p050": {
+          "sentences": [
+            "“我听过类似的。”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p051": {
+          "sentences": [
+            "“你知道，它接着往下唱，”帽匠继续说，“是这样——”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p052": {
+          "sentences": [
+            "‘你飞在世界上方，像天上的一只茶盘。",
+            "一闪一闪——’”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Hatter think Alice has never spoken to Time?",
+          "options": [
+            "She only knows beating time when she learns music.",
+            "She cannot read a clock.",
+            "She says she has wasted her whole day."
+          ],
+          "answer": 0,
+          "sentence": 10,
+          "feedback": {
+            "zh": "帽匠把时间当成一个人；爱丽丝却只说自己练琴时得“打拍子”，所以他断定她根本不懂时间。",
+            "en": "The Hatter treats Time as a person, so Alice's remark about beating time in music convinces him she knows nothing about it."
+          }
+        },
+        {
+          "question": "What does the Hatter say Time would do for a friend?",
+          "options": [
+            "Give them a new watch.",
+            "Turn the clock to any hour they liked.",
+            "Make them always hungry."
+          ],
+          "answer": 1,
+          "sentence": 13,
+          "feedback": {
+            "zh": "帽匠说，只要跟时间处好关系，想让钟是几点，它几乎就能是几点。",
+            "en": "The Hatter says that if you stayed on good terms with Time, the clock would show almost any hour you liked."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "if you only kept on good terms with him, he'd do almost anything you liked with the clock.",
+        "pointIds": [
+          "cefrj-215"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "if you only kept ... he'd do 是第二类条件句：if 从句用过去式，主句用 would + 原形，说与现在相反的假设。",
+          "en": "If you kept ... he'd do is a second conditional: past tense in the if-clause, would + verb in the main clause, for an unreal present."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "桌子为什么总摆着茶",
+        "en": "Why the Table Is Always Laid"
+      },
+      "introduction": {
+        "zh": "帽匠说起一件旧事：他曾在红心王后面前唱歌，王后当场喊了一句什么。那声喊之后，他的时间就出了毛病，茶桌上的茶具也一直撤不下去。可一直喝茶，总得有个尽头吧？",
+        "en": "The Hatter tells an old story about singing before the Queen and the shout that followed. After that shout, he says, his clock went wrong, and the tea-things on the table are never cleared away. But can a tea party go on for ever?"
+      },
+      "paragraphs": {
+        "chapter-07-p053": {
+          "sentences": [
+            "这时睡鼠抖了抖身子，在睡梦中唱起来：“一闪一闪，一闪一闪——”它唱个没完，他们只好掐它一下，让它停下来。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p054": {
+          "sentences": [
+            "“我第一段还没唱完，”帽匠说，“王后就嚷起来：‘他在糟蹋时间！",
+            "砍掉他的头！’”"
+          ],
+          "hints": [
+            {
+              "id": "murdering-the-time",
+              "kind": "phrase",
+              "target": "murdering the time",
+              "sentence": 2,
+              "zh": "糟蹋时间、把时间弄坏；这里是“kill time（消磨时间）”的夸张说法。",
+              "en": "'Murdering the time' means ruining time; it plays on the phrase 'kill time'."
+            }
+          ]
+        },
+        "chapter-07-p055": {
+          "sentences": [
+            "“太残暴了！”爱丽丝叫道。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p056": {
+          "sentences": [
+            "“从那以后，”帽匠用悲伤的语调接着说，“我求它做什么，它都不肯做！",
+            "现在永远是六点钟。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p057": {
+          "sentences": [
+            "爱丽丝脑子里冒出一个好主意。",
+            "“这就是这里摆着这么多茶具的原因吗？”她问。"
+          ],
+          "hints": [
+            {
+              "id": "tea-things",
+              "kind": "word",
+              "target": "tea-things",
+              "sentence": 8,
+              "zh": "茶具，指茶杯、茶碟、茶壶等一套东西。",
+              "en": "'Tea-things' means the cups, saucers, pot and other tea equipment."
+            }
+          ]
+        },
+        "chapter-07-p058": {
+          "sentences": [
+            "“对，就是这样，”帽匠叹了口气说，“永远是喝茶时间，我们没空在两次之间洗茶具。”"
+          ],
+          "hints": [
+            {
+              "id": "between-whiles",
+              "kind": "phrase",
+              "target": "between whiles",
+              "sentence": 9,
+              "zh": "在空当里、在两次之间。",
+              "en": "'Between whiles' means in the intervals between one thing and another."
+            }
+          ]
+        },
+        "chapter-07-p059": {
+          "sentences": [
+            "“那你们就一圈一圈地挪位子，我猜？”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p060": {
+          "sentences": [
+            "“正是，”帽匠说，“随着茶具一套套用脏。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p061": {
+          "sentences": [
+            "“可你们什么时候才绕回开头呢？”",
+            "爱丽丝壮着胆子问。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p062": {
+          "sentences": [
+            "“咱们换个话题吧。”三月兔打着哈欠插嘴。",
+            "“我听得都腻了。",
+            "我提议让这位小姐给咱们讲个故事。”"
+          ],
+          "hints": [
+            {
+              "id": "i-vote",
+              "kind": "word",
+              "target": "I vote",
+              "sentence": 16,
+              "zh": "我提议、我建议；vote 这里不是“投票选举”。",
+              "en": "'I vote' here means 'I suggest', not voting in an election."
+            }
+          ]
+        },
+        "chapter-07-p063": {
+          "sentences": [
+            "“恐怕我一个故事也不会讲。”爱丽丝说，这提议让她有点惊慌。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p064": {
+          "sentences": [
+            "“那就让睡鼠讲！”两人一齐喊道。",
+            "“醒醒，睡鼠！”",
+            "他们同时从两边掐它。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p065": {
+          "sentences": [
+            "睡鼠慢慢睁开眼睛。",
+            "“我没睡着，”它用沙哑微弱的声音说，“你们说的每个字我都听见了。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p066": {
+          "sentences": [
+            "“给我们讲个故事！”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p067": {
+          "sentences": [
+            "“对，讲一个吧！”爱丽丝恳求道。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p068": {
+          "sentences": [
+            "“而且快点讲，”帽匠补了一句，“不然故事还没讲完，你又睡着了。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the Hatter's watch stay at six o'clock?",
+          "options": [
+            "It is broken and cannot be mended.",
+            "Time will not do anything he asks, after the Queen's shout.",
+            "The March Hare has hidden the hands."
+          ],
+          "answer": 1,
+          "sentence": 5,
+          "feedback": {
+            "zh": "帽匠说，自从王后喊“他在糟蹋时间”，时间就再也不肯听他的，于是钟一直停在六点。",
+            "en": "Since the Queen shouted that he was murdering the time, Time has refused to do anything the Hatter asks."
+          }
+        },
+        {
+          "question": "Why are so many tea-things set out?",
+          "options": [
+            "The Hatter collects cups.",
+            "It is always tea-time, so they have no time to wash the things.",
+            "The Queen ordered a large tea party."
+          ],
+          "answer": 1,
+          "sentence": 9,
+          "feedback": {
+            "zh": "帽匠解释说，这里永远是喝茶时间，他们根本没空在两次喝茶之间洗茶具。",
+            "en": "The Hatter explains that it is always tea-time, so there is never a moment to wash the things between teas."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "went on so long that they had to pinch it to make it stop",
+        "pointIds": [
+          "cefrj-45"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "so ... that 结构：so 修饰 long，that 引出结果——它唱得太久，大家只好掐它。",
+          "en": "So ... that links the long singing to its result: they had to pinch it to make it stop."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "糖浆井底的三姐妹",
+        "en": "Three Sisters in a Treacle Well"
+      },
+      "introduction": {
+        "zh": "轮到睡鼠讲故事了。它迷迷糊糊地讲起三个住在井底的小姐妹，靠吃糖浆过活。爱丽丝越听越觉得不对：人怎么能只吃糖浆？她们又为什么偏要住在井底？",
+        "en": "It is the Dormouse's turn to tell a story. Half asleep, it describes three little sisters who live at the bottom of a well and live on treacle. Alice cannot believe it: how can anyone eat only treacle, and why live down a well?"
+      },
+      "paragraphs": {
+        "chapter-07-p069": {
+          "sentences": [
+            "“从前有三个小姐妹，”睡鼠急匆匆地开了头，“她们叫埃尔茜、莱茜和蒂莉；她们住在一口井的井底——”"
+          ],
+          "hints": [
+            {
+              "id": "three-sisters",
+              "kind": "phrase",
+              "target": "Elsie, Lacie, and Tillie",
+              "sentence": 1,
+              "zh": "埃尔茜、莱茜、蒂莉，三个小姐妹的名字。",
+              "en": "Elsie, Lacie and Tillie: the names of the three little sisters."
+            }
+          ]
+        },
+        "chapter-07-p070": {
+          "sentences": [
+            "“她们靠什么过活？”爱丽丝说。她对吃喝的事总是很感兴趣。"
+          ],
+          "hints": [
+            {
+              "id": "live-on",
+              "kind": "phrase",
+              "target": "live on",
+              "sentence": 2,
+              "zh": "靠吃某样东西过活、以某物为主食。",
+              "en": "'Live on' means to survive by eating a particular food."
+            }
+          ]
+        },
+        "chapter-07-p071": {
+          "sentences": [
+            "“她们靠吃糖浆过活。”睡鼠想了一两分钟才说。"
+          ],
+          "hints": [
+            {
+              "id": "treacle",
+              "kind": "word",
+              "target": "treacle",
+              "sentence": 3,
+              "zh": "糖浆，英国说法，指熬糖时剩下的浓稠糖汁。",
+              "en": "Treacle: a thick dark syrup, a common British sweet food."
+            }
+          ]
+        },
+        "chapter-07-p072": {
+          "sentences": [
+            "“你知道，她们不可能那样做，”爱丽丝温和地说，“那样她们会生病的。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p073": {
+          "sentences": [
+            "“她们确实病了，”睡鼠说，“病得很重。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p074": {
+          "sentences": [
+            "爱丽丝试着想象那种奇特的生活方式会是什么样，可这让她太糊涂了，于是她接着问：“可她们为什么住在井底呢？”"
+          ],
+          "hints": [
+            {
+              "id": "fancy-to-herself",
+              "kind": "phrase",
+              "target": "fancy to herself",
+              "sentence": 6,
+              "zh": "在脑子里想象、设想。",
+              "en": "To 'fancy to herself' is to picture something in her own mind."
+            }
+          ]
+        },
+        "chapter-07-p075": {
+          "sentences": [
+            "“再喝点茶吧。”三月兔非常诚恳地对爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p076": {
+          "sentences": [
+            "“我还一口都没喝呢，”爱丽丝不高兴地回答，“所以没法再喝。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p077": {
+          "sentences": [
+            "“你的意思是，你没法喝得更少，”帽匠说，“要想比‘什么也没喝’再多喝一点，那太容易了。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p078": {
+          "sentences": [
+            "“没人问你的意见。”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p079": {
+          "sentences": [
+            "“现在是谁在议论别人的私事？”帽匠得意地问。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p080": {
+          "sentences": [
+            "爱丽丝不知该怎么接这话，就自己倒了点茶、拿了点黄油面包，然后转向睡鼠，又把问题问了一遍。",
+            "“她们为什么住在井底？”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p081": {
+          "sentences": [
+            "睡鼠又想了一两分钟，然后说：“那是一口糖浆井。”"
+          ],
+          "hints": [
+            {
+              "id": "treacle-well",
+              "kind": "word",
+              "target": "treacle-well",
+              "sentence": 14,
+              "zh": "糖浆井，睡鼠故事里生造出来的井，井里装的不是水而是糖浆。",
+              "en": "A treacle-well: an invented well in the Dormouse's story, filled with treacle instead of water."
+            }
+          ]
+        },
+        "chapter-07-p082": {
+          "sentences": [
+            "“根本没有这种东西！”",
+            "爱丽丝正要气冲冲地开口，帽匠和三月兔却“嘘！嘘！”地制止她，睡鼠则闷闷不乐地说：“你要是不讲礼貌，这故事还是你自己讲完吧。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice doubt the Dormouse's story?",
+          "options": [
+            "Three sisters could not live at the bottom of a well.",
+            "Living only on treacle would make the sisters ill.",
+            "The sisters' names are not real names."
+          ],
+          "answer": 1,
+          "sentence": 4,
+          "feedback": {
+            "zh": "爱丽丝说，只靠糖浆过活是不可能的，那样三姐妹一定会生病。",
+            "en": "Alice says the sisters could not have lived on treacle alone, because they would have been ill."
+          }
+        },
+        {
+          "question": "What does the March Hare do when Alice asks about the well?",
+          "options": [
+            "He answers her question.",
+            "He offers her more tea.",
+            "He wakes the Dormouse."
+          ],
+          "answer": 1,
+          "sentence": 7,
+          "feedback": {
+            "zh": "爱丽丝追问井的事，三月兔却不回答，只一个劲儿劝她再喝点茶。",
+            "en": "Instead of answering Alice's question about the well, the March Hare earnestly offers her more tea."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "they'd have been ill",
+        "pointIds": [
+          "cefrj-216"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "they'd have been 是 would have + 过去分词，承接上句 couldn't have done：要是真那样，她们早就病了。",
+          "en": "They'd have been is would have + past participle: it gives the past result of the imagined action in the sentence before."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "画画，还是打水？",
+        "en": "Drawing, or Drawing Water?"
+      },
+      "introduction": {
+        "zh": "睡鼠接着讲三姐妹学画画，可她们画的是糖浆，而且都住在井里。爱丽丝刚想问个明白，帽匠却忽然对桌上的杯子挑起了毛病。这场茶会还能不能好好讲下去？",
+        "en": "The Dormouse goes on with the story of the sisters who learn to draw — but they draw treacle, and they live in the well. Alice is just trying to make sense of it when the Hatter starts complaining about the cups. Can the story survive the tea party?"
+      },
+      "paragraphs": {
+        "chapter-07-p083": {
+          "sentences": [
+            "“别，请接着讲！”",
+            "爱丽丝非常谦卑地说，“我不会再打断你了。",
+            "我想也许真有那么一口井。”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p084": {
+          "sentences": [
+            "“真有，才怪！”睡鼠愤愤地说。",
+            "不过，它还是同意继续讲下去。",
+            "“于是这三个小姐妹——你知道，她们在学画画——”"
+          ],
+          "hints": [
+            {
+              "id": "draw",
+              "kind": "word",
+              "target": "draw",
+              "sentence": 6,
+              "zh": "这里既可指“画画”，也可指“从井里打水”，睡鼠故意把两个意思混在一起。",
+              "en": "'Draw' can mean 'make a picture' or 'pull water from a well'; the Dormouse plays on both."
+            }
+          ]
+        },
+        "chapter-07-p085": {
+          "sentences": [
+            "“她们画什么？”爱丽丝说，完全忘了自己的保证。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p086": {
+          "sentences": [
+            "“糖浆。”睡鼠这次想都没想就回答。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p087": {
+          "sentences": [
+            "“我要一个干净的杯子，”帽匠插嘴说，“咱们都往下挪一个位子吧。”"
+          ],
+          "hints": [
+            {
+              "id": "move-one-place-on",
+              "kind": "phrase",
+              "target": "move one place on",
+              "sentence": 9,
+              "zh": "依次挪到下一个位子。",
+              "en": "'Move one place on' means each person moves to the next seat."
+            }
+          ]
+        },
+        "chapter-07-p088": {
+          "sentences": [
+            "他边说边挪过去，睡鼠跟着他；三月兔坐到了睡鼠的位子上，爱丽丝则很不情愿地坐到了三月兔的位子上。",
+            "这一换，只有帽匠占了便宜；爱丽丝的处境却比先前糟了不少，因为三月兔刚把牛奶罐打翻在自己的盘子里。"
+          ],
+          "hints": [
+            {
+              "id": "worse-off",
+              "kind": "phrase",
+              "target": "worse off",
+              "sentence": 11,
+              "zh": "境况更糟、处境更差。",
+              "en": "'Worse off' means in a worse situation than before."
+            }
+          ]
+        },
+        "chapter-07-p089": {
+          "sentences": [
+            "爱丽丝不想再惹睡鼠不高兴，于是非常小心地开口：“可我不明白。",
+            "她们是从哪儿打糖浆的呢？”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p090": {
+          "sentences": [
+            "“你能从水井里打水，”帽匠说，“那我以为你也能从糖浆井里打糖浆——嗯，笨蛋？”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p091": {
+          "sentences": [
+            "“可她们是在井里呀。”爱丽丝对睡鼠说，故意不去理会他最后那句话。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p092": {
+          "sentences": [
+            "“她们当然在井里，”睡鼠说，“在井里头。”"
+          ],
+          "hints": [
+            {
+              "id": "well-in",
+              "kind": "phrase",
+              "target": "well in",
+              "sentence": 16,
+              "zh": "睡鼠把“在井里”说成 well in，语序一颠倒就成了文字游戏。",
+              "en": "'Well in' twists the word order of 'in the well' into a joke."
+            }
+          ]
+        },
+        "chapter-07-p093": {
+          "sentences": [
+            "这回答把可怜的爱丽丝弄得太糊涂了，她好一会儿都没打断睡鼠，任它往下讲。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p094": {
+          "sentences": [
+            "“她们在学画画，”睡鼠打着哈欠、揉着眼睛继续讲，因为它越来越困了，“她们画各种各样的东西——凡是开头是 M 的——”"
+          ],
+          "hints": [
+            {
+              "id": "all-manner-of-things",
+              "kind": "phrase",
+              "target": "all manner of things",
+              "sentence": 18,
+              "zh": "各种各样的东西。",
+              "en": "'All manner of things' means all kinds of things."
+            }
+          ]
+        },
+        "chapter-07-p095": {
+          "sentences": [
+            "“为什么是 M？”爱丽丝说。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice ask where the sisters drew the treacle from?",
+          "options": [
+            "Because the sisters were inside the well.",
+            "Because the well had no water in it.",
+            "Because the Dormouse refused to answer."
+          ],
+          "answer": 0,
+          "sentence": 15,
+          "feedback": {
+            "zh": "爱丽丝提醒睡鼠，三姐妹就住在井里，所以她才追问糖浆究竟是从哪儿打上来的。",
+            "en": "Alice points out that the sisters were inside the well, which is why she asks where the treacle was drawn from."
+          }
+        },
+        {
+          "question": "What happens after everyone moves one place?",
+          "options": [
+            "Everyone gets a clean cup.",
+            "Alice ends up worse off than before.",
+            "The Dormouse tells a new story."
+          ],
+          "answer": 1,
+          "sentence": 11,
+          "feedback": {
+            "zh": "换位之后只有帽匠得了好处，爱丽丝面前是三月兔打翻的牛奶罐，处境更糟。",
+            "en": "Only the Hatter gains from the move; Alice ends up worse off, with the March Hare's spilled milk-jug in front of her."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the March Hare had just upset the milk-jug into his plate",
+        "pointIds": [
+          "cefrj-67"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had just upset 是过去完成时：牛奶罐被打翻，发生在爱丽丝换位子之前。",
+          "en": "Had just upset is past perfect: the spilling happened before Alice took the new place."
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "树上的门",
+        "en": "The Door in the Tree"
+      },
+      "introduction": {
+        "zh": "茶会上的回答越来越短，睡鼠也越睡越沉。爱丽丝起身穿过树林，忽然在一棵树上看见一扇门。门后面，会不会又是那个熟悉的大厅？",
+        "en": "The answers at the tea party grow shorter, and the Dormouse sinks back into sleep. Alice gets up and walks away through the wood, where she notices a door in one of the trees. Could it lead back to the hall she knows?"
+      },
+      "paragraphs": {
+        "chapter-07-p096": {
+          "sentences": [
+            "“为什么不能是 M？”三月兔说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p097": {
+          "sentences": [
+            "爱丽丝不说话了。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p098": {
+          "sentences": [
+            "这时睡鼠已经闭上了眼睛，正要打瞌睡；可被帽匠一掐，它又尖叫一声醒了过来，接着说：“——开头是 M 的东西，比如捕鼠夹、月亮、记忆，还有‘多’——你知道，人们会说东西‘都差不多’——你见过画出来的‘差不多’这种东西吗？”"
+          ],
+          "hints": [
+            {
+              "id": "muchness",
+              "kind": "word",
+              "target": "muchness",
+              "sentence": 3,
+              "zh": "“多”这个概念；睡鼠把 much 生造成名词，仿佛它能被画出来。",
+              "en": "'Muchness' is an invented noun from 'much', as if 'much' were a thing you could draw."
+            },
+            {
+              "id": "much-of-a-muchness",
+              "kind": "phrase",
+              "target": "much of a muchness",
+              "sentence": 3,
+              "zh": "习语，意思是“差不多、大同小异”。",
+              "en": "The idiom 'much of a muchness' means 'very similar, much the same'."
+            }
+          ]
+        },
+        "chapter-07-p099": {
+          "sentences": [
+            "“说真的，你这一问，”爱丽丝非常困惑地说，“我觉得——”"
+          ],
+          "hints": []
+        },
+        "chapter-07-p100": {
+          "sentences": [
+            "“那你就别说话。”帽匠说。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p101": {
+          "sentences": [
+            "这份无礼实在让爱丽丝忍无可忍：她非常厌恶地站起来，走了出去；睡鼠立刻睡着了，另外两位对她的离开毫不在意，尽管她回头看了他们一两次，还半希望他们会叫她回去：最后一次看时，他们正试着把睡鼠塞进茶壶里。",
+            "“不管怎么说，我再也不去那儿了！”爱丽丝一边在树林里小心地择路走着，一边说。",
+            "“这是我这辈子参加过的最愚蠢的茶会！”"
+          ],
+          "hints": [
+            {
+              "id": "picked-her-way",
+              "kind": "phrase",
+              "target": "picked her way",
+              "sentence": 7,
+              "zh": "小心地选择落脚处往前走。",
+              "en": "To 'pick your way' is to walk carefully, choosing where to put your feet."
+            }
+          ]
+        },
+        "chapter-07-p102": {
+          "sentences": [
+            "她正说着，忽然发现其中一棵树上有一扇门，直通树里。",
+            "“真奇怪！”她想。",
+            "“不过今天什么都奇怪。",
+            "我想我不如马上进去看看。”",
+            "于是她走了进去。"
+          ],
+          "hints": []
+        },
+        "chapter-07-p103": {
+          "sentences": [
+            "她又来到了那个长长的门厅里，靠近那张小玻璃桌。",
+            "“这回我要办得更好些。”她自言自语道，先拿起那把小小的金钥匙，打开了通往花园的门。",
+            "然后她开始一点一点啃蘑菇（她在口袋里留了一块），一直啃到身子大约一英尺高；接着她走过那条小通道；然后——她终于来到了美丽的花园里，置身于鲜艳的花坛和清凉的喷泉之间。"
+          ],
+          "hints": [
+            {
+              "id": "set-to-work",
+              "kind": "phrase",
+              "target": "set to work",
+              "sentence": 16,
+              "zh": "开始动手做某事。",
+              "en": "To 'set to work' is to begin doing something with effort."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice say she will never go back to the tea party?",
+          "options": [
+            "The tea has gone cold.",
+            "The Hatter's rude reply caps a long, stupid conversation.",
+            "She cannot find the way out of the wood."
+          ],
+          "answer": 1,
+          "sentence": 6,
+          "feedback": {
+            "zh": "爱丽丝刚说“我觉得——”，帽匠就打断她“那你就别说话”，她终于认定这是最愚蠢的茶会。",
+            "en": "When Alice begins 'I don't think—', the Hatter cuts her off with 'Then you shouldn't talk', and she decides the party is the stupidest she has ever seen."
+          }
+        },
+        {
+          "question": "What does Alice notice in the wood?",
+          "options": [
+            "A door in one of the trees.",
+            "A glass table under a tree.",
+            "The March Hare following her."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "爱丽丝在树林里发现一棵树上有一扇门，门直通树里。",
+            "en": "Alice notices that one of the trees has a door leading right into it."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "on being pinched by the Hatter, it woke up again with a little shriek",
+        "pointIds": [
+          "cefrj-108"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "being pinched 是“being + 过去分词”的被动分词短语，放在 on 后表示“一被掐就……”。",
+          "en": "Being pinched is a passive participle phrase after on: 'as soon as it was pinched'."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1223 @@
+{
+  "chapter": 10,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "海底怎么跳舞",
+        "en": "How to Dance Under the Sea"
+      },
+      "introduction": {
+        "zh": "假海龟哭得说不出话，狮鹫只好又摇又捶他的背。等他终于开口，讲的却是一种海边的舞：要排成两行，还得带上龙虾当舞伴。为什么非要龙虾不可？",
+        "en": "The Mock Turtle is sobbing so hard that the Gryphon has to shake him and punch his back. When he can speak at last, he describes a dance on the sea-shore: two lines, and a lobster for every dancer. Why a lobster, of all things?"
+      },
+      "paragraphs": {
+        "chapter-10-p001": {
+          "sentences": [
+            "假海龟深深叹了口气，抬起一只鳍肢，用鳍背抹了抹眼睛。",
+            "他望着爱丽丝，想开口说话，可有一两分钟，抽泣堵住了他的嗓子。",
+            "“就像他喉咙里卡了根骨头，”狮鹫说，接着就动手摇他、捶他的背。",
+            "假海龟终于缓过声来，眼泪顺着脸颊往下淌，又接着说了下去：——"
+          ],
+          "hints": [
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 2,
+              "zh": "爱丽丝，本书主角，追着白兔掉进兔子洞的小姑娘。",
+              "en": "Alice, the girl who followed the White Rabbit down the hole and is the heroine of the book."
+            },
+            {
+              "id": "mock-turtle",
+              "kind": "word",
+              "target": "Mock Turtle",
+              "sentence": 1,
+              "zh": "假海龟，海里的一只海龟，为失去的童年伤心，说话常带着哭腔。",
+              "en": "The Mock Turtle, a sea turtle who mourns his lost childhood and often speaks through sobs."
+            },
+            {
+              "id": "gryphon",
+              "kind": "word",
+              "target": "Gryphon",
+              "sentence": 3,
+              "zh": "狮鹫，狮身鹰翼的怪兽，说话直率，常替假海龟把话说完。",
+              "en": "The Gryphon, a creature with a lion's body and eagle's wings, blunt and fond of finishing the Mock Turtle's sentences."
+            },
+            {
+              "id": "flapper",
+              "kind": "word",
+              "target": "flapper",
+              "sentence": 1,
+              "zh": "海龟的鳍状肢；这里指他抬起鳍来，用鳍背抹眼泪。",
+              "en": "A flapper is a turtle's flipper; here he wipes his eyes with the back of one."
+            }
+          ]
+        },
+        "chapter-10-p002": {
+          "sentences": [
+            "“你大概没怎么在海底住过——”（“我没住过，”爱丽丝说）——“说不定还从来没人给你引见过龙虾——”（爱丽丝刚要说“我尝过一次——”，又急忙收住，改口说“没有，从来没有”）——“所以你想不出龙虾四对舞是件多快活的事！”"
+          ],
+          "hints": [
+            {
+              "id": "lobster-quadrille",
+              "kind": "word",
+              "target": "Lobster-Quadrille",
+              "sentence": 5,
+              "zh": "龙虾四对舞，假海龟讲的那种海底舞蹈，跳舞的人要拿龙虾当舞伴。",
+              "en": "The Lobster Quadrille, the sea dance the Mock Turtle describes, danced with lobsters as partners."
+            }
+          ]
+        },
+        "chapter-10-p003": {
+          "sentences": [
+            "“是没有，真的。”爱丽丝说。",
+            "“那是一种什么样的舞？”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p004": {
+          "sentences": [
+            "“这个嘛，”狮鹫说，“你先沿着海岸排成一行——”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p005": {
+          "sentences": [
+            "“两行！”假海龟喊道。",
+            "“海豹、海龟、鲑鱼，等等：然后，等你们把水母全都清到一边去——”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p006": {
+          "sentences": [
+            "“那一般得花不少时间。”狮鹫插嘴说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p007": {
+          "sentences": [
+            "“——你向前进两步——”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p008": {
+          "sentences": [
+            "“每人带一只龙虾当舞伴！”狮鹫喊道。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p009": {
+          "sentences": [
+            "“当然，”假海龟说，“向前进两步，和舞伴对舞——”"
+          ],
+          "hints": [
+            {
+              "id": "set-to-partners",
+              "kind": "phrase",
+              "target": "set to partners",
+              "sentence": 14,
+              "zh": "对舞中的一步：和舞伴面对面站好，相对而舞。",
+              "en": "A country-dance step: to face your partner and dance towards each other."
+            }
+          ]
+        },
+        "chapter-10-p010": {
+          "sentences": [
+            "“——交换龙虾，再按原来的次序退回来。”狮鹫接着说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p011": {
+          "sentences": [
+            "“然后，你知道，”假海龟继续说，“你把那——”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p012": {
+          "sentences": [
+            "“把龙虾！”狮鹫大喊一声，往空中一跳。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p013": {
+          "sentences": [
+            "“——往海里扔得越远越好——”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p014": {
+          "sentences": [
+            "“再游过去追它们！”狮鹫尖叫道。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p015": {
+          "sentences": [
+            "“在海里翻个跟头！”假海龟喊道，发疯似的蹦来蹦去。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p016": {
+          "sentences": [
+            "“再换一回龙虾！”狮鹫扯着嗓子大叫。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Gryphon do to help the Mock Turtle?",
+          "options": [
+            "It gives him a drink of water.",
+            "It shakes him and punches him in the back.",
+            "It carries him down to the shore."
+          ],
+          "answer": 1,
+          "sentence": 3,
+          "feedback": {
+            "zh": "假海龟抽泣得说不出话，狮鹫说他像是喉咙里卡了骨头，就动手摇他、捶他的背。",
+            "en": "The Mock Turtle cannot speak for sobbing, so the Gryphon shakes him and punches his back."
+          }
+        },
+        {
+          "question": "What does every dancer need in the Lobster Quadrille?",
+          "options": [
+            "A line of seals to dance behind.",
+            "A lobster as a partner.",
+            "A shell to carry in one hand."
+          ],
+          "answer": 1,
+          "sentence": 13,
+          "feedback": {
+            "zh": "狮鹫喊出舞步的要点：每人要带一只龙虾当舞伴。",
+            "en": "The Gryphon cries out that each dancer has a lobster as a partner."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "You may not have lived much under the sea",
+        "pointIds": [
+          "cefrj-145"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "may not have lived 是情态动词 + have + 过去分词，用来推测过去的经历：也许你并没有在海底住过。",
+          "en": "May not have lived is a modal with have and a past participle, guessing about a past experience: perhaps you never lived under the sea."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "围着爱丽丝跳",
+        "en": "Dancing Round Alice"
+      },
+      "introduction": {
+        "zh": "两只海里的动物说，没有龙虾也能跳第一段，就在爱丽丝身边跳起来。它们转着圈，时不时踩到她的脚趾，假海龟还唱起一支很慢、很伤心的歌：一条牙鳕在劝蜗牛跳舞。",
+        "en": "The two sea creatures say they can try the first figure without lobsters, and they dance around Alice instead. They tread on her toes as they pass, while the Mock Turtle sings a slow, sad song about a whiting who asks a snail to join the dance."
+      },
+      "paragraphs": {
+        "chapter-10-p017": {
+          "sentences": [
+            "“再回到岸上，然后——第一段就是这样，”假海龟说着，忽然压低了声音；这两个家伙先前一直像疯子一样蹦来蹦去，这时又很伤心、很安静地坐了下来，看着爱丽丝。"
+          ],
+          "hints": [
+            {
+              "id": "figure",
+              "kind": "word",
+              "target": "figure",
+              "sentence": 1,
+              "zh": "figure 这里指一套舞步、一段舞（第一段），不是“数字”或“人物”。",
+              "en": "A figure here is one part or set of steps in a dance, not a number or a person."
+            }
+          ]
+        },
+        "chapter-10-p018": {
+          "sentences": [
+            "“那一定是一支很好看的舞。”爱丽丝怯生生地说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p019": {
+          "sentences": [
+            "“你想不想看一点点？”假海龟说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p020": {
+          "sentences": [
+            "“非常想。”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p021": {
+          "sentences": [
+            "“来吧，咱们试试第一段！”假海龟对狮鹫说。",
+            "“没有龙虾，咱们也能跳，你知道。",
+            "谁来唱？”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p022": {
+          "sentences": [
+            "“哦，你唱。”狮鹫说。",
+            "“我忘了词了。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p023": {
+          "sentences": [
+            "于是他们郑重其事地围着爱丽丝一圈一圈地跳，经过时靠得太近就踩到她的脚趾，还挥着前爪打拍子；假海龟则非常缓慢、非常伤心地唱了起来：——"
+          ],
+          "hints": []
+        },
+        "chapter-10-p024": {
+          "sentences": [
+            "“你走快一点好不好？”一条牙鳕对蜗牛说，“咱们身后就有一只海豚，他正踩着我的尾巴呢。",
+            "你看那些龙虾和乌龟，全都往前赶得多起劲！",
+            "它们在卵石滩上等着——你来不来一起跳舞？",
+            "你来不来，来不来，你来不来，来不来，你来跳舞吗？",
+            "你来不来，来不来，你来不来，来不来，你就不来跳舞吗？"
+          ],
+          "hints": [
+            {
+              "id": "whiting",
+              "kind": "word",
+              "target": "whiting",
+              "sentence": 11,
+              "zh": "牙鳕，一种海鱼；歌里正是它在劝蜗牛去跳舞。",
+              "en": "A whiting, a small sea fish; in the song it is the whiting who urges the snail to dance."
+            },
+            {
+              "id": "porpoise",
+              "kind": "word",
+              "target": "porpoise",
+              "sentence": 11,
+              "zh": "海豚（鼠海豚），歌里紧跟在它们身后的那一只。",
+              "en": "A porpoise, a sea animal like a small dolphin; in the song one is close behind them."
+            },
+            {
+              "id": "shingle",
+              "kind": "word",
+              "target": "shingle",
+              "sentence": 13,
+              "zh": "shingle 这里指海边铺满小石子的卵石滩，不是屋顶上的木瓦。",
+              "en": "Shingle here means a beach covered with small stones, not the tiles on a roof."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What happens to Alice while the two creatures dance around her?",
+          "options": [
+            "They ask her to sing the chorus with them.",
+            "They tread on her toes when they pass close.",
+            "They push her into the sea."
+          ],
+          "answer": 1,
+          "sentence": 10,
+          "feedback": {
+            "zh": "它们绕着爱丽丝一圈圈地跳，靠得太近时就踩到她的脚趾，还挥着前爪打拍子。",
+            "en": "They dance round Alice and tread on her toes whenever they pass too close."
+          }
+        },
+        {
+          "question": "Who are the two animals talking in the song the Mock Turtle sings?",
+          "options": [
+            "A lobster and a turtle.",
+            "A whiting and a snail.",
+            "A porpoise and a seal."
+          ],
+          "answer": 1,
+          "sentence": 11,
+          "feedback": {
+            "zh": "歌一开口就是一条牙鳕在对蜗牛说话，催它走快一点。",
+            "en": "The song opens with a whiting speaking to a snail and urging it to walk faster."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "who had been jumping about like mad things",
+        "pointIds": [
+          "cefrj-68"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had been jumping 是过去完成进行时：在他们坐下来之前，已经这样蹦了好一阵。",
+          "en": "Had been jumping is past perfect continuous: the jumping had gone on for some time before they sat down."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "蜗牛不肯跳",
+        "en": "The Snail Says No"
+      },
+      "introduction": {
+        "zh": "歌里的蜗牛怎么也不肯往前走，爱丽丝很高兴这支舞总算跳完了。她说自己很喜欢那支关于牙鳕的歌，假海龟便问她见没见过牙鳕。她刚说出“在餐——”，就急忙住口。她差点说出什么？",
+        "en": "The snail refuses to go further, and Alice is glad when the dance ends. She says she likes the song about the whiting, so the Mock Turtle asks if she has seen one. She starts to answer 'at dinn—' and stops. What was she about to say?"
+      },
+      "paragraphs": {
+        "chapter-10-p025": {
+          "sentences": [
+            "“你真想不到那会有多快活：等他们把我们抬起来，跟龙虾一起扔到海里去！”",
+            "可蜗牛回答说：“太远了，太远了！”还斜斜地瞥了一眼——他说他很感谢牙鳕的好意，可他不想去跳舞。",
+            "不去，不能去，不去，不能去，不去跳舞。",
+            "不去，不能去，不去，不能去，不能去跳舞。"
+          ],
+          "hints": [
+            {
+              "id": "askance",
+              "kind": "phrase",
+              "target": "gave a look askance",
+              "sentence": 2,
+              "zh": "斜着眼睛看，带着怀疑、不赞成的意思。",
+              "en": "To look askance is to glance sideways with doubt or disapproval."
+            }
+          ]
+        },
+        "chapter-10-p026": {
+          "sentences": [
+            "“走远一点又有什么关系？”他那长鳞的朋友回答说，“你知道，另一边还有一片海岸。",
+            "离英格兰越远，就离法国越近——那么别脸色发白，亲爱的蜗牛，来一起跳舞吧。",
+            "你来不来，来不来，你来不来，你来跳舞吗？",
+            "你来不来，来不来，你来不来，你就不来跳舞吗？”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p027": {
+          "sentences": [
+            "“谢谢你，这支舞看着很有意思。”爱丽丝说，心里很高兴它总算跳完了，“我真的很喜欢那支关于牙鳕的怪歌！”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p028": {
+          "sentences": [
+            "“哦，说到牙鳕，”假海龟说，“它们——你当然见过它们吧？”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p029": {
+          "sentences": [
+            "“见过，”爱丽丝说，“我常常见它们摆在餐——”她急忙收住了嘴。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p030": {
+          "sentences": [
+            "“我不知道‘餐’在什么地方，”假海龟说，“可你要是常常见到它们，当然知道它们长什么样。”"
+          ],
+          "hints": [
+            {
+              "id": "dinn",
+              "kind": "word",
+              "target": "Dinn",
+              "sentence": 12,
+              "zh": "爱丽丝本要说 at dinner（在餐桌上），刚说半个词就停住；假海龟却把“Dinn”当成一个地名。",
+              "en": "Alice was about to say 'at dinner' and stopped halfway; the Mock Turtle takes 'Dinn' for the name of a place."
+            }
+          ]
+        },
+        "chapter-10-p031": {
+          "sentences": [
+            "“我想是的。”爱丽丝若有所思地回答。",
+            "“它们的尾巴衔在嘴里——而且浑身都是面包屑。”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does the snail refuse to join the dance?",
+          "options": [
+            "He thinks the sea is too far away.",
+            "He cannot swim.",
+            "He is afraid of the whiting."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "蜗牛只回答“太远了，太远了”，说谢谢牙鳕的好意，可他不肯去。",
+            "en": "The snail answers 'Too far, too far!' and politely declines the whiting's invitation."
+          }
+        },
+        {
+          "question": "What is Alice about to say when she checks herself?",
+          "options": [
+            "That she has often seen whiting at dinner.",
+            "That she has never seen a whiting.",
+            "That she once danced with a whiting."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "她说自己常常见到牙鳕“摆在餐——”，显然要说的是餐桌上，所以急忙改了口。",
+            "en": "She says she has often seen whiting 'at dinn—', clearly meaning at dinner, and stops herself."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "The further off from England the nearer is to France",
+        "pointIds": [
+          "cefrj-50"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "The further… the nearer… 是“越……就越……”；两个 the 后面都跟比较级，诗里语序有些颠倒。",
+          "en": "The further ... the nearer ... is the 'the more, the more' pattern: each the is followed by a comparative, with the word order turned round for the verse."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "尾巴为什么在嘴里",
+        "en": "Why the Tail Is in the Mouth"
+      },
+      "introduction": {
+        "zh": "假海龟说面包屑在海里早冲掉了，狮鹫便一口气讲出牙鳕尾巴衔在嘴里的“原因”。接着他问爱丽丝，知不知道这种鱼为什么叫“牙鳕”。他的答案跟靴子和鞋有关——这两样怎么会扯到一起？",
+        "en": "The Mock Turtle says crumbs would wash off in the sea, and the Gryphon explains those tails. He asks Alice why the fish is called a whiting, and the answer has to do with boots and shoes. What can shoes have to do with a fish?"
+      },
+      "paragraphs": {
+        "chapter-10-p032": {
+          "sentences": [
+            "“面包屑的事你说错了，”假海龟说，“面包屑在海里全会冲掉的。",
+            "可它们的尾巴确实衔在嘴里；原因是——”说到这里，假海龟打了个哈欠，闭上了眼睛。——“你把原因什么的讲给她听吧。”他对狮鹫说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p033": {
+          "sentences": [
+            "“原因是，”狮鹫说，“它们要跟龙虾一起去跳舞。",
+            "于是它们被扔到了海里。",
+            "于是它们得往下落好长一段。",
+            "于是它们的尾巴就牢牢卡在嘴里了。",
+            "于是它们再也拔不出来了。",
+            "就是这么回事。”"
+          ],
+          "hints": [
+            {
+              "id": "fast",
+              "kind": "word",
+              "target": "fast",
+              "sentence": 6,
+              "zh": "fast 这里不是“快”，而是“牢牢地、紧紧地”。",
+              "en": "Fast here does not mean quickly; it means firmly or tightly."
+            }
+          ]
+        },
+        "chapter-10-p034": {
+          "sentences": [
+            "“谢谢你，”爱丽丝说，“真有意思。",
+            "我以前从没听说过这么多关于牙鳕的事。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p035": {
+          "sentences": [
+            "“你要是愿意，我还能多讲些。”狮鹫说。",
+            "“你知道它为什么叫牙鳕吗？”"
+          ],
+          "hints": [
+            {
+              "id": "whiting",
+              "kind": "word",
+              "target": "whiting",
+              "sentence": 12,
+              "zh": "这里的 whiting 是双关：既是鱼名“牙鳕”，也指把鞋刷白的白垩粉。",
+              "en": "Whiting is a pun here: it is both the fish and the white chalk powder used to whiten shoes."
+            }
+          ]
+        },
+        "chapter-10-p036": {
+          "sentences": [
+            "“我从没想过这个。”爱丽丝说。",
+            "“为什么？”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p037": {
+          "sentences": [
+            "“它负责刷靴子和鞋。”狮鹫非常严肃地回答。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p038": {
+          "sentences": [
+            "爱丽丝完全糊涂了。",
+            "“它刷靴子和鞋！”她用惊讶的口气重复了一遍。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p039": {
+          "sentences": [
+            "“怎么，你的鞋是用什么刷的？”狮鹫说。",
+            "“我是说，是什么让它们那么亮？”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p040": {
+          "sentences": [
+            "爱丽丝低头看了看自己的鞋，想了一会儿才回答。",
+            "“我想是用黑鞋油刷的吧。”"
+          ],
+          "hints": [
+            {
+              "id": "blacking",
+              "kind": "word",
+              "target": "blacking",
+              "sentence": 21,
+              "zh": "黑鞋油，擦黑皮鞋用的那种。",
+              "en": "Blacking: the black polish used on leather boots and shoes."
+            }
+          ]
+        },
+        "chapter-10-p041": {
+          "sentences": [
+            "“海底的靴子和鞋，”狮鹫用低沉的声音接着说，“是用牙鳕刷的。",
+            "现在你明白了。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p042": {
+          "sentences": [
+            "“那它们是用什么做的？”",
+            "爱丽丝非常好奇地问。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p043": {
+          "sentences": [
+            "“当然是鞋底和鳗鱼，”狮鹫相当不耐烦地回答，“随便哪只虾都能告诉你。”"
+          ],
+          "hints": [
+            {
+              "id": "soles-and-eels",
+              "kind": "phrase",
+              "target": "Soles and eels",
+              "sentence": 26,
+              "zh": "双关：sole 既是“鞋底”也是一种鱼（鳎），eels（鳗鱼）又和 heels（鞋跟）同音。",
+              "en": "A pun: soles are the bottoms of shoes and also a kind of fish, and eels sounds like heels."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the Gryphon say boots and shoes under the sea are cleaned with?",
+          "options": [
+            "Blacking.",
+            "Whiting.",
+            "Sea water."
+          ],
+          "answer": 1,
+          "sentence": 22,
+          "feedback": {
+            "zh": "狮鹫说海底的靴子和鞋是用 whiting 刷的——这个词既是“牙鳕”，也指刷白的白垩粉。",
+            "en": "The Gryphon says they are done with whiting, the word for both the fish and the white chalk used to clean shoes."
+          }
+        },
+        {
+          "question": "According to the Gryphon, what happened to the whiting after they were thrown into the sea?",
+          "options": [
+            "They swam back to land.",
+            "Their tails stuck fast in their mouths.",
+            "They were caught by the lobsters."
+          ],
+          "answer": 1,
+          "sentence": 6,
+          "feedback": {
+            "zh": "狮鹫说它们落了好长一段，尾巴就牢牢卡进嘴里，再也拔不出来。",
+            "en": "The Gryphon says they fell a long way, their tails stuck fast in their mouths and never came out."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "they would go with the lobsters to the dance",
+        "pointIds": [
+          "cefrj-142"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "would go 里的 would 表示意愿，不是过去将来：它们当初存心要跟龙虾去跳舞。",
+          "en": "Would go here shows willingness, not future-in-the-past: the whiting were set on going to the dance with the lobsters."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "海豚还是目的",
+        "en": "A Porpoise or a Purpose"
+      },
+      "introduction": {
+        "zh": "爱丽丝想，要是她是那条牙鳕，就会请海豚让开。假海龟却说，聪明的鱼出门总得带上一条海豚，还把“海豚”和“目的”混作一谈。话题转到她的奇遇，她却说没法从昨天讲起——那时她是另一个人。",
+        "en": "Alice thinks what she would have said to the porpoise. The Mock Turtle insists that no wise fish travels without one, and mixes up porpoise with purpose. Then talk turns to her adventures, and she says she cannot begin from yesterday, when she was a different person."
+      },
+      "paragraphs": {
+        "chapter-10-p044": {
+          "sentences": [
+            "“要是我是那条牙鳕，”爱丽丝说，她的心思还在这支歌上，“我就会对海豚说：‘请退后一点：我们不想让你跟着我们！’”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p045": {
+          "sentences": [
+            "“它们不得不带上他，”假海龟说，“聪明的鱼出门，没有不带海豚的。”"
+          ],
+          "hints": [
+            {
+              "id": "obliged",
+              "kind": "word",
+              "target": "obliged",
+              "sentence": 2,
+              "zh": "be obliged to 意思是“不得不、只好”。",
+              "en": "To be obliged to do something means to have no choice but to do it."
+            }
+          ]
+        },
+        "chapter-10-p046": {
+          "sentences": [
+            "“真的非带不可吗？”爱丽丝非常惊讶地问。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p047": {
+          "sentences": [
+            "“当然不是，”假海龟说，“你想，要是有条鱼来找我，跟我说他要去旅行，我就会问：‘带着什么海豚去呢？’”"
+          ],
+          "hints": [
+            {
+              "id": "with-what-porpoise",
+              "kind": "phrase",
+              "target": "With what porpoise",
+              "sentence": 4,
+              "zh": "假海龟把 porpoise（海豚）当成 purpose（目的）来用，故意这样问；下一句爱丽丝替他改正。",
+              "en": "The Mock Turtle uses porpoise as if it were purpose; Alice corrects the word in her next line."
+            }
+          ]
+        },
+        "chapter-10-p048": {
+          "sentences": [
+            "“你的意思是‘目的’吧？”爱丽丝说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p049": {
+          "sentences": [
+            "“我说的是什么，就是什么。”假海龟不高兴地回答。",
+            "狮鹫又补了一句：“来吧，讲讲你的一些奇遇。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p050": {
+          "sentences": [
+            "“我可以讲讲我的奇遇——从今天早上讲起，”爱丽丝有点胆怯地说，“可从昨天讲起就没用了，因为那时候我是另一个人。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p051": {
+          "sentences": [
+            "“你把这一切解释一下。”假海龟说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p052": {
+          "sentences": [
+            "“不，不！先讲奇遇，”狮鹫不耐烦地说，“解释起来太费时间了。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p053": {
+          "sentences": [
+            "于是爱丽丝从她第一次看见白兔的时候讲起，讲起她的种种奇遇：一开始她有点紧张，因为这两个家伙挨得那么近，一边一个，眼睛和嘴都张得大大的；不过她讲着讲着就壮起了胆子。",
+            "听她讲的人一直安安静静，直到她讲到她给毛毛虫背《你老了，威廉爸爸》，词儿全变了样；这时假海龟深深吸了口气，说：“那可真是奇怪。”"
+          ],
+          "hints": [
+            {
+              "id": "white-rabbit",
+              "kind": "word",
+              "target": "White Rabbit",
+              "sentence": 11,
+              "zh": "白兔，揣着怀表、把爱丽丝引进奇境的那只兔子。",
+              "en": "The White Rabbit, the waistcoat-and-watch rabbit who first led Alice into Wonderland."
+            },
+            {
+              "id": "caterpillar",
+              "kind": "word",
+              "target": "Caterpillar",
+              "sentence": 12,
+              "zh": "毛毛虫，抽水烟、让爱丽丝背《你老了，威廉爸爸》的那条虫子。",
+              "en": "The Caterpillar, the hookah-smoking insect Alice recited 'You are old, Father William' to."
+            },
+            {
+              "id": "father-william",
+              "kind": "phrase",
+              "target": "Father William",
+              "sentence": 12,
+              "zh": "《你老了，威廉爸爸》，书中一首戏仿的老诗，爱丽丝背给毛毛虫听过。",
+              "en": "'You are old, Father William', a parody poem that Alice recites to the Caterpillar."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is the Mock Turtle doing with the word 'porpoise'?",
+          "options": [
+            "He is making a joke on the word 'purpose'.",
+            "He really wants to know which porpoise it is.",
+            "He is asking what the fish will eat on the journey."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "他把 porpoise（海豚）当成 purpose（目的）来用，故意问鱼带着什么“海豚”，爱丽丝只好提醒他说的是“目的”。",
+            "en": "He treats porpoise as if it meant purpose, so Alice has to suggest that he means 'purpose'."
+          }
+        },
+        {
+          "question": "Why does Alice say she cannot begin her story from yesterday?",
+          "options": [
+            "She cannot remember yesterday.",
+            "She was a different person then.",
+            "Yesterday was too dull to describe."
+          ],
+          "answer": 1,
+          "sentence": 8,
+          "feedback": {
+            "zh": "爱丽丝说从昨天讲起没用，因为那时候她是另一个人。",
+            "en": "Alice says it is no use going back to yesterday, because she was a different person then."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "If I'd been the whiting",
+        "pointIds": [
+          "cefrj-216"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "If I'd been 是 if + had + 过去分词，假设与过去事实相反——她并不是牙鳕；主句用 I'd have said。",
+          "en": "If I'd been is if with had and a past participle, imagining the opposite of the past; the main clause takes would have said."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "背错的诗",
+        "en": "The Wrong Poem"
+      },
+      "introduction": {
+        "zh": "两只动物让爱丽丝站起来，背一首她从小就会的诗。可她脑子里全是龙虾四对舞，一开口，词儿就变了样：龙虾抱怨自己被烤得太焦，还得给头发加糖。这样的诗，听众会怎么说？",
+        "en": "The two creatures make Alice stand up and repeat a poem she has known since childhood. Her head is full of the Lobster Quadrille, so the words come out wrong: a lobster complains of being baked too brown and must sugar his hair. What will her listeners say?"
+      },
+      "paragraphs": {
+        "chapter-10-p054": {
+          "sentences": [
+            "“真是怪得不能再怪了。”狮鹫说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p055": {
+          "sentences": [
+            "“全变了样！”假海龟若有所思地重复道。",
+            "“我现在倒想听她试着背点什么。",
+            "叫她开始吧。”",
+            "他看了看狮鹫，好像觉得狮鹫对爱丽丝有某种管束的权力。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p056": {
+          "sentences": [
+            "“站起来，背《懒汉之声》。”狮鹫说。"
+          ],
+          "hints": [
+            {
+              "id": "sluggard",
+              "kind": "word",
+              "target": "sluggard",
+              "sentence": 6,
+              "zh": "懒汉、懒人；《懒汉之声》是爱丽丝要背的那首诗的题目。",
+              "en": "A sluggard is a lazy person; 'Tis the voice of the sluggard' is the poem Alice has to recite."
+            }
+          ]
+        },
+        "chapter-10-p057": {
+          "sentences": [
+            "“这些家伙多会支使人，还叫人背课文！”爱丽丝心想，“我还不如马上回学校去。”",
+            "可她还是站了起来，开口背；只是她脑子里装满了龙虾四对舞，几乎不知道自己念的是什么，出来的词儿确实古怪得很：——"
+          ],
+          "hints": [
+            {
+              "id": "order-one-about",
+              "kind": "phrase",
+              "target": "order one about",
+              "sentence": 7,
+              "zh": "支使人、对人呼来喝去。",
+              "en": "To order someone about is to keep telling them what to do."
+            }
+          ]
+        },
+        "chapter-10-p058": {
+          "sentences": [
+            "“‘这是龙虾的声音；我听见他宣告：‘你把我烤得太焦了，我得给头发加点糖。’就像鸭子用它的眼皮，他用鼻子理好腰带和纽扣，还把脚趾朝外撇。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p059": {
+          "sentences": [
+            "“这跟我小时候念的不一样。”狮鹫说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p060": {
+          "sentences": [
+            "“嗯，我以前从没听过，”假海龟说，“不过听起来是少有的胡说八道。”"
+          ],
+          "hints": [
+            {
+              "id": "uncommon",
+              "kind": "word",
+              "target": "uncommon",
+              "sentence": 11,
+              "zh": "uncommon 这里不是“不常见”，而是加强语气：“非同一般的、十足的”胡说八道。",
+              "en": "Uncommon here strengthens the noun: quite extraordinary nonsense, not merely unusual."
+            }
+          ]
+        },
+        "chapter-10-p061": {
+          "sentences": [
+            "爱丽丝什么也没说：她又坐了下来，双手捂着脸，心里想着，还会不会有哪件事按常理发生。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p062": {
+          "sentences": [
+            "“我倒希望有人解释一下。”假海龟说。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p063": {
+          "sentences": [
+            "“她解释不了。”狮鹫急忙说。",
+            "“接着背下一节。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p064": {
+          "sentences": [
+            "“可他的脚趾是怎么回事？”假海龟不肯放过。",
+            "“你想，他怎么能用鼻子把脚趾朝外撇呢？”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why do the words of the poem come out wrong?",
+          "options": [
+            "She has never learned the poem.",
+            "Her head is full of the Lobster Quadrille.",
+            "The Gryphon tells her the wrong words."
+          ],
+          "answer": 1,
+          "sentence": 8,
+          "feedback": {
+            "zh": "她站起来背诗，可脑子里装满了龙虾四对舞，几乎不知道自己念的是什么。",
+            "en": "She gets up to recite, but her head is so full of the Lobster Quadrille that she hardly knows what she is saying."
+          }
+        },
+        {
+          "question": "What does the Mock Turtle think of the poem?",
+          "options": [
+            "It is the best poem he has ever heard.",
+            "It sounds like uncommon nonsense.",
+            "It is exactly what he used to say."
+          ],
+          "answer": 1,
+          "sentence": 11,
+          "feedback": {
+            "zh": "假海龟说自己从没听过这首诗，只觉得它是少有的胡说八道。",
+            "en": "The Mock Turtle says he has never heard it before and that it sounds uncommon nonsense."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I might just as well be at school at once",
+        "pointIds": [
+          "cefrj-133"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "might just as well 意思是“倒不如、干脆……也一样”，爱丽丝觉得被支使背课文，跟在学校没两样。",
+          "en": "Might just as well means there is no real difference: being ordered to recite makes Alice feel she may as well be at school."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "再跳一段，还是唱歌",
+        "en": "Another Figure, or a Song?"
+      },
+      "introduction": {
+        "zh": "爱丽丝勉强解释“脚趾朝外”是跳舞的第一个姿势，假海龟却嫌她背的时候不肯讲解。狮鹫让她停下，问她还想再跳一段，还是听一支歌。她回答得太急切，狮鹫似乎有点不高兴。",
+        "en": "Alice tries to explain the first position in dancing, but the Mock Turtle complains that she will not explain as she goes. The Gryphon lets her stop and offers a choice: another figure of the dance, or a song. She answers so eagerly that the Gryphon seems hurt."
+      },
+      "paragraphs": {
+        "chapter-10-p065": {
+          "sentences": [
+            "“那是跳舞的第一个姿势。”爱丽丝说；可这整件事让她莫名其妙，她很想换个话题。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p066": {
+          "sentences": [
+            "“接着背下一节，”狮鹫不耐烦地重复道，“开头是‘我路过他的花园’。”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p067": {
+          "sentences": [
+            "爱丽丝不敢不听，虽然她确信一定会背错，还是用发颤的声音接着背：——"
+          ],
+          "hints": []
+        },
+        "chapter-10-p068": {
+          "sentences": [
+            "“我路过他的花园，用一只眼睛看见，猫头鹰和牡蛎在分吃一个馅饼——”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p069": {
+          "sentences": [
+            "“要是你一边背一边不解释，”假海龟打断她，“背这些乱七八糟的东西有什么用？",
+            "这是我听过的最让人糊涂的东西！”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p070": {
+          "sentences": [
+            "“是呀，我看你还是别背了。”狮鹫说，爱丽丝求之不得。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p071": {
+          "sentences": [
+            "“咱们要不要试试龙虾四对舞的另一段？”狮鹫接着说。",
+            "“还是你想让假海龟给你唱支歌？”"
+          ],
+          "hints": []
+        },
+        "chapter-10-p072": {
+          "sentences": [
+            "“哦，唱支歌吧，要是假海龟肯赏脸的话。”爱丽丝回答得太急切，狮鹫有点不高兴地说：“哼！",
+            "口味这东西没法说！",
+            "伙计，给她唱那支《海龟汤》，行吗？”"
+          ],
+          "hints": [
+            {
+              "id": "no-accounting-for-tastes",
+              "kind": "phrase",
+              "target": "No accounting for tastes",
+              "sentence": 11,
+              "zh": "习语，“各人的口味没法解释”，常用来表示不赞同对方的选择。",
+              "en": "An idiom meaning people's tastes cannot be explained, said when you disapprove of someone's choice."
+            },
+            {
+              "id": "turtle-soup",
+              "kind": "phrase",
+              "target": "Turtle Soup",
+              "sentence": 12,
+              "zh": "《海龟汤》，假海龟要唱的那支歌，名字来自维多利亚时代宴席上的一道名菜。",
+              "en": "'Turtle Soup', the song the Mock Turtle is asked to sing, named after a famous Victorian dish."
+            }
+          ]
+        },
+        "chapter-10-p073": {
+          "sentences": [
+            "假海龟深深叹了口气，用时而哽咽的声音，开始唱道：——"
+          ],
+          "hints": []
+        },
+        "chapter-10-p074": {
+          "sentences": [
+            "“美丽的汤，又浓又绿，盛在滚热的汤盆里！",
+            "这样的美味，谁不愿意低下头来？",
+            "傍晚的汤，美丽的汤！",
+            "傍晚的汤，美丽的汤！",
+            "美——丽的汤——汤！",
+            "美——丽的汤——汤！",
+            "傍——晚——的汤。",
+            "美丽的、美丽的汤！”"
+          ],
+          "hints": [
+            {
+              "id": "tureen",
+              "kind": "word",
+              "target": "tureen",
+              "sentence": 14,
+              "zh": "汤盆，带盖的大汤碗。",
+              "en": "A tureen: a large deep dish with a lid, used for serving soup."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What choice does the Gryphon offer Alice?",
+          "options": [
+            "To go home or to stay with them.",
+            "Another figure of the dance or a song.",
+            "To sing herself or to listen to the Mock Turtle."
+          ],
+          "answer": 1,
+          "sentence": 8,
+          "feedback": {
+            "zh": "狮鹫问她要不要再试龙虾四对舞的另一段，或者让假海龟给她唱支歌。",
+            "en": "The Gryphon asks whether she would like another figure of the Lobster Quadrille or a song."
+          }
+        },
+        {
+          "question": "Why does the Gryphon sound rather offended?",
+          "options": [
+            "Alice says she dislikes his singing.",
+            "Alice is far more eager for the Mock Turtle's song than for the dance.",
+            "Alice refuses to explain the poem."
+          ],
+          "answer": 1,
+          "sentence": 10,
+          "feedback": {
+            "zh": "爱丽丝一听唱歌就急切地答应，狮鹫便哼了一声，还说“口味这东西没法说”。",
+            "en": "Alice answers so eagerly that the Gryphon mutters 'No accounting for tastes!'"
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I think you'd better leave off",
+        "pointIds": [
+          "cefrj-126"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "you'd better 是 you had better 的缩写，后面跟动词原形，意思是“你最好……”。",
+          "en": "You'd better is short for you had better and takes the bare verb: it means the best thing is to stop."
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "远处的一声喊",
+        "en": "A Cry in the Distance"
+      },
+      "introduction": {
+        "zh": "汤之歌还没唱完，狮鹫就嚷着要再来一遍合唱。就在这时，远处传来一声喊，狮鹫抓住爱丽丝的手就跑，连歌的结尾都等不及。她一边跑一边问：那是什么审判？",
+        "en": "The soup song is not over when the Gryphon calls for the chorus again. Then a shout comes from the distance, and the Gryphon seizes Alice's hand and runs, without waiting for the end. As she runs, Alice asks what trial it is."
+      },
+      "paragraphs": {
+        "chapter-10-p075": {
+          "sentences": [
+            "“美丽的汤！",
+            "谁还稀罕鱼、野味，或者别的什么菜？",
+            "为了两便士的美丽汤，谁不愿意把一切都换掉？",
+            "只要两便士的美丽汤？",
+            "美——丽的汤——汤！",
+            "美——丽的汤——汤！",
+            "傍——晚——的汤，美丽的、美——丽的汤！”"
+          ],
+          "hints": [
+            {
+              "id": "game",
+              "kind": "word",
+              "target": "Game",
+              "sentence": 2,
+              "zh": "game 这里指野味（打猎得来的鸟兽肉），不是“游戏”。",
+              "en": "Game here means wild birds or animals eaten as food, not a game to play."
+            }
+          ]
+        },
+        "chapter-10-p076": {
+          "sentences": [
+            "“再来一遍合唱！”狮鹫喊道。假海龟刚要重唱，远处就传来一声喊：“审判开始了！”"
+          ],
+          "hints": [
+            {
+              "id": "chorus",
+              "kind": "word",
+              "target": "chorus",
+              "sentence": 8,
+              "zh": "合唱、副歌；狮鹫要他们把歌里反复的那几句再唱一遍。",
+              "en": "A chorus is the part of a song repeated after each verse; the Gryphon wants it sung again."
+            }
+          ]
+        },
+        "chapter-10-p077": {
+          "sentences": [
+            "“走吧！”狮鹫喊道，拉起爱丽丝的手就匆匆走了，没等那支歌唱完。"
+          ],
+          "hints": []
+        },
+        "chapter-10-p078": {
+          "sentences": [
+            "“是什么审判？”",
+            "爱丽丝一边跑一边喘着问；可狮鹫只答了一句“走吧！”，跑得更快了。那忧伤的歌声随着吹在身后的微风传来，越来越轻：——"
+          ],
+          "hints": []
+        },
+        "chapter-10-p079": {
+          "sentences": [
+            "“傍——晚——的汤，美丽的、美丽的汤！”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What interrupts the song?",
+          "options": [
+            "A cry that the trial is beginning.",
+            "The Queen calling for Alice.",
+            "The Mock Turtle beginning to cry."
+          ],
+          "answer": 0,
+          "sentence": 8,
+          "feedback": {
+            "zh": "假海龟刚要重唱，远处就传来一声喊：“审判开始了！”",
+            "en": "The Mock Turtle is about to repeat the chorus when a cry of 'The trial's beginning!' comes from the distance."
+          }
+        },
+        {
+          "question": "What does the Gryphon do when he hears the cry?",
+          "options": [
+            "He waits for the last chorus.",
+            "He takes Alice's hand and hurries away.",
+            "He explains what the trial is about."
+          ],
+          "answer": 1,
+          "sentence": 9,
+          "feedback": {
+            "zh": "狮鹫抓住爱丽丝的手就匆匆走了，连歌的结尾都没等。",
+            "en": "The Gryphon takes Alice by the hand and hurries off without waiting for the end of the song."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "the Mock Turtle had just begun to repeat it",
+        "pointIds": [
+          "cefrj-67"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had just begun 是过去完成时：在喊声传来之前，重唱才刚刚开始。",
+          "en": "Had just begun is past perfect: the second singing had started only a moment before the shout came."
+        }
+      }
+    }
+  ]
+}

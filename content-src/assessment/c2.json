@@ -1,0 +1,793 @@
+{
+  "updatedAt": "2026-11-21",
+  "passages": [
+    {
+      "id": "passage-c2-memory-and-story",
+      "level": "C2",
+      "title": "The Shape We Give to Memory",
+      "text": "Every memoir is a quiet argument about what a life is. The writer sifts a decade for the hour that explains it, and the hour, once chosen, begins to rearrange everything around itself. This is not dishonesty; it is the cost of coherence. A memory that has never been told is a clutter of impressions, some vivid, most already fading at the edges. Tell it once and it acquires a shape: a beginning that promises, a middle that complicates, an end that forgives.\n\nWhat troubles me is how quickly the shape hardens. I have returned to the same afternoon in my own account of it for thirty years, and I no longer know whether I remember the afternoon or the telling. The detail I trust most — a green door, a smell of coal — may be a detail I invented because the story needed an anchor. Narrative is a generous host and an unreliable witness.\n\nNone of this makes the memoir worthless. We do not read them for the record; we read them for the reckoning. A writer who admits that the door may have been blue is more trustworthy than one who is certain of everything, because the first has noticed the machinery and the second has mistaken it for the world."
+    },
+    {
+      "id": "passage-c2-algorithmic-taste",
+      "level": "C2",
+      "title": "The Algorithm Knows What You Liked Yesterday",
+      "text": "For a while the promise was flattering: a library that never sleeps, tuned to your taste. What the recommender actually learns, however, is not your taste but your history of compromises. It sees the film you finished on a delayed flight and the one you abandoned after eleven minutes, and it cannot tell which was the accident. It rewards what you have already chosen, then calls the result your identity.\n\nThe trouble is not that the machine is wrong about us. It is that it is right about a version of us we did not mean to become. Taste is largely a record of what we have been exposed to; expose a person to one narrow stream and their preferences will duly narrow, and the system will report the narrowing as discovery. A recommendation engine is, in this sense, a mirror that flatters by agreeing.\n\nCritics often ask for transparency: show us the weights, publish the model. Useful, but insufficient. I would rather the systems be built to be a little disappointing — to serve the occasional thing you did not ask for, the film from a country you have never visited, the record that takes three listens. A culture that only ever receives what it has already approved will be efficient, and it will be smaller."
+    },
+    {
+      "id": "passage-c2-city-heritage",
+      "level": "C2",
+      "title": "Keep the Shabby Corner",
+      "text": "There is a fashion in preservation, and it currently favours the museum. A district is saved, scrubbed, lit from below, and let to a chain of coffee shops; its history is printed on a small enamel plate that nobody stops to read. We call this rescue. The neighbours who used it as a market, a shortcut, a place to sit, are not consulted, and after the rents double they are no longer there to be consulted.\n\nI am not arguing against repair. Roofs fail, and a city that lets its buildings rot is not being romantic, merely negligent. But preservation has two possible objects: the fabric of a place, or the life that happens in it. The first can be secured with money. The second requires something less photogenic — rent controls, a lease for the cobbler, a bench where the bench used to be, an unglamorous exemption from the rules that make a corner shop unviable.\n\nThe test is easy to apply and rarely applied. Ask what the district is like on a wet Tuesday in February. If the answer is a locked door and a laminated menu, we have preserved a photograph, not a neighbourhood. Heritage is not the building; it is the habit of using it. Keep the shabby corner, and the rest may follow."
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-c2-v01",
+      "level": "C2",
+      "skill": "vocab",
+      "prompt": "The article's tone was {{blank}} , mocking the author without naming him.",
+      "options": [
+        "sardonic",
+        "sanguine",
+        "sagacious",
+        "salutary"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "sardonic 是「冷嘲的」，与 mocking 同义；sanguine 是乐观的。",
+        "en": "Sardonic means mocking in a dry way; sanguine means optimistic."
+      },
+      "point": "lex-sardonic"
+    },
+    {
+      "id": "q-c2-v02",
+      "level": "C2",
+      "skill": "vocab",
+      "prompt": "Her apology seemed {{blank}} , more a formality than a regret.",
+      "options": [
+        "perfunctory",
+        "perfumed",
+        "peremptory",
+        "perspicuous"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "perfunctory 是「例行公事般的」，与 more a formality 一致。",
+        "en": "Perfunctory means done as a routine duty, matching a mere formality."
+      },
+      "point": "lex-perfunctory"
+    },
+    {
+      "id": "q-c2-v03",
+      "level": "C2",
+      "skill": "vocab",
+      "prompt": "The two accounts are {{blank}} , each contradicting the other.",
+      "options": [
+        "irreconcilable",
+        "irreproachable",
+        "irrevocable",
+        "irresolute"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "irreconcilable 是「无法调和的」，所以互相矛盾。",
+        "en": "Irreconcilable means impossible to make consistent, hence contradictory."
+      },
+      "point": "lex-irreconcilable"
+    },
+    {
+      "id": "q-c2-v04",
+      "level": "C2",
+      "skill": "vocab",
+      "prompt": "He is known for his {{blank}} remarks, often offending without intent.",
+      "options": [
+        "caustic",
+        "cosmetic",
+        "cryptic",
+        "cursory"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "caustic 是「尖刻的」，与伤人相呼应；cryptic 是隐晦的。",
+        "en": "Caustic means bitterly sharp; cryptic means mysterious."
+      },
+      "point": "lex-caustic"
+    },
+    {
+      "id": "q-c2-v05",
+      "level": "C2",
+      "skill": "vocab",
+      "prompt": "The government's response was widely seen as {{blank}} , avoiding any firm commitment.",
+      "options": [
+        "equivocal",
+        "equivalent",
+        "unequivocal",
+        "equitable"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "equivocal 是「含糊其辞的」；unequivocal 才是明确，正好相反。",
+        "en": "Equivocal means ambiguous; unequivocal is its opposite."
+      },
+      "point": "lex-equivocal"
+    },
+    {
+      "id": "q-c2-g01",
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "{{blank}} he apologized, she refused to speak to him.",
+      "options": [
+        "Much as",
+        "As much",
+        "Even much",
+        "So much"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "much as 引导让步，意思是「尽管……」。",
+        "en": "Much as introduces a concession meaning although."
+      },
+      "point": "focus-much-as"
+    },
+    {
+      "id": "q-c2-g02",
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "The manuscript, {{blank}} long been thought lost, reappeared in 1998.",
+      "options": [
+        "having",
+        "which",
+        "being",
+        "it having"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "having long been thought lost 是完成分词短语，作后置修饰。",
+        "en": "Having long been thought lost is a perfect participial phrase modifying the manuscript."
+      },
+      "point": "cefrj-109"
+    },
+    {
+      "id": "q-c2-g03",
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "Had it not been for his intervention, the deal {{blank}} .",
+      "options": [
+        "would have collapsed",
+        "would collapse",
+        "had collapsed",
+        "will collapse"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "Had it not been for 是与过去事实相反的倒装虚拟，主句用 would have done。",
+        "en": "Had it not been for is an inverted past unreal conditional, so would have collapsed."
+      },
+      "point": "cefrj-231"
+    },
+    {
+      "id": "q-c2-g04",
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "Such {{blank}} the force of the storm that windows shattered.",
+      "options": [
+        "was",
+        "were",
+        "it was",
+        "has been"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "such 置句首构成倒装，主语是 the force，谓语用 was。",
+        "en": "Such at the start inverts the clause; the subject force takes was."
+      },
+      "point": "focus-such-inversion"
+    },
+    {
+      "id": "q-c2-g05",
+      "level": "C2",
+      "skill": "grammar",
+      "prompt": "He resented {{blank}} to justify every decision.",
+      "options": [
+        "having",
+        "have",
+        "to have",
+        "has"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "resent 后接动名词；此处指过去的事，用 having to。",
+        "en": "Resent takes the -ing form; having to refers to the past obligation."
+      },
+      "point": "cefrj-112"
+    },
+    {
+      "id": "q-c2-v06",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-inconclusive",
+      "prompt": "The committee's report was {{blank}}: it offered no recommendation and left every question open.",
+      "options": [
+        "inconclusive",
+        "unanimous",
+        "binding",
+        "verbose"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "inconclusive 是「无定论的」，与「未给出建议、把所有问题都留着」一致。",
+        "en": "Inconclusive means reaching no conclusion, matching a report that recommends nothing."
+      }
+    },
+    {
+      "id": "q-c2-v07",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-disproportionate",
+      "prompt": "The court found the penalty {{blank}}: it was far harsher than the offence warranted.",
+      "options": [
+        "disproportionate",
+        "dispassionate",
+        "dispensable",
+        "discretionary"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "disproportionate 是「不成比例的」，正是「比罪行应有的严厉得多」。",
+        "en": "Disproportionate means out of proportion, exactly the mismatch between penalty and offence."
+      }
+    },
+    {
+      "id": "q-c2-v08",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-tacit",
+      "prompt": "Nothing had been written down, yet a {{blank}} agreement existed that the subject would never be raised.",
+      "options": [
+        "tacit",
+        "taciturn",
+        "tangential",
+        "tactile"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "tacit 指「默契的、未言明的」，与 nothing had been written down 呼应；taciturn 只形容人沉默。",
+        "en": "Tacit describes an unspoken understanding; taciturn merely describes a silent person."
+      }
+    },
+    {
+      "id": "q-c2-v09",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-accede",
+      "prompt": "The board {{blank}} to the chairman's proposal without a single objection.",
+      "options": [
+        "acceded",
+        "acclaimed",
+        "accumulated",
+        "accelerated"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "accede to 是固定搭配，意为「同意、接受」，且只有它能接 to。",
+        "en": "Accede to is the fixed collocation meaning to agree; the other verbs do not take to here."
+      }
+    },
+    {
+      "id": "q-c2-v10",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-cursory",
+      "prompt": "Even a {{blank}} reading of the contract would have revealed the clause.",
+      "options": [
+        "cursory",
+        "cursive",
+        "discursive",
+        "coercive"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "cursory 是「草率的、粗略的」，与 even 引出的最低要求相合。",
+        "en": "Cursory means hurried and superficial, the minimum effort that would still have sufficed."
+      }
+    },
+    {
+      "id": "q-c2-v11",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-meditation",
+      "prompt": "The book is less a record of events than a {{blank}} on the nature of memory.",
+      "options": [
+        "meditation",
+        "mediation",
+        "medication",
+        "medallion"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "meditation on 意为「对……的沉思随笔」，正合「不是记事而是论记忆」。",
+        "en": "A meditation on something is a reflective piece of writing, not a record of events."
+      }
+    },
+    {
+      "id": "q-c2-v12",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-ambivalent",
+      "prompt": "She felt {{blank}} about the offer, drawn by the salary yet unwilling to relocate.",
+      "options": [
+        "ambivalent",
+        "ambiguous",
+        "ambidextrous",
+        "amiable"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "ambivalent 指「（对某事的）矛盾心情」，与既心动又抗拒的两面并列呼应。",
+        "en": "Ambivalent means holding conflicting feelings; ambiguous describes wording, not a person's mind."
+      }
+    },
+    {
+      "id": "q-c2-v13",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-placate",
+      "prompt": "A small bonus was offered to {{blank}} the staff, though the grievance itself was never addressed.",
+      "options": [
+        "placate",
+        "placard",
+        "palate",
+        "placid"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "placate 是「安抚、平息」，与给奖金却未解决问题的手段相合。",
+        "en": "Placate means to calm someone down, which a token bonus is meant to do."
+      }
+    },
+    {
+      "id": "q-c2-v14",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-lukewarm",
+      "prompt": "His support for the scheme was {{blank}}: he voted for it but did nothing to defend it.",
+      "options": [
+        "lukewarm",
+        "lopsided",
+        "loathsome",
+        "lucid"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "lukewarm 引申为「不冷不热的、勉强的」，与投票却不辩护的行为一致。",
+        "en": "Lukewarm support is unenthusiastic, matching a vote cast but never defended."
+      }
+    },
+    {
+      "id": "q-c2-v15",
+      "level": "C2",
+      "skill": "vocab",
+      "point": "lex-vindicate",
+      "prompt": "The new evidence {{blank}} the researcher, whose findings had been dismissed for a decade.",
+      "options": [
+        "vindicated",
+        "vindictive",
+        "violated",
+        "venerated"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "vindicate 是「证明……清白/正确」，与十年来成果被否定形成反转。",
+        "en": "Vindicate means to clear someone of doubt or blame, reversing years of dismissal."
+      }
+    },
+    {
+      "id": "q-c2-g06",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-228",
+      "prompt": "{{blank}} the scholarship, she would be working in a shop now.",
+      "options": [
+        "If it were not for",
+        "If it is not for",
+        "Were it not",
+        "If it were not"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "if it were not for 是虚拟条件固定式，表示「若不是」；单独 were it not 缺 for。",
+        "en": "If it were not for is the fixed unreal conditional; were it not needs for to be complete."
+      }
+    },
+    {
+      "id": "q-c2-g07",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-221",
+      "prompt": "He spoke of the city {{blank}} there for years, though he had never left the province.",
+      "options": [
+        "as though he had lived",
+        "as though he lived",
+        "as though he has lived",
+        "as though he would live"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "as though 后接与过去事实相反的虚拟，用过去完成 had lived。",
+        "en": "As though takes the past perfect for a past counterfactual, hence had lived."
+      }
+    },
+    {
+      "id": "q-c2-g08",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-113",
+      "prompt": "He resented {{blank}} consulted before the decision was announced.",
+      "options": [
+        "not being",
+        "not to be",
+        "to not be",
+        "being not"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "resent 接动名词，否定词 not 置于 -ing 之前，构成 not being consulted。",
+        "en": "Resent takes an -ing form, and not precedes it to give not being consulted."
+      }
+    },
+    {
+      "id": "q-c2-g09",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-111",
+      "prompt": "The minister's {{blank}} the report before publication was widely criticised.",
+      "options": [
+        "suppressing",
+        "suppress",
+        "to suppress",
+        "suppressed"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "所有格 the minister's 之后必须用动名词 suppressing 作主语中心词。",
+        "en": "A possessive such as the minister's requires the gerund suppressing as its head."
+      }
+    },
+    {
+      "id": "q-c2-g10",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-184",
+      "prompt": "The report examines the extent {{blank}} local councils were consulted before the decision.",
+      "options": [
+        "to which",
+        "in which",
+        "of which",
+        "at which"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "the extent 后固定接 to which，介词由先行词与从句的搭配决定。",
+        "en": "Extent selects the preposition to, giving the fixed frame the extent to which."
+      }
+    },
+    {
+      "id": "q-c2-g11",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-182",
+      "prompt": "There is no such thing {{blank}} a neutral algorithm.",
+      "options": [
+        "as",
+        "like",
+        "that",
+        "than"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "such ... as 结构里 as 充当关系代词，引出同位成分。",
+        "en": "In the such ... as frame, as acts as a relative pronoun introducing the example."
+      }
+    },
+    {
+      "id": "q-c2-g12",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-204",
+      "prompt": "It was the treasurer {{blank}} signed the cheque, not the chairman.",
+      "options": [
+        "who",
+        "which",
+        "whom",
+        "what"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "强调句 it was ... who 突出主语 the treasurer，指人用 who 并在从句中作主语。",
+        "en": "This is an it-cleft on a person; who is the subject of the relative clause."
+      }
+    },
+    {
+      "id": "q-c2-g13",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-205",
+      "prompt": "{{blank}} surprised everyone was not the verdict but the speed with which it came.",
+      "options": [
+        "What",
+        "That",
+        "It",
+        "Which"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "what 引导伪分裂句主语从句，等于 the thing that surprised everyone。",
+        "en": "What heads a pseudo-cleft subject clause meaning the thing that surprised everyone."
+      }
+    },
+    {
+      "id": "q-c2-g14",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-234",
+      "prompt": "{{blank}} had the words left her mouth than she regretted them.",
+      "options": [
+        "No sooner",
+        "Hardly",
+        "Barely",
+        "Only"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "no sooner ... than 是否定词前置倒装，hardly 需搭配 when。",
+        "en": "No sooner pairs with than in negative inversion; hardly would require when."
+      }
+    },
+    {
+      "id": "q-c2-g15",
+      "level": "C2",
+      "skill": "grammar",
+      "point": "cefrj-92",
+      "prompt": "The abbey is believed {{blank}} in the ninth century and rebuilt on the same site.",
+      "options": [
+        "to have been founded",
+        "to be founded",
+        "to have founded",
+        "to found"
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "修道院是被建造的且早于现在，需用完成被动不定式 to have been founded。",
+        "en": "The abbey was founded earlier and passively, so the perfect passive infinitive is required."
+      }
+    },
+    {
+      "id": "q-c2-r05",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-memory-and-story-1",
+      "passageId": "passage-c2-memory-and-story",
+      "prompt": "According to the passage, what happens to a memory once it has been told?",
+      "options": [
+        "It takes on a structure it did not have before.",
+        "It becomes more vivid at the edges.",
+        "It is gradually replaced by pure invention.",
+        "It loses its emotional force."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "第一段说讲过一次后记忆就获得形状（开头、中段、结尾）。",
+        "en": "Paragraph one says a told memory acquires a shape of beginning, middle and end."
+      }
+    },
+    {
+      "id": "q-c2-r06",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-memory-and-story-2",
+      "passageId": "passage-c2-memory-and-story",
+      "prompt": "In the second paragraph, the word \"hardens\" most nearly means that the shape of the story",
+      "options": [
+        "becomes fixed and hard to revise.",
+        "grows colder in tone.",
+        "becomes richer in detail.",
+        "is defended more aggressively."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "hardens 指叙述定形后难以改动，故作者分不清记忆与讲述。",
+        "en": "Hardens means the narrative settles and resists revision, blurring memory and telling."
+      }
+    },
+    {
+      "id": "q-c2-r07",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-memory-and-story-3",
+      "passageId": "passage-c2-memory-and-story",
+      "prompt": "The author implies that a memoirist who is certain of every detail is",
+      "options": [
+        "less trustworthy, because the certainty has gone unexamined.",
+        "more trustworthy, because the memory has been tested.",
+        "unusual, since most writers doubt themselves.",
+        "dishonest, because invention is unavoidable."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "末段说承认门可能是蓝色的作者更可信，因为前者察觉了叙述机制。",
+        "en": "The last paragraph trusts the writer who admits uncertainty, having noticed the machinery."
+      }
+    },
+    {
+      "id": "q-c2-r08",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-memory-and-story-4",
+      "passageId": "passage-c2-memory-and-story",
+      "prompt": "Which best captures the author's attitude towards memoir?",
+      "options": [
+        "Its value lies in reckoning with a life rather than recording it.",
+        "It should be read as fiction, since memory cannot be trusted.",
+        "It has been damaged by writers who invent convenient details.",
+        "It matters less than the documents it draws on."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "作者说读回忆录不是为了记录而是为了清算与反思。",
+        "en": "The author reads memoirs for the reckoning, not for the record."
+      }
+    },
+    {
+      "id": "q-c2-r09",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-algorithmic-taste-1",
+      "passageId": "passage-c2-algorithmic-taste",
+      "prompt": "What does the author say the recommender actually learns?",
+      "options": [
+        "A record of choices we have made, including accidental ones.",
+        "The preferences we state in surveys.",
+        "The titles we abandon most quickly.",
+        "Our taste as it was before we used the service."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "首段说系统学到的不是品味而是妥协史，连偶然点开的那部片也算在内。",
+        "en": "Paragraph one says it learns a history of compromises, accidental choices included."
+      }
+    },
+    {
+      "id": "q-c2-r10",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-algorithmic-taste-2",
+      "passageId": "passage-c2-algorithmic-taste",
+      "prompt": "The phrase \"a history of compromises\" suggests that our viewing record",
+      "options": [
+        "reflects incidental choices as much as deliberate ones.",
+        "proves that we settle for second best.",
+        "is shorter than we tend to imagine.",
+        "reveals a hidden appetite for conflict."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "所谓妥协指在航班上随手看完、十一分钟就关掉这类非刻意选择。",
+        "en": "The compromises are the film finished on a flight and the one abandoned after minutes."
+      }
+    },
+    {
+      "id": "q-c2-r11",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-algorithmic-taste-3",
+      "passageId": "passage-c2-algorithmic-taste",
+      "prompt": "The remark that a recommendation engine is \"a mirror that flatters by agreeing\" implies that it",
+      "options": [
+        "confirms our existing habits while seeming to broaden our choices.",
+        "praises users in order to keep them subscribed.",
+        "is deliberately built to deceive its users.",
+        "treats agreement as the surest sign of good taste."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "镜子只反映既有偏好，并把这种收窄说成发现。",
+        "en": "The mirror only reflects existing preferences and reports the narrowing as discovery."
+      }
+    },
+    {
+      "id": "q-c2-r12",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-algorithmic-taste-4",
+      "passageId": "passage-c2-algorithmic-taste",
+      "prompt": "Which statement best summarises the author's position?",
+      "options": [
+        "Transparency alone cannot fix a system that narrows the culture it feeds.",
+        "Recommendation engines ought to be abolished outright.",
+        "Machine learning is incapable of modelling anyone's taste.",
+        "Users should be shown the weights behind every recommendation."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "作者承认公开模型有用但 insufficient，主张系统应提供未被要求的东西。",
+        "en": "The author calls transparency useful but insufficient, preferring systems that surprise us."
+      }
+    },
+    {
+      "id": "q-c2-r13",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-city-heritage-1",
+      "passageId": "passage-c2-city-heritage",
+      "prompt": "According to the author, what usually happens to existing residents after a district is \"saved\"?",
+      "options": [
+        "They leave once rents rise, having never been consulted.",
+        "They are hired by the businesses that move in.",
+        "They are invited to help plan the restoration.",
+        "They return once the repairs are complete."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "首段说居民未被咨询，租金翻倍后他们已不在那里可被咨询。",
+        "en": "Paragraph one notes they are not consulted, and after rents double they are no longer there."
+      }
+    },
+    {
+      "id": "q-c2-r14",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-city-heritage-2",
+      "passageId": "passage-c2-city-heritage",
+      "prompt": "In the second paragraph, \"unglamorous\" is used to describe",
+      "options": [
+        "practical measures that attract little public attention.",
+        "buildings of little architectural merit.",
+        "residents who refuse to cooperate with planners.",
+        "rules that are easy for owners to evade."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "unglamorous 修饰租金管制、租约、长椅这类不体面却实用的措施。",
+        "en": "It modifies rent controls, a lease and a bench: useful measures with no photogenic appeal."
+      }
+    },
+    {
+      "id": "q-c2-r15",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-city-heritage-3",
+      "passageId": "passage-c2-city-heritage",
+      "prompt": "By asking what the district is like on \"a wet Tuesday in February\", the author is testing whether",
+      "options": [
+        "ordinary daily life continues there, not only the visitor's experience.",
+        "the repairs have protected the buildings from bad weather.",
+        "the shops stay open at unseasonable hours.",
+        "the council has provided adequate drainage."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "作者以淡季雨天的日常检验街区是否还有生活，而非只有游客视角。",
+        "en": "A wet off-season Tuesday tests ordinary life rather than the visitor's impression."
+      }
+    },
+    {
+      "id": "q-c2-r16",
+      "level": "C2",
+      "skill": "reading",
+      "point": "read-c2-city-heritage-4",
+      "passageId": "passage-c2-city-heritage",
+      "prompt": "Which sentence best summarises the column's argument?",
+      "options": [
+        "Preservation should protect the routines of a place, not only its buildings.",
+        "Historic districts should be left entirely unregulated.",
+        "Chains should be banned from restored neighbourhoods.",
+        "Heritage tourism is the most reliable way to fund repairs."
+      ],
+      "answer": 0,
+      "explanation": {
+        "zh": "末段点题：遗产不是建筑，而是使用它的习惯。",
+        "en": "The closing line states that heritage is not the building but the habit of using it."
+      }
+    }
+  ]
+}

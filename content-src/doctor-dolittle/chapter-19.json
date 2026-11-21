@@ -1,0 +1,821 @@
+{
+  "chapter": 19,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "闻风找人的狗",
+        "en": "The Dog Who Sniffs the Wind"
+      },
+      "introduction": {
+        "zh": "小男孩的叔叔不见了，能帮上忙的只有吉普的鼻子。南风里闻不到鼻烟味，换了东风还是没有。吉普到底在等哪一种风？",
+        "en": "The little boy’s uncle is lost somewhere on the sea, and only Jip’s nose can help. The dog sniffs the south wind, then the east wind, and shakes his head. What kind of wind is he waiting for?"
+      },
+      "paragraphs": {
+        "chapter-19-p001": {
+          "sentences": [
+            "第二天一早，他们就起了身，离开那些铺着丝绸的床；他们看见太阳明亮地照着，风从南边吹来。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p002": {
+          "sentences": [
+            "吉普闻了半个钟头的南风。",
+            "然后他走到医生跟前，摇了摇头。"
+          ],
+          "hints": [
+            {
+              "id": "jip",
+              "kind": "word",
+              "target": "Jip",
+              "sentence": 2,
+              "zh": "吉普，医生的狗，鼻子特别灵。",
+              "en": "Jip, the Doctor’s dog, whose nose can smell things far away."
+            }
+          ]
+        },
+        "chapter-19-p003": {
+          "sentences": [
+            "「我还闻不到鼻烟味呢。」他说。",
+            "「我们得等到风转向东边。」"
+          ],
+          "hints": [
+            {
+              "id": "as-yet",
+              "kind": "phrase",
+              "target": "as yet",
+              "sentence": 4,
+              "zh": "到目前为止（还没）；I smell no snuff as yet 就是「我到现在还没闻到鼻烟味」。",
+              "en": "As yet means up to now: I smell no snuff as yet — I have not smelt any so far."
+            }
+          ]
+        },
+        "chapter-19-p004": {
+          "sentences": [
+            "可就算那天下午三点钟东风来了，狗还是闻不到鼻烟的气味。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p005": {
+          "sentences": [
+            "小男孩失望极了，又哭了起来，说好像谁都没法替他找到叔叔。",
+            "可吉普只对医生说了一句话："
+          ],
+          "hints": []
+        },
+        "chapter-19-p006": {
+          "sentences": [
+            "「你告诉他，等风转到西边，我就能找到他叔叔，哪怕他在中国——只要他还在吸黑拉皮鼻烟。」"
+          ],
+          "hints": [
+            {
+              "id": "black-rappee",
+              "kind": "word",
+              "target": "Black Rappee",
+              "sentence": 9,
+              "zh": "黑拉皮鼻烟，一种味道很冲的鼻烟；男孩的叔叔一直吸这种烟。",
+              "en": "Black Rappee, a strong kind of snuff; the boy’s uncle always takes this sort."
+            },
+            {
+              "id": "so-long-as",
+              "kind": "phrase",
+              "target": "so long as",
+              "sentence": 9,
+              "zh": "只要；so long as he is still taking Black Rappee snuff 就是「只要他还在吸黑拉皮鼻烟」。",
+              "en": "So long as means provided that: as long as he still takes the snuff."
+            }
+          ]
+        },
+        "chapter-19-p007": {
+          "sentences": [
+            "他们等了三天，西风才来。",
+            "那是星期五清早——天刚蒙蒙亮。",
+            "海面上笼着一层细密的雨雾，薄得像一层轻纱。",
+            "风又柔又暖，还带着湿气。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p008": {
+          "sentences": [
+            "吉普一醒来就跑上楼，把鼻子往空中一伸。",
+            "接着他兴奋得不得了，又冲下楼去把医生叫醒。"
+          ],
+          "hints": [
+            {
+              "id": "poked-his-nose",
+              "kind": "phrase",
+              "target": "poked his nose in the air",
+              "sentence": 14,
+              "zh": "把鼻子往空中一伸，去嗅风里的味道。",
+              "en": "He pushed his nose up into the air to catch the smell on the wind."
+            }
+          ]
+        },
+        "chapter-19-p009": {
+          "sentences": [
+            "「医生！」他喊道。",
+            "「我闻到了！",
+            "医生！",
+            "医生！",
+            "醒醒！",
+            "你听！",
+            "我闻到了！",
+            "风是从西边来的，里面除了鼻烟味什么也没有。",
+            "快上楼来开船——快！」"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is Jip trying to smell in the wind?",
+          "options": [
+            "Snuff — the tobacco the boy’s uncle takes",
+            "Food cooking on a far-off island",
+            "Fresh water from the sea",
+            "Smoke from a ship"
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "吉普一开口就是「我还闻不到鼻烟味呢」，可见它在风里找的正是鼻烟味，也就是男孩叔叔吸的那种烟。",
+            "en": "Jip’s first words are “I smell no snuff as yet”: the smell he is hunting for in the wind is snuff, the tobacco the boy’s uncle takes."
+          }
+        },
+        {
+          "question": "What does the little boy do when the east wind brings nothing?",
+          "options": [
+            "He cries again and says no one can find his uncle",
+            "He asks the Doctor to sail back home",
+            "He goes off to look for his uncle alone",
+            "He tells Jip to stop sniffing the wind"
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "东风来了，狗还是闻不到；小男孩失望极了，又哭起来，说好像谁都没法替他找到叔叔。",
+            "en": "When the east wind brings no smell, the boy is terribly disappointed and cries again, saying that no one seems able to find his uncle."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "Tell him that when the wind changes to the West, I’ll find his uncle",
+        "pointIds": [
+          "cefrj-201"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "Tell him that 后面是要转告的内容；that 从句里又套了一个 when 从句，交代「等风转向西边」这个前提。",
+          "en": "Tell him that introduces the message; inside it, the when-clause gives the condition: when the wind turns west."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "船头的狗鼻子",
+        "en": "The Nose at the Bow"
+      },
+      "introduction": {
+        "zh": "风终于对了，可船还得有人指路。吉普站在船头，让医生照着它的鼻子转舵。快到中午，它忽然非要跟医生说句话不可——它闻出了什么？",
+        "en": "The wind is right at last, but someone must show the ship the way. Jip stands at the front and points with his nose. Near lunch-time he suddenly asks for the Doctor. What has he smelt in the wind?"
+      },
+      "paragraphs": {
+        "chapter-19-p010": {
+          "sentences": [
+            "于是医生一骨碌爬下床，走到船舵那儿去掌舵。"
+          ],
+          "hints": [
+            {
+              "id": "tumbled-out",
+              "kind": "phrase",
+              "target": "tumbled out of bed",
+              "sentence": 1,
+              "zh": "一骨碌爬下床，形容匆忙、顾不上整齐。",
+              "en": "Tumbled out of bed: got up in a hurry, without care."
+            }
+          ]
+        },
+        "chapter-19-p011": {
+          "sentences": [
+            "「现在我上船头去，」吉普说，「你盯着我的鼻子——它朝哪边指，你就把船往哪边转。",
+            "那人一定离得不远——味道这么冲。",
+            "这风又舒服又潮湿。",
+            "好，看我的！」"
+          ],
+          "hints": [
+            {
+              "id": "whichever-way",
+              "kind": "phrase",
+              "target": "whichever way",
+              "sentence": 2,
+              "zh": "不管朝哪个方向；whichever 就是「无论哪一个」。",
+              "en": "Whichever way means no matter which direction: any way the nose points."
+            }
+          ]
+        },
+        "chapter-19-p012": {
+          "sentences": [
+            "于是一整个上午，吉普都站在船头，一边嗅着风，一边指出方向让医生掌舵；而所有动物和小男孩都围在旁边，眼睛睁得大大的，惊奇地看着这条狗。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p013": {
+          "sentences": [
+            "快到午饭时，吉普请达布达布去告诉医生，说他心里越来越不安，想跟医生说话。",
+            "于是达布达布从船的另一头把医生请了来，吉普对他说："
+          ],
+          "hints": [
+            {
+              "id": "dab-dab",
+              "kind": "word",
+              "target": "Dab-Dab",
+              "sentence": 7,
+              "zh": "达布达布，医生的鸭子。",
+              "en": "Dab-Dab, the Doctor’s duck."
+            }
+          ]
+        },
+        "chapter-19-p014": {
+          "sentences": [
+            "「小男孩的叔叔快饿死了。",
+            "我们得让船走得越快越好。」"
+          ],
+          "hints": []
+        },
+        "chapter-19-p015": {
+          "sentences": [
+            "「你怎么知道他要饿死了？」医生问。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p016": {
+          "sentences": [
+            "「因为西风里除了鼻烟味，再没有别的味道了，」吉普说。",
+            "「要是那人在做饭，或者在吃什么东西，我肯定会闻到的。",
+            "可他连一口清水都没得喝。",
+            "他只吸鼻烟——而且是一大撮一大撮地吸。",
+            "我们一直在离他越来越近，因为那味道每分钟都在变浓。",
+            "不过还是让船走得越快越好，因为我敢肯定，那人快饿死了。」"
+          ],
+          "hints": [
+            {
+              "id": "be-bound-to",
+              "kind": "phrase",
+              "target": "bound to",
+              "sentence": 13,
+              "zh": "be bound to 一定、必然会；I would be bound to smell it 就是「我一定会闻到」。",
+              "en": "Be bound to means certain to: I would be bound to smell it — I would certainly smell it."
+            },
+            {
+              "id": "pinches",
+              "kind": "phrase",
+              "target": "in large pinches",
+              "sentence": 15,
+              "zh": "一大撮一大撮地；pinch 指用手指捏起来的那一点量。",
+              "en": "In large pinches: taking big pinches of snuff between finger and thumb."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "How does Jip show the Doctor which way to steer?",
+          "options": [
+            "He points his nose in that direction",
+            "He barks once for left and twice for right",
+            "He stands by the rudder and pushes it himself",
+            "He calls out the names of the islands"
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "吉普让医生盯住它的鼻子：鼻子朝哪边指，船就往哪边转。",
+            "en": "Jip tells the Doctor to watch his nose: whichever way it points, the Doctor turns the ship the same way."
+          }
+        },
+        {
+          "question": "Why does Jip think the boy’s uncle is starving?",
+          "options": [
+            "The west wind smells only of snuff, with no food or water in it",
+            "The man has not been seen for three days",
+            "The boy says his uncle never eats much",
+            "There is no food left on the ship"
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "吉普的理由是气味：西风里除了鼻烟没有别的味道，那人在做饭或吃东西的话它一定会闻到，可他连清水都没有。",
+            "en": "Jip’s reason is smell: there is no smell in the west wind but snuff, so the man is not cooking or eating — he has not even fresh water."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "If the man were cooking or eating food of any kind, I would be bound to smell it too",
+        "pointIds": [
+          "cefrj-215"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "If 从句用 were、主句用 would，是与现在相反的假设：他此刻并没有在做饭，所以吉普闻不到食物味。",
+          "en": "Were in the if-clause and would in the main clause mark an unreal condition: he is not cooking now, so no food smell reaches Jip."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "桅杆上的喊声",
+        "en": "A Cry from the Mast"
+      },
+      "introduction": {
+        "zh": "船飞快地掠过海面，动物们都盯着前方，想找到一块陆地。可一小时一小时过去，海上还是空空的。天快黑时，桅杆顶上忽然传来图图的喊声。",
+        "en": "The swallows pull the ship and it races over the waves. All the animals watch the sea for land, but hour after hour there is nothing. Then, near sunset, Too-Too cries out from the top of the mast. What has he seen?"
+      },
+      "paragraphs": {
+        "chapter-19-p017": {
+          "sentences": [
+            "「好吧，」医生说；他打发达布达布去请燕子来拉船，就像当初海盗追他们时那样。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p018": {
+          "sentences": [
+            "于是这些壮实的小鸟飞了下来，又一次把绳索套在自己身上，拉起了船。"
+          ],
+          "hints": [
+            {
+              "id": "harnessed",
+              "kind": "phrase",
+              "target": "harnessed themselves",
+              "sentence": 2,
+              "zh": "把挽具套在自己身上；这里指燕子像拉车的牲口一样套上绳索去拉船。",
+              "en": "They put the harness on themselves: the swallows were tied to the ship like animals pulling a cart."
+            }
+          ]
+        },
+        "chapter-19-p019": {
+          "sentences": [
+            "这一下，小船在浪里飞跳着前进，快得吓人。",
+            "它快得让海里的鱼不得不拼命跳开，免得被船撞上。"
+          ],
+          "hints": [
+            {
+              "id": "for-their-lives",
+              "kind": "phrase",
+              "target": "for their lives",
+              "sentence": 4,
+              "zh": "为了保命、拼命；jump for their lives 就是「拼命跳开逃命」。",
+              "en": "For their lives means to save themselves: they jumped for their lives — they jumped to escape."
+            }
+          ]
+        },
+        "chapter-19-p020": {
+          "sentences": [
+            "所有动物都兴奋极了；他们不再看吉普，转过头去盯着前方的海面，想找出那个快饿死的人可能在的陆地或岛屿。"
+          ],
+          "hints": [
+            {
+              "id": "spy-out",
+              "kind": "phrase",
+              "target": "spy out",
+              "sentence": 5,
+              "zh": "搜寻出、发现；spy out any land 就是「找出一块陆地」。",
+              "en": "Spy out means to make out or discover: to spy out any land — to find land."
+            }
+          ]
+        },
+        "chapter-19-p021": {
+          "sentences": [
+            "可是一小时又一小时过去，船仍旧往前冲，掠过的还是那片平平的、平平的海；哪儿也不见陆地。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p022": {
+          "sentences": [
+            "这时候，动物们不再叽叽喳喳，都默默地坐着，又着急又难受。",
+            "小男孩又伤心起来。",
+            "吉普的脸上也露出忧虑的神色。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p023": {
+          "sentences": [
+            "终于，在下午晚些时候，太阳正要落下去，停在桅杆顶上的猫头鹰图图忽然扯着嗓子大叫起来，把大家都吓了一跳："
+          ],
+          "hints": [
+            {
+              "id": "too-too",
+              "kind": "word",
+              "target": "Too-Too",
+              "sentence": 10,
+              "zh": "图图，医生的猫头鹰，眼力好。",
+              "en": "Too-Too, the Doctor’s owl, who has sharp eyes."
+            }
+          ]
+        },
+        "chapter-19-p024": {
+          "sentences": [
+            "「吉普！",
+            "吉普！",
+            "我看见前面有一块好大好大的礁石——你看——就在很远很远、天和水相接的地方。",
+            "你瞧太阳照在它上面——像金子一样！",
+            "那味道是从那儿来的吗？」"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why do the swallows come down to the ship?",
+          "options": [
+            "To pull the ship so that it goes faster",
+            "To look for land from high in the sky",
+            "To bring news of the missing man",
+            "To rest on the mast for a while"
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "医生听了吉普的话，打发达布达布去请燕子拉船，就像当初海盗追他们时那样。",
+            "en": "The Doctor sends Dab-Dab to ask the swallows to pull the ship, just as they did when the pirates were chasing them."
+          }
+        },
+        {
+          "question": "What does Too-Too see far away?",
+          "options": [
+            "A huge rock shining like gold where sky and water meet",
+            "A small island covered with trees",
+            "Another ship sailing towards them",
+            "A whale jumping out of the sea"
+          ],
+          "answer": 0,
+          "sentence": 13,
+          "feedback": {
+            "zh": "图图喊大家看前面：天和水相接的地方有一块好大好大的礁石，太阳照在上面像金子一样。",
+            "en": "Too-Too calls out that there is a great, great rock ahead, far off where sky and water meet, with the sun shining on it like gold."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "It went so fast that the fishes in the sea had to jump for their lives",
+        "pointIds": [
+          "cefrj-45"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "so fast that 说「快到什么程度、结果怎样」；that 后面引出结果，不是目的。",
+          "en": "So fast that gives the result of the speed: the fishes had to jump out of the way."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "大得像田野的石头",
+        "en": "A Rock as Big as a Field"
+      },
+      "introduction": {
+        "zh": "船靠近了那块大石头：它大得像一片田野，光溜溜的，连草都不长。大家绕着它转了一圈又一圈，喊得嗓子都哑了。要是那个人真在这里，他能藏在哪儿？",
+        "en": "The ship comes close to a rock as big as a field. It is smooth and bare, with nothing growing on it. The animals sail round and round it and call until their voices are hoarse. If the man is really here, where can he hide?"
+      },
+      "paragraphs": {
+        "chapter-19-p025": {
+          "sentences": [
+            "吉普在那边回答："
+          ],
+          "hints": []
+        },
+        "chapter-19-p026": {
+          "sentences": [
+            "「对。",
+            "就是这儿。",
+            "那人就在这儿。——总算，总算找到了！」"
+          ],
+          "hints": []
+        },
+        "chapter-19-p027": {
+          "sentences": [
+            "等他们靠近些，就看出那块礁石非常大——大得像一整片田野。",
+            "上面不长树，也不长草——什么都没有。",
+            "这块大礁石又光又秃，活像乌龟的背。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p028": {
+          "sentences": [
+            "接着，医生驾着船绕着礁石转了一整圈。",
+            "可上面哪儿也看不见人。",
+            "动物们都眯起眼睛，使劲地看；约翰·杜立德从楼下拿来了一架望远镜。"
+          ],
+          "hints": [
+            {
+              "id": "screwed-up",
+              "kind": "phrase",
+              "target": "screwed up their eyes",
+              "sentence": 10,
+              "zh": "眯起眼睛（好使劲看清远处的东西）。",
+              "en": "Screwed up their eyes: narrowed them to see better."
+            },
+            {
+              "id": "john-dolittle",
+              "kind": "word",
+              "target": "John Dolittle",
+              "sentence": 10,
+              "zh": "约翰·杜立德，就是杜立德医生。",
+              "en": "John Dolittle — Doctor Dolittle himself."
+            }
+          ]
+        },
+        "chapter-19-p029": {
+          "sentences": [
+            "可他们连一个活物也没瞧见——连一只海鸥、一只海星、一片海草都没有。"
+          ],
+          "hints": [
+            {
+              "id": "shred",
+              "kind": "phrase",
+              "target": "a shred of",
+              "sentence": 11,
+              "zh": "一丝、一片；a shred of sea-weed 就是「一片海草」，用来说连这么点东西都没有。",
+              "en": "A shred of means the smallest scrap: not a shred of sea-weed — not even a tiny bit of it."
+            }
+          ]
+        },
+        "chapter-19-p030": {
+          "sentences": [
+            "他们全都站住不动，侧耳细听，想抓住一点声响。",
+            "可他们听到的唯一声音，是小浪轻轻拍打船舷的水声。"
+          ],
+          "hints": [
+            {
+              "id": "straining-ears",
+              "kind": "phrase",
+              "target": "straining their ears",
+              "sentence": 12,
+              "zh": "竖起耳朵使劲听，唯恐漏掉一点声音。",
+              "en": "Straining their ears: listening as hard as they could."
+            }
+          ]
+        },
+        "chapter-19-p031": {
+          "sentences": [
+            "于是大家一齐喊起来：「喂——那边！——喂——」一直喊到嗓子都哑了。",
+            "可从礁石那边回来的，只有回声。"
+          ],
+          "hints": [
+            {
+              "id": "hulloa",
+              "kind": "word",
+              "target": "Hulloa",
+              "sentence": 14,
+              "zh": "「喂！」的喊声，hullo、halloa 的旧拼法，用来招呼远处的人。",
+              "en": "Hulloa is an old spelling of hullo/halloa, used to call to someone far away."
+            }
+          ]
+        },
+        "chapter-19-p032": {
+          "sentences": [
+            "小男孩放声大哭，说："
+          ],
+          "hints": []
+        },
+        "chapter-19-p033": {
+          "sentences": [
+            "「我怕是再也见不到我叔叔了！",
+            "等我回了家，该怎么跟他们说呀！」"
+          ],
+          "hints": []
+        },
+        "chapter-19-p034": {
+          "sentences": [
+            "可吉普冲着医生喊："
+          ],
+          "hints": []
+        },
+        "chapter-19-p035": {
+          "sentences": [
+            "「他一定在那儿——一定——一定在！",
+            "气味到这儿就不再往前了。",
+            "他一定在那儿，我跟你说！",
+            "把船靠到礁石边上，让我跳上去。」"
+          ],
+          "hints": []
+        },
+        "chapter-19-p036": {
+          "sentences": [
+            "于是医生把船尽量靠过去，抛下了锚。",
+            "然后他和吉普下船，上了礁石。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is the rock like?",
+          "options": [
+            "Very large, smooth and bare, with nothing growing on it",
+            "Covered with grass and small trees",
+            "Small, sharp and black",
+            "Full of birds and sea-weed"
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "原文说礁石大得像一片田野，不长树也不长草，又光又秃，像乌龟的背。",
+            "en": "The rock is as large as a big field, with no trees and no grass; it is as smooth and bare as the back of a tortoise."
+          }
+        },
+        {
+          "question": "What happens when they all call out to the rock?",
+          "options": [
+            "Only the echo comes back from the rock",
+            "A man’s voice answers from a cave",
+            "Jip jumps into the water",
+            "The birds on the rock fly away"
+          ],
+          "answer": 0,
+          "sentence": 15,
+          "feedback": {
+            "zh": "大家喊到嗓子都哑了，可礁石那边回来的只有回声，没有一个人应答。",
+            "en": "They call until their voices are hoarse, but only the echo comes back from the rock."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "The great rock was as smooth and as bare as the back of a tortoise",
+        "pointIds": [
+          "cefrj-37"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "两个 as 中间放形容词：礁石的光滑、光秃，程度和乌龟背一样；第二个 as 后面是比较对象。",
+          "en": "As + adjective + as compares two things: the rock is as smooth and bare as a tortoise’s back."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "吉普在洞口坐下",
+        "en": "Jip Sits Down by a Hole"
+      },
+      "introduction": {
+        "zh": "吉普一上礁石，鼻子就贴着地面到处乱跑，医生跟在后头追得直喘。忽然它大叫一声，就地坐下，再也不动了。它死死盯着的那个黑窟窿，底下会有什么？",
+        "en": "Jip jumps onto the rock and runs everywhere with his nose to the ground, while the Doctor runs after him out of breath. Then the dog gives one great bark and sits down. He is staring into a deep, dark hole. What is down there?"
+      },
+      "paragraphs": {
+        "chapter-19-p037": {
+          "sentences": [
+            "吉普立刻把鼻子贴近地面，开始在礁石上到处跑。",
+            "他跑上跑下，来来回回——忽左忽右，弯来绕去，折返又转身。",
+            "不管他跑到哪儿，医生都紧跟在后面，贴着他的脚后跟——直到累得上气不接下气。"
+          ],
+          "hints": [
+            {
+              "id": "zig-zagging",
+              "kind": "word",
+              "target": "zig-zagging",
+              "sentence": 2,
+              "zh": "走之字形，忽左忽右地拐着跑。",
+              "en": "Zig-zagging: running in sharp turns, first one way then the other."
+            },
+            {
+              "id": "at-his-heels",
+              "kind": "phrase",
+              "target": "at his heels",
+              "sentence": 3,
+              "zh": "紧跟在脚后跟，形容跟得非常近。",
+              "en": "At his heels: right behind him, following closely."
+            },
+            {
+              "id": "out-of-breath",
+              "kind": "phrase",
+              "target": "out of breath",
+              "sentence": 3,
+              "zh": "上气不接下气，喘不过气来。",
+              "en": "Out of breath: breathing hard after running."
+            }
+          ]
+        },
+        "chapter-19-p038": {
+          "sentences": [
+            "最后，吉普大叫了一声，坐了下来。",
+            "医生跑上前去，发现这条狗正盯着礁石中间一个又大又深的窟窿。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p039": {
+          "sentences": [
+            "「小男孩的叔叔就在下面，」吉普轻声说。",
+            "「难怪那些傻鹰看不见他！——找个人还得靠狗。」"
+          ],
+          "hints": [
+            {
+              "id": "no-wonder",
+              "kind": "phrase",
+              "target": "No wonder",
+              "sentence": 7,
+              "zh": "难怪；No wonder those silly eagles couldn’t see him 就是「难怪那些傻鹰看不见他」。",
+              "en": "No wonder means it is not surprising: no wonder the eagles could not see him."
+            },
+            {
+              "id": "eagles",
+              "kind": "word",
+              "target": "eagles",
+              "sentence": 7,
+              "zh": "鹰。先前是它们在高空帮忙找人，从天上看当然看不见洞里的人。",
+              "en": "Eagles: earlier the eagles helped search from high in the air, so they could not see a man down in a hole."
+            }
+          ]
+        },
+        "chapter-19-p040": {
+          "sentences": [
+            "于是医生下到那个洞里——它像是一个洞穴，或者一条隧道，在地底下延伸了很远。",
+            "然后他划着一根火柴，沿着黑暗的通道往前走，吉普跟在后面。"
+          ],
+          "hints": [
+            {
+              "id": "struck-a-match",
+              "kind": "phrase",
+              "target": "struck a match",
+              "sentence": 9,
+              "zh": "划着一根火柴；strike a match 是固定说法，不用 burn。",
+              "en": "Struck a match: lighted one by rubbing it; strike is the usual verb with match."
+            }
+          ]
+        },
+        "chapter-19-p041": {
+          "sentences": [
+            "医生的火柴很快就灭了；他只好划一根，又划一根，再划一根。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p042": {
+          "sentences": [
+            "终于，通道到了尽头；医生发现自己来到了一个小房间，四壁都是岩石。"
+          ],
+          "hints": []
+        },
+        "chapter-19-p043": {
+          "sentences": [
+            "就在房间正中躺着一个人，头枕在胳膊上，一头火红的头发——睡得正沉！"
+          ],
+          "hints": []
+        },
+        "chapter-19-p044": {
+          "sentences": [
+            "吉普走上前，嗅了嗅他身边地上的什么东西。",
+            "医生弯下腰，把它捡了起来。",
+            "那是一个大得不得了的鼻烟盒。",
+            "里面装满了黑拉皮鼻烟！"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Jip bark and sit down on the rock?",
+          "options": [
+            "He has found a deep hole in the middle of the rock",
+            "He is too tired to run any further",
+            "He wants the Doctor to take him back to the ship",
+            "He has found the snuff-box lying on the rock"
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "吉普在礁石上到处跑，最后大叫一声坐下；医生跑过去，看见它正盯着礁石中间一个大深洞。",
+            "en": "Jip runs all over the rock, then barks and sits down; the Doctor finds him staring into a big, deep hole in the middle of the rock."
+          }
+        },
+        {
+          "question": "Where does the Doctor find the man?",
+          "options": [
+            "In a tiny rock room at the end of a dark passage",
+            "Asleep on top of the rock in the sun",
+            "In the ship’s cabin under a blanket",
+            "Behind a big stone on the shore"
+          ],
+          "answer": 0,
+          "sentence": 12,
+          "feedback": {
+            "zh": "通道尽头是一个四壁是岩石的小房间，一个人枕着胳膊躺在那里，一头红发，睡得很沉。",
+            "en": "At the end of the passage the Doctor finds a tiny room with rock walls, and a red-haired man asleep in the middle of it."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "which seemed to be a kind of cave, or tunnel, running a long way under the ground",
+        "pointIds": [
+          "cefrj-181"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "逗号后的 which 不限定、只补充说明这个洞像什么；后面 running 短语再补充洞在地下延伸很远。",
+          "en": "The which-clause after a comma adds information about the hole; the running-phrase then says how far it goes."
+        }
+      }
+    }
+  ]
+}

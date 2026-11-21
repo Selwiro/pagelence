@@ -1,0 +1,1417 @@
+{
+  "chapter": 8,
+  "units": [
+    {
+      "number": 1,
+      "title": {
+        "zh": "玫瑰为什么被涂红",
+        "en": "Why Paint the Roses Red?"
+      },
+      "introduction": {
+        "zh": "花园入口附近，三个园丁正忙着把白玫瑰涂成红色，一边涂一边互相埋怨，还提起王后与砍头。爱丽丝走近去看：他们究竟为什么非要把花涂红不可？",
+        "en": "At the garden entrance three gardeners are painting white roses red and blaming each other for every splash. Alice steps closer, and hears them mention the Queen and beheading. Why must these roses be red before someone arrives?"
+      },
+      "paragraphs": {
+        "chapter-08-p001": {
+          "sentences": [
+            "花园入口附近立着一棵大玫瑰树：树上开着的玫瑰是白色的，可树旁有三个园丁，正忙着把它们涂成红色。",
+            "爱丽丝觉得这事很古怪，就走近些去看；她刚走到他们跟前，就听见其中一个说：“当心点。",
+            "五号！",
+            "别那么把颜料往我身上泼！”"
+          ],
+          "hints": [
+            {
+              "id": "alice",
+              "kind": "word",
+              "target": "Alice",
+              "sentence": 2,
+              "zh": "爱丽丝，本书主角，追着白兔掉进兔子洞的小姑娘。",
+              "en": "Alice, the girl who followed the White Rabbit down the hole and is the heroine of the book."
+            },
+            {
+              "id": "look-out-now",
+              "kind": "phrase",
+              "target": "Look out now",
+              "sentence": 2,
+              "zh": "“当心！”“留神！”这里是提醒同伴别把颜料泼过来。",
+              "en": "'Watch out!' — a warning to be careful, here about splashing paint."
+            },
+            {
+              "id": "five",
+              "kind": "word",
+              "target": "Five",
+              "sentence": 3,
+              "zh": "五号，园丁们以数字为名，所以后面还有七号、二号。",
+              "en": "Five: the gardeners are named after numbers, so there is also a Seven and a Two."
+            }
+          ]
+        },
+        "chapter-08-p002": {
+          "sentences": [
+            "“我也没办法呀，”五号闷闷不乐地说，“是七号撞了我的胳膊肘。”"
+          ],
+          "hints": [
+            {
+              "id": "jogged-my-elbow",
+              "kind": "phrase",
+              "target": "jogged my elbow",
+              "sentence": 5,
+              "zh": "撞了我的胳膊肘，害我手一抖；这是五号推卸责任的借口。",
+              "en": "Jogged my elbow: knocked my arm so that my hand slipped — Five's excuse for the mess."
+            }
+          ]
+        },
+        "chapter-08-p003": {
+          "sentences": [
+            "听了这话，七号抬起头说：“说得没错，五号！",
+            "总把错推到别人身上！”"
+          ],
+          "hints": [
+            {
+              "id": "lay-the-blame-on",
+              "kind": "phrase",
+              "target": "lay the blame on",
+              "sentence": 7,
+              "zh": "把过错推到（别人身上）。",
+              "en": "Lay the blame on someone: to say that someone else is at fault."
+            }
+          ]
+        },
+        "chapter-08-p004": {
+          "sentences": [
+            "“你最好别说话！”五号说。",
+            "“我昨天才听王后说，你该被砍头！”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p005": {
+          "sentences": [
+            "“为什么？”最先开口的那个说。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p006": {
+          "sentences": [
+            "“这不关你的事，二号！”七号说。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p007": {
+          "sentences": [
+            "“怎么不关他的事！”五号说，“我这就告诉他——就因为他给厨娘拿的是郁金香球根，不是洋葱。”"
+          ],
+          "hints": [
+            {
+              "id": "tulip-roots",
+              "kind": "word",
+              "target": "tulip-roots",
+              "sentence": 12,
+              "zh": "郁金香的球根，样子像洋葱；拿它当洋葱做菜，所以厨娘要告状。",
+              "en": "Tulip bulbs, which look like onions; bringing them instead of onions is what got Two into trouble."
+            }
+          ]
+        },
+        "chapter-08-p008": {
+          "sentences": [
+            "七号把刷子一扔，刚说出“哼，天底下最不讲理的事——”，就一眼瞥见站在那儿看着他们的爱丽丝，赶紧把话咽了回去；另外两个也回过头来，三个人一齐深深鞠躬。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p009": {
+          "sentences": [
+            "“请问，”爱丽丝有点胆怯地说，“你们为什么要把那些玫瑰涂成红色？”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What are the three gardeners doing at the rose-tree?",
+          "options": [
+            "Cutting the white roses off.",
+            "Painting the white roses red.",
+            "Planting a new red rose-tree."
+          ],
+          "answer": 1,
+          "sentence": 1,
+          "feedback": {
+            "zh": "开篇就写三个园丁在玫瑰树旁忙着把白玫瑰涂红，爱丽丝正是被这桩怪事吸引过去的。",
+            "en": "The unit opens with the three gardeners busily painting white roses red, which is what draws Alice closer."
+          }
+        },
+        {
+          "question": "What does Five say he heard the Queen say about Seven?",
+          "options": [
+            "That Seven deserved to be beheaded.",
+            "That Seven should paint faster.",
+            "That Seven must leave the garden."
+          ],
+          "answer": 0,
+          "sentence": 9,
+          "feedback": {
+            "zh": "五号说，他昨天亲耳听王后说七号该被砍头，七号因此叫他闭嘴。",
+            "en": "Five says he heard the Queen herself say the day before that Seven deserved to be beheaded."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I heard the Queen say only yesterday you deserved to be beheaded",
+        "pointIds": [
+          "cefrj-210"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "heard 后接宾语 the Queen 和动词原形 say，听见的是整个说话动作；再到 be beheaded 收住。",
+          "en": "Heard takes the object the Queen plus the bare verb say: she heard the whole act of speaking, and the clause about beheading hangs on say."
+        }
+      }
+    },
+    {
+      "number": 2,
+      "title": {
+        "zh": "一队奇怪的队伍",
+        "en": "A Very Odd Procession"
+      },
+      "introduction": {
+        "zh": "二号吞吞吐吐地道出原委：这棵树本该是红的。话还没说完，他就慌慌张张地朝花园那头张望，声音也变了。究竟是谁来了，让三个园丁怕成这样？",
+        "en": "Two explains, in a low voice, that the rose-tree should have been red. Before he can finish, he is peering anxiously across the garden and his voice changes. Who is coming, and why does the whole garden fall silent at the news?"
+      },
+      "paragraphs": {
+        "chapter-08-p010": {
+          "sentences": [
+            "五号和七号没说话，只看着二号。",
+            "二号低声开口：“是这么回事，小姐，您瞧，这儿本来该是一棵红玫瑰树，我们弄错了，栽了一棵白的；要是让王后发现了，我们几个的脑袋就都保不住了，您知道。",
+            "所以您瞧，小姐，我们趁她还没来，尽量把它——”这时，一直不安地朝花园那头张望的五号喊了起来：“王后！",
+            "王后！”三个园丁立刻扑倒在地，脸朝下趴着。",
+            "传来许多人的脚步声，爱丽丝转过头去，急着想看看王后。"
+          ],
+          "hints": [
+            {
+              "id": "this-here",
+              "kind": "phrase",
+              "target": "this here",
+              "sentence": 2,
+              "zh": "口语里加强语气的说法，相当于 this，带乡下口音。",
+              "en": "'This here' is a dialect way of saying this, for emphasis."
+            },
+            {
+              "id": "afore",
+              "kind": "word",
+              "target": "afore",
+              "sentence": 3,
+              "zh": "方言里的 before，意思是“在……之前”。",
+              "en": "Afore is a dialect form of before."
+            }
+          ]
+        },
+        "chapter-08-p011": {
+          "sentences": [
+            "走在最前面的是十个扛着棍棒的士兵；他们的样子跟那三个园丁一样，都是又长又扁的长方形，手脚长在四个角上；接着是十个朝臣，浑身上下都装饰着方块花色，也像士兵一样两人一排地走。",
+            "他们后面是王室的孩子，一共十个；这些可爱的小家伙两人一对，手拉着手，欢欢喜喜地蹦跳着过来：他们身上都装饰着红心花色。",
+            "再后面是宾客，大多是国王和王后，爱丽丝在里头认出了白兔：它正急急忙忙、紧张兮兮地说着话，别人说什么它都陪笑，从她身边走过时却没注意到她。",
+            "接着走来的是红心骑士，手里捧着一个深红色天鹅绒垫子，上面放着国王的王冠；这队盛大行列的最后，是红心国王和红心王后。"
+          ],
+          "hints": [
+            {
+              "id": "white-rabbit",
+              "kind": "word",
+              "target": "White Rabbit",
+              "sentence": 8,
+              "zh": "白兔，揣着怀表、把爱丽丝引进奇境的那只兔子。",
+              "en": "The White Rabbit, the rabbit with the watch who first led Alice into Wonderland."
+            },
+            {
+              "id": "clubs",
+              "kind": "word",
+              "target": "clubs",
+              "sentence": 6,
+              "zh": "棍棒；在扑克牌里也指“梅花”花色，这里士兵扛的是棍棒。",
+              "en": "Clubs: heavy sticks, and also one of the card suits; here the soldiers carry them."
+            },
+            {
+              "id": "diamonds",
+              "kind": "word",
+              "target": "diamonds",
+              "sentence": 6,
+              "zh": "方块，扑克牌四种花色之一；朝臣身上满是方块花纹。",
+              "en": "Diamonds, one of the four card suits, patterned all over the courtiers."
+            },
+            {
+              "id": "the-king-and-queen-of-hearts",
+              "kind": "phrase",
+              "target": "THE KING AND QUEEN OF HEARTS",
+              "sentence": 9,
+              "zh": "红心国王与红心王后，也就是这副牌的国王和王后，全场的最高主人。",
+              "en": "The King and Queen of Hearts: the king and queen of this pack of cards, and the rulers here."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why are the gardeners so worried about the rose-tree?",
+          "options": [
+            "It is the wrong colour and the Queen may find out.",
+            "It is dying because of the paint.",
+            "Alice has seen them stealing roses."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "二号说这棵树本该是红玫瑰，他们错栽了白的；若是被王后发现，大家的脑袋都保不住。",
+            "en": "Two admits the tree should have been red and that they planted a white one by mistake, which would cost them all their heads."
+          }
+        },
+        {
+          "question": "What is strange about the soldiers in the procession?",
+          "options": [
+            "They are dressed all in white.",
+            "They are oblong and flat, with hands and feet at the corners.",
+            "They are all much taller than Alice."
+          ],
+          "answer": 1,
+          "sentence": 6,
+          "feedback": {
+            "zh": "士兵又长又扁，手脚长在四个角上，跟那三个园丁一个形状——他们是纸牌上的人。",
+            "en": "The soldiers are oblong and flat with hands and feet at the corners, exactly like the gardeners: they are figures on playing cards."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "we should all have our heads cut off",
+        "pointIds": [
+          "cefrj-207"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "have + 宾语 our heads + 过去分词 cut off，表示“让别人把头砍掉”，动作不是自己做的。",
+          "en": "Have plus object plus past participle: the heads would be cut off by someone else, not by the gardeners themselves."
+        }
+      }
+    },
+    {
+      "number": 3,
+      "title": {
+        "zh": "王后开口问话",
+        "en": "The Queen Asks Questions"
+      },
+      "introduction": {
+        "zh": "队伍在爱丽丝面前停下，所有目光都落到她身上，王后开口问话。面对这样一群人，她该照规矩趴下，还是站着不动？她心里那点念头，又能撑多久？",
+        "en": "The procession stops in front of Alice and every face turns to her. Should she lie face down as the gardeners did, or stay on her feet? The Queen begins to ask questions, and a wrong answer could be expensive."
+      },
+      "paragraphs": {
+        "chapter-08-p012": {
+          "sentences": [
+            "爱丽丝拿不准自己是不是也该像那三个园丁一样趴下，可她记不起听说过游行时有这样的规矩；“再说，要是大家都得趴在地上、看都看不见，”她想，“那游行还有什么意思？”",
+            "于是她就站在原地等着。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p013": {
+          "sentences": [
+            "队伍走到爱丽丝对面时，全都停下来看着她，王后严厉地说：“这是谁？”",
+            "这句话是问红心骑士的，可它只鞠了一躬，笑着不作声。"
+          ],
+          "hints": [
+            {
+              "id": "knave-of-hearts",
+              "kind": "word",
+              "target": "Knave of Hearts",
+              "sentence": 4,
+              "zh": "红心骑士，宫廷里听差的牌，替王后传话跑腿。",
+              "en": "The Knave of Hearts, a court card who waits on the Queen and carries her orders."
+            }
+          ]
+        },
+        "chapter-08-p014": {
+          "sentences": [
+            "“白痴！”王后不耐烦地把头一甩，又转向爱丽丝，接着说，“你叫什么名字，孩子？”"
+          ],
+          "hints": [
+            {
+              "id": "tossing-her-head",
+              "kind": "phrase",
+              "target": "tossing her head",
+              "sentence": 5,
+              "zh": "把头一甩，表示不耐烦、瞧不起。",
+              "en": "Tossing her head: jerking it back in impatience or contempt."
+            }
+          ]
+        },
+        "chapter-08-p015": {
+          "sentences": [
+            "“我叫爱丽丝，回禀陛下。”爱丽丝非常有礼貌地说；可她心里又补了一句：“咳，他们说到底不过是一副纸牌。",
+            "我才不用怕他们呢！”"
+          ],
+          "hints": [
+            {
+              "id": "majesty",
+              "kind": "word",
+              "target": "Majesty",
+              "sentence": 6,
+              "zh": "陛下，对君主的称呼；“so please your Majesty”是极恭敬的说法。",
+              "en": "Majesty: the title used for a monarch; 'so please your Majesty' is very formal and respectful."
+            },
+            {
+              "id": "pack-of-cards",
+              "kind": "phrase",
+              "target": "pack of cards",
+              "sentence": 6,
+              "zh": "一副纸牌。爱丽丝这才想到，眼前这些人不过是牌。",
+              "en": "A pack of cards; Alice suddenly realises that the whole court is made of cards."
+            }
+          ]
+        },
+        "chapter-08-p016": {
+          "sentences": [
+            "“这些又是什么人？”王后指着趴在玫瑰树周围的三个园丁说；你要知道，他们脸朝下趴着，背上的花纹又跟整副牌里其他牌一样，所以她分不清他们是园丁、士兵、朝臣，还是她自己的三个孩子。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p017": {
+          "sentences": [
+            "“我怎么知道？”爱丽丝说，自己也为自己这份胆量吃惊。",
+            "“这可不关我的事。”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p018": {
+          "sentences": [
+            "王后气得满脸通红，像野兽一样瞪了她一会儿，就尖叫起来：“砍掉她的头！",
+            "砍——”"
+          ],
+          "hints": [
+            {
+              "id": "crimson",
+              "kind": "word",
+              "target": "crimson",
+              "sentence": 11,
+              "zh": "深红色；turned crimson with fury 指气得满脸通红。",
+              "en": "Crimson: deep red; 'turned crimson with fury' means her face went red with rage."
+            }
+          ]
+        },
+        "chapter-08-p019": {
+          "sentences": [
+            "“胡说！”爱丽丝非常响亮、非常坚决地说，王后就不作声了。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice stay on her feet instead of lying face down?",
+          "options": [
+            "She has never heard of such a rule at processions.",
+            "The gardeners tell her to stay where she is.",
+            "She is too frightened to move."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "爱丽丝记不起游行时有趴下的规矩，还想：大家都趴着看不见，游行也就没用了。",
+            "en": "Alice cannot remember such a rule at processions, and thinks a procession nobody could see would be pointless."
+          }
+        },
+        {
+          "question": "How does Alice answer when the Queen asks who the gardeners are?",
+          "options": [
+            "That they are her friends.",
+            "That she does not know and it is no business of hers.",
+            "That they are three of the Queen's children."
+          ],
+          "answer": 1,
+          "sentence": 9,
+          "feedback": {
+            "zh": "爱丽丝干脆回答“我怎么知道”，还说这不关她的事，连自己都为这份胆量吃了一惊。",
+            "en": "Alice answers 'How should I know?' and adds that it is no business of hers, surprised at her own courage."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "whether she ought not to lie down on her face like the three gardeners",
+        "pointIds": [
+          "cefrj-154"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "whether 引出她拿不准的“是否该趴下”，作 doubtful 的补充；从句用陈述语序，谓语是 ought not to lie down。",
+          "en": "Whether introduces the uncertain question she is doubtful about; the clause keeps statement order, and its verb is ought not to lie down."
+        }
+      }
+    },
+    {
+      "number": 4,
+      "title": {
+        "zh": "快把他们翻过来",
+        "en": "Turn Them Over!"
+      },
+      "introduction": {
+        "zh": "王后一声令下，三个园丁被翻了过来，只好跪下答话。可她的问题刚问出口，判决就跟着来了；爱丽丝手边正好有个空花盆。她来得及做什么？",
+        "en": "A word from the Queen and the gardeners are turned over and made to kneel. Her question is hardly out before a sentence follows it. Alice has an empty flower-pot nearby, and very little time."
+      },
+      "paragraphs": {
+        "chapter-08-p020": {
+          "sentences": [
+            "国王把手搭在她胳膊上，怯生生地说：“你想想，亲爱的：她不过是个孩子！”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p021": {
+          "sentences": [
+            "王后气冲冲地转过身去背对着他，对红心骑士说：“把他们翻过来！”"
+          ],
+          "hints": [
+            {
+              "id": "turn-them-over",
+              "kind": "phrase",
+              "target": "Turn them over",
+              "sentence": 2,
+              "zh": "把他们翻过来。三个园丁脸朝下趴着，翻过来才看得清是什么牌。",
+              "en": "Turn them over: the gardeners are lying face down, and only when turned can anyone see which card they are."
+            }
+          ]
+        },
+        "chapter-08-p022": {
+          "sentences": [
+            "红心骑士照办了，用一只脚，非常小心地把他们翻了过来。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p023": {
+          "sentences": [
+            "“起来！”王后用又尖又响的声音说，三个园丁立刻跳起来，开始向国王、王后、王室的孩子，还有在场的每个人一一鞠躬。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p024": {
+          "sentences": [
+            "“别鞠了！”王后尖叫。",
+            "“你把我看得头都晕了。”",
+            "然后她转向那棵玫瑰树，接着问：“你们在这儿干了什么？”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p025": {
+          "sentences": [
+            "“回禀陛下，”二号用极恭顺的口气说，一边说一边单膝跪下，“我们是想——”"
+          ],
+          "hints": [
+            {
+              "id": "may-it-please-your-majesty",
+              "kind": "sentence",
+              "target": "May it please your Majesty",
+              "sentence": 8,
+              "zh": "“回禀陛下”，旧时下属对君主开口时的恭敬套语，直译是“愿这能使陛下高兴”。",
+              "en": "'May it please your Majesty': an old, very humble way of opening a speech to a monarch."
+            }
+          ]
+        },
+        "chapter-08-p026": {
+          "sentences": [
+            "“我明白了！”王后说——这工夫她一直在查看那些玫瑰。",
+            "“砍掉他们的头！”队伍继续往前走，只留下三个士兵去处决那几个倒霉的园丁，园丁们却跑到爱丽丝那儿求她保护。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p027": {
+          "sentences": [
+            "“你们不会被砍头的！”爱丽丝说，把他们塞进旁边一个大花盆里。",
+            "那三个士兵四处转了一两分钟，到处找他们，随后就悄悄跟上队伍走了。"
+          ],
+          "hints": [
+            {
+              "id": "shan-t",
+              "kind": "word",
+              "target": "shan't",
+              "sentence": 11,
+              "zh": "shall not 的缩写；这里表示“绝不让你们被砍头”。",
+              "en": "Shan't is short for shall not; here Alice means she will not let it happen."
+            }
+          ]
+        },
+        "chapter-08-p028": {
+          "sentences": [
+            "“他们的头掉了吗？”王后喊道。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p029": {
+          "sentences": [
+            "“他们的头都没了，回禀陛下！”士兵们大声回答。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p030": {
+          "sentences": [
+            "“很好！”王后喊道。",
+            "“你会打槌球吗？”"
+          ],
+          "hints": [
+            {
+              "id": "croquet",
+              "kind": "word",
+              "target": "croquet",
+              "sentence": 16,
+              "zh": "槌球戏，用木槌把球打过草地上的铁环；本书里球和槌都是活物。",
+              "en": "Croquet: a lawn game in which balls are hit through hoops with mallets; here the balls and mallets are alive."
+            }
+          ]
+        },
+        "chapter-08-p031": {
+          "sentences": [
+            "士兵们不出声，只看着爱丽丝，因为这个问题显然是问她的。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p032": {
+          "sentences": [
+            "“会！”爱丽丝大声说。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p033": {
+          "sentences": [
+            "“那就来吧！”王后吼道。爱丽丝加入了队伍，心里非常想知道接下来会出什么事。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the King do when the Queen screams for Alice's head?",
+          "options": [
+            "He orders the soldiers to seize Alice.",
+            "He reminds her that Alice is only a child.",
+            "He quietly leaves the garden."
+          ],
+          "answer": 1,
+          "sentence": 1,
+          "feedback": {
+            "zh": "国王按住王后的手臂，怯生生地提醒她：爱丽丝不过是个孩子。",
+            "en": "The King lays a hand on the Queen's arm and timidly reminds her that Alice is only a child."
+          }
+        },
+        {
+          "question": "Where does Alice put the three gardeners?",
+          "options": [
+            "Behind the rose-tree.",
+            "In a large flower-pot.",
+            "Under the Queen's throne."
+          ],
+          "answer": 1,
+          "sentence": 11,
+          "feedback": {
+            "zh": "爱丽丝说他们不会被砍头，顺手把三个园丁塞进旁边的大花盆里。",
+            "en": "Alice says they shall not be beheaded and pops the three gardeners into a big flower-pot nearby."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "What have you been doing here?",
+        "pointIds": [
+          "cefrj-63"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "have been doing 是现在完成进行时：从过去一直做到现在，王后问的是“你们一直在这儿干什么”。",
+          "en": "Have been doing is the present perfect continuous: the Queen asks about an action that has been going on up to now."
+        }
+      }
+    },
+    {
+      "number": 5,
+      "title": {
+        "zh": "白兔的悄悄话",
+        "en": "The Rabbit's Whisper"
+      },
+      "introduction": {
+        "zh": "队伍走着，白兔凑到爱丽丝身边，先没话找话，随后压低声音说出一件可怕的事。她还想再问，王后已经在场地上喊了起来。这场球，到底要怎么打？",
+        "en": "As they walk, the White Rabbit sidles up to Alice and then whispers something alarming about the Duchess. Before she can ask more, the Queen's voice booms across the ground. What kind of game is about to begin?"
+      },
+      "paragraphs": {
+        "chapter-08-p034": {
+          "sentences": [
+            "“今天——今天天气真好！”她身边有个怯怯的声音说。",
+            "走在她旁边的是白兔，它正不安地偷眼打量她的脸。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p035": {
+          "sentences": [
+            "“是很好，”爱丽丝说，“——公爵夫人在哪儿？”"
+          ],
+          "hints": [
+            {
+              "id": "duchess",
+              "kind": "word",
+              "target": "Duchess",
+              "sentence": 3,
+              "zh": "公爵夫人，脾气暴躁，前几章在胡椒厨房里出现过。",
+              "en": "The Duchess, the bad-tempered lady Alice met earlier in the pepper kitchen."
+            }
+          ]
+        },
+        "chapter-08-p036": {
+          "sentences": [
+            "“嘘！嘘！”白兔压低声音、急急忙忙地说。",
+            "它一边说一边不安地回头看，然后踮起脚，把嘴凑到她耳边，悄声说：“她被判了死刑。”"
+          ],
+          "hints": [
+            {
+              "id": "under-sentence-of-execution",
+              "kind": "phrase",
+              "target": "under sentence of execution",
+              "sentence": 5,
+              "zh": "已被判处死刑，只等行刑。",
+              "en": "Under sentence of execution: condemned to death and waiting to be executed."
+            }
+          ]
+        },
+        "chapter-08-p037": {
+          "sentences": [
+            "“为什么？”爱丽丝问。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p038": {
+          "sentences": [
+            "“你是说‘真可惜’吗？”白兔问。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p039": {
+          "sentences": [
+            "“不，我没说，”爱丽丝说，“我一点也不觉得可惜。",
+            "我说的是‘为什么’。”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p040": {
+          "sentences": [
+            "“她打了王后一记耳光——”白兔刚开口。",
+            "爱丽丝忍不住笑出声来。",
+            "“哦，嘘！”白兔害怕地低声说。",
+            "“王后会听见你的！",
+            "你知道，她来得晚了些，王后就说——”"
+          ],
+          "hints": [
+            {
+              "id": "boxed-the-queens-ears",
+              "kind": "phrase",
+              "target": "boxed the Queen's ears",
+              "sentence": 10,
+              "zh": "打了王后一记耳光（box someone's ears）。",
+              "en": "Boxed the Queen's ears: slapped the Queen on the side of the head."
+            }
+          ]
+        },
+        "chapter-08-p041": {
+          "sentences": [
+            "“各就各位！”王后用打雷一样的声音喊，人们便四散跑开，撞成一团；不过一两分钟后大家都站定了，球戏就开始了。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p042": {
+          "sentences": [
+            "爱丽丝想，她一辈子也没见过这么奇怪的槌球场：地上尽是垄和沟；球是活刺猬，球杆是活火烈鸟，士兵们还得弯下身子、手脚撑地，充当球门。"
+          ],
+          "hints": [
+            {
+              "id": "ridges-and-furrows",
+              "kind": "phrase",
+              "target": "ridges and furrows",
+              "sentence": 16,
+              "zh": "田垄和沟壑，指地面高低不平。",
+              "en": "Ridges and furrows: raised strips and deep grooves in the ground."
+            },
+            {
+              "id": "flamingoes",
+              "kind": "word",
+              "target": "flamingoes",
+              "sentence": 16,
+              "zh": "火烈鸟，长颈长腿的粉红色水鸟；这里被当作球杆用。",
+              "en": "Flamingoes: long-necked pink birds, used here as croquet mallets."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does the White Rabbit whisper about the Duchess?",
+          "options": [
+            "That she is under sentence of execution.",
+            "That she has left the garden.",
+            "That she wants to see Alice."
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "白兔凑到她耳边悄声说：公爵夫人已被判了死刑。爱丽丝问“为什么”，它却听成了“真可惜”。",
+            "en": "The Rabbit whispers that the Duchess is under sentence of execution, then mistakes Alice's 'What for?' for 'What a pity!'"
+          }
+        },
+        {
+          "question": "What is unusual about the croquet-ground?",
+          "options": [
+            "The balls are hedgehogs and the mallets are flamingoes.",
+            "The ground is covered with water.",
+            "The arches are made of roses."
+          ],
+          "answer": 0,
+          "sentence": 16,
+          "feedback": {
+            "zh": "场上球是活刺猬，球杆是活火烈鸟，士兵弯腰撑地充当球门。",
+            "en": "On this ground the balls are live hedgehogs, the mallets live flamingoes, and doubled-up soldiers serve as the arches."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "she had never seen such a curious croquet-ground in her life",
+        "pointIds": [
+          "cefrj-67"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "had never seen 是过去完成时：以当时那一刻为界，说在那之前从没见过；never 放在 had 之后。",
+          "en": "Had never seen is past perfect: at that past moment, she had never seen such a ground before; never comes after had."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": {
+        "zh": "最难的一场球",
+        "en": "The Hardest Game"
+      },
+      "introduction": {
+        "zh": "球戏一开始，爱丽丝就发现每样东西都在动：火烈鸟扭头看她，刺猬自己展开身子爬走，球门还挪到别处去了。她该怎么把球打进门？",
+        "en": "From the first stroke, nothing on this croquet-ground keeps still: the flamingo twists round to look at her, the hedgehog unrolls and crawls off, and the arches wander away. How can anyone play a game like this?"
+      },
+      "paragraphs": {
+        "chapter-08-p043": {
+          "sentences": [
+            "爱丽丝起初觉得最难的是摆弄她那只火烈鸟：她总算把鸟身子夹在腋下，倒也还算舒服，两条腿垂下来；可通常她刚把鸟脖子顺直，正要拿鸟头去击刺猬，那鸟就扭过头来，一脸困惑地仰头看她的脸，逗得她忍不住大笑；等她再把鸟头按下去、准备重来时，又气人地发现刺猬已经展开身子，正要爬走；除此之外，不管她想把刺猬往哪儿打，路上总有一道垄或一条沟；而那些弯着腰的士兵又老是直起身走开，到场地别处去了。爱丽丝很快就断定，这游戏实在太难了。"
+          ],
+          "hints": [
+            {
+              "id": "hedgehog",
+              "kind": "word",
+              "target": "hedgehog",
+              "sentence": 1,
+              "zh": "刺猬，遇险就蜷成一团；本章里被当作槌球。",
+              "en": "A hedgehog, which rolls itself into a ball; here the hedgehogs are the croquet balls."
+            },
+            {
+              "id": "tucked-away",
+              "kind": "phrase",
+              "target": "tucked away",
+              "sentence": 1,
+              "zh": "塞好、夹好；她把火烈鸟的身子夹在腋下。",
+              "en": "Tucked away: pushed neatly out of the way, here under her arm."
+            },
+            {
+              "id": "in-the-act-of",
+              "kind": "phrase",
+              "target": "in the act of",
+              "sentence": 1,
+              "zh": "正在……的当口；in the act of crawling away 就是“正要爬走”。",
+              "en": "In the act of doing something: in the very middle of doing it."
+            }
+          ]
+        },
+        "chapter-08-p044": {
+          "sentences": [
+            "打球的人都不等轮次，一齐动手，从头到尾争争吵吵，为刺猬你抢我夺；没过多久，王后就勃然大怒，跺着脚走来走去，差不多每分钟就喊一次“砍掉他的头！”或者“砍掉她的头！”"
+          ],
+          "hints": [
+            {
+              "id": "stamping-about",
+              "kind": "phrase",
+              "target": "stamping about",
+              "sentence": 2,
+              "zh": "跺着脚走来走去，气急败坏的样子。",
+              "en": "Stamping about: walking up and down and bringing her feet down hard."
+            },
+            {
+              "id": "in-a-furious-passion",
+              "kind": "phrase",
+              "target": "in a furious passion",
+              "sentence": 2,
+              "zh": "勃然大怒；in a passion 是旧时说“大发脾气”。",
+              "en": "In a furious passion: in a violent rage."
+            }
+          ]
+        },
+        "chapter-08-p045": {
+          "sentences": [
+            "爱丽丝开始觉得很不自在：不错，她到现在还没跟王后争执过，可她知道这事随时都可能发生；“到那时候，”她想，“我会怎么样呢？",
+            "这儿的人可怕地爱砍人脑袋；奇怪的是，居然还有人活着！”"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why is it so hard for Alice to hit the hedgehog?",
+          "options": [
+            "The flamingo keeps twisting round and the hedgehog keeps unrolling.",
+            "The hedgehogs are too heavy to move.",
+            "She has never played croquet before."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "她的火烈鸟老是扭头看她，刺猬又自己展开身子爬走，所以她断定这游戏实在太难。",
+            "en": "Her flamingo keeps twisting round to look at her and the hedgehog keeps unrolling and crawling off, so she decides the game is very difficult."
+          }
+        },
+        {
+          "question": "What does the Queen do while the others play?",
+          "options": [
+            "She keeps shouting for heads to be cut off.",
+            "She sits quietly and watches.",
+            "She orders the game to stop."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "大家不等轮次乱打一气，没多久王后就勃然大怒，几乎每分钟都喊一次砍头。",
+            "en": "The players all strike at once, and soon the Queen is in a fury, shouting for a head about once a minute."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "with such a puzzled expression that she could not help bursting out laughing",
+        "pointIds": [
+          "cefrj-46"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "such a + 形容词 + 名词：such a puzzled expression 指“那样困惑的一副表情”，后面的 that 从句说明结果。",
+          "en": "Such a plus adjective plus noun: such a puzzled expression, and the that-clause that follows tells you the result."
+        }
+      }
+    },
+    {
+      "number": 7,
+      "title": {
+        "zh": "空中的笑",
+        "en": "A Grin in the Air"
+      },
+      "introduction": {
+        "zh": "爱丽丝正想找机会溜走，忽然看见半空中浮着一样东西，看了好一会儿才认出那是一个笑。接着，一个熟悉的声音跟她打招呼。这会儿，她能把满肚子委屈说给谁听？",
+        "en": "Alice is looking for a way out when something odd appears in the air: it takes her a minute to see that it is a grin. Then a familiar voice greets her. At last she has someone to tell her troubles to."
+      },
+      "paragraphs": {
+        "chapter-08-p046": {
+          "sentences": [
+            "她正四下张望，想找个逃跑的办法，盘算着能不能不被人看见就溜走，忽然注意到空中出现一个怪东西：起初她怎么也弄不明白，可看了一两分钟，她看出那是一个咧嘴的笑，便自言自语说：“是柴郡猫：这下我有个人可以说话了。”"
+          ],
+          "hints": [
+            {
+              "id": "cheshire-cat",
+              "kind": "word",
+              "target": "Cheshire Cat",
+              "sentence": 1,
+              "zh": "柴郡猫，会隐身、能只露出一个笑，说话慢条斯理。",
+              "en": "The Cheshire Cat, which can vanish and leave only its grin, and speaks very coolly."
+            },
+            {
+              "id": "grin",
+              "kind": "word",
+              "target": "grin",
+              "sentence": 1,
+              "zh": "咧开嘴的笑；这里先出现的是笑，身子还没出来。",
+              "en": "A grin: a wide smile; here the smile appears before the body does."
+            },
+            {
+              "id": "made-it-out",
+              "kind": "phrase",
+              "target": "made it out",
+              "sentence": 1,
+              "zh": "辨认出、看出（是……）；make out 指费力看清或听懂。",
+              "en": "Made it out: managed to see what it was; 'make out' means to see or hear with difficulty."
+            }
+          ]
+        },
+        "chapter-08-p047": {
+          "sentences": [
+            "“你过得怎么样？”猫说，这时它已经长出足够说话的嘴了。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p048": {
+          "sentences": [
+            "爱丽丝等眼睛出现了，才点点头。",
+            "“跟它说话也没用，”她想，“得等它的耳朵出来，至少出来一只。”",
+            "又过了一分钟，整个头都出现了，爱丽丝这才放下火烈鸟，开始讲起球戏的情形，心里很高兴总算有人听她说话。",
+            "猫似乎觉得露出来的已经够多了，再没有多露出一点。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p049": {
+          "sentences": [
+            "“我觉得他们打得一点也不公道，”爱丽丝用相当抱怨的口气说，“而且大家吵得那么厉害，连自己说什么都听不见——他们好像也没有什么特别的规则；就算有，也没人遵守——你真想不到，什么东西都是活的，有多乱；比方说吧，我下一杆要过的那个球门，这会儿正在场地另一头走来走去——刚才我本该把王后的刺猬打出去的，可它一见我的刺猬过来就跑了！”"
+          ],
+          "hints": [
+            {
+              "id": "attends-to",
+              "kind": "phrase",
+              "target": "attends to",
+              "sentence": 7,
+              "zh": "留意、照办；nobody attends to them 就是“没人遵守”。",
+              "en": "Attends to: pays attention to and obeys; 'nobody attends to them' means nobody follows them."
+            },
+            {
+              "id": "croqueted",
+              "kind": "word",
+              "target": "croqueted",
+              "sentence": 7,
+              "zh": "croquet 作动词：用槌把自己的球打出去，撞走对方的球。",
+              "en": "Croqueted: used as a verb, to hit your own ball so that it drives another player's ball away."
+            }
+          ]
+        },
+        "chapter-08-p050": {
+          "sentences": [
+            "“你觉得王后怎么样？”猫低声问。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What does Alice first notice in the air?",
+          "options": [
+            "A grin without a body.",
+            "A pair of ears.",
+            "A flamingo flying up."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "她起初弄不明白空中那东西，看了一两分钟才认出是一个咧嘴的笑——柴郡猫先露出了笑。",
+            "en": "At first she cannot make out the thing in the air; after a minute or two she sees that it is a grin."
+          }
+        },
+        {
+          "question": "What does Alice complain about to the Cat?",
+          "options": [
+            "That the players keep no rules and everything is alive.",
+            "That the Queen is unfair to the gardeners.",
+            "That nobody will speak to her."
+          ],
+          "answer": 0,
+          "sentence": 7,
+          "feedback": {
+            "zh": "爱丽丝抱怨大家不守规则、什么都活着，连她下一杆要过的球门都走到场地另一头去了。",
+            "en": "Alice complains that nobody keeps the rules and that everything is alive, down to the arch that has walked to the other end of the ground."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I should have croqueted the Queen's hedgehog just now",
+        "pointIds": [
+          "cefrj-145"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "should have + 过去分词，说“本来应该做到而没做到”：那一杆她本该把王后的刺猬打出去。",
+          "en": "Should have plus past participle: she ought to have made that stroke, but did not."
+        }
+      }
+    },
+    {
+      "number": 8,
+      "title": {
+        "zh": "猫也有权看国王",
+        "en": "A Cat May Look at a King"
+      },
+      "introduction": {
+        "zh": "王后从爱丽丝身后走过，国王又盯着半空中的猫头发问。有人嫌它碍眼，有人嫌它无礼，猫却一点也不着急。一句老话，能挡得住王后吗？",
+        "en": "The Queen passes close behind Alice, and the King stares at the Cat's head and does not like what he sees. The Cat is not troubled in the least. Can an old saying really protect it from the Queen?"
+      },
+      "paragraphs": {
+        "chapter-08-p051": {
+          "sentences": [
+            "“一点也不喜欢，”爱丽丝说，“她实在太——”就在这时，她发现王后就在她身后不远，正听着，于是她接着说，“——太可能赢了，所以把这场球打完简直没什么意思。”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p052": {
+          "sentences": [
+            "王后笑了笑，走了过去。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p053": {
+          "sentences": [
+            "“你在跟谁说话？”国王走到爱丽丝跟前说，非常好奇地看着猫的头。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p054": {
+          "sentences": [
+            "“是我的一个朋友——一只柴郡猫，”爱丽丝说，“请允许我介绍一下。”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p055": {
+          "sentences": [
+            "“我一点也不喜欢它这副样子，”国王说，“不过，它要是愿意，可以亲我的手。”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p056": {
+          "sentences": [
+            "“我还是不亲了。”猫说。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p057": {
+          "sentences": [
+            "“别放肆，”国王说，“也别那样看着我！”",
+            "他一边说一边躲到爱丽丝身后。"
+          ],
+          "hints": [
+            {
+              "id": "impertinent",
+              "kind": "word",
+              "target": "impertinent",
+              "sentence": 7,
+              "zh": "放肆、无礼，对长辈或上位者说话不客气。",
+              "en": "Impertinent: rude and disrespectful, especially to someone above you."
+            }
+          ]
+        },
+        "chapter-08-p058": {
+          "sentences": [
+            "“猫也有权看国王。”爱丽丝说。",
+            "“我在哪本书上读到过，可记不得是哪一本了。”"
+          ],
+          "hints": [
+            {
+              "id": "a-cat-may-look-at-a-king",
+              "kind": "sentence",
+              "target": "A cat may look at a king",
+              "sentence": 9,
+              "zh": "谚语：“猫也有权看国王”，意思是小人物也有看大人物的自由。",
+              "en": "An old saying: 'A cat may look at a king' — even the humble have a right to look at the great."
+            }
+          ]
+        },
+        "chapter-08-p059": {
+          "sentences": [
+            "“嗯，它必须被弄走。”国王非常坚决地说，又朝正从旁边经过的王后喊，“亲爱的！",
+            "我希望你叫人把这猫弄走！”"
+          ],
+          "hints": [
+            {
+              "id": "removed",
+              "kind": "word",
+              "target": "removed",
+              "sentence": 11,
+              "zh": "弄走、除掉；王后嘴里的 remove 往往就是“砍头”。",
+              "en": "Removed: got rid of; in the Queen's mouth it usually means a beheading."
+            }
+          ]
+        },
+        "chapter-08-p060": {
+          "sentences": [
+            "王后解决一切难题，不论大小，只有一种办法。",
+            "“砍掉他的头！”她说，连头都没回。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p061": {
+          "sentences": [
+            "“我亲自去叫刽子手。”国王急切地说，匆匆走了。"
+          ],
+          "hints": [
+            {
+              "id": "executioner",
+              "kind": "word",
+              "target": "executioner",
+              "sentence": 15,
+              "zh": "刽子手，专门执行死刑的人。",
+              "en": "The executioner: the man whose job is to carry out executions."
+            }
+          ]
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice change what she is saying about the Queen?",
+          "options": [
+            "She sees the Queen listening behind her.",
+            "The King asks her to be polite.",
+            "The Cat warns her."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "爱丽丝正说王后“实在太——”，忽然发现王后就在身后听着，只好改口说“太可能赢了”。",
+            "en": "Alice is halfway through 'she's so extremely—' when she notices the Queen listening behind her, and switches to 'likely to win'."
+          }
+        },
+        {
+          "question": "What does the King want done with the Cat?",
+          "options": [
+            "He wants it removed.",
+            "He wants it invited to the palace.",
+            "He wants Alice to take it home."
+          ],
+          "answer": 0,
+          "sentence": 11,
+          "feedback": {
+            "zh": "国王非常坚决地说这猫“必须弄走”，还回头请王后下手。",
+            "en": "The King says very decidedly that the Cat must be removed, and calls on the Queen to do it."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "I'd rather not",
+        "pointIds": [
+          "cefrj-143"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "would rather 后接动词原形，I'd 就是 I would；not 单独放在后面，表示“宁可不要”。",
+          "en": "Would rather takes a bare verb, and I'd is I would; the bare not at the end means 'I would prefer not to'."
+        }
+      }
+    },
+    {
+      "number": 9,
+      "title": {
+        "zh": "刺猬、火烈鸟和球门",
+        "en": "Hedgehogs, Flamingoes, Arches"
+      },
+      "introduction": {
+        "zh": "球场那头，王后的尖叫声一阵接一阵；爱丽丝的刺猬正跟另一只打成一团，火烈鸟却跑到花园另一头去了。等她回来时，柴郡猫周围已经围了一群人。",
+        "en": "The Queen's screaming carries across the ground, Alice's hedgehog is busy fighting another, and her flamingo has wandered to the far side of the garden. When she gets back, a crowd has gathered round the Cat."
+      },
+      "paragraphs": {
+        "chapter-08-p062": {
+          "sentences": [
+            "爱丽丝想，不如回去看看球戏进行得怎么样了，因为她听见远处传来王后的声音，正在暴怒地尖叫。",
+            "她已经听见王后判了三个球员死刑，因为他们错过了自己的轮次；她一点也不喜欢眼前的局面，球戏乱得她根本不知道自己该不该上场。",
+            "于是她走开去找她的刺猬。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p063": {
+          "sentences": [
+            "那刺猬正跟另一只刺猬打作一团，爱丽丝觉得这正是拿一只去打另一只的好机会：唯一的难处是，她的火烈鸟跑到花园那头去了，她看得见它正无可奈何地想往树上飞。"
+          ],
+          "hints": [
+            {
+              "id": "in-a-helpless-sort-of-way",
+              "kind": "phrase",
+              "target": "in a helpless sort of way",
+              "sentence": 4,
+              "zh": "一副无可奈何的样子，想飞又飞不起来。",
+              "en": "In a helpless sort of way: looking quite unable to manage it."
+            }
+          ]
+        },
+        "chapter-08-p064": {
+          "sentences": [
+            "等她抓住火烈鸟、把它带回来，架已经打完了，两只刺猬都不见了踪影；“不过这也没什么要紧，”爱丽丝想，“反正场地这一边的球门都走光了。”",
+            "于是她把火烈鸟夹在腋下，免得它再跑掉，然后回去跟她的朋友再聊几句。"
+          ],
+          "hints": [
+            {
+              "id": "arches",
+              "kind": "word",
+              "target": "arches",
+              "sentence": 5,
+              "zh": "球门，槌球戏里要穿过的拱；这里是弯腰撑地的士兵。",
+              "en": "The arches: the hoops a croquet ball must pass through, here made by doubled-up soldiers."
+            },
+            {
+              "id": "out-of-sight",
+              "kind": "phrase",
+              "target": "out of sight",
+              "sentence": 5,
+              "zh": "看不见了，不见踪影。",
+              "en": "Out of sight: no longer visible, gone."
+            }
+          ]
+        },
+        "chapter-08-p065": {
+          "sentences": [
+            "她回到柴郡猫那儿，惊讶地发现它周围聚了一大群人：刽子手、国王和王后正在争执，三个人同时开口，其余的人都一声不响，看样子很不自在。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "Why does Alice go back towards the game?",
+          "options": [
+            "She wants to see how the game is going.",
+            "The Queen calls her by name.",
+            "She is looking for the Duchess."
+          ],
+          "answer": 0,
+          "sentence": 1,
+          "feedback": {
+            "zh": "她听见远处王后在尖叫，想想不如回去看看球戏进行得怎么样。",
+            "en": "Hearing the Queen screaming in the distance, she decides she may as well go back and see how the game is going."
+          }
+        },
+        {
+          "question": "Why does it no longer matter that the hedgehogs are gone?",
+          "options": [
+            "All the arches have left this side of the ground.",
+            "The Queen has stopped the game.",
+            "Alice has found another ball."
+          ],
+          "answer": 0,
+          "sentence": 5,
+          "feedback": {
+            "zh": "等她抓回火烈鸟，两只刺猬都不见了；她说反正这一边的球门也全走光了，没什么要紧。",
+            "en": "By the time she returns with the flamingo both hedgehogs are gone, and she says it hardly matters since all the arches have left this side."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "By the time she had caught the flamingo and brought it back",
+        "pointIds": [
+          "cefrj-159"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "by the time 引出“等她抓回火烈鸟”这个时间界限，主句讲那之前已结束的事，所以从句用 had caught。",
+          "en": "By the time marks the deadline; the main clause reports what was already over by then, so the clause uses had caught."
+        }
+      }
+    },
+    {
+      "number": 10,
+      "title": {
+        "zh": "谁来砍这个头",
+        "en": "Who Cuts Off This Head?"
+      },
+      "introduction": {
+        "zh": "刽子手、国王和王后同时开口，各说各的理，都要爱丽丝来评断，可谁的声音也听不清。这颗没有身子的猫头，到底该由谁来砍？",
+        "en": "The executioner, the King and the Queen all talk at once and all appeal to Alice, though she can hardly make out a word. A head is there, and no body to cut it from. Who is to settle it?"
+      },
+      "paragraphs": {
+        "chapter-08-p066": {
+          "sentences": [
+            "爱丽丝一出现，三个人都请她来评断这个问题，又各自把理由对她重说了一遍；可他们同时开口，她觉得很难听清他们到底说了什么。"
+          ],
+          "hints": [
+            {
+              "id": "appealed-to",
+              "kind": "phrase",
+              "target": "appealed to",
+              "sentence": 1,
+              "zh": "被（大家）请来评理、求助；appeal to somebody 就是“向某人求助”。",
+              "en": "Appealed to: asked to decide or help; 'appeal to someone' means to turn to them for a judgement."
+            }
+          ]
+        },
+        "chapter-08-p067": {
+          "sentences": [
+            "刽子手的理由是：要是没有身子，就没法从身子上砍下头来；他以前从没干过这种事，到了这把年纪也不打算开这个头。"
+          ],
+          "hints": [
+            {
+              "id": "at-his-time-of-life",
+              "kind": "phrase",
+              "target": "at his time of life",
+              "sentence": 2,
+              "zh": "到了他这把年纪；刽子手以此表示自己老了，不想再开这个头。",
+              "en": "At his time of life: at his age — the executioner's excuse for not starting now."
+            }
+          ]
+        },
+        "chapter-08-p068": {
+          "sentences": [
+            "国王的理由是：凡是有头的东西都能砍头，而且不许胡说八道。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p069": {
+          "sentences": [
+            "王后的理由是：要是不能马上把这事办妥，她就把所有人都处死，一个不留。（正是这最后一句话，让在场的人都显得那么严肃不安。）"
+          ],
+          "hints": [
+            {
+              "id": "in-less-than-no-time",
+              "kind": "phrase",
+              "target": "in less than no time",
+              "sentence": 4,
+              "zh": "夸张说法，意思是“马上、一转眼”。",
+              "en": "In less than no time: a joking expression meaning 'at once, in no time at all'."
+            }
+          ]
+        },
+        "chapter-08-p070": {
+          "sentences": [
+            "爱丽丝想不出别的话可说，只好说：“它是公爵夫人的：你最好去问她。”"
+          ],
+          "hints": []
+        },
+        "chapter-08-p071": {
+          "sentences": [
+            "“她在牢里，”王后对刽子手说，“把她带到这儿来。”",
+            "刽子手就像箭一样飞奔而去。"
+          ],
+          "hints": []
+        },
+        "chapter-08-p072": {
+          "sentences": [
+            "他刚走，猫头就开始渐渐消失；等他带着公爵夫人回来时，猫头已经全不见了；于是国王和刽子手疯了似的跑来跑去到处找，其余的人则回去打球了。"
+          ],
+          "hints": []
+        }
+      },
+      "quiz": [
+        {
+          "question": "What is the executioner's reason for not cutting off the Cat's head?",
+          "options": [
+            "There is no body to cut the head off from.",
+            "The Cat belongs to the Duchess.",
+            "He has lost his axe."
+          ],
+          "answer": 0,
+          "sentence": 2,
+          "feedback": {
+            "zh": "刽子手说，没有身子就无从下刀；他这辈子没干过这种事，也不打算现在开头。",
+            "en": "The executioner argues that a head cannot be cut off without a body, and that he is not going to start at his time of life."
+          }
+        },
+        {
+          "question": "What does the Queen threaten if the matter is not settled at once?",
+          "options": [
+            "To have everybody executed.",
+            "To send the King to prison.",
+            "To call the Duchess back to the garden."
+          ],
+          "answer": 0,
+          "sentence": 4,
+          "feedback": {
+            "zh": "王后的理由是：再不马上办，她就把所有人统统处死；这句话让全场都严肃不安起来。",
+            "en": "The Queen's argument is that if nothing is done at once she will have everybody executed, which is what makes the whole party look grave."
+          }
+        }
+      ],
+      "grammar": {
+        "excerpt": "you couldn't cut off a head unless there was a body to cut it off from",
+        "pointIds": [
+          "cefrj-161"
+        ],
+        "type": "new",
+        "focus": {
+          "zh": "unless 等于 if not，引出唯一例外“除非有身子可砍”；从句用一般过去时，跟 couldn't 保持一致。",
+          "en": "Unless means 'if not': it marks the one exception — no body, no head to cut off — and its past tense matches couldn't."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "bookId": "doctor-dolittle-1920",
+  "dictionary": "ECDICT 39cfb96 (core dictionary)",
+  "sources": {
+    "hints": "book.json",
+    "dictionary": "content/third-party/dictionaries/ecdict.json"
+  },
+  "totals": {
+    "hints": 563,
+    "matched": 158,
+    "zh": 1,
+    "en": 0,
+    "ipa": 0,
+    "pos": 0,
+    "any": 1
+  },
+  "duplicateHints": [
+    {
+      "id": "chapter-01-p007-parson",
+      "target": "Parson",
+      "duplicates": [
+        "zh"
+      ]
+    }
+  ]
+}
