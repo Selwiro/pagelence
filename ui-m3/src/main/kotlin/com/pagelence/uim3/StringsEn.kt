@@ -61,6 +61,28 @@ object EnStrings : Strings {
     override val nextUnitGuide: String get() = "Next section · Guide"
     override val previousUnitGrammar: String get() = "Previous section · Grammar"
     override val finishBook: String get() = "Finish book"
+    override val sectionDictionary: String get() = "Dictionary"
+    override val fullDictionary: String get() = "Full dictionary"
+    override val dictVersionLabel: String get() = "Version %s"
+    override val dictSizeLabel: String get() = "About %s"
+    override val dictNotInstalled: String get() = "Not installed; lookups use the core dictionary"
+    override val dictDownloading: String get() = "Downloading %d%%"
+    override val dictPaused: String get() = "Paused · %s downloaded"
+    override val dictInstalled: String get() = "Installed; lookups use core then full"
+    override val dictUpdateAvailable: String get() = "Update %s available (installed %s)"
+    override val dictHostingPending: String get() = "Download hosting is not live yet"
+    override val dictNeedsNewerApp: String get() = "This dictionary needs a newer app"
+    override val dictFailed: String get() = "Download failed: %s"
+    override val dictDownload: String get() = "Download"
+    override val dictPause: String get() = "Pause"
+    override val dictResume: String get() = "Resume"
+    override val dictRetry: String get() = "Retry"
+    override val dictDelete: String get() = "Delete"
+    override val dictDeleteConfirm: String get() = "The app falls back to the core dictionary; progress and cards are untouched."
+    override val dictMeteredTitle: String get() = "Not on Wi-Fi"
+    override val dictMeteredBody: String get() = "The full dictionary is about %s; continuing uses mobile data."
+    override val dictContinue: String get() = "Continue"
+    override val dictLicenseNote: String get() = "ECDICT (MIT); see About for the licence and source."
     override val shelfReading: String get() = "In progress"
     override val shelfFinished: String get() = "Finished"
     override val finishedDate: String get() = "Finished %s"
@@ -433,9 +455,10 @@ private val EnAboutCopy: AboutCopy = AboutCopy(
         AboutSection(
             title = "Permissions",
             paragraphs = listOf(
-                "The app requests network access only, and only for book sources you add: refreshing a " +
-                    "catalogue and downloading a book package. It does not request storage, camera, location, " +
-                    "contacts or notification permissions.",
+                "The app requests network access and network-state access: the first is for book sources and " +
+                    "the optional full dictionary, the second only tells Wi-Fi from mobile data so the download " +
+                    "can ask first. It does not request storage, camera, location, contacts or notification " +
+                    "permissions.",
                 "Reading works offline: both built-in books ship with the app, and lookup and progress stay on " +
                     "this device.",
             ),

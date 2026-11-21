@@ -62,14 +62,26 @@ data class DictionaryEntry(
     val kind: String? = null,
     /** Why an `extra.json` entry exists; not shown as a dictionary sense. */
     val note: String? = null,
-)
+) {
+    companion object {
+        /** Decode the `senses`/`en` JSON column of the optional SQLite table. */
+        fun decodeSenses(json: String?): List<List<String>> {
+            if (json.isNullOrBlank()) return emptyList()
+            return runCatching {
+                PagelenceJson.decodeFromString<List<List<String>>>(json)
+            }.getOrDefault(emptyList())
+        }
+    }
+}
 
 @Serializable
 data class DictionaryFile(
     val id: String? = null,
     val termCount: Int = 0,
     val entries: Map<String, DictionaryEntry> = emptyMap(),
-)
+) : DictionarySource {
+    override fun entry(term: String): DictionaryEntry? = entries[term]
+}
 
 /** One lookup result: everything the tap-a-word panel needs. */
 data class WordLookup(
@@ -128,6 +140,8 @@ class WordQuery(
     private val frequencies: WordFrequencyTable? = null,
     private val occurrences: BookOccurrences? = null,
     private val ecdict: DictionaryFile? = null,
+    /** Optional downloaded full ECDICT table; queried only when the core misses. */
+    private val fullDictionary: DictionarySource? = null,
     private val cards: WordCardRepository? = null,
 ) {
     private val bookId: String = index.book.id
@@ -249,8 +263,9 @@ class WordQuery(
      * panel reads as the base word's entry.
      */
     private fun definitionsFor(lemma: String, surface: String, pos: String?): List<DictionarySense> {
-        val zh = sensesOf(ecdict, lemma, pos, "zh")
-        val en = sensesOf(ecdict, lemma, pos, "en").distinctBy { it.definition.lowercase() }
+        val lemmaEntry = entryOf(lemma)
+        val zh = sensesOf(lemmaEntry, pos, "zh")
+        val en = sensesOf(lemmaEntry, pos, "en").distinctBy { it.definition.lowercase() }
         if (normalizeSurface(lemma) == normalizeSurface(surface)) return zh + en
         val surfaceEntry = entryOf(surface) ?: return zh + en
         if (!hasOwnSenses(surfaceEntry)) return zh + en
@@ -339,9 +354,19 @@ class WordQuery(
         return guessLemma(normalizeSurface(surface))?.takeIf { hasDefinitions(it) }
     }
 
+    /**
+     * Core table first, then the downloaded full table. The spec fixes this
+     * order: installing the full table never changes an existing core meaning.
+     */
     private fun entryOf(term: String): DictionaryEntry? {
-        val key = normalizeSurface(term)
-        return ecdict?.entries?.get(key) ?: ecdict?.entries?.get(normalize(term))
+        val keys = listOf(normalizeSurface(term), normalize(term)).distinct()
+        for (key in keys) {
+            ecdict?.entry(key)?.let { return it }
+        }
+        for (key in keys) {
+            fullDictionary?.entry(key)?.let { return it }
+        }
+        return null
     }
 
     private fun hasDefinitions(term: String): Boolean {
@@ -354,14 +379,11 @@ class WordQuery(
             ?: entryOf(surface)?.phonetic?.takeIf { it.isNotBlank() }
 
     private fun sensesOf(
-        table: DictionaryFile?,
-        lemma: String,
+        entry: DictionaryEntry?,
         pos: String?,
         language: String,
     ): List<DictionarySense> {
-        val entry = table?.entries?.get(lemma)
-            ?: table?.entries?.get(normalize(lemma))
-            ?: return emptyList()
+        if (entry == null) return emptyList()
         val lines = if (language == "en") entry.en else entry.senses
         val senses = lines.mapNotNull { sense ->
             val definition = sense.getOrNull(1)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null

@@ -68,6 +68,28 @@ interface Strings {
     val nextUnitGuide: String
     val previousUnitGrammar: String
     val finishBook: String
+    val sectionDictionary: String
+    val fullDictionary: String
+    val dictVersionLabel: String
+    val dictSizeLabel: String
+    val dictNotInstalled: String
+    val dictDownloading: String
+    val dictPaused: String
+    val dictInstalled: String
+    val dictUpdateAvailable: String
+    val dictHostingPending: String
+    val dictNeedsNewerApp: String
+    val dictFailed: String
+    val dictDownload: String
+    val dictPause: String
+    val dictResume: String
+    val dictRetry: String
+    val dictDelete: String
+    val dictDeleteConfirm: String
+    val dictMeteredTitle: String
+    val dictMeteredBody: String
+    val dictContinue: String
+    val dictLicenseNote: String
     val shelfReading: String
     val shelfFinished: String
     val finishedDate: String

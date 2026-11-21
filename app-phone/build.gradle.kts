@@ -34,6 +34,12 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "0.1.0"
+        // 完整词表是可选下载；托管上线前默认关闭，本地验收可用 -P 覆盖地址并打开。
+        val fullDictUrl = (project.findProperty("pagelence.fullDictUrl") as String? ?: "").replace("\"", "")
+        val fullDictEnabled = (project.findProperty("pagelence.fullDictEnabled") as String? ?: "false")
+            .equals("true", ignoreCase = true)
+        buildConfigField("String", "FULL_DICT_URL_OVERRIDE", "\"$fullDictUrl\"")
+        buildConfigField("boolean", "FULL_DICT_ENABLED", "$fullDictEnabled")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

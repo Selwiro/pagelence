@@ -24,5 +24,6 @@ if [[ -n "${ECDICT_CSV:-}" ]]; then
 else
   echo "skip: build_dictionaries --check (set ECDICT_CSV to include it)"
 fi
+python3 tools/build_full_dictionary.py --check
 python3 tools/validate/validate_content.py
 ./gradlew :core:test :data:test --console=plain

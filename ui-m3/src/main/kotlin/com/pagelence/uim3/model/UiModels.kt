@@ -523,6 +523,33 @@ data class ReaderPreviewUi(
     val finished: Boolean get() = index >= words.size
 }
 
+/** Which optional-dictionary action the row should offer. */
+enum class DictionaryPhase { UNAVAILABLE, NOT_INSTALLED, DOWNLOADING, PAUSED, INSTALLED, UPDATE_AVAILABLE, FAILED }
+
+/**
+ * Settings → 词典 → 完整词表. The manifest and download rules live in `:core`;
+ * this model only carries what the row renders.
+ */
+data class DictionaryUiState(
+    val phase: DictionaryPhase = DictionaryPhase.UNAVAILABLE,
+    /** Version pinned by the manifest compiled into this build. */
+    val version: String? = null,
+    /** Published size, already formatted (e.g. `82.0 MB`). */
+    val sizeLabel: String? = null,
+    val installedVersion: String? = null,
+    /** One line under the title: not installed / progress / installed / error. */
+    val status: String? = null,
+    /** 0f–1f while downloading. */
+    val progress: Float = 0f,
+    /** The metered-network confirmation dialog is open. */
+    val confirmMetered: Boolean = false,
+    val canDownload: Boolean = false,
+    val canPause: Boolean = false,
+    val canResume: Boolean = false,
+    val canDelete: Boolean = false,
+    val canRetry: Boolean = false,
+)
+
 data class SettingsUiState(
     val language: UiLanguage,
     val theme: ThemeMode,

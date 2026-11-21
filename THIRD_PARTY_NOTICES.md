@@ -10,6 +10,7 @@ CC BY-SA 4.0。完整授权框架见 [LICENSE](LICENSE)、[LICENSE-CONTENT](LICE
 | CEFR-Annotated WordNet | 2025，Masato Kikuchi、Masatsugu Ono、Toshioki Soga、Tetsu Tanabe、Tadachika Ozono；[Zenodo 17395388](https://zenodo.org/records/17395388)，`wordnet_sensekey_cefr.tsv` 取自其 `data/` 目录 | 标注 CC BY 4.0；义项键随 Princeton WordNet 3.0 许可 | 不随仓库分发（构建时另存，含 NOTICE 与两份许可原文）；只用于生成 `word-levels.json` 的 `aligned` 层，不随包分发原始表 |
 | wordfreq | 3.0.2，Robyn Speer | CC BY-SA 4.0 | `content/third-party/word-frequencies.json`；由 `tools/build_word_frequencies.py` 生成 |
 | ECDICT | 固定版本 [`39cfb96`](https://github.com/skywind3000/ECDICT/blob/39cfb9672c0906b63569e0453c2e6abfb9ab182a/ecdict.csv)；通用核心词典（BNC/COCA 3 万内、考试标签、Oxford 3000、CEFR 与两本书词形），释义与考试标签来自上游 | MIT | `content/third-party/dictionaries/ecdict.json` 与 `ecdict-license.txt`；由 `tools/build_dictionaries.py` 重建 |
+| ECDICT 完整词表（可选下载） | 同一固定版本的完整表（770,575 条），用户主动下载后本地查询；构建时保留上游领域标签释义 | MIT | `dist/dict/full-dict.sqlite` + `LICENSE-ECDICT.txt`；由 `tools/build_full_dictionary.py` 生成，说明见 [`docs/dictionary-full.md`](docs/dictionary-full.md) |
 | 词级五层衍生表 | 由上述四份数据推算（`aligned`/`derived`/`tag`/`freq` 层），项目自制 | CC BY-SA 4.0 | `content/third-party/word-levels.json` 的 `sources` 标明每格来源 |
 | 本书出现次数 | 运行时以正文为输入单遍扫描，不随包存表 | CC BY-SA 4.0 | 仅内存（`WordQuery.countWords`） |
 

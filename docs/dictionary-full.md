@@ -1,0 +1,121 @@
+# 完整词表（可选下载）
+
+状态：2026-11-22 实现（T123）。**托管尚未上线**：release 默认关闭下载入口，
+只显示版本、体积与「下载地址尚未上线」；词表与 manifest 已可生成、校验与安装。
+格式依据见 [App 内容规范](../../../management/app-content-spec.md) §3.3.7。
+
+## 一、形态
+
+- 随包核心表仍是 `content/third-party/dictionaries/ecdict.json`（38,292 条，7.9 MiB，
+  开箱即用、离线可查）。
+- 完整表是**可选下载**的单个 SQLite 文件，字段与核心表同构：
+
+  ```sql
+  CREATE TABLE entries (
+    term TEXT PRIMARY KEY,  -- 小写、去所有格后的词形
+    phonetic TEXT,
+    senses TEXT,            -- JSON：[[词性, 中文释义], …]
+    en TEXT,                -- JSON：[[词性, 英文释义], …]
+    lemma TEXT,
+    form TEXT
+  );
+  CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);  -- schemaVersion / dictVersion / termCount
+  ```
+
+- 当前产物：`dictVersion 39cfb96`、770,575 条、85,970,944 B（82.0 MiB）。
+  `content/dict-manifest.json` 编译进 APK，固定 `dictVersion`、`schemaVersion`（1）、
+  `bytes`、`sha256` 与 `minAppVersionCode`（1）。
+
+## 二、构建
+
+上游 CSV 不入库，用固定版本：
+
+```sh
+curl -L -o /tmp/ecdict.csv \
+  https://raw.githubusercontent.com/skywind3000/ECDICT/39cfb9672c0906b63569e0453c2e6abfb9ab182a/ecdict.csv
+python3 tools/build_full_dictionary.py --ecdict-csv /tmp/ecdict.csv
+python3 tools/build_full_dictionary.py --check   # 有产物时校验 manifest 与文件一致
+```
+
+产物（`dist/` 已在 `.gitignore`，**不入库**）：
+
+```
+dist/dict/full-dict.sqlite
+dist/dict/dict-manifest.json
+dist/dict/LICENSE-ECDICT.txt
+content/dict-manifest.json     # 随 APK，入库
+```
+
+与核心表的差异是**有意为之**：
+
+- 完整表保留带领域标签的释义（`[网络]`、`[医]`、`[化]`…），只去掉行首标签本身。
+  核心表为常用词而丢弃这些行；完整表正是为长尾词准备，丢掉就失去下载意义。
+- 没有释义、也没有音标的 36 行跳过；其余 770,575 行全部入库。
+- `lemma` 与 `form` 沿用核心表的 `exchange` 规则（`0:` 与原形行列出的 `s/p/d/i/3/r/t`）
+  及同样的小词表覆盖（`am/are/was/does`）。
+
+**manifest 必须与上传的 SQLite 同批次生成**：SQLite 文件不保证跨版本字节一致，
+先上传旧文件、再单独 `--check` 会得到 `stale`。上线时把三个文件一起上传，并把
+`content/dict-manifest.json` 的改动一并提交。
+
+## 三、安装与查词
+
+- 安装目录 `filesDir/dictionaries/`：`full-dict.sqlite`、`.part` 临时文件、
+  `.part.json` 与 `full-dict.json`（安装指纹）。都不在 `content/` 下，
+  **App 升级重播内容不会清除用户已下载的词表**。
+- 下载先写 `.part`，用 `Range` 续传；服务器忽略 Range 返回 200 时从头重下。
+  暂停/失败保留 `.part`，重试从字节偏移继续。完整后校验大小与 `sha256`，
+  通过才原子改名替换正式文件。
+- 安装后 `WordQuery` 先查核心表，**核心表命中就不再查完整表**（即使该条只有音标），未命中再查完整表；两表都没有才走原有兜底
+  （缩合词、复合词、专名、本句中文）。安装/删除后关闭 SQLite 句柄并清空
+  `FileContentRepository` 的 `WordQuery` 缓存。
+- SQLite 以 `OPEN_READONLY` 打开；`pagelence_dictionary` 首次点词才建立句柄，
+  未安装时每次查询直接落回核心表。
+- 若 App 在「原子改名」与「写入安装指纹」之间被杀，下次读取会重新校验文件并补写
+  指纹（不重复下载 82 MB）。
+- manifest 的 `schemaVersion` 不匹配、或 `minAppVersionCode` 高于当前版本时
+  拒绝安装并提示升级 App；`sha256`/大小不符同样拒绝，不改动已在用的表。
+
+## 四、设置页与网络
+
+设置 → 词典 → 完整词表，显示版本、体积、状态（未安装 / 下载百分比 / 已暂停 +
+已下载字节 / 已安装 / 失败原因），操作：
+
+- 下载、暂停、继续（续传）、重试、删除（二次确认，删除后回核心表）；
+- 非 Wi-Fi 时先弹「当前非 Wi-Fi」并给出体积，确认后照常下载，不静默拦截；
+  判定只读当前网络传输类型，因此需要 `ACCESS_NETWORK_STATE` 权限（安装时授予，
+  不读取任何网络内容）；
+- 失败只提示一次，不挡阅读。
+
+本地验收构建可指向任意地址并临时打开入口：
+
+```sh
+./gradlew :app-phone:assembleDebug \
+  -Ppagelence.fullDictEnabled=true \
+  -Ppagelence.fullDictUrl=http://10.0.2.2:9000/full-dict.sqlite
+```
+
+`FullDictSource.URL` 是正式地址常量；托管上线后把上面两个属性设为默认即可。
+局域网 HTTP 仍受「允许局域网 HTTP（仅调试）」开关限制。
+
+## 五、验证记录（2026-11-22，API 34 模拟器）
+
+| 项 | 结果 |
+| --- | --- |
+| 未安装查长尾词 | 导入 1 单元测试书，点 `flibbertigibbet`：提示「词典暂未收录这个词」 |
+| 安装后离线查词 | 同一词显示 `/ˌflɪbətiˈdʒɪbɪt/` 与 `n. 饶舌的人`，飞机/断网不影响；仅来自完整表 |
+| 先核心后完整 | `:core` 单测：同词核心释义胜出；核心缺失才落完整表；两表都无仍走兜底 |
+| 下载进度 | 设置页实时显示百分比与进度条 |
+| 暂停/续传 | 47% 暂停（`.part` 39.1 MiB），点继续后按 `Range` 从偏移续传，校验 sha256 后安装成功 |
+| 删除 | 二次确认后目录清空，状态回「未安装」，查词回核心表 |
+| 非 Wi-Fi 提示 | 关 Wi-Fi 后点下载弹出「当前非 Wi-Fi / 约 82.0 MB / 关闭 / 继续下载」 |
+| App 升级 | 用默认构建 `install -r` 覆盖安装后，已安装词表仍在，状态仍为「已安装」 |
+| B 单测 | `:core` 全绿（含 manifest schema/版本/大小/sha、续传、200 重下、取消保留、删除、崩溃补指纹）；`:data` 20 全绿 |
+| CI | `tools/ci_check.sh` 通过；新增的 `build_full_dictionary.py --check` 在无产物时跳过 |
+
+## 六、遗留
+
+- **托管与正式地址**：文件未上传；`FullDictSource.enabled` 默认 false，
+  release 只显示「下载地址尚未上线」。上线步骤见第二节，并把入口默认打开。
+- 词表更新需要重新生成 manifest 并随 App 发版（§3.3.7 的既定取舍）。
+- 未在真机验证后台被杀后的续传（模拟器只验证主动暂停与失败路径）。

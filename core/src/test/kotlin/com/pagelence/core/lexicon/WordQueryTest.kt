@@ -1,7 +1,13 @@
 package com.pagelence.core.lexicon
 
 import com.pagelence.core.ContentFixtures
+import com.pagelence.core.content.Book
+import com.pagelence.core.content.Chapter
+import com.pagelence.core.content.ContentIndex
 import com.pagelence.core.content.FileContentRepository
+import com.pagelence.core.content.LocalizedText
+import com.pagelence.core.content.Paragraph
+import com.pagelence.core.content.StudyUnit
 import com.pagelence.core.content.HintTapResolver
 import com.pagelence.core.wordcards.InMemoryWordCardRepository
 import com.pagelence.core.wordcards.WordCard
@@ -312,5 +318,99 @@ class WordQueryTest {
             }
         }
         error("word $word not found in ${index.book.id}")
+    }
+    // --- optional full ECDICT table -------------------------------------
+
+    private fun syntheticQuery(
+        core: DictionaryFile?,
+        full: DictionarySource?,
+    ): WordQuery {
+        val book = Book(
+            id = "synthetic",
+            title = LocalizedText(en = "Synthetic"),
+            chapters = listOf(
+                Chapter(
+                    id = "c1",
+                    number = 1,
+                    units = listOf(
+                        StudyUnit(
+                            id = "u1",
+                            number = 1,
+                            title = LocalizedText(en = "Unit"),
+                            paragraphs = listOf(
+                                Paragraph(id = "p1", text = "A dog met a zorblat today."),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        )
+        return WordQuery(index = ContentIndex(book), ecdict = core, fullDictionary = full)
+    }
+
+    private fun zhEntry(zh: String) = DictionaryEntry(senses = listOf(listOf("n.", zh)))
+
+    @Test
+    fun `the core table wins over the full table for the same headword`() {
+        val core = DictionaryFile(
+            entries = mapOf("dog" to zhEntry("狗（核心）"), "zorblat" to zhEntry("核心里的怪物")),
+        )
+        val full = object : DictionarySource {
+            override fun entry(term: String): DictionaryEntry? =
+                if (term == "dog") zhEntry("狗（完整）") else null
+        }
+        val lookup = assertNotNull(syntheticQuery(core, full).lookup("u1", "p1", 1, "dog"))
+        assertEquals("狗（核心）", lookup.definitions.single().definition)
+    }
+
+    @Test
+    fun `words missing from the core fall through to the full table`() {
+        val full = object : DictionarySource {
+            override fun entry(term: String): DictionaryEntry? =
+                if (term == "zorblat") zhEntry("长尾词里的怪物") else null
+        }
+        val lookup = assertNotNull(syntheticQuery(DictionaryFile(), full).lookup("u1", "p1", 1, "zorblat"))
+        assertEquals("长尾词里的怪物", lookup.definitions.single().definition)
+    }
+
+    @Test
+    fun `neither table still reaches the fallback label`() {
+        val lookup = assertNotNull(syntheticQuery(DictionaryFile(), null).lookup("u1", "p1", 1, "today"))
+        assertEquals("未收录释义", lookup.label)
+        assertTrue(lookup.definitions.isEmpty())
+    }
+
+    @Test
+    fun `a full table entry with a lemma still resolves the surface form`() {
+        val full = object : DictionarySource {
+            override fun entry(term: String): DictionaryEntry? = when (term) {
+                "zorblats" -> DictionaryEntry(lemma = "zorblat", form = "s")
+                "zorblat" -> zhEntry("长尾词里的怪物")
+                else -> null
+            }
+        }
+        val book = Book(
+            id = "synthetic",
+            title = LocalizedText(en = "Synthetic"),
+            chapters = listOf(
+                Chapter(
+                    id = "c1",
+                    number = 1,
+                    units = listOf(
+                        StudyUnit(
+                            id = "u1",
+                            number = 1,
+                            title = LocalizedText(en = "Unit"),
+                            paragraphs = listOf(Paragraph(id = "p1", text = "Two zorblats came.")),
+                        ),
+                    ),
+                ),
+            ),
+        )
+        val lookup = assertNotNull(
+            WordQuery(index = ContentIndex(book), fullDictionary = full).lookup("u1", "p1", 1, "zorblats"),
+        )
+        assertEquals("zorblat", lookup.lemma)
+        assertEquals("长尾词里的怪物", lookup.definitions.single().definition)
     }
 }

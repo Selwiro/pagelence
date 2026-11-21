@@ -1,6 +1,7 @@
 package com.pagelence.core.content
 
 import com.pagelence.core.lexicon.DictionaryFile
+import com.pagelence.core.lexicon.DictionarySource
 import com.pagelence.core.lexicon.BookOccurrences
 import com.pagelence.core.lexicon.WordFrequencyTable
 import com.pagelence.core.lexicon.WordLevelTable
@@ -52,6 +53,8 @@ class FileContentRepository(
     private val contentDir: Path,
     private val cards: WordCardRepository? = null,
     private val extraContentDir: Path? = null,
+    /** Optional downloaded full ECDICT table, queried after the shipped core. */
+    private val fullDictionary: DictionarySource? = null,
 ) : ContentRepository {
     private var manifestCache: ContentManifest? = null
     private var extraManifestCache: ContentManifest? = null
@@ -77,6 +80,7 @@ class FileContentRepository(
         extraManifestCache = null
         bookCache.clear()
         indexCache.clear()
+        queries.clear()
     }
 
     private val bookCache = mutableMapOf<String, Book>()
@@ -157,6 +161,7 @@ class FileContentRepository(
                     BookOccurrences(WordQuery.countWords(index.book))
                 },
                 ecdict = dictionary,
+                fullDictionary = fullDictionary,
                 cards = cards,
             )
         }

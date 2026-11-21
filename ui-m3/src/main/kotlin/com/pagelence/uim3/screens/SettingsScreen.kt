@@ -12,14 +12,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -34,6 +43,8 @@ import com.pagelence.uim3.components.PageTopBar
 import com.pagelence.uim3.components.ChoiceRow
 import com.pagelence.uim3.components.PagelenceIcons
 import com.pagelence.uim3.components.SectionLabel
+import com.pagelence.uim3.model.DictionaryPhase
+import com.pagelence.uim3.model.DictionaryUiState
 import com.pagelence.uim3.model.SettingsUiState
 
 /** 设置：阅读、外观、语言与词典、关于。偏好只写 `state.json`，不动进度。 */
@@ -41,10 +52,16 @@ import com.pagelence.uim3.model.SettingsUiState
 fun SettingsScreen(
     strings: Strings,
     state: SettingsUiState,
+    dictionary: DictionaryUiState,
     appVersion: String,
     onBack: () -> Unit,
     onOpenSync: () -> Unit,
     onOpenAbout: () -> Unit,
+    onDictionaryDownload: () -> Unit,
+    onDictionaryPause: () -> Unit,
+    onDictionaryDelete: () -> Unit,
+    onDictionaryMeteredConfirm: () -> Unit,
+    onDictionaryMeteredDismiss: () -> Unit,
     onLanguage: (UiLanguage) -> Unit,
     onTheme: (ThemeMode) -> Unit,
     onFontSize: (FontSize) -> Unit,
@@ -54,6 +71,7 @@ fun SettingsScreen(
     onGuideMode: (GuideMode) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var confirmDictionaryDelete by remember { mutableStateOf(false) }
     Scaffold(
         modifier = modifier,
         topBar = { PageTopBar(title = strings.settings, onBack = onBack) },
@@ -123,6 +141,64 @@ fun SettingsScreen(
                     )
                 }
                 Switch(checked = state.annotateHints, onCheckedChange = onAnnotateHints)
+            }
+
+            Spacer(Modifier.height(8.dp))
+            HorizontalDivider()
+            SectionLabel(strings.sectionDictionary)
+            SettingBlock(strings.fullDictionary) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    val meta = listOfNotNull(
+                        dictionary.version?.let { strings.dictVersionLabel.format(it) },
+                        dictionary.sizeLabel?.let { strings.dictSizeLabel.format(it) },
+                    ).joinToString(" · ")
+                    if (meta.isNotEmpty()) {
+                        Text(
+                            meta,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    dictionary.status?.let {
+                        Text(it, style = MaterialTheme.typography.bodyMedium)
+                    }
+                    if (dictionary.phase == DictionaryPhase.DOWNLOADING) {
+                        LinearProgressIndicator(
+                            progress = { dictionary.progress },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        when {
+                            dictionary.canDownload -> Button(onClick = onDictionaryDownload) {
+                                Text(strings.dictDownload)
+                            }
+
+                            dictionary.canResume -> Button(onClick = onDictionaryDownload) {
+                                Text(strings.dictResume)
+                            }
+
+                            dictionary.canRetry -> Button(onClick = onDictionaryDownload) {
+                                Text(strings.dictRetry)
+                            }
+                        }
+                        if (dictionary.canPause) {
+                            OutlinedButton(onClick = onDictionaryPause) {
+                                Text(strings.dictPause)
+                            }
+                        }
+                        if (dictionary.canDelete) {
+                            TextButton(onClick = { confirmDictionaryDelete = true }) {
+                                Text(strings.dictDelete)
+                            }
+                        }
+                    }
+                    Text(
+                        strings.dictLicenseNote,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
 
             Spacer(Modifier.height(8.dp))
@@ -220,6 +296,41 @@ fun SettingsScreen(
                 }
             }
         }
+    }
+
+    if (dictionary.confirmMetered) {
+        AlertDialog(
+            onDismissRequest = onDictionaryMeteredDismiss,
+            title = { Text(strings.dictMeteredTitle) },
+            text = {
+                Text(strings.dictMeteredBody.format(dictionary.sizeLabel ?: "—"))
+            },
+            confirmButton = {
+                TextButton(onClick = onDictionaryMeteredConfirm) { Text(strings.dictContinue) }
+            },
+            dismissButton = {
+                TextButton(onClick = onDictionaryMeteredDismiss) { Text(strings.close) }
+            },
+        )
+    }
+
+    if (confirmDictionaryDelete) {
+        AlertDialog(
+            onDismissRequest = { confirmDictionaryDelete = false },
+            title = { Text(strings.dictDelete) },
+            text = { Text(strings.dictDeleteConfirm) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        confirmDictionaryDelete = false
+                        onDictionaryDelete()
+                    },
+                ) { Text(strings.dictDelete) }
+            },
+            dismissButton = {
+                TextButton(onClick = { confirmDictionaryDelete = false }) { Text(strings.close) }
+            },
+        )
     }
 }
 

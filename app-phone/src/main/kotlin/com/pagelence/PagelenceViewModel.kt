@@ -24,6 +24,10 @@ import com.pagelence.core.content.Paragraph
 import com.pagelence.core.content.Sentence
 import com.pagelence.core.content.StudyUnit
 import com.pagelence.core.lexicon.WordLookup
+import com.pagelence.core.dict.DictInstallResult
+import com.pagelence.core.dict.DictManifest
+import com.pagelence.core.dict.DictRejection
+import com.pagelence.core.dict.DictRules
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.FontSize
 import com.pagelence.core.prefs.GuideMode
@@ -75,6 +79,8 @@ import com.pagelence.uim3.model.BookChapterUi
 import com.pagelence.uim3.model.BookDetailUi
 import com.pagelence.uim3.model.BookUi
 import com.pagelence.uim3.model.FinishedBookUi
+import com.pagelence.uim3.model.DictionaryPhase
+import com.pagelence.uim3.model.DictionaryUiState
 import com.pagelence.uim3.model.GrammarDetailUi
 import com.pagelence.uim3.model.GrammarExampleUi
 import com.pagelence.uim3.model.GrammarPointUi
@@ -198,6 +204,8 @@ data class AppUiState(
     val levelPrompt: LevelPromptUi? = null,
     /** WebDAV setup draft + persisted sync status. */
     val sync: SyncUiState = SyncUiState(),
+    /** Settings → 词典 → 完整词表 state. */
+    val dictionary: DictionaryUiState = DictionaryUiState(),
     /** Set when startup had to recover from a backup or start empty. */
     val recovery: RecoveryNotice? = null,
 )
@@ -230,6 +238,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private var syncHasPassword = false
     private var pendingImport: ReadingState? = null
     private var syncDebounceJob: Job? = null
+    private var dictionaryDownloadJob: Job? = null
     private val syncDebounceLock = Any()
     /** Set while the engine writes local state, so its own write does not re-trigger sync. */
     private val syncWriteSuppressed = AtomicBoolean(false)
@@ -2136,9 +2145,203 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val prefs = graph.preferences.preferences()
         _ui.update { it.copy(settings = settingsOf(prefs, uiLanguage(prefs))) }
         push(Screen.SETTINGS)
+        refreshDictionary()
     }
 
     fun backFromSettings() = back()
+
+    // --- optional full dictionary ---------------------------------------
+
+    /** Recompute the settings row from the manifest, partial and installed files. */
+    fun refreshDictionary() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val state = buildDictionaryState()
+            _ui.update { it.copy(dictionary = state) }
+        }
+    }
+
+    /** Download or resume; asks first when the active network is metered. */
+    fun downloadDictionary() {
+        val manifest = graph.fullDictManifest ?: return
+        if (!FullDictSource.enabled) return
+        if (!graph.dictionaryNetworkUnmetered()) {
+            _ui.update { it.copy(dictionary = it.dictionary.copy(confirmMetered = true)) }
+            return
+        }
+        startDictionaryDownload(manifest)
+    }
+
+    fun confirmMeteredDictionaryDownload() {
+        val manifest = graph.fullDictManifest ?: return
+        _ui.update { it.copy(dictionary = it.dictionary.copy(confirmMetered = false)) }
+        startDictionaryDownload(manifest)
+    }
+
+    fun dismissMeteredDictionaryDownload() {
+        _ui.update { it.copy(dictionary = it.dictionary.copy(confirmMetered = false)) }
+    }
+
+    /** Pause keeps the partial file; the next tap resumes from that byte. */
+    fun pauseDictionaryDownload() {
+        graph.fullDictInstaller.cancel()
+    }
+
+    fun deleteFullDictionary() {
+        viewModelScope.launch(Dispatchers.IO) {
+            graph.fullDictInstaller.remove()
+            graph.fullDictionary.close()
+            graph.refreshContent()
+            val state = buildDictionaryState()
+            _ui.update { it.copy(dictionary = state) }
+        }
+    }
+
+    private fun startDictionaryDownload(manifest: DictManifest) {
+        if (dictionaryDownloadJob?.isActive == true) return
+        dictionaryDownloadJob = viewModelScope.launch(Dispatchers.IO) {
+            val strings = stringsFor(uiLanguage(graph.preferences.preferences()))
+            var lastPercent = -1
+            _ui.update {
+                it.copy(
+                    dictionary = it.dictionary.copy(
+                        phase = DictionaryPhase.DOWNLOADING,
+                        progress = 0f,
+                        status = strings.dictDownloading.format(0),
+                        confirmMetered = false,
+                        canDownload = false,
+                        canResume = false,
+                        canPause = true,
+                    ),
+                )
+            }
+            val result = graph.fullDictInstaller.install(manifest, FullDictSource.url) { done, total ->
+                val percent = if (total <= 0) 0 else ((done * 100) / total).toInt().coerceIn(0, 100)
+                if (percent != lastPercent) {
+                    lastPercent = percent
+                    _ui.update {
+                        it.copy(
+                            dictionary = it.dictionary.copy(
+                                phase = DictionaryPhase.DOWNLOADING,
+                                progress = percent / 100f,
+                                status = strings.dictDownloading.format(percent),
+                            ),
+                        )
+                    }
+                }
+            }
+            // The job is finished from here on; clear it before building the
+            // state, otherwise `isActive` still reports "downloading".
+            dictionaryDownloadJob = null
+            when (result) {
+                DictInstallResult.Installed -> {
+                    graph.fullDictionary.close()
+                    // Drop cached WordQuery instances so lookups see the new table.
+                    graph.refreshContent()
+                    val state = buildDictionaryState()
+                    _ui.update { it.copy(dictionary = state) }
+                }
+
+                DictInstallResult.Cancelled -> {
+                    val state = buildDictionaryState()
+                    _ui.update { it.copy(dictionary = state) }
+                }
+
+                is DictInstallResult.Failed -> {
+                    val reason = dictionaryFailureText(result)
+                    val state = buildDictionaryState().copy(
+                        phase = DictionaryPhase.FAILED,
+                        status = strings.dictFailed.format(reason),
+                        canDownload = false,
+                        canRetry = true,
+                    )
+                    _ui.update { it.copy(dictionary = state) }
+                }
+            }
+        }
+    }
+
+    private fun dictionaryFailureText(failure: DictInstallResult.Failed): String =
+        when (val rejection = failure.rejection) {
+            is DictRejection.Schema -> "schema ${rejection.found} != ${rejection.supported}"
+            is DictRejection.AppTooOld -> "app ${rejection.current} < ${rejection.required}"
+            is DictRejection.Malformed -> rejection.field
+            is DictRejection.SizeMismatch -> "size ${rejection.found} != ${rejection.expected}"
+            DictRejection.ChecksumMismatch -> "sha256"
+            null -> failure.reason ?: "unknown"
+        }
+
+    private fun buildDictionaryState(): DictionaryUiState {
+        val strings = stringsFor(uiLanguage(graph.preferences.preferences()))
+        val manifest = graph.fullDictManifest
+            ?: return DictionaryUiState(
+                phase = DictionaryPhase.UNAVAILABLE,
+                status = strings.dictHostingPending,
+            )
+        val rejection = DictRules.validate(manifest, BuildConfig.VERSION_CODE)
+        if (rejection != null) {
+            return DictionaryUiState(
+                phase = DictionaryPhase.UNAVAILABLE,
+                version = manifest.dictVersion,
+                sizeLabel = formatBytes(manifest.bytes),
+                status = when (rejection) {
+                    is DictRejection.Schema, is DictRejection.AppTooOld -> strings.dictNeedsNewerApp
+                    else -> strings.dictHostingPending
+                },
+            )
+        }
+        val installer = graph.fullDictInstaller
+        val downloading = dictionaryDownloadJob?.isActive == true
+        val installed = installer.isInstalled(manifest)
+        val installedVersion = installer.installedVersion()
+        val partial = installer.downloadedBytes()
+        val resumable = installer.canResume(manifest)
+        val base = DictionaryUiState(
+            version = manifest.dictVersion,
+            sizeLabel = formatBytes(manifest.bytes),
+            installedVersion = installedVersion,
+            canDelete = installedVersion != null || partial > 0,
+        )
+        if (downloading) {
+            val progress = _ui.value.dictionary.progress.coerceIn(0f, 1f)
+            return base.copy(
+                phase = DictionaryPhase.DOWNLOADING,
+                progress = progress,
+                status = strings.dictDownloading.format((progress * 100).toInt()),
+                canPause = true,
+            )
+        }
+        return when {
+            installed -> base.copy(
+                phase = DictionaryPhase.INSTALLED,
+                status = strings.dictInstalled,
+            )
+
+            // The table may be installed even when this build will not offer a
+            // download (hosting not live); show it, only disable the offer.
+            !FullDictSource.enabled -> base.copy(
+                phase = DictionaryPhase.UNAVAILABLE,
+                status = strings.dictHostingPending,
+            )
+
+            resumable -> base.copy(
+                phase = DictionaryPhase.PAUSED,
+                status = strings.dictPaused.format(formatBytes(partial)),
+                canResume = true,
+            )
+
+            installedVersion != null -> base.copy(
+                phase = DictionaryPhase.UPDATE_AVAILABLE,
+                status = strings.dictUpdateAvailable.format(manifest.dictVersion, installedVersion),
+                canDownload = true,
+            )
+
+            else -> base.copy(
+                phase = DictionaryPhase.NOT_INSTALLED,
+                status = strings.dictNotInstalled,
+                canDownload = true,
+            )
+        }
+    }
 
     fun openAbout() = push(Screen.ABOUT)
 

@@ -60,6 +60,28 @@ object ZhStrings : Strings {
     override val nextUnitGuide: String get() = "下一段 · 导读"
     override val previousUnitGrammar: String get() = "上一段 · 语法"
     override val finishBook: String get() = "读完全书"
+    override val sectionDictionary: String get() = "词典"
+    override val fullDictionary: String get() = "完整词表"
+    override val dictVersionLabel: String get() = "版本 %s"
+    override val dictSizeLabel: String get() = "约 %s"
+    override val dictNotInstalled: String get() = "未安装，查词只用随包核心词表"
+    override val dictDownloading: String get() = "正在下载 %d%%"
+    override val dictPaused: String get() = "已暂停 · 已下载 %s"
+    override val dictInstalled: String get() = "已安装，查词先核心后完整"
+    override val dictUpdateAvailable: String get() = "有新版本 %s（已装 %s）"
+    override val dictHostingPending: String get() = "下载地址尚未上线"
+    override val dictNeedsNewerApp: String get() = "这个词表需要更新版本的应用"
+    override val dictFailed: String get() = "下载失败：%s"
+    override val dictDownload: String get() = "下载"
+    override val dictPause: String get() = "暂停"
+    override val dictResume: String get() = "继续下载"
+    override val dictRetry: String get() = "重试"
+    override val dictDelete: String get() = "删除"
+    override val dictDeleteConfirm: String get() = "删除后回到随包核心词表；阅读进度与生词卡不受影响。"
+    override val dictMeteredTitle: String get() = "当前非 Wi-Fi"
+    override val dictMeteredBody: String get() = "完整词表约 %s，继续会消耗移动数据。"
+    override val dictContinue: String get() = "继续下载"
+    override val dictLicenseNote: String get() = "ECDICT（MIT）；许可与来源在关于页可查。"
     override val shelfReading: String get() = "在读"
     override val shelfFinished: String get() = "已读完"
     override val finishedDate: String get() = "读完于 %s"
@@ -424,8 +446,8 @@ private val ZhAboutCopy: AboutCopy = AboutCopy(
         AboutSection(
             title = "应用权限",
             paragraphs = listOf(
-                "应用只申请网络权限，用于你自己添加的书源：刷新目录与下载书籍包。不申请存储、相机、位置、" +
-                    "通讯录或通知权限。",
+                "应用只申请网络权限与网络状态权限：前者用于书源与可选完整词表，后者只判断当前是不是 Wi-Fi，" +
+                    "下载前提示而不读取网络内容。不申请存储、相机、位置、通讯录或通知权限。",
                 "不联网也能读书：两本内置书随安装包提供，查词与阅读进度都在本机完成。",
             ),
         ),

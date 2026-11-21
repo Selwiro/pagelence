@@ -6,6 +6,9 @@ import com.pagelence.core.assessment.FileAssessmentRepository
 import com.pagelence.core.content.ContentRepository
 import com.pagelence.core.content.FileBuiltInStoreCatalog
 import com.pagelence.core.content.FileContentRepository
+import com.pagelence.core.dict.DictManifest
+import com.pagelence.core.dict.DictManifestCodec
+import com.pagelence.core.dict.FullDictInstaller
 import com.pagelence.core.source.DownloadedBooks
 import com.pagelence.core.source.SourceLimits
 import com.pagelence.core.source.SourceManager
@@ -138,8 +141,36 @@ class AppGraph(context: Context) {
         }
     }
 
+    // --- optional full ECDICT table (T123) -------------------------------
+
+    private val dictionaryDir: File by lazy { File(appContext.filesDir, "dictionaries") }
+
+    /** The pinned `dict-manifest.json` shipped in `content/`, if present. */
+    val fullDictManifest: DictManifest? by lazy {
+        runCatching {
+            val file = File(contentDir, "dict-manifest.json")
+            if (!file.isFile) return@runCatching null
+            DictManifestCodec.decode(file.readText(Charsets.UTF_8))
+        }.getOrNull()
+    }
+
+    /** Read-only SQLite view of the downloaded table; misses until installed. */
+    val fullDictionary: SqliteDictionarySource by lazy {
+        SqliteDictionarySource { File(dictionaryDir, "full-dict.sqlite") }
+    }
+
+    val fullDictInstaller: FullDictInstaller by lazy {
+        FullDictInstaller(
+            dir = dictionaryDir.toPath(),
+            transport = AndroidDictTransport { sourceStore.settings().allowLocalHttp },
+        )
+    }
+
+    /** True on Wi-Fi/ethernet; unknown counts as metered so the reader is asked. */
+    fun dictionaryNetworkUnmetered(): Boolean = DictionaryNetwork.isUnmetered(appContext)
+
     val content: ContentRepository by lazy {
-        FileContentRepository(contentDir.toPath(), cards, downloads.dir)
+        FileContentRepository(contentDir.toPath(), cards, downloads.dir, fullDictionary)
     }
 
     /** Re-read the content manifests after a download or removal. */

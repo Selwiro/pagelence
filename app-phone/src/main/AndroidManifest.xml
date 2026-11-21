@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- 书城下载用到网络；应用只在用户点「刷新目录」或「下载」时联网。 -->
+    <!-- 书城与完整词表下载用到网络；应用只在用户点「刷新目录」或「下载」时联网。 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 只用于判断当前是不是 Wi-Fi（完整词表下载前提示），不读取网络内容。 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".PagelenceApplication"
