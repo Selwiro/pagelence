@@ -44,6 +44,7 @@ import com.pagelence.core.progress.LibraryEntry
 import com.pagelence.core.progress.LibraryRules
 import com.pagelence.core.progress.ProgressSemantics
 import com.pagelence.core.progress.QuizGrading
+import com.pagelence.core.progress.ReadingState
 import com.pagelence.core.source.CatalogRules
 import com.pagelence.core.source.CatalogSnapshot
 import com.pagelence.core.source.ImportedSource
@@ -81,6 +82,7 @@ import com.pagelence.uim3.model.AnalysisPartUi
 import com.pagelence.uim3.model.AnalysisUi
 import com.pagelence.uim3.model.GrammarRelatedUi
 import com.pagelence.uim3.model.GrammarUi
+import com.pagelence.uim3.model.ImportPreviewUi
 import com.pagelence.uim3.model.LibraryUiState
 import com.pagelence.uim3.model.LevelPromptUi
 import com.pagelence.uim3.model.ParagraphUi
@@ -222,6 +224,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private var syncConfig: SyncConfig? = null
     private var syncDraft: SyncConfig = SyncConfig(SyncProvider.CUSTOM, "", "", false)
     private var syncHasPassword = false
+    private var pendingImport: ReadingState? = null
     private var syncDebounceJob: Job? = null
     private val syncDebounceLock = Any()
     /** Set while the engine writes local state, so its own write does not re-trigger sync. */
@@ -2173,34 +2176,99 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
     }
 
+    /**
+     * Step one of an import: read (≤5 MB), validate and show the preview. No
+     * write happens until [confirmImport], so a corrupt or future-version file
+     * cannot touch the live document.
+     */
     fun importState(uri: Uri) {
         viewModelScope.launch(Dispatchers.IO) {
             val language = uiLanguage(graph.preferences.preferences())
             val copy = stringsFor(language).syncCopy
-            val text = graph.readTextDocument(uri)
-            if (text == null) {
-                updateSyncUi(language, notice = copy.importFailed, noticeIsError = true)
+            val text = when (val read = graph.readTextDocument(uri)) {
+                TextDocumentRead.TooLarge -> {
+                    showImportError(language, copy.importTooLarge)
+                    return@launch
+                }
+
+                TextDocumentRead.Failed -> {
+                    showImportError(language, copy.importUnreadable)
+                    return@launch
+                }
+
+                is TextDocumentRead.Ok -> read.text
+            }
+            val inspected = StateTransfer.inspect(text)
+            when (inspected) {
+                StateTransfer.Inspection.Invalid -> showImportError(language, copy.importInvalid)
+                StateTransfer.Inspection.FutureVersion -> showImportError(language, copy.importFuture)
+                is StateTransfer.Inspection.Ready -> {
+                    pendingImport = inspected.document
+                    val preview = inspected.preview
+                    updateSyncUi(
+                        language,
+                        importPreview = ImportPreviewUi(
+                            books = preview.books,
+                            readUnits = preview.readUnits,
+                            cards = preview.cards,
+                            level = preview.level?.name,
+                            updatedAt = formatSyncTime(preview.updatedAt),
+                        ),
+                    )
+                }
+            }
+        }
+    }
+
+    /** Step two: apply the previewed file, merging by default or replacing. */
+    fun confirmImport(overwrite: Boolean) {
+        val document = pendingImport ?: return
+        pendingImport = null
+        viewModelScope.launch(Dispatchers.IO) {
+            val language = uiLanguage(graph.preferences.preferences())
+            val copy = stringsFor(language).syncCopy
+            if (overwrite && !graph.store.backupNow()) {
+                updateSyncUi(language, notice = copy.importBackupFailed, noticeIsError = true)
                 return@launch
             }
-            val result = runCatching {
-                StateTransfer.import(graph.store, text, Instant.now().toString(), today())
+            val mode = if (overwrite) {
+                StateTransfer.ImportMode.OVERWRITE
+            } else {
+                StateTransfer.ImportMode.MERGE
             }
-            val imported = result.getOrNull()
+            val imported = runCatching {
+                StateTransfer.import(graph.store, document, mode, Instant.now().toString(), today())
+            }.getOrNull()
             if (imported == null) {
-                updateSyncUi(language, notice = copy.importFailed, noticeIsError = true)
+                updateSyncUi(language, notice = copy.importInvalid, noticeIsError = true)
                 return@launch
             }
-            val summary = imported.summary
-            val changes = summary.booksAdded + summary.booksUpdated +
-                summary.cardsAdded + summary.cardsUpdated + summary.cardsDeleted
             refreshLibrary()
             refreshCards()
-            updateSyncUi(
-                language,
-                notice = if (changes == 0) copy.importNothing else copy.importDone,
-            )
+            val notice = if (imported.mode == StateTransfer.ImportMode.OVERWRITE) {
+                copy.overwriteDone
+            } else {
+                val summary = imported.summary
+                val changes = (summary?.booksAdded ?: 0) + (summary?.booksUpdated ?: 0) +
+                    (summary?.cardsAdded ?: 0) + (summary?.cardsUpdated ?: 0) +
+                    (summary?.cardsDeleted ?: 0) + (summary?.activityDaysChanged ?: 0) +
+                    (if (summary?.preferencesFromRemote == true) 1 else 0) +
+                    (if (summary?.levelFromRemote == true) 1 else 0)
+                if (changes == 0) copy.importNothing else copy.importDone
+            }
+            updateSyncUi(language, notice = notice)
             scheduleAutoSync()
         }
+    }
+
+    fun cancelImport() {
+        pendingImport = null
+        updateSyncUi(uiLanguage(graph.preferences.preferences()))
+    }
+
+    private fun showImportError(language: UiLanguage, message: String) {
+        pendingImport = null
+        updateSyncUi(language, notice = message, noticeIsError = true)
     }
 
     private fun onLocalStateWritten() {
@@ -2313,6 +2381,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         language: UiLanguage,
         notice: String? = null,
         noticeIsError: Boolean = false,
+        importPreview: ImportPreviewUi? = null,
     ) {
         _ui.update {
             it.copy(
@@ -2320,6 +2389,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                     language = language,
                     notice = notice,
                     noticeIsError = noticeIsError,
+                    importPreview = importPreview,
                 ),
             )
         }
@@ -2330,6 +2400,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         busy: Boolean = false,
         notice: String? = null,
         noticeIsError: Boolean = false,
+        importPreview: ImportPreviewUi? = null,
     ): SyncUiState {
         val copy = stringsFor(language).syncCopy
         val stored = syncConfig ?: graph.syncCredentials.config()
@@ -2371,6 +2442,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             status = statusText,
             notice = notice,
             noticeIsError = noticeIsError,
+            importPreview = importPreview,
         )
     }
 

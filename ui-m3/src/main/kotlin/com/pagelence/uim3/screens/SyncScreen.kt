@@ -58,12 +58,15 @@ fun SyncScreen(
     onDisable: () -> Unit,
     onExport: () -> Unit,
     onImport: () -> Unit,
+    onConfirmImport: (overwrite: Boolean) -> Unit,
+    onCancelImport: () -> Unit,
     onDismissNotice: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val copy = strings.syncCopy
     var password by rememberSaveable { mutableStateOf("") }
     var confirmDisable by rememberSaveable { mutableStateOf(false) }
+    var confirmOverwrite by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier,
@@ -251,6 +254,59 @@ fun SyncScreen(
             },
             dismissButton = {
                 TextButton(onClick = { confirmDisable = false }) { Text(copy.cancel) }
+            },
+        )
+    }
+
+    val preview = state.importPreview
+    if (preview != null) {
+        AlertDialog(
+            onDismissRequest = onCancelImport,
+            title = { Text(copy.importPreviewTitle) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(copy.importPreviewBooks.format(preview.books))
+                    Text(copy.importPreviewUnits.format(preview.readUnits))
+                    Text(copy.importPreviewCards.format(preview.cards))
+                    Text(copy.importPreviewLevel.format(preview.level ?: "—"))
+                    Text(copy.importPreviewUpdatedAt.format(preview.updatedAt))
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        copy.importPreviewHint,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { confirmOverwrite = true }) {
+                    Text(copy.importOverwrite)
+                }
+            },
+            dismissButton = {
+                Row {
+                    TextButton(onClick = onCancelImport) { Text(copy.cancel) }
+                    TextButton(onClick = { onConfirmImport(false) }) { Text(copy.importMerge) }
+                }
+            },
+        )
+    }
+
+    if (confirmOverwrite && preview != null) {
+        AlertDialog(
+            onDismissRequest = { confirmOverwrite = false },
+            title = { Text(copy.overwriteTitle) },
+            text = { Text(copy.overwriteBody) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        confirmOverwrite = false
+                        onConfirmImport(true)
+                    },
+                ) { Text(copy.importOverwrite) }
+            },
+            dismissButton = {
+                TextButton(onClick = { confirmOverwrite = false }) { Text(copy.cancel) }
             },
         )
     }

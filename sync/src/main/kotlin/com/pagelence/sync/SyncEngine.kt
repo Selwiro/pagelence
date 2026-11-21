@@ -1,7 +1,9 @@
 package com.pagelence.sync
 
+import com.pagelence.core.progress.MergeSummary
 import com.pagelence.core.progress.ReadingState
 import com.pagelence.core.progress.ReadingStateCodec
+import com.pagelence.core.progress.StateMerge
 import com.pagelence.core.prefs.Preferences
 import java.nio.file.Files
 import java.nio.file.Path

@@ -325,4 +325,23 @@ class ReadingStateStoreTest {
         assertNotNull(com.pagelence.core.content.PagelenceJson.parseToJsonElement(text))
         assertFalse(file.parentFile.listFiles()!!.any { it.name.endsWith(".tmp") })
     }
+
+    @Test
+    fun `backupNow captures the document before a destructive overwrite`() {
+        val dir = Files.createTempDirectory("pagelence-state")
+        val file = dir.resolve("state.json").toFile()
+        val store = tempStore(file)
+        StateWordCardRepository(store).add(card())
+        val backup = dir.resolve("state.json.bak").toFile()
+        backup.delete()
+
+        assertTrue(store.backupNow())
+
+        val backedUp = requireNotNull(ReadingStateCodec.decode(backup.readText())).state
+        assertEquals("skiff", backedUp.wordCards.single().term)
+
+        store.replace(store.state().copy(wordCards = emptyList()))
+        assertTrue(store.state().wordCards.isEmpty())
+        assertTrue(backup.isFile, "the pre-overwrite copy must survive the replace")
+    }
 }

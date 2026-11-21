@@ -222,17 +222,21 @@
 
 ## 十、导出、导入与 WebDAV 合并
 
-- 导出/导入复用同一份 `state.json`，不另写格式；导出走 `snapshotJson()`，导入先
-  `ReadingStateCodec.decode`（含迁移），再合并。
+- 导出/导入复用同一份 `state.json`，不另写格式；导出走 `snapshotJson()`，默认文件名
+  `pagelence-backup-YYYYMMDD-HHmm.json`；导入先 `ReadingStateCodec.decode`（含迁移），
+  上限 5 MB，损坏文件或更高 `schemaVersion` 在写库前拒绝。
 - 合并后再写回，写回是单事务；服务端 412 表示需要重新合并。
 - 两端都有同一 `bookId` 时才合并该书：`readUnitIds` 取并集（保留本地顺序，远端新增项
   按远端顺序追加）；`paragraphId` 与 `lastReadAt` 取 `lastReadAt` 较晚的一端。
 - `dailyActivity`：按日 max，见第四节。
-- `wordCards`：按 `id` 合并；`updatedAt` 较晚者胜，墓碑随较晚者保留。
+- `wordCards`：按 `id` 合并；任一端是墓碑即取墓碑（不复活），否则 `updatedAt` 较晚者胜。
 - 等级：`levelUpdatedAt` 较晚者胜；相同则保留本机。
-- 偏好：整组取文档 `updatedAt` 较晚的一端；`deviceId`、`updatedAt` 始终用本机值。
+- 偏好：整组取文档 `updatedAt` 较晚的一端；本机是空文档（新装/清数据）时取文件里的偏好；
+  `deviceId`、`updatedAt` 始终用本机值。
 - 缺书的一端显示「未导入的书」，不丢进度。
-- 实现见 `:sync` 的 `StateMerge` 与 `docs/webdav-sync.md`：合并结果与本地内容一致时不刷新
+- 导入先显示预览（书数、已读单元、生词卡、等级、`updatedAt`）再写库；默认合并，
+  经二次确认可整份覆盖，覆盖前写 `state.json.bak` 且保留本机 `deviceId`。
+- 实现见 `:core` 的 `StateMerge` 与 `docs/webdav-sync.md`：合并结果与本地内容一致时不刷新
   `updatedAt`；`deviceId` 永远保留本机值。同步的 ETag、基线与失败退避不写进
   `state.json`，而是同目录的 `sync-state.json` / `sync-baseline.json`；远端备份在
   `sync-backups/`（仅服务器不返回 ETag 时产生）。

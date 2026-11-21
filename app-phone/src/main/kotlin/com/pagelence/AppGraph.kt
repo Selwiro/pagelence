@@ -16,6 +16,7 @@ import com.pagelence.data.StateProgressRepository
 import com.pagelence.data.StateReadingProfileRepository
 import com.pagelence.data.StateWordCardRepository
 import com.pagelence.sync.OkHttpWebDavClient
+import com.pagelence.sync.StateTransfer
 import com.pagelence.sync.SyncBaselineStore
 import com.pagelence.sync.SyncEngine
 import com.pagelence.sync.SyncStateStore
@@ -111,22 +112,31 @@ class AppGraph(context: Context) {
         } != null
     }.getOrDefault(false)
 
-    /** Read an imported progress file, capped at the same limit WebDAV accepts. */
-    fun readTextDocument(uri: Uri, maxBytes: Long = 20L * 1024 * 1024): String? = runCatching {
-        appContext.contentResolver.openInputStream(uri)?.use { stream ->
-            val output = ByteArrayOutputStream()
-            val chunk = ByteArray(16 * 1024)
-            var total = 0L
-            while (true) {
-                val read = stream.read(chunk)
-                if (read <= 0) break
-                total += read
-                if (total > maxBytes) return null
-                output.write(chunk, 0, read)
+    /** Read an imported progress file, capped at the local-import limit. */
+    fun readTextDocument(
+        uri: Uri,
+        maxBytes: Long = StateTransfer.MAX_IMPORT_BYTES,
+    ): TextDocumentRead {
+        return try {
+            val stream = appContext.contentResolver.openInputStream(uri)
+                ?: return TextDocumentRead.Failed
+            stream.use {
+                val output = ByteArrayOutputStream()
+                val chunk = ByteArray(16 * 1024)
+                var total = 0L
+                while (true) {
+                    val read = it.read(chunk)
+                    if (read <= 0) break
+                    total += read
+                    if (total > maxBytes) return TextDocumentRead.TooLarge
+                    output.write(chunk, 0, read)
+                }
+                TextDocumentRead.Ok(output.toString(Charsets.UTF_8.name()))
             }
-            output.toString(Charsets.UTF_8.name())
+        } catch (_: Exception) {
+            TextDocumentRead.Failed
         }
-    }.getOrNull()
+    }
 
     val content: ContentRepository by lazy {
         FileContentRepository(contentDir.toPath(), cards, downloads.dir)
@@ -147,4 +157,11 @@ class AppGraph(context: Context) {
     }
 
     val speech: SpeechController by lazy { SpeechController(appContext) }
+}
+
+/** Outcome of reading a user-picked document; oversize is a distinct case. */
+sealed interface TextDocumentRead {
+    data class Ok(val text: String) : TextDocumentRead
+    data object TooLarge : TextDocumentRead
+    data object Failed : TextDocumentRead
 }

@@ -50,6 +50,8 @@ import com.pagelence.uim3.screens.SyncScreen
 import com.pagelence.uim3.stringsFor
 import com.pagelence.uim3.theme.PagelenceTheme
 import com.pagelence.uim3.theme.isDark
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * 根组件：只做屏幕切换与事件转发。任何业务判断都在 ViewModel / :core。
@@ -205,8 +207,10 @@ private fun AppContent(
             onSave = viewModel::saveSyncConfig,
             onSyncNow = viewModel::syncNow,
             onDisable = viewModel::disableSync,
-            onExport = { exportLauncher.launch("pagelence-state.json") },
+            onExport = { exportLauncher.launch(backupFileName()) },
             onImport = { importLauncher.launch(arrayOf("application/json", "text/plain", "*/*")) },
+            onConfirmImport = viewModel::confirmImport,
+            onCancelImport = viewModel::cancelImport,
             onDismissNotice = viewModel::dismissSyncNotice,
         )
 
@@ -426,4 +430,10 @@ private fun MainTabsShell(
             }
         }
     }
+}
+
+/** Default SAF name: chronological file names make backups sortable. */
+private fun backupFileName(): String {
+    val stamp = DateTimeFormatter.ofPattern("yyyyMMdd-HHmm").format(LocalDateTime.now())
+    return "pagelence-backup-$stamp.json"
 }

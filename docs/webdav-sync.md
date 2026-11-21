@@ -17,7 +17,7 @@
 | `Etag.kt` | ETag 去 `W/`、去引号、条件写头还原 |
 | `WebDavModels.kt` | 凭据、远端元信息、三种写入条件 |
 | `OkHttpWebDavClient.kt` | HEAD/GET/PUT/MKCOL、HEAD 退化、409 建目录、双重限量、错误归类 |
-| `StateMerge.kt` | 字段级合并（书籍、卡片、日活、等级、偏好） |
+| `StateMerge.kt`（`:core`） | 字段级合并（书籍、卡片、日活、等级、偏好），本地导入复用同一张规则表 |
 | `SyncDecision.kt` | 决策表 |
 | `SyncEngine.kt` | 同步状态机、412 自愈、互斥、退避、无 ETag 备份 |
 | `SyncState.kt` | `sync-state.json`、`sync-baseline.json` 原子读写 |
@@ -66,10 +66,10 @@ sync-backups/         服务器不返回 ETag 时，覆盖前的远端副本（�
 | --- | --- |
 | `readUnitIds` | 并集，保留本机顺序，远端新增按远端顺序追加 |
 | `paragraphId` / `reader` / `lastReadAt` | `lastReadAt` 较晚的一端胜出 |
-| `wordCards` | 按 `id`，`updatedAt` 较晚者胜；`deletedAt` 随较晚者传播 |
+| `wordCards` | 按 `id`；任一端是墓碑即取墓碑（已删除的卡不因另一端更晚的编辑复活），否则 `updatedAt` 较晚者胜 |
 | `dailyActivity` | 每天 `completedUnits` 取 max，日期取并集（`DailyActivityRules.mergeDayMax`） |
-| 等级四字段 | 文档 `updatedAt` 较晚的一端 |
-| `preferences` | 有基线时按「哪边改过」裁决；两边都改取文档 `updatedAt` 较晚者 |
+| 等级四字段 | `levelUpdatedAt` 较晚的一端；两端都缺该字段时回退到文档 `updatedAt` |
+| `preferences` | 有基线时按「哪边改过」裁决；两边都改取文档 `updatedAt` 较晚者；本机是空文档（新装/清数据）时取文件里的偏好 |
 | `recentAssessmentPapers` | 并集，保留最近两套 |
 | `deviceId` / `updatedAt` | 永远用本机；只有内容真变化时才刷新 `updatedAt` |
 
@@ -111,9 +111,15 @@ sync-backups/         服务器不返回 ETag 时，覆盖前的远端副本（�
 
 ## 六、导出 / 导入
 
-- 导出就是当前 `state.json`（`StateTransfer.export`），走系统文件选择器写 JSON。
-- 导入先 `ReadingStateCodec.decode`（含 v1→v2 迁移），再与本地合并后整体写回；
-  不是覆盖，导出之后新读的进度与卡片仍在。
+- 导出就是当前 `state.json`（`StateTransfer.export`），走系统文件选择器写 JSON，
+  默认文件名 `pagelence-backup-YYYYMMDD-HHmm.json`。
+- 导入先 `ReadingStateCodec.decode`（含 v1→v2 迁移），读取上限 5 MB；损坏 JSON、
+  更高 `schemaVersion`、超限都在写库前拒绝并给出各自原因，原状态不变。
+- 选完文件先显示预览（书数、已读单元数、生词卡数、等级、文档 `updatedAt`），
+  用户确认后才写库。
+- 默认「合并」：与本地进度合并，导出之后新读的进度与卡片仍在。
+- 可选「覆盖」：二次确认后整份替换，保留本机 `deviceId`，替换前写 `state.json.bak`；
+  备份写失败则取消覆盖。
 - 没有配置同步的用户也能用这条路径换机或备份。
 
 ## 七、服务商地址
@@ -132,11 +138,13 @@ sync-backups/         服务器不返回 ETag 时，覆盖前的远端副本（�
 
 自动化：
 
-- `:sync` 47 项单测：URL/ETag、决策表、合并规则、双设备收敛、412 自愈、
-  同步期间本地修改、无 ETag 备份、远端删除重建、换服务器清基线、退避、
-  本机 HTTP 桩协议矩阵（HEAD/GET/PUT/MKCOL、401/403/412、Range 206、超限）、
-  真实 OkHttp 客户端跑完整引擎的端到端用例。
-- `:data` 的持久化与导出/导入用例；`:core` 不受影响。
+- `:core` 207 项单测，含合并规则（并集、位置、墓碑优先、等级 `levelUpdatedAt`、
+  日活 max、偏好基线、`updatedAt` 稳定）。
+- `:sync` 43 项单测：URL/ETag、决策表、双设备收敛、412 自愈、同步期间本地修改、
+  无 ETag 备份、远端删除重建、换服务器清基线、退避、本机 HTTP 桩协议矩阵
+  （HEAD/GET/PUT/MKCOL、401/403/412、Range 206、超限）、真实 OkHttp 客户端端到端，
+  以及导入校验（预览计数、损坏文件、未来版本、合并/覆盖、导出可解码）。
+- `:data` 20 项单测，含持久化、恢复与覆盖前 `state.json.bak` 备份。
 
 手工 QA（API 34 模拟器 ×2 + 本机 WebDAV 桩）：
 

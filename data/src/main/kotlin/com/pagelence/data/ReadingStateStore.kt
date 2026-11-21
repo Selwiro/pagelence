@@ -108,6 +108,22 @@ class ReadingStateStore(
         synchronized(lock) { commit(state) }
     }
 
+    /**
+     * Copy the current on-disk document to `state.json.bak` before a destructive
+     * import overwrite. False means the copy failed, so the caller must abort
+     * instead of replacing a state it could not back up.
+     */
+    fun backupNow(): Boolean = synchronized(lock) {
+        val backup = backupFile ?: return@synchronized false
+        if (!file.isFile) return@synchronized false
+        try {
+            file.copyTo(backup, overwrite = true)
+            true
+        } catch (_: Exception) {
+            false
+        }
+    }
+
     private fun commit(state: ReadingState) {
         val next = state.copy(schemaVersion = STATE_SCHEMA_VERSION)
         persist(next)

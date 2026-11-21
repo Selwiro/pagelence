@@ -522,6 +522,15 @@ data class LevelPromptUi(
 /** Visual weight of the sync status line. */
 enum class SyncTone { IDLE, OK, WARNING, ERROR }
 
+/** What an imported progress file contains, shown before anything is written. */
+data class ImportPreviewUi(
+    val books: Int,
+    val readUnits: Int,
+    val cards: Int,
+    val level: String?,
+    val updatedAt: String,
+)
+
 /**
  * Draft + status for the sync screen. The password is never part of this
  * model: the screen keeps it in local Compose state and hands it to the save
@@ -540,4 +549,5 @@ data class SyncUiState(
     val status: String? = null,
     val notice: String? = null,
     val noticeIsError: Boolean = false,
+    val importPreview: ImportPreviewUi? = null,
 )

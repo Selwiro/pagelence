@@ -1,9 +1,6 @@
-package com.pagelence.sync
+package com.pagelence.core.progress
 
 import com.pagelence.core.prefs.Preferences
-import com.pagelence.core.progress.BookProgress
-import com.pagelence.core.progress.DailyActivityRules
-import com.pagelence.core.progress.ReadingState
 import com.pagelence.core.wordcards.WordCard
 import java.time.Instant
 
@@ -36,15 +33,17 @@ data class MergeResult(
  * |---|---|
  * | `readUnitIds` | set union, local order first |
  * | `paragraphId` / `reader` / `lastReadAt` | side with the later `lastReadAt` |
- * | `wordCards` | per id, later `updatedAt` wins; `deletedAt` travels with it |
+ * | `wordCards` | tombstone wins over any live copy; else later `updatedAt` |
  * | `dailyActivity` | per-day max, union of dates (`DailyActivityRules`) |
- * | level fields | later document `updatedAt` |
- * | `preferences` | base-aware last write wins, see [mergePreferences] |
+ * | level fields | later `levelUpdatedAt`; missing timestamps fall back to the document `updatedAt` |
+ * | `preferences` | base-aware last write wins; a blank local document takes the file's copy, see [mergePreferences] |
  * | `recentAssessmentPapers` | union, keep the last two papers |
  * | `deviceId` / `updatedAt` | always local (the merged doc is a local write) |
  *
- * `updatedAt` is only refreshed when the merge actually changes content, so an
- * up-to-date sync does not make both devices look "changed" forever.
+ * A tombstone is a deletion the reader already saw; a later edit on another
+ * device must not silently resurrect the card. `updatedAt` is only refreshed
+ * when the merge actually changes content, so an up-to-date sync does not make
+ * both devices look "changed" forever.
  */
 object StateMerge {
     private const val MAX_RECENT_PAPERS = 2
@@ -59,7 +58,7 @@ object StateMerge {
         val (books, bookSummary) = mergeBooks(local, remote)
         val cards = mergeCards(local.wordCards, remote.wordCards)
         val activity = DailyActivityRules.mergeDayMax(local.dailyActivity, remote.dailyActivity, today)
-        val levelDoc = laterDocument(local, remote)
+        val levelDoc = laterLevel(local, remote)
         val (preferences, preferencesFromRemote) = mergePreferences(local, remote, base)
 
         val merged = ReadingState(
@@ -177,11 +176,11 @@ object StateMerge {
                 }
 
                 r == null -> l
-                else -> {
-                    val localAt = instant(l.updatedAt)
-                    val remoteAt = instant(r.updatedAt)
-                    if (remoteAt != null && (localAt == null || remoteAt.isAfter(localAt))) r else l
-                }
+                // Tombstones are deletions the reader already acted on; a later
+                // edit on the other device must not resurrect the card.
+                l.isDeleted -> if (r.isDeleted) laterCard(l, r) else l
+                r.isDeleted -> r
+                else -> laterCard(l, r)
             } ?: continue
             if (l != null && keep != l) {
                 if (keep.isDeleted && !l.isDeleted) deleted += 1 else updated += 1
@@ -191,13 +190,21 @@ object StateMerge {
         return CardMerge(cards, added, updated, deleted)
     }
 
+    private fun laterCard(local: WordCard, remote: WordCard): WordCard {
+        val localAt = instant(local.updatedAt)
+        val remoteAt = instant(remote.updatedAt)
+        return if (remoteAt != null && (localAt == null || remoteAt.isAfter(localAt))) remote else local
+    }
+
     /**
      * Preferences have no per-field timestamps. With a base:
      * - local unchanged since the last sync -> take remote;
      * - remote unchanged -> keep local;
      * - both changed -> the later document wins.
-     * Without a base (upgrade, cleared storage) the later document wins, which
-     * never blocks the first sync.
+     * Without a base the later document wins, except on a blank local document
+     * (fresh install / cleared data): there the imported file is the only real
+     * source, so its preferences come back even though the empty doc was
+     * written later.
      */
     private fun mergePreferences(
         local: ReadingState,
@@ -209,9 +216,13 @@ object StateMerge {
             if (local.preferences == base.preferences) return remote.preferences to true
             if (remote.preferences == base.preferences) return local.preferences to false
         }
+        if (base == null && isBlank(local)) return remote.preferences to true
         val remoteIsLater = isLater(remote.updatedAt, local.updatedAt)
         return if (remoteIsLater) remote.preferences to true else local.preferences to false
     }
+
+    private fun isBlank(state: ReadingState): Boolean =
+        state.books.isEmpty() && state.wordCards.isEmpty() && state.dailyActivity.isEmpty()
 
     private fun mergePapers(local: List<List<String>>, remote: List<List<String>>): List<List<String>> {
         val merged = LinkedHashSet<List<String>>()
@@ -219,6 +230,21 @@ object StateMerge {
             if (paper.isNotEmpty()) merged.add(paper)
         }
         return merged.toList().takeLast(MAX_RECENT_PAPERS)
+    }
+
+    /** Level four fields follow their own timestamp, not the whole document. */
+    private fun laterLevel(local: ReadingState, remote: ReadingState): ReadingState {
+        // A device that never set a level has nothing to defend; take the only
+        // level that exists even when the timestamps are missing (older files).
+        if (local.selfLevel == null && remote.selfLevel != null) return remote
+        if (remote.selfLevel == null && local.selfLevel != null) return local
+        val localAt = instant(local.levelUpdatedAt)
+        val remoteAt = instant(remote.levelUpdatedAt)
+        return when {
+            remoteAt != null && (localAt == null || remoteAt.isAfter(localAt)) -> remote
+            localAt != null -> local
+            else -> laterDocument(local, remote)
+        }
     }
 
     private fun laterDocument(local: ReadingState, remote: ReadingState): ReadingState =
@@ -234,7 +260,7 @@ object StateMerge {
         a.copy(updatedAt = "", deviceId = "") == b.copy(updatedAt = "", deviceId = "")
 
     /** ISO-8601 to instant; unparseable or missing is treated as oldest. */
-    internal fun instant(value: String?): Instant? {
+    fun instant(value: String?): Instant? {
         if (value.isNullOrBlank()) return null
         return runCatching { Instant.parse(value) }.getOrNull()
     }

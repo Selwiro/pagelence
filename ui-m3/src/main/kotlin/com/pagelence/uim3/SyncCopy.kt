@@ -40,8 +40,24 @@ interface SyncCopy {
     val exportDone: String
     val exportFailed: String
     val importDone: String
-    val importFailed: String
     val importNothing: String
+    val importInvalid: String
+    val importFuture: String
+    val importTooLarge: String
+    val importUnreadable: String
+    val importBackupFailed: String
+    val importPreviewTitle: String
+    val importPreviewBooks: String
+    val importPreviewUnits: String
+    val importPreviewCards: String
+    val importPreviewLevel: String
+    val importPreviewUpdatedAt: String
+    val importPreviewHint: String
+    val importMerge: String
+    val importOverwrite: String
+    val overwriteTitle: String
+    val overwriteBody: String
+    val overwriteDone: String
     val statusIdle: String
     val statusConfigured: String
     val statusOk: String
@@ -111,14 +127,30 @@ object ZhSyncCopy : SyncCopy {
     override val disableBody = "本机进度不受影响，但会删除保存的地址、密码和同步状态。下次需重新配置。"
     override val cancel = "取消"
     override val sectionBackup = "本地备份"
-    override val backupHint = "导出的就是 state.json：进度、生词卡、偏好都在里面。导入会与现有数据合并，不会覆盖。"
+    override val backupHint = "导出的就是 state.json：进度、生词卡、偏好都在里面。导入默认与现有数据合并，也可以确认后整份覆盖。"
     override val export = "导出 JSON"
     override val import = "导入 JSON"
     override val exportDone = "已导出进度文件"
     override val exportFailed = "导出失败，请换个位置重试"
     override val importDone = "已导入并合并"
-    override val importFailed = "导入失败：不是有效的进度文件"
     override val importNothing = "导入完成，没有新内容"
+    override val importInvalid = "导入失败：不是有效的进度文件"
+    override val importFuture = "导入失败：文件来自更新版本的应用，请先升级"
+    override val importTooLarge = "导入失败：文件超过 5 MB"
+    override val importUnreadable = "导入失败：无法读取所选文件"
+    override val importBackupFailed = "导入失败：无法写入备份，已取消覆盖"
+    override val importPreviewTitle = "导入预览"
+    override val importPreviewBooks = "书籍：%d"
+    override val importPreviewUnits = "已读单元：%d"
+    override val importPreviewCards = "生词卡：%d"
+    override val importPreviewLevel = "等级：%s"
+    override val importPreviewUpdatedAt = "更新时间：%s"
+    override val importPreviewHint = "默认与现有数据合并；只有确认要整份替换时才用覆盖。"
+    override val importMerge = "合并导入"
+    override val importOverwrite = "覆盖导入"
+    override val overwriteTitle = "覆盖本机进度？"
+    override val overwriteBody = "将用文件内容整份替换当前进度，覆盖前会先备份为 state.json.bak。本机设备 ID 保持不变。"
+    override val overwriteDone = "已覆盖导入"
     override val statusIdle = "尚未配置同步"
     override val statusConfigured = "已配置，尚未同步"
     override val statusOk = "上次同步：%s"
@@ -179,14 +211,30 @@ object EnSyncCopy : SyncCopy {
     override val disableBody = "Local progress stays. The saved URL, password and sync state are removed."
     override val cancel = "Cancel"
     override val sectionBackup = "Local backup"
-    override val backupHint = "The export is state.json: progress, word cards and preferences. Import merges with existing data."
+    override val backupHint = "The export is state.json: progress, word cards and preferences. Import merges by default; you can confirm a full replace instead."
     override val export = "Export JSON"
     override val import = "Import JSON"
     override val exportDone = "Progress file exported"
     override val exportFailed = "Export failed; try another location"
     override val importDone = "Imported and merged"
-    override val importFailed = "Import failed: not a progress file"
     override val importNothing = "Imported; nothing new"
+    override val importInvalid = "Import failed: not a progress file"
+    override val importFuture = "Import failed: the file comes from a newer app version; update first"
+    override val importTooLarge = "Import failed: the file exceeds 5 MB"
+    override val importUnreadable = "Import failed: cannot read the selected file"
+    override val importBackupFailed = "Import failed: could not write the backup, replace cancelled"
+    override val importPreviewTitle = "Import preview"
+    override val importPreviewBooks = "Books: %d"
+    override val importPreviewUnits = "Read units: %d"
+    override val importPreviewCards = "Word cards: %d"
+    override val importPreviewLevel = "Level: %s"
+    override val importPreviewUpdatedAt = "Updated: %s"
+    override val importPreviewHint = "Merging keeps what you did since the export; replace only when you mean to drop it."
+    override val importMerge = "Merge"
+    override val importOverwrite = "Replace"
+    override val overwriteTitle = "Replace local progress?"
+    override val overwriteBody = "The file replaces the whole current document. A state.json.bak copy is written first; the local device ID is kept."
+    override val overwriteDone = "Replaced from file"
     override val statusIdle = "Sync is not set up"
     override val statusConfigured = "Configured; not synced yet"
     override val statusOk = "Last sync: %s"
