@@ -54,7 +54,8 @@
 | 点按整条短语提示（短语、多词专名、带标点缩写） | 已完成 |
 | 第二本内置书《爱丽丝》全书 104 单元的学习标注（句译、提示、测验、语法） | 已完成 |
 | 书城右上角菜单：导入本地书籍包、导入线上书籍包、添加源 | 已完成 |
-| 进度/卡片导出、WebDAV 同步、墨水屏版 | 未开始（M3–M5） |
+| 进度/生词卡导出与导入（JSON）、WebDAV 同步（可选，默认关闭） | 已完成；真机服务商联调仍待补 |
+| 墨水屏版 | 未开始（M5） |
 | 《怪医杜立德》全书 103 单元的学习标注（句译、提示、测验、语法） | 已完成 |
 
 ## 界面预览
@@ -280,11 +281,11 @@ adb shell am start -n com.pagelence/.MainActivity
 | 书籍内容 | 随 APK 分发的 `assets/`，首次启动复制到 `filesDir/content`；`books-index.json` 变化时重播 |
 | 词典、词级与词频 | 随包分发的离线数据，运行时只读；本书次数开书时内存扫描，不落盘 |
 | 账号与统计 | 无账号、无订阅、无广告、无埋点 |
-| 第三方 SDK | 不引入统计、广告、推送或崩溃上报 SDK；运行时依赖只有 AndroidX、Compose 与 Kotlin，测试用 JUnit 5 |
+| 第三方 SDK | 不引入统计、广告、推送或崩溃上报 SDK；运行时依赖只有 AndroidX、Compose、Kotlin 与 OkHttp（仅同步），测试用 JUnit 5 |
 | 设备标识 | 首次启动生成随机 UUID 存进 `state.json`，用于将来多设备合并破平；不读取 Android ID、IMEI、MAC 或广告 ID，也不上传 |
 | 权限 | 只申请 `INTERNET`（书城刷新与下载）；不申请存储、相机、定位等权限 |
-| 网络 | 仅由「刷新目录 / 下载 / 更新 / 导入线上书籍包」按钮触发，没有后台同步；默认禁止明文 HTTP，只放行本机调试地址 |
-| 外部服务 | 书城可从用户添加的自定义静态目录拉 `catalog.json` 与 `.pagelence`；默认源上线前不联网；WebDAV 同步在 M4 加入 |
+| 网络 | 书城只在「刷新目录 / 下载 / 更新 / 导入线上书籍包」时联网；WebDAV 同步默认关闭，开启后只在启动、回前台、离开阅读器、手动与本地改动 30 秒防抖时同步，没有后台周期任务；默认禁止明文 HTTP，只放行本机调试地址 |
+| 外部服务 | 书城可从用户添加的自定义静态目录拉 `catalog.json` 与 `.pagelence`；默认源上线前不联网；WebDAV 只连用户自己填写的服务器，密码用 Keystore 加密保存在本机 |
 
 书中的正文、导读、句译、测验与语法讲解均由项目编排；第三方词典与词级数据沿用各自许可，见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
 
@@ -295,7 +296,7 @@ adb shell am start -n com.pagelence/.MainActivity
 - **朗读：** 2026-11-19 起阅读页与词条暂时不显示朗读入口，TTS 代码与偏好保留；恢复入口时再补真机发音矩阵。
 - **点词粒度：** 按单词取词；跨词短语依赖内容里的提示标注。
 - **句译展开：** 同一时间只展开一句，翻页或切换单元后自动收起。
-- **导入与同步：** 本地文件导入、生词卡/进度导出、WebDAV 同步尚未实现；书城下载走的是网络源，已验证可安装、更新与移除。
+- **导入与同步：** 本地书籍包导入、进度/生词卡 JSON 导出与导入、WebDAV 同步已实现；WebDAV 默认关闭，真实坚果云 / Nextcloud / 群晖的联调与 412 注入仍待补，见 [`docs/webdav-sync.md`](docs/webdav-sync.md)。
 - **默认源托管：** `DefaultBookSource.AVAILABLE = false`，书城不显示默认源也不请求；仓库上线后改为 `true` 即可复用现有镜像与下载规则，见 [`docs/book-sources.md`](docs/book-sources.md)。
 - **屏幕适配：** 以竖屏手机为主；宽度 360/572/906/1280dp 做了分页走查，平板双栏与真实 10/13 寸设备仍未验证。
 - **墨水屏版：** 尚未开工（M5）。
@@ -311,11 +312,11 @@ adb shell am start -n com.pagelence/.MainActivity
 | M0 | 仓库骨架、内容格式、`core` 模型与解析 | 已完成 |
 | M1 | 内容生产：其余单元补句译、测验、语法解析与提示 | 《怪医杜立德》与《爱丽丝》全书均已完成 |
 | M2 | 普通版阅读壳（书库、阅读、点词、句译、测验、语法、生词卡、续读） | 已完成 |
-| M3 | 书籍包导入（已完成）与进度、卡片导出（未开始） | 部分完成 |
-| M4 | WebDAV 同步（可选，默认关闭） | 未开始 |
+| M3 | 书籍包导入与进度、生词卡导出/导入 | 已完成 |
+| M4 | WebDAV 同步（可选，默认关闭） | 已实现；真实服务商联调待补 |
 | M5 | 墨水屏壳（独立设计系统，与普通版共用 `:core`） | 未开始 |
 
-剩余工作集中在进度与卡片导出、WebDAV 同步和墨水屏壳三块；两本内置书的内容与阅读体验主线已完成，
+剩余工作集中在墨水屏壳与真实 WebDAV 服务商联调两块；两本内置书的内容与阅读体验主线已完成，
 没有已知的内容缺口。
 
 发布门槛：内容生产完成前不对外发布缺章版本；前几个单元可先做内部试读。
@@ -332,6 +333,7 @@ adb shell am start -n com.pagelence/.MainActivity
 | Jetpack Compose + Material 3 | 声明式 UI 与主题（Compose BOM 2026.09.00） |
 | kotlinx.serialization | 内容包、状态文件、fixture 的 JSON |
 | Coroutines + Flow | 异步任务与状态流 |
+| OkHttp 5 | WebDAV 协议层（仅同步使用） |
 | AndroidX Activity / Lifecycle / Core | 单 Activity 壳、ViewModel、边到边显示 |
 | JUnit 5 | 纯 JVM 单元测试 |
 | Gradle 9.6.0 + AGP 9.5.0 | 构建系统 |
@@ -343,7 +345,7 @@ adb shell am start -n com.pagelence/.MainActivity
 
 ```text
 仓库根目录
-├── settings.gradle.kts      包含 :core、:data、:ui-m3、:app-phone
+├── settings.gradle.kts      包含 :core、:sync、:data、:ui-m3、:app-phone
 ├── build.gradle.kts        根配置
 ├── gradle/libs.versions.toml   版本目录（Kotlin / Compose BOM / JUnit 5）
 ├── gradlew, gradle/wrapper/    Gradle 9.6.0 wrapper
@@ -357,7 +359,8 @@ adb shell am start -n com.pagelence/.MainActivity
 │    ├── wordcards/       生词卡与存储接口
 │    ├── lexicon/        词级、词典与查词顺序
 │    └── prefs/         语言、主题、字号、导读与词典偏好、等级默认值
-├── data/             纯 JVM 持久化：state.json
+├── sync/             纯 JVM：WebDAV 协议、字段合并、同步状态机、导出导入
+├── data/             纯 JVM 持久化：state.json（实现 :sync 的 LocalState）
 ├── ui-m3/             Compose Material 3 页面、组件、主题与双语文案
 ├── app-phone/           普通版壳：MainActivity、AppGraph、ViewModel、内容落盘
 ├── content/            由脚本生成，不手工编辑
@@ -398,6 +401,9 @@ app-phone (Android application, applicationId com.pagelence)
   │   页面、组件、主题、UI 模型、双语文案；只接数据与回调
   ├── data (纯 JVM)
   │   state.json 读写；实现 :core 的进度、生词卡、偏好、等级与日活仓库
+  │   同时实现 :sync 的 LocalState（快照 + 修订号 + 条件写回）
+  ├── sync (纯 JVM)
+  │   WebDAV 协议、字段合并、同步状态机、本地导出/导入；不依赖 Android
   └── core (纯 JVM)
      内容解析、切分、校验、进度规则、查词顺序、卡片、偏好、等级默认值、日活、评分
 ```
@@ -433,6 +439,7 @@ Gradle 由仓库中的 Wrapper 提供，首次构建自动下载，无需安装�
 ```sh
 ./gradlew :core:test         # 纯 JVM 单测（解析、切分、进度、查词、卡片、偏好）
 ./gradlew :data:test         # state.json 持久化与 v1→v2 迁移单测
+./gradlew :sync:test         # WebDAV 协议、合并、同步状态机与端到端桩测试
 ./gradlew :app-phone:assembleDebug  # 产出 debug APK
 ```
 
@@ -471,7 +478,8 @@ python3 tools/migrate/record_progress_parity.py    # 重录进度规则对照 fi
 
 - **内容 schema：** [`docs/content-format.md`](docs/content-format.md)；可执行版本是 `content/` 下的 Kotlin 模型。
 - **内容规范：** 内容格式 v3 见 [`docs/content-format.md`](docs/content-format.md)；书源与书籍包格式见 [`docs/book-sources.md`](docs/book-sources.md)。
-- **进度 schema v2：** [`docs/progress-format.md`](docs/progress-format.md)；`state.json` 同时用于本地、导出与将来的 WebDAV。
+- **进度 schema v2：** [`docs/progress-format.md`](docs/progress-format.md)；`state.json` 同时用于本地、导出与 WebDAV。
+- **同步实现：** [`docs/webdav-sync.md`](docs/webdav-sync.md)；同步状态、基线与远端备份是 `filesDir` 下的旁路文件，不改变 `state.json` 格式。
 - **句子切分规则：** Kotlin 与 Python 各一份实现，单测逐段比对。
 - **已读单元数与续读位置：** 由 fixture 在单测中对照。
 

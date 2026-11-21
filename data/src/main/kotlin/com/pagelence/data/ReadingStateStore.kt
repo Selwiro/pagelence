@@ -8,11 +8,14 @@ import com.pagelence.core.progress.ReadingStateCodec
 import com.pagelence.core.progress.STATE_SCHEMA_VERSION
 import com.pagelence.core.wordcards.WordCard
 import com.pagelence.core.wordcards.WordCardRepository
+import com.pagelence.sync.LocalSnapshot
+import com.pagelence.sync.LocalState
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.time.Instant
 import java.util.UUID
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * The single local `state.json`, frozen by `docs/progress-format.md`.
@@ -29,9 +32,24 @@ class ReadingStateStore(
     private val file: File,
     private val now: () -> String = { Instant.now().toString() },
     private val newDeviceId: () -> String = { UUID.randomUUID().toString() },
-) {
+) : LocalState {
     private val lock = Any()
+    private val backupFile: File? = file.parentFile?.let { File(it, "${file.name}.bak") }
+    private val corruptFile: File? = file.parentFile?.let { File(it, "${file.name}.corrupt") }
+
+    /** True when the main file was unreadable and the backup was used instead. */
+    @Volatile
+    var recoveredFromBackup: Boolean = false
+        private set
+
+    /** True when both the main file and its backup were unreadable. */
+    @Volatile
+    var corruptWithoutBackup: Boolean = false
+        private set
+
     private var cached: ReadingState = load()
+    private var revision = 0L
+    private val writeListeners = CopyOnWriteArrayList<() -> Unit>()
 
     init {
         if (cached.deviceId.isBlank()) {
@@ -42,8 +60,20 @@ class ReadingStateStore(
 
     fun state(): ReadingState = synchronized(lock) { cached }
 
+    override fun current(): ReadingState = state()
+
     /** The current document, exactly as export/WebDAV would upload it. */
     fun snapshotJson(): String = synchronized(lock) { ReadingStateCodec.encode(cached) }
+
+    /** Consistent document + revision, used by the sync engine. */
+    override fun snapshot(): LocalSnapshot = synchronized(lock) {
+        LocalSnapshot(ReadingStateCodec.encode(cached), revision)
+    }
+
+    /** Called after every write, including sync write-backs, so sync can debounce. */
+    fun addWriteListener(listener: () -> Unit) {
+        writeListeners.add(listener)
+    }
 
     /** ISO-8601 timestamp used for `updatedAt` and per-book `lastReadAt`. */
     fun timestamp(): String = now()
@@ -56,18 +86,77 @@ class ReadingStateStore(
         )
         persist(next)
         cached = next
+        revision += 1
+        notifyWrite()
         next
     }
 
+    /**
+     * Write a document produced by sync only if nothing was saved locally since
+     * [snapshot]; false means the caller must recompute instead of clobbering
+     * a fresh card or page turn.
+     */
+    override fun replaceIfUnchanged(snapshot: LocalSnapshot, state: ReadingState): Boolean =
+        synchronized(lock) {
+            if (snapshot.revision != revision) return false
+            commit(state)
+            true
+        }
+
+    /** Unconditional replace, used by local import after an explicit merge. */
+    override fun replace(state: ReadingState) {
+        synchronized(lock) { commit(state) }
+    }
+
+    private fun commit(state: ReadingState) {
+        val next = state.copy(schemaVersion = STATE_SCHEMA_VERSION)
+        persist(next)
+        cached = next
+        revision += 1
+        notifyWrite()
+    }
+
+    private fun notifyWrite() {
+        writeListeners.forEach { listener -> runCatching(listener) }
+    }
+
     private fun load(): ReadingState {
-        if (!file.isFile) return emptyState()
-        val decoded = runCatching {
-            ReadingStateCodec.decode(file.readText(Charsets.UTF_8))
-        }.getOrNull() ?: return emptyState()
-        // Upgrade v1 in place; a document from a newer build is read but never
-        // rewritten automatically, so unknown fields survive on disk.
-        if (decoded.upgraded) persist(decoded.state)
-        return decoded.state
+        val main = decode(file)
+        if (main != null) {
+            // Upgrade v1 in place; a document from a newer build is read but never
+            // rewritten automatically, so unknown fields survive on disk.
+            if (main.upgraded) persist(main.state)
+            // Keep one known-good copy per process start, not per page turn.
+            runCatching { backupFile?.let { file.copyTo(it, overwrite = true) } }
+            return main.state
+        }
+
+        val backup = decode(backupFile)
+        if (backup != null) {
+            recoveredFromBackup = true
+            // Preserve the broken file for diagnosis, then heal the main file so
+            // the notice is one-shot and the next launch starts normally.
+            runCatching { corruptFile?.let { file.copyTo(it, overwrite = true) } }
+            runCatching { persist(backup.state) }
+            return backup.state
+        }
+
+        if (file.isFile) {
+            corruptWithoutBackup = true
+            runCatching { corruptFile?.let { file.copyTo(it, overwrite = true) } }
+            val empty = emptyState()
+            runCatching { persist(empty) }
+            return empty
+        }
+        return emptyState()
+    }
+
+    /** Decode one file; null means missing or unreadable. */
+    private fun decode(source: File?): ReadingStateCodec.Decoded? {
+        if (source == null || !source.isFile) return null
+        return runCatching {
+            ReadingStateCodec.decode(source.readText(Charsets.UTF_8))
+        }.getOrNull()
     }
 
     private fun emptyState(): ReadingState = ReadingState(
@@ -98,6 +187,11 @@ class StateProgressRepository(private val store: ReadingStateStore) : ProgressRe
     override fun progress(bookId: String): BookProgress = store.state().progress(bookId)
 
     override fun save(progress: BookProgress): BookProgress {
+        val current = store.state().progress(progress.bookId)
+        // Page turns and phase changes save repeatedly with the same content;
+        // stamping every call would make two devices look "both changed" all
+        // the time. Only a real change refreshes lastReadAt (and the document).
+        if (progress.copy(lastReadAt = current.lastReadAt) == current) return current
         val stamped = progress.copy(lastReadAt = store.timestamp())
         store.update { state ->
             state.copy(books = state.books + (stamped.bookId to stamped))

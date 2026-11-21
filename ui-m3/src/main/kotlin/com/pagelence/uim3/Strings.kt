@@ -11,6 +11,9 @@ enum class UiLanguage { ZH, EN }
  * wide exceeds the DEX register limit and fails the ART verifier.
  */
 interface Strings {
+    /** Which locale this copy table belongs to, for value formatting. */
+    val uiLanguage: UiLanguage
+
     val appName: String
     val library: String
     val settings: String
@@ -18,6 +21,11 @@ interface Strings {
     val back: String
     val loading: String
     val retry: String
+    val recoveryFromBackupTitle: String
+    val recoveryFromBackupBody: String
+    val recoveryCorruptTitle: String
+    val recoveryCorruptBody: String
+    val recoveryOk: String
     val startReading: String
     val continueReading: String
     val readUnits: String
@@ -103,6 +111,7 @@ interface Strings {
     val collectedCount: String
     val about: String
     val aboutCopy: AboutCopy
+    val syncCopy: SyncCopy
     val close: String
     val chapter: String
     val unit: String
@@ -314,6 +323,8 @@ interface Strings {
     val bookCategory: String
     val bookTags: String
     val bookCreator: String
+    /** Colon used between a label and its value; zh uses the full-width form. */
+    val labelSeparator: String
     val bookIntro: String
     val bookChapters: String
     val bookChapterUnits: String

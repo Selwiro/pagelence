@@ -79,6 +79,7 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":data"))
+    implementation(project(":sync"))
     implementation(project(":ui-m3"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

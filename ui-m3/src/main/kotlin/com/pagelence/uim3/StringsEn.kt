@@ -2,6 +2,7 @@ package com.pagelence.uim3
 
 /** English copy; same getter shape as [ZhStrings]. */
 object EnStrings : Strings {
+    override val uiLanguage: UiLanguage get() = UiLanguage.EN
     override val appName: String get() = "Pagelence"
     override val library: String get() = "Library"
     override val settings: String get() = "Settings"
@@ -9,6 +10,15 @@ object EnStrings : Strings {
     override val back: String get() = "Back"
     override val loading: String get() = "Loading content…"
     override val retry: String get() = "Retry"
+    override val recoveryFromBackupTitle: String get() = "Recovered from backup"
+    override val recoveryFromBackupBody: String get() =
+        "The previous progress file could not be read, so the backup was used. " +
+            "The damaged file is kept as state.json.corrupt for diagnosis."
+    override val recoveryCorruptTitle: String get() = "Progress file damaged"
+    override val recoveryCorruptBody: String get() =
+        "Neither the progress file nor its backup could be read, so the app started with empty " +
+            "progress. The damaged file is kept as state.json.corrupt for diagnosis."
+    override val recoveryOk: String get() = "Got it"
     override val startReading: String get() = "Start reading"
     override val continueReading: String get() = "Continue"
     override val readUnits: String get() = "%1\$d of %2\$d units read"
@@ -94,6 +104,7 @@ object EnStrings : Strings {
     override val collectedCount: String get() = "Cards %d"
     override val about: String get() = "About"
     override val aboutCopy: AboutCopy get() = EnAboutCopy
+    override val syncCopy: SyncCopy get() = EnSyncCopy
     override val close: String get() = "Close"
     override val chapter: String get() = "Chapter %d"
     override val unit: String get() = "Section %d"
@@ -302,6 +313,7 @@ object EnStrings : Strings {
     override val bookCategory: String get() = "Genre"
     override val bookTags: String get() = "Tags"
     override val bookCreator: String get() = "Made by"
+    override val labelSeparator: String get() = ": "
     override val bookIntro: String get() = "About this book"
     override val bookChapters: String get() = "Chapters"
     override val bookChapterUnits: String get() = "%d units"
@@ -457,8 +469,8 @@ private val EnAboutCopy: AboutCopy = AboutCopy(
         AboutSection(
             title = "Third-party components",
             paragraphs = listOf(
-                "Kotlin, kotlinx.coroutines, kotlinx.serialization, AndroidX and Jetpack Compose: " +
-                    "Apache License 2.0.",
+                "Kotlin, kotlinx.coroutines, kotlinx.serialization, AndroidX, Jetpack Compose and " +
+                    "OkHttp: Apache License 2.0.",
                 "Material Icons: Apache License 2.0. The Android SDK and Android runtime are provided under " +
                     "their own terms.",
             ),

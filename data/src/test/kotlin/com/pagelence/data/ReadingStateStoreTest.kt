@@ -7,8 +7,11 @@ import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.DailyActivity
 import com.pagelence.core.progress.LevelSource
+import com.pagelence.core.progress.ReaderPhase
+import com.pagelence.core.progress.ReaderPosition
 import com.pagelence.core.progress.ReadingStateCodec
 import com.pagelence.core.wordcards.WordCard
+import java.io.File
 import java.nio.file.Files
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -57,6 +60,94 @@ class ReadingStateStoreTest {
         assertEquals(progress.readUnitIds, restored.readUnitIds)
         assertNotNull(restored.lastReadAt, "saving stamps lastReadAt for recent reading")
         assertEquals("device-test", tempStore(file).state().deviceId)
+    }
+
+    @Test
+    fun `reader position survives a restart with phase page and quiz answers`() {
+        val file = Files.createTempDirectory("pagelence-state").resolve("state.json").toFile()
+        val first = tempStore(file)
+        val position = ReaderPosition(
+            unitId = "chapter-01-u01",
+            phase = ReaderPhase.QUIZ,
+            textPage = 2,
+            textProgress = 0.4f,
+            quizAnswers = mapOf(0 to 1, 1 to 2),
+            quizSubmitted = false,
+            grammarReached = false,
+        )
+        StateProgressRepository(first).save(
+            BookProgress(
+                bookId = "doctor-dolittle-1920",
+                paragraphId = "chapter-01-p003",
+                readUnitIds = listOf("chapter-01-u01"),
+                reader = position,
+            ),
+        )
+
+        val restored = StateProgressRepository(tempStore(file))
+            .progress("doctor-dolittle-1920")
+            .reader
+        assertEquals(position, restored)
+    }
+
+    @Test
+    fun `loading the state file writes a backup`() {
+        val file = Files.createTempDirectory("pagelence-state").resolve("state.json").toFile()
+        val first = tempStore(file)
+        StateProgressRepository(first).save(
+            BookProgress(bookId = "doctor-dolittle-1920", readUnitIds = listOf("chapter-01-u01")),
+        )
+        val backup = File(file.parentFile, "state.json.bak")
+        assertFalse(backup.exists())
+
+        val reopened = tempStore(file)
+        assertTrue(backup.isFile)
+        val decoded = ReadingStateCodec.decode(backup.readText(Charsets.UTF_8))?.state
+        assertEquals(listOf("chapter-01-u01"), decoded?.books?.get("doctor-dolittle-1920")?.readUnitIds)
+        assertEquals(1, reopened.state().books.size)
+    }
+
+    @Test
+    fun `a corrupt main file is restored from the backup`() {
+        val file = Files.createTempDirectory("pagelence-state").resolve("state.json").toFile()
+        val first = tempStore(file)
+        StateProgressRepository(first).save(
+            BookProgress(bookId = "doctor-dolittle-1920", readUnitIds = listOf("chapter-01-u01")),
+        )
+        tempStore(file) // load once so the backup exists
+        file.writeText("{ definitely not json", Charsets.UTF_8)
+
+        val recovered = tempStore(file)
+        assertTrue(recovered.recoveredFromBackup)
+        assertFalse(recovered.corruptWithoutBackup)
+        assertEquals(
+            listOf("chapter-01-u01"),
+            StateProgressRepository(recovered).progress("doctor-dolittle-1920").readUnitIds,
+        )
+        assertTrue(File(file.parentFile, "state.json.corrupt").isFile)
+        assertNotNull(ReadingStateCodec.decode(file.readText(Charsets.UTF_8)))
+        // The main file is healed, so the next launch does not report again.
+        val next = tempStore(file)
+        assertFalse(next.recoveredFromBackup)
+        assertFalse(next.corruptWithoutBackup)
+    }
+
+    @Test
+    fun `corrupt main and backup start empty and flag the damage`() {
+        val file = Files.createTempDirectory("pagelence-state").resolve("state.json").toFile()
+        val first = tempStore(file)
+        StateProgressRepository(first).save(
+            BookProgress(bookId = "doctor-dolittle-1920", readUnitIds = listOf("chapter-01-u01")),
+        )
+        tempStore(file) // create the backup
+        file.writeText("{ broken", Charsets.UTF_8)
+        File(file.parentFile, "state.json.bak").writeText("also broken", Charsets.UTF_8)
+
+        val empty = tempStore(file)
+        assertFalse(empty.recoveredFromBackup)
+        assertTrue(empty.corruptWithoutBackup)
+        assertTrue(empty.state().books.isEmpty())
+        assertTrue(File(file.parentFile, "state.json.corrupt").isFile)
     }
 
     @Test

@@ -43,6 +43,7 @@ fun SettingsScreen(
     state: SettingsUiState,
     appVersion: String,
     onBack: () -> Unit,
+    onOpenSync: () -> Unit,
     onOpenAbout: () -> Unit,
     onLanguage: (UiLanguage) -> Unit,
     onTheme: (ThemeMode) -> Unit,
@@ -151,6 +152,40 @@ fun SettingsScreen(
 
             Spacer(Modifier.height(8.dp))
             HorizontalDivider()
+            Surface(
+                onClick = onOpenSync,
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                shape = MaterialTheme.shapes.medium,
+                color = MaterialTheme.colorScheme.surfaceContainer,
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(14.dp),
+                ) {
+                    Icon(
+                        imageVector = PagelenceIcons.Globe,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(22.dp),
+                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(strings.syncCopy.title, style = MaterialTheme.typography.titleMedium)
+                        Text(
+                            strings.syncCopy.subtitle,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    Icon(
+                        imageVector = PagelenceIcons.ChevronRight,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(20.dp),
+                    )
+                }
+            }
+
             Surface(
                 onClick = onOpenAbout,
                 modifier = Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 28.dp),

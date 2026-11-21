@@ -22,4 +22,23 @@ class MainActivity : ComponentActivity() {
             )
         }
     }
+
+    /**
+     * Coming back is the one place that knows a manual retry is justified:
+     * clear the sync backoff and run one automatic round.
+     */
+    override fun onStart() {
+        super.onStart()
+        viewModel.onAppForeground()
+    }
+
+    /**
+     * Activity lifecycle is the only place that knows the app is leaving the
+     * foreground. Flush the debounced reader save here; the ViewModel itself
+     * has no lifecycle callbacks.
+     */
+    override fun onStop() {
+        viewModel.flushProgress()
+        super.onStop()
+    }
 }

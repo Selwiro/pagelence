@@ -15,6 +15,10 @@ import com.pagelence.data.StatePreferencesRepository
 import com.pagelence.data.StateProgressRepository
 import com.pagelence.data.StateReadingProfileRepository
 import com.pagelence.data.StateWordCardRepository
+import com.pagelence.sync.OkHttpWebDavClient
+import com.pagelence.sync.SyncBaselineStore
+import com.pagelence.sync.SyncEngine
+import com.pagelence.sync.SyncStateStore
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -30,6 +34,20 @@ class AppGraph(context: Context) {
     }
 
     val cards: StateWordCardRepository by lazy { StateWordCardRepository(store) }
+
+    /** WebDAV settings and the Keystore-encrypted application password. */
+    val syncCredentials: SyncCredentialStore by lazy { SyncCredentialStore(appContext) }
+
+    /** ETag / baseline / failure state; one file each so a reset is local. */
+    val syncEngine: SyncEngine by lazy {
+        SyncEngine(
+            client = OkHttpWebDavClient(),
+            local = store,
+            stateStore = SyncStateStore(File(appContext.filesDir, "sync-state.json").toPath()),
+            baselineStore = SyncBaselineStore(File(appContext.filesDir, "sync-baseline.json").toPath()),
+            backupDir = File(appContext.filesDir, "sync-backups").toPath(),
+        )
+    }
 
     val progress: StateProgressRepository by lazy { StateProgressRepository(store) }
 
@@ -82,6 +100,31 @@ class AppGraph(context: Context) {
                 output.write(chunk, 0, read)
             }
             output.toByteArray()
+        }
+    }.getOrNull()
+
+    /** Write an exported progress file to the document the user picked. */
+    fun writeTextDocument(uri: Uri, text: String): Boolean = runCatching {
+        appContext.contentResolver.openOutputStream(uri)?.use { stream ->
+            stream.write(text.toByteArray(Charsets.UTF_8))
+            stream.flush()
+        } != null
+    }.getOrDefault(false)
+
+    /** Read an imported progress file, capped at the same limit WebDAV accepts. */
+    fun readTextDocument(uri: Uri, maxBytes: Long = 20L * 1024 * 1024): String? = runCatching {
+        appContext.contentResolver.openInputStream(uri)?.use { stream ->
+            val output = ByteArrayOutputStream()
+            val chunk = ByteArray(16 * 1024)
+            var total = 0L
+            while (true) {
+                val read = stream.read(chunk)
+                if (read <= 0) break
+                total += read
+                if (total > maxBytes) return null
+                output.write(chunk, 0, read)
+            }
+            output.toString(Charsets.UTF_8.name())
         }
     }.getOrNull()
 

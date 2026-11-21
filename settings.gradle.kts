@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "pagelence"
 include(":core")
+include(":sync")
 include(":data")
 include(":ui-m3")
 include(":app-phone")

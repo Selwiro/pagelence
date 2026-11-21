@@ -1,48 +1,37 @@
 package com.pagelence
 
 import android.content.Context
+import android.os.Build
+import com.pagelence.data.ContentSeedInstaller
 import java.io.File
 
 /**
  * Ships the content package inside the APK (assets come from `work/android/content`)
- * and copies it into app storage on first launch or when the book index changes.
+ * and copies it into app storage on first launch or after the app is updated.
  * `:core` stays platform-free by reading a plain directory.
+ *
+ * The freshness check is an install stamp, not a byte comparison: reading the
+ * 13 MB asset tree on every cold start was both slow and incomplete (a new word
+ * frequency table could be missed). `lastUpdateTime` changes on every install,
+ * so the whole tree is re-seeded after `adb install -r` or a store update, and
+ * skipped otherwise.
  */
 object ContentSeed {
-    /**
-     * Files whose bytes decide whether the seeded copy is up to date. Book
-     * packages and the shared dictionaries are listed from the asset tree, so
-     * editing a book or regenerating a dictionary also refreshes the copy.
-     */
-    private fun stamps(context: Context): List<String> = buildList {
-        add("books-index.json")
-        add("store.json")
-        add("taxonomy.json")
-        add("assessment/bank.json")
-        add("grammar/grammar-library.json")
-        add("third-party/word-levels.json")
-        context.assets.list("books").orEmpty().forEach { book ->
-            add("books/$book/book.json")
-            // Optional; a missing asset is skipped by the caller's open() probe.
-            add("books/$book/cover.jpg")
-        }
-        context.assets.list("third-party/dictionaries").orEmpty().forEach { name ->
-            if (name.endsWith(".json")) add("third-party/dictionaries/$name")
-        }
-    }
+    fun ensure(context: Context): File =
+        ContentSeedInstaller.install(context.filesDir, installStamp(context)) { staging ->
+            copyTree(context, "", staging)
+        }.content
 
-    fun ensure(context: Context): File {
-        val target = File(context.filesDir, "content")
-        val fresh = stamps(context).all { name ->
-            val asset = runCatching { context.assets.open(name).use { it.readBytes() } }.getOrNull() ?: return@all true
-            val stored = File(target, name)
-            stored.isFile && stored.readBytes().contentEquals(asset)
+    /** Install time + version; any app update re-seeds the whole content tree. */
+    @Suppress("DEPRECATION")
+    private fun installStamp(context: Context): String {
+        val info = context.packageManager.getPackageInfo(context.packageName, 0)
+        val code = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            info.longVersionCode
+        } else {
+            info.versionCode.toLong()
         }
-        if (target.isDirectory && fresh) return target
-        target.deleteRecursively()
-        target.mkdirs()
-        copyTree(context, "", target)
-        return target
+        return "name=${info.versionName};code=$code;updated=${info.lastUpdateTime}"
     }
 
     private fun copyTree(context: Context, path: String, target: File) {

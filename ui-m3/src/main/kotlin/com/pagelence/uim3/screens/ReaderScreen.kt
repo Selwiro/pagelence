@@ -202,9 +202,8 @@ fun ReaderScreen(
     onNextUnit: () -> Unit,
     onPreviousUnit: () -> Unit,
     onOpenUnit: (String) -> Unit,
-    onParagraphVisible: (String) -> Unit,
     onStopSpeaking: () -> Unit,
-    onPageChanged: (ReaderPhase, Int, Float) -> Unit,
+    onPageChanged: (ReaderPhase, Int, Float, String?) -> Unit,
     onTextProgress: (Float) -> Unit,
     onGuideStarted: () -> Unit,
     onStartPreview: () -> Unit,
@@ -515,12 +514,17 @@ fun ReaderScreen(
                             expandedTranslation = null
                             if (page != ReaderPage.Guide) onGuideStarted()
                             onStopSpeaking()
-                            onPageChanged(position.phase, position.textPage, position.textProgress)
-                            if (page is ReaderPage.Text) {
-                                onParagraphVisible(page.page.anchorParagraphId)
-                            } else if (page == ReaderPage.TextScroll) {
-                                state.paragraphs.firstOrNull()?.let { onParagraphVisible(it.id) }
+                            val anchorParagraphId = when (page) {
+                                is ReaderPage.Text -> page.page.anchorParagraphId
+                                ReaderPage.TextScroll -> state.paragraphs.firstOrNull()?.id
+                                else -> null
                             }
+                            onPageChanged(
+                                position.phase,
+                                position.textPage,
+                                position.textProgress,
+                                anchorParagraphId,
+                            )
                         }
                     }
 
@@ -570,7 +574,7 @@ fun ReaderScreen(
                                         onGuideStarted()
                                         forceTextTop = true
                                         textScrollProgress = 0f
-                                        onPageChanged(ReaderPhase.TEXT, 0, 0f)
+                                        onPageChanged(ReaderPhase.TEXT, 0, 0f, state.paragraphs.firstOrNull()?.id)
                                         textSession += 1
                                         goTo(textStart)
                                     },

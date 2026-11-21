@@ -13,6 +13,7 @@ import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,6 +21,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -44,6 +46,7 @@ import com.pagelence.uim3.screens.ReviewScreen
 import com.pagelence.uim3.screens.ReaderScreen
 import com.pagelence.uim3.screens.SettingsScreen
 import com.pagelence.uim3.screens.StoreScreen
+import com.pagelence.uim3.screens.SyncScreen
 import com.pagelence.uim3.stringsFor
 import com.pagelence.uim3.theme.PagelenceTheme
 import com.pagelence.uim3.theme.isDark
@@ -80,6 +83,38 @@ private fun AppContent(
     appVersionCode: Int,
 ) {
     val strings = stringsFor(state.settings.language)
+
+    state.recovery?.let { recovery ->
+        AlertDialog(
+            onDismissRequest = viewModel::dismissRecovery,
+            title = {
+                Text(
+                    when (recovery) {
+                        RecoveryNotice.FROM_BACKUP -> strings.recoveryFromBackupTitle
+                        RecoveryNotice.CORRUPT -> strings.recoveryCorruptTitle
+                    },
+                )
+            },
+            text = {
+                Text(
+                    when (recovery) {
+                        RecoveryNotice.FROM_BACKUP -> strings.recoveryFromBackupBody
+                        RecoveryNotice.CORRUPT -> strings.recoveryCorruptBody
+                    },
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = viewModel::dismissRecovery) { Text(strings.recoveryOk) }
+            },
+        )
+    }
+
+    val exportLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json"),
+    ) { uri -> uri?.let(viewModel::exportState) }
+    val importLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument(),
+    ) { uri -> uri?.let(viewModel::importState) }
     val atTabRoot = state.screen == rootScreen(state.tab)
     BackHandler(
         enabled = state.levelPrompt != null || state.screen == Screen.ONBOARDING || !atTabRoot,
@@ -126,7 +161,6 @@ private fun AppContent(
                     onNextUnit = viewModel::nextUnit,
                     onPreviousUnit = viewModel::previousUnit,
                     onOpenUnit = viewModel::openUnitFromReader,
-                    onParagraphVisible = viewModel::onParagraphVisible,
                     onStopSpeaking = viewModel::stopSpeaking,
                     onPageChanged = viewModel::onReaderPageChanged,
                     onTextProgress = viewModel::onReaderTextProgress,
@@ -149,6 +183,7 @@ private fun AppContent(
             state = state.settings,
             appVersion = appVersion,
             onBack = viewModel::backFromSettings,
+            onOpenSync = viewModel::openSync,
             onOpenAbout = viewModel::openAbout,
             onLanguage = viewModel::setLanguage,
             onTheme = viewModel::setTheme,
@@ -157,6 +192,22 @@ private fun AppContent(
             onAnnotateHints = viewModel::setAnnotateHints,
             onDefinitionMode = viewModel::setDefinitionMode,
             onGuideMode = viewModel::setGuideMode,
+        )
+
+        Screen.SYNC -> SyncScreen(
+            strings = strings,
+            state = state.sync,
+            onBack = viewModel::back,
+            onProvider = viewModel::setSyncProvider,
+            onUrl = viewModel::setSyncUrl,
+            onUsername = viewModel::setSyncUsername,
+            onAllowHttp = viewModel::setSyncAllowHttp,
+            onSave = viewModel::saveSyncConfig,
+            onSyncNow = viewModel::syncNow,
+            onDisable = viewModel::disableSync,
+            onExport = { exportLauncher.launch("pagelence-state.json") },
+            onImport = { importLauncher.launch(arrayOf("application/json", "text/plain", "*/*")) },
+            onDismissNotice = viewModel::dismissSyncNotice,
         )
 
         Screen.ABOUT -> AboutScreen(

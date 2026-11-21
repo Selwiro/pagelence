@@ -13,6 +13,12 @@ CC BY-SA 4.0。完整授权框架见 [LICENSE](LICENSE)、[LICENSE-CONTENT](LICE
 | 词级五层衍生表 | 由上述四份数据推算（`aligned`/`derived`/`tag`/`freq` 层），项目自制 | CC BY-SA 4.0 | `content/third-party/word-levels.json` 的 `sources` 标明每格来源 |
 | 本书出现次数 | 运行时以正文为输入单遍扫描，不随包存表 | CC BY-SA 4.0 | 仅内存（`WordQuery.countWords`） |
 
+## 运行时依赖
+
+| 依赖 | 版本 | 许可 | 用途 |
+| --- | --- | --- | --- |
+| OkHttp | 5.5.1（Square） | Apache License 2.0 | WebDAV 同步的 HTTP 客户端；只随 `:sync` 使用 |
+
 ## 正文
 
 - 《怪医杜立德》：Project Gutenberg eBook #501，1920 年版，公有领域。

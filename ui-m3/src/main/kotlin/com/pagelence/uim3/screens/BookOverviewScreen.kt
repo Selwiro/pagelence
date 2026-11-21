@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.BookCover
 import com.pagelence.uim3.components.PageTopBar
+import com.pagelence.uim3.components.wordCountParts
 import com.pagelence.uim3.components.rememberCoverPainter
 import com.pagelence.uim3.model.BookChapterUi
 import com.pagelence.uim3.model.BookDetailUi
@@ -72,7 +73,7 @@ fun BookOverviewScreen(
     modifier: Modifier = Modifier,
 ) {
     var pickSource by remember(state.bookId) { mutableStateOf(false) }
-    val words = wordParts(state.wordCount)
+    val words = wordCountParts(state.wordCount, strings.uiLanguage)
 
     Scaffold(
         modifier = modifier,
@@ -181,7 +182,7 @@ fun BookOverviewScreen(
                         state.creator?.takeIf { it.isNotBlank() }?.let {
                             Spacer(Modifier.height(4.dp))
                             Text(
-                                "${strings.bookCreator}：$it",
+                                "${strings.bookCreator}${strings.labelSeparator}$it",
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -327,22 +328,6 @@ fun BookOverviewScreen(
         )
     }
 }
-
-/** `2.5万` for long books, the raw count for short ones. */
-private data class WordParts(val value: String, val label: String)
-
-private fun wordParts(words: Int): WordParts = when {
-    words >= 10_000 -> {
-        val wan = (words / 1_000.0).let { Math.round(it).toDouble() / 10.0 }
-        WordParts(formatOneDecimal(wan), "万词")
-    }
-    words > 0 -> WordParts(words.toString(), "词")
-    else -> WordParts("—", "词汇量")
-}
-
-private fun formatOneDecimal(value: Double): String =
-    if (value == Math.floor(value)) value.toInt().toString()
-    else String.format("%.1f", value)
 
 private fun sourceLabel(strings: Strings, state: BookDetailUi): String = when {
     state.builtIn -> strings.bookSourceBuiltIn

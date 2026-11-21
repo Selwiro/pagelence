@@ -232,6 +232,10 @@
 - 等级：`levelUpdatedAt` 较晚者胜；相同则保留本机。
 - 偏好：整组取文档 `updatedAt` 较晚的一端；`deviceId`、`updatedAt` 始终用本机值。
 - 缺书的一端显示「未导入的书」，不丢进度。
+- 实现见 `:sync` 的 `StateMerge` 与 `docs/webdav-sync.md`：合并结果与本地内容一致时不刷新
+  `updatedAt`；`deviceId` 永远保留本机值。同步的 ETag、基线与失败退避不写进
+  `state.json`，而是同目录的 `sync-state.json` / `sync-baseline.json`；远端备份在
+  `sync-backups/`（仅服务器不返回 ETag 时产生）。
 
 ## 十一、版本演进
 

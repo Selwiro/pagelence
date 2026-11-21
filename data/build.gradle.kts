@@ -14,6 +14,7 @@ kotlin {
 
 dependencies {
     api(project(":core"))
+    implementation(project(":sync"))
     implementation(libs.kotlinx.serialization.json)
 
     testImplementation(kotlin("test"))

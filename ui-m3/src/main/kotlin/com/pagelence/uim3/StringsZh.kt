@@ -3,6 +3,7 @@ package com.pagelence.uim3
 /** Chinese copy. Getters keep the class initialiser empty; a single wide
  * constructor call fails the ART verifier. */
 object ZhStrings : Strings {
+    override val uiLanguage: UiLanguage get() = UiLanguage.ZH
     override val appName: String get() = "页有所成"
     override val library: String get() = "书库"
     override val settings: String get() = "设置"
@@ -10,6 +11,13 @@ object ZhStrings : Strings {
     override val back: String get() = "返回"
     override val loading: String get() = "正在加载内容…"
     override val retry: String get() = "重试"
+    override val recoveryFromBackupTitle: String get() = "已从备份恢复"
+    override val recoveryFromBackupBody: String get() =
+        "上次的进度文件读取失败，已用备份恢复。损坏的文件保留为 state.json.corrupt，方便排查。"
+    override val recoveryCorruptTitle: String get() = "进度文件损坏"
+    override val recoveryCorruptBody: String get() =
+        "主文件和备份都无法读取，应用已用空白进度启动。损坏的文件保留为 state.json.corrupt，方便排查。"
+    override val recoveryOk: String get() = "知道了"
     override val startReading: String get() = "开始阅读"
     override val continueReading: String get() = "继续阅读"
     override val readUnits: String get() = "已读 %1\$d / %2\$d 单元"
@@ -95,6 +103,7 @@ object ZhStrings : Strings {
     override val collectedCount: String get() = "生词卡 %d"
     override val about: String get() = "关于"
     override val aboutCopy: AboutCopy get() = ZhAboutCopy
+    override val syncCopy: SyncCopy get() = ZhSyncCopy
     override val close: String get() = "关闭"
     override val chapter: String get() = "第 %d 章"
     override val unit: String get() = "第 %d 段"
@@ -300,6 +309,7 @@ object ZhStrings : Strings {
     override val bookCategory: String get() = "分类"
     override val bookTags: String get() = "标签"
     override val bookCreator: String get() = "制作者"
+    override val labelSeparator: String get() = "："
     override val bookIntro: String get() = "内容简介"
     override val bookChapters: String get() = "章节目录"
     override val bookChapterUnits: String get() = "%d 个单元"
@@ -443,7 +453,8 @@ private val ZhAboutCopy: AboutCopy = AboutCopy(
         AboutSection(
             title = "第三方组件",
             paragraphs = listOf(
-                "Kotlin、kotlinx.coroutines、kotlinx.serialization、AndroidX、Jetpack Compose：" +
+                "Kotlin、kotlinx.coroutines、kotlinx.serialization、AndroidX、Jetpack Compose、" +
+                    "OkHttp：" +
                     "Apache License 2.0。",
                 "Material Icons：Apache License 2.0。Android SDK 与 Android 运行库按其各自条款提供。",
             ),

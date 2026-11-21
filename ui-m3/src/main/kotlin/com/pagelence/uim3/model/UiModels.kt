@@ -11,6 +11,7 @@ import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.LevelSource
 import com.pagelence.core.progress.ReaderPhase
+import com.pagelence.sync.SyncProvider
 import com.pagelence.uim3.UiLanguage
 
 /**
@@ -516,4 +517,27 @@ data class LevelPromptUi(
     val currentDefinition: DefinitionMode,
     val currentGuide: GuideMode,
     val changes: LevelRecommendation,
+)
+
+/** Visual weight of the sync status line. */
+enum class SyncTone { IDLE, OK, WARNING, ERROR }
+
+/**
+ * Draft + status for the sync screen. The password is never part of this
+ * model: the screen keeps it in local Compose state and hands it to the save
+ * callback, so it does not sit in a StateFlow.
+ */
+data class SyncUiState(
+    val configured: Boolean = false,
+    val provider: SyncProvider = SyncProvider.CUSTOM,
+    val url: String = "",
+    val username: String = "",
+    val allowHttp: Boolean = false,
+    val hasPassword: Boolean = false,
+    val templateUrl: String? = null,
+    val busy: Boolean = false,
+    val tone: SyncTone = SyncTone.IDLE,
+    val status: String? = null,
+    val notice: String? = null,
+    val noticeIsError: Boolean = false,
 )

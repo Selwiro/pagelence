@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.BookCover
 import com.pagelence.uim3.components.SectionLabel
+import com.pagelence.uim3.components.wordCountText
 import com.pagelence.uim3.components.rememberCoverPainter
 import com.pagelence.uim3.model.BookDetailUi
 
@@ -84,14 +85,14 @@ fun BookInfoScreen(
         },
         contentWindowInsets = androidx.compose.foundation.layout.WindowInsets(0, 0, 0, 0),
     ) { padding ->
-        val words = wordsText(state.wordCount)
+        val words = wordCountText(state.wordCount, strings.uiLanguage)
         val publication = listOfNotNull(
             state.publisher?.takeIf { it.isNotBlank() },
             state.edition?.takeIf { it.isNotBlank() },
         ).joinToString(" · ")
         val licence = listOfNotNull(
-            state.sourceLicense?.let { "${strings.bookLicenseSource}：$it" },
-            state.creatorLicense?.let { "${strings.bookLicenseCreator}：$it" },
+            state.sourceLicense?.let { "${strings.bookLicenseSource}${strings.labelSeparator}$it" },
+            state.creatorLicense?.let { "${strings.bookLicenseCreator}${strings.labelSeparator}$it" },
             state.sourceLicenseNote?.takeIf { it.isNotBlank() },
         ).joinToString("\n")
         val sources = when {
@@ -200,13 +201,3 @@ private fun InfoRow(label: String, value: String) {
     }
 }
 
-/** `2.5 万词` for long books, `15 词` for short ones. */
-private fun wordsText(words: Int): String = when {
-    words >= 10_000 -> {
-        val wan = Math.round(words / 1_000.0).toDouble() / 10.0
-        val text = if (wan == Math.floor(wan)) wan.toInt().toString() else String.format("%.1f", wan)
-        "$text 万词"
-    }
-    words > 0 -> "$words 词"
-    else -> ""
-}

@@ -54,7 +54,16 @@ import com.pagelence.core.source.SourceResult
 import com.pagelence.core.reading.SelectedTerm
 import com.pagelence.core.reading.WordSelectionState
 import com.pagelence.core.wordcards.WordCard
+import com.pagelence.sync.StateTransfer
+import com.pagelence.sync.SyncException
+import com.pagelence.sync.SyncMode
+import com.pagelence.sync.SyncOutcome
+import com.pagelence.sync.SyncProvider
+import com.pagelence.sync.SyncProviders
+import com.pagelence.sync.WebDavCredentials
+import com.pagelence.sync.WebDavUrl
 import com.pagelence.uim3.Strings
+import com.pagelence.uim3.SyncCopy
 import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.model.AssessmentQuestionUi
 import com.pagelence.uim3.model.AssessmentResultUi
@@ -93,19 +102,32 @@ import com.pagelence.uim3.model.SettingsUiState
 import com.pagelence.uim3.model.StoreBookUi
 import com.pagelence.uim3.model.StoreSourceUi
 import com.pagelence.uim3.model.StoreUiState
+import com.pagelence.uim3.model.SyncTone
+import com.pagelence.uim3.model.SyncUiState
 import com.pagelence.uim3.model.WordCardUi
 import com.pagelence.uim3.model.WordPanelUi
 import com.pagelence.uim3.model.WordStripUi
 import com.pagelence.uim3.stringsFor
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 
 /** Screens are shell state; the reading session itself lives in [AppUiState.reader]. */
 enum class Screen {
@@ -119,6 +141,7 @@ enum class Screen {
     ASSESSMENT,
     READER,
     SETTINGS,
+    SYNC,
     ABOUT,
     ABOUT_PRIVACY,
     ABOUT_LICENSES,
@@ -128,6 +151,9 @@ enum class Screen {
 
 /** Four bottom-bar destinations; each keeps its own screen stack. */
 enum class MainTab { SHELF, STORE, REVIEW, PROFILE }
+
+/** One-shot message about state.json recovery, shown after startup. */
+enum class RecoveryNotice { FROM_BACKUP, CORRUPT }
 
 fun rootScreen(tab: MainTab): Screen = when (tab) {
     MainTab.SHELF -> Screen.LIBRARY
@@ -164,6 +190,10 @@ data class AppUiState(
     val readerExitConfirm: Boolean = false,
     /** The level prompt is open; nothing has been written to `state.json` yet. */
     val levelPrompt: LevelPromptUi? = null,
+    /** WebDAV setup draft + persisted sync status. */
+    val sync: SyncUiState = SyncUiState(),
+    /** Set when startup had to recover from a backup or start empty. */
+    val recovery: RecoveryNotice? = null,
 )
 
 /** A level waiting for the reader to accept, keep or edit the recommended modes. */
@@ -189,6 +219,36 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private var pendingPanel: WordPanelUi? = null
     private var wordSelection: WordSelectionState = WordSelectionState.Hidden
 
+    private var syncConfig: SyncConfig? = null
+    private var syncDraft: SyncConfig = SyncConfig(SyncProvider.CUSTOM, "", "", false)
+    private var syncHasPassword = false
+    private var syncDebounceJob: Job? = null
+    private val syncDebounceLock = Any()
+    /** Set while the engine writes local state, so its own write does not re-trigger sync. */
+    private val syncWriteSuppressed = AtomicBoolean(false)
+
+    /** Everything needed to rewrite one unit's resume point after a page turn. */
+    private data class ReaderSavePoint(
+        val bookId: String,
+        val unitId: String,
+        val phase: ReaderPhase,
+        val textPage: Int,
+        val textProgress: Float,
+        /** Anchor paragraph of the visible page; null keeps the stored one. */
+        val paragraphId: String?,
+        val answers: Map<Int, Int>,
+        val submitted: Boolean,
+    )
+
+    /**
+     * The newest snapshot waiting to be written. Page turns are debounced and
+     * coalesced here, and [progressWriteLock] serialises every write, so an
+     * older snapshot can never land after a newer one.
+     */
+    private val pendingReaderSave = AtomicReference<ReaderSavePoint?>(null)
+    private val progressWriteLock = Mutex()
+    private var readerSaveJob: Job? = null
+
     private val stacks: MutableMap<MainTab, MutableList<Screen>> = MainTab.entries.associateWith {
         mutableListOf(rootScreen(it))
     }.toMutableMap()
@@ -197,10 +257,15 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         graph.speech.setOnReadyListener { available ->
             _ui.update { it.copy(speechAvailable = available) }
         }
+        // Any local write (progress, card, preference, profile) schedules a
+        // debounced sync; the store is the single choke point, so no call site
+        // has to remember.
+        graph.store.addWriteListener { onLocalStateWritten() }
         bootstrap()
     }
 
     override fun onCleared() {
+        flushProgress()
         graph.speech.shutdown()
         super.onCleared()
     }
@@ -217,6 +282,15 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             val grammarTab = buildGrammarTab(strings, language)
             val store = buildStoreState(strings, language)
             val onboarding = !prefs.levelOnboardingDone
+            val storedSync = graph.syncCredentials.config()
+            syncConfig = storedSync
+            syncDraft = storedSync ?: SyncConfig(SyncProvider.CUSTOM, "", "", false)
+            syncHasPassword = graph.syncCredentials.hasPassword()
+            val recovery = when {
+                graph.store.recoveredFromBackup -> RecoveryNotice.FROM_BACKUP
+                graph.store.corruptWithoutBackup -> RecoveryNotice.CORRUPT
+                else -> null
+            }
             _ui.update {
                 it.copy(
                     screen = if (onboarding) Screen.ONBOARDING else Screen.LIBRARY,
@@ -226,8 +300,11 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                     grammarTab = grammarTab,
                     store = store,
                     settings = settingsOf(prefs, language),
+                    sync = syncUiState(language),
+                    recovery = recovery,
                 )
             }
+            onAppForeground()
         }
     }
 
@@ -333,7 +410,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val next = popScreen() ?: return
         val leavingReader = current == Screen.READER
         if (leavingReader) {
-            _ui.value.reader?.let { saveReaderPosition(it) }
+            _ui.value.reader?.let { saveReaderPosition(it, immediate = true) }
             pendingPanel = null
             wordSelection = WordSelectionState.clear()
         }
@@ -363,6 +440,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     }
 
     private fun openBookAt(bookId: String, unitId: String?, push: Boolean = true) {
+        clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
             graph.speech.stop()
             val bookIndex = graph.content.index(bookId) ?: return@launch
@@ -400,6 +478,9 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                         profile = profile,
                     )
                 }
+                // Persist the entry point immediately: a kill before the first
+                // page turn should still resume at this unit and phase.
+                saveReaderPosition(reader, immediate = true)
             }
         }
     }
@@ -420,11 +501,14 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         _ui.update { it.copy(readerExitConfirm = false) }
     }
 
+    fun dismissRecovery() {
+        _ui.update { it.copy(recovery = null) }
+    }
+
     fun closeReader() {
         graph.speech.stop()
         pendingPanel = null
         wordSelection = WordSelectionState.clear()
-        _ui.value.reader?.let { saveReaderPosition(it) }
         back()
         if (_ui.value.screen == Screen.READER) {
             _ui.update { it.copy(screen = rootScreen(it.tab), reader = null) }
@@ -592,8 +676,11 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             "original" -> if (language == UiLanguage.ZH) "原创" else "Original"
             else -> license.name ?: license.type
         } ?: return null
-        return if (license.publicDomain.isEmpty()) label
-        else "$label（${license.publicDomain.joinToString("、")}）"
+        if (license.publicDomain.isEmpty()) return label
+        val regions = license.publicDomain.joinToString(
+            if (language == UiLanguage.ZH) "、" else ", ",
+        )
+        return if (language == UiLanguage.ZH) "$label（$regions）" else "$label ($regions)"
     }
 
     /** Imported one-off packages are not reusable sources; name them for the reader. */
@@ -1327,19 +1414,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         )
     }
 
-    fun onParagraphVisible(paragraphId: String) {
-        val reader = _ui.value.reader ?: return
-        val bookIndex = index ?: return
-        if (paragraphId !in bookIndex.paragraphById) return
-        val current = graph.progress.progress(reader.bookId)
-        if (current.paragraphId == paragraphId) return
-        viewModelScope.launch(Dispatchers.IO) {
-            val next = ProgressSemantics.setPosition(current, bookIndex, paragraphId)
-            graph.progress.save(next)
-            graph.profile.recordReadingDay(today())
-        }
-    }
-
     fun onWordClick(
         paragraphId: String,
         sentenceNumber: Int,
@@ -1535,6 +1609,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         phase: ReaderPhase,
         textPage: Int,
         textProgress: Float,
+        anchorParagraphId: String? = null,
     ) {
         graph.speech.stop()
         val reader = _ui.value.reader ?: return
@@ -1549,6 +1624,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             selectedWord = null,
         )
         _ui.update { it.copy(reader = updated) }
+        saveReaderPosition(updated, paragraphId = anchorParagraphId)
     }
 
     /** Continuous scroll mode reports its normalised offset when scrolling stops. */
@@ -1558,41 +1634,91 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         if (kotlin.math.abs(reader.resumeTextProgress - value) < 0.002f) return
         val updated = reader.copy(resumeTextProgress = value)
         _ui.update { it.copy(reader = updated) }
+        saveReaderPosition(updated)
     }
 
-    private fun saveReaderPosition(reader: ReaderUiState) {
-        // Snapshot the globals before the write is queued: switching units
-        // replaces them, and this unit's answers must still be the ones saved.
-        val answers = quizAnswers
-        val submitted = quizSubmitted
-        viewModelScope.launch(Dispatchers.IO) {
-            persistReaderPosition(reader, answers, submitted)
+    private fun savePointOf(
+        reader: ReaderUiState,
+        paragraphId: String? = null,
+        answers: Map<Int, Int> = quizAnswers,
+        submitted: Boolean = quizSubmitted,
+    ): ReaderSavePoint = ReaderSavePoint(
+        bookId = reader.bookId,
+        unitId = reader.unitId,
+        phase = reader.resumePhase,
+        textPage = reader.resumeTextPage,
+        textProgress = reader.resumeTextProgress,
+        paragraphId = paragraphId,
+        answers = answers,
+        submitted = submitted,
+    )
+
+    /**
+     * Queue the current reader position. Page turns use the debounce, while
+     * answers and exits ask for an immediate write. The snapshot is taken now
+     * because switching units replaces the globals.
+     */
+    private fun saveReaderPosition(
+        reader: ReaderUiState,
+        immediate: Boolean = false,
+        paragraphId: String? = null,
+    ) {
+        pendingReaderSave.set(savePointOf(reader, paragraphId))
+        readerSaveJob?.cancel()
+        readerSaveJob = viewModelScope.launch(Dispatchers.IO) {
+            if (!immediate) delay(SAVE_DEBOUNCE_MS)
+            progressWriteLock.withLock {
+                pendingReaderSave.getAndSet(null)?.let(::persistReaderSavePoint)
+            }
         }
     }
 
-    /** Write a unit's resume point with the answers captured at call time. */
-    private fun persistReaderPosition(
-        reader: ReaderUiState,
-        answers: Map<Int, Int>,
-        submitted: Boolean,
-    ) {
-        val bookIndex = index ?: return
-        val current = graph.progress.progress(reader.bookId)
-        val previous = current.reader?.takeIf { it.unitId == reader.unitId }
+    /**
+     * Write anything still queued. Called from `ON_STOP` and `onCleared`, so it
+     * briefly blocks the caller: the state document is small and losing the
+     * last page turn is worse than a few milliseconds on the way out.
+     */
+    fun flushProgress() {
+        val point = pendingReaderSave.getAndSet(null) ?: return
+        readerSaveJob?.cancel()
+        runCatching {
+            runBlocking {
+                withTimeoutOrNull(FLUSH_PROGRESS_TIMEOUT_MS) {
+                    progressWriteLock.withLock { persistReaderSavePoint(point) }
+                }
+            }
+        }
+    }
+
+    private fun clearPendingReaderSave() {
+        pendingReaderSave.set(null)
+        readerSaveJob?.cancel()
+    }
+
+    /** Write one resume point with the answers captured at schedule time. */
+    private fun persistReaderSavePoint(point: ReaderSavePoint) {
+        // A save from the previous book may still be queued after a switch.
+        val bookIndex = index?.takeIf { it.book.id == point.bookId } ?: return
+        val stored = graph.progress.progress(point.bookId)
+        val current = point.paragraphId
+            ?.takeIf { it in bookIndex.paragraphById }
+            ?.let { stored.copy(paragraphId = it) }
+            ?: stored
+        val previous = current.reader?.takeIf { it.unitId == point.unitId }
         val grammarReached =
-            previous?.grammarReached == true || reader.resumePhase == ReaderPhase.GRAMMAR
+            previous?.grammarReached == true || point.phase == ReaderPhase.GRAMMAR
         val position = ReaderPosition(
-            unitId = reader.unitId,
-            phase = reader.resumePhase,
-            textPage = reader.resumeTextPage.coerceAtLeast(0),
-            textProgress = reader.resumeTextProgress.coerceIn(0f, 1f),
-            quizAnswers = answers,
-            quizSubmitted = submitted,
+            unitId = point.unitId,
+            phase = point.phase,
+            textPage = point.textPage.coerceAtLeast(0),
+            textProgress = point.textProgress.coerceIn(0f, 1f),
+            quizAnswers = point.answers,
+            quizSubmitted = point.submitted,
             grammarReached = grammarReached,
         )
-        val wasRead = reader.unitId in current.readUnitIds
+        val wasRead = point.unitId in current.readUnitIds
         val next = if (grammarReached) {
-            ProgressSemantics.markUnitRead(current, bookIndex, reader.unitId)
+            ProgressSemantics.markUnitRead(current, bookIndex, point.unitId)
         } else {
             current
         }
@@ -1604,6 +1730,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         if (quizSubmitted) return
         quizAnswers = quizAnswers + (questionIndex to optionIndex)
         rebuildQuiz()
+        _ui.value.reader?.let { saveReaderPosition(it, immediate = true) }
     }
 
     fun submitQuiz() {
@@ -1612,6 +1739,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         quizSubmitted = true
         quizCollected = 0
         rebuildQuiz()
+        _ui.value.reader?.let { saveReaderPosition(it, immediate = true) }
     }
 
     /** Clear the missed answers only; correct ones stay so the retry is short. */
@@ -1624,6 +1752,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         quizSubmitted = false
         quizCollected = 0
         rebuildQuiz()
+        _ui.value.reader?.let { saveReaderPosition(it, immediate = true) }
     }
 
     fun collectQuizWords() {
@@ -1699,12 +1828,16 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         graph.speech.stop()
         val reader = _ui.value.reader ?: return
         val bookIndex = index ?: return
+        clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
-            val current = graph.progress.progress(reader.bookId)
-            val wasRead = reader.unitId in current.readUnitIds
-            val advanced = ProgressSemantics.advance(current, bookIndex, reader.unitId)
-            graph.progress.save(advanced)
-            if (!wasRead) graph.profile.recordCompletedUnit(today())
+            val advanced = progressWriteLock.withLock {
+                val current = graph.progress.progress(reader.bookId)
+                val wasRead = reader.unitId in current.readUnitIds
+                val next = ProgressSemantics.advance(current, bookIndex, reader.unitId)
+                graph.progress.save(next)
+                if (!wasRead) graph.profile.recordCompletedUnit(today())
+                next
+            }
             val next = bookIndex.nextUnit(reader.unitId)
             if (next == null) {
                 withContext(Dispatchers.Main) { finishBook() }
@@ -1733,9 +1866,12 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val bookIndex = index ?: return
         val answers = quizAnswers
         val submitted = quizSubmitted
+        clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
             val previous = bookIndex.previousUnit(reader.unitId) ?: return@launch
-            persistReaderPosition(reader, answers, submitted)
+            progressWriteLock.withLock {
+                persistReaderSavePoint(savePointOf(reader, answers = answers, submitted = submitted))
+            }
             val progress = graph.progress.progress(reader.bookId)
             val resume = progress.reader?.takeIf { it.unitId == previous.id }
             quizAnswers = resume?.quizAnswers ?: emptyMap()
@@ -1757,6 +1893,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
     private fun finishBook() {
         graph.speech.stop()
+        clearPendingReaderSave()
         pendingPanel = null
         wordSelection = WordSelectionState.clear()
         val next = popScreen() ?: rootScreen(_ui.value.tab)
@@ -1767,11 +1904,14 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     fun stopHere() {
         val reader = _ui.value.reader ?: return
         val bookIndex = index ?: return
+        clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
-            val current = graph.progress.progress(reader.bookId)
-            val wasRead = reader.unitId in current.readUnitIds
-            graph.progress.save(ProgressSemantics.markUnitRead(current, bookIndex, reader.unitId))
-            if (!wasRead) graph.profile.recordCompletedUnit(today())
+            progressWriteLock.withLock {
+                val current = graph.progress.progress(reader.bookId)
+                val wasRead = reader.unitId in current.readUnitIds
+                graph.progress.save(ProgressSemantics.markUnitRead(current, bookIndex, reader.unitId))
+                if (!wasRead) graph.profile.recordCompletedUnit(today())
+            }
             withContext(Dispatchers.Main) { finishBook() }
         }
     }
@@ -1886,6 +2026,362 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             }
             refreshLibrary()
         }
+    }
+
+    // --- sync ------------------------------------------------------------
+
+    fun openSync() {
+        syncDraft = graph.syncCredentials.config() ?: SyncConfig(SyncProvider.CUSTOM, "", "", false)
+        syncHasPassword = graph.syncCredentials.hasPassword()
+        val language = _ui.value.settings.language
+        _ui.update { it.copy(sync = syncUiState(language)) }
+        push(Screen.SYNC)
+    }
+
+    /**
+     * Returning to the foreground clears the wait and asks for one auto round.
+     * A recent success/failure within [FOREGROUND_SYNC_MIN_INTERVAL_SECONDS] is
+     * skipped: `onStart` also fires when the document picker closes, and a sync
+     * there would wipe the export/import notice the reader just got.
+     */
+    fun onAppForeground() {
+        viewModelScope.launch(Dispatchers.IO) {
+            graph.syncEngine.clearBackoff()
+            val config = graph.syncCredentials.config() ?: return@launch
+            if (!config.enabled) return@launch
+            syncConfig = config
+            syncHasPassword = graph.syncCredentials.hasPassword()
+            val status = graph.syncEngine.status()
+            val last = listOfNotNull(status.lastSuccessAt, status.lastFailureAt)
+                .mapNotNull(::parseInstant)
+                .maxOrNull()
+            if (last != null &&
+                Duration.between(last, Instant.now()).seconds < FOREGROUND_SYNC_MIN_INTERVAL_SECONDS
+            ) {
+                return@launch
+            }
+            performSync(config, SyncMode.AUTO)
+        }
+    }
+
+    fun setSyncProvider(provider: SyncProvider) {
+        updateSyncDraft { draft ->
+            val url = if (draft.url.isBlank()) {
+                SyncProviders.defaultUrl(provider) ?: draft.url
+            } else {
+                draft.url
+            }
+            draft.copy(provider = provider, url = url)
+        }
+    }
+
+    fun setSyncUrl(url: String) = updateSyncDraft { it.copy(url = url) }
+
+    fun setSyncUsername(username: String) = updateSyncDraft { it.copy(username = username) }
+
+    fun setSyncAllowHttp(allowed: Boolean) = updateSyncDraft { it.copy(allowHttp = allowed) }
+
+    private fun updateSyncDraft(transform: (SyncConfig) -> SyncConfig) {
+        syncDraft = transform(syncDraft)
+        val language = _ui.value.settings.language
+        _ui.update { it.copy(sync = syncUiState(language)) }
+    }
+
+    /**
+     * Validate, persist (password into the Keystore), test the connection and,
+     * when the probe succeeds, run one manual round so setup ends with a
+     * visible result instead of an untested "saved".
+     */
+    fun saveSyncConfig(password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val language = uiLanguage(graph.preferences.preferences())
+            val copy = stringsFor(language).syncCopy
+            val draft = syncDraft
+            val validated = runCatching { WebDavUrl.validateFileUrl(draft.url, draft.allowHttp) }
+            val invalid = validated.exceptionOrNull()
+            if (invalid != null) {
+                updateSyncUi(language, notice = copy.errorFor("URL"), noticeIsError = true)
+                return@launch
+            }
+            val config = draft.copy(url = validated.getOrThrow())
+            graph.syncCredentials.save(config)
+            val passwordStored = graph.syncCredentials.savePassword(password)
+            syncConfig = config
+            syncDraft = config
+            syncHasPassword = graph.syncCredentials.hasPassword()
+            if (!passwordStored) {
+                updateSyncUi(language, notice = copy.savedNoPassword, noticeIsError = true)
+                return@launch
+            }
+            val credentials = runCatching { credentialsOf(config) }.getOrElse { error ->
+                updateSyncUi(language, notice = error.message ?: copy.passwordMissing, noticeIsError = true)
+                return@launch
+            }
+            val probe = runCatching { graph.syncEngine.probe(credentials) }
+            val probeError = probe.exceptionOrNull()
+            if (probeError != null) {
+                val category = (probeError as? SyncException)?.category
+                updateSyncUi(
+                    language,
+                    notice = copy.testFailed + "：" + copy.errorFor(category?.name),
+                    noticeIsError = true,
+                )
+                return@launch
+            }
+            val exists = probe.getOrNull()?.exists == true
+            updateSyncUi(language, notice = if (exists) copy.testOk else copy.testEmpty)
+            performSync(config, SyncMode.MANUAL)
+        }
+    }
+
+    fun syncNow() {
+        val config = syncConfig ?: graph.syncCredentials.config()
+        if (config == null || !config.enabled) {
+            val copy = stringsFor(_ui.value.settings.language).syncCopy
+            updateSyncUi(_ui.value.settings.language, notice = copy.statusIdle, noticeIsError = true)
+            return
+        }
+        viewModelScope.launch(Dispatchers.IO) { performSync(config, SyncMode.MANUAL) }
+    }
+
+    fun disableSync() {
+        viewModelScope.launch(Dispatchers.IO) {
+            syncDebounceJob?.cancel()
+            graph.syncCredentials.clear()
+            graph.syncEngine.reset()
+            syncConfig = null
+            syncDraft = SyncConfig(SyncProvider.CUSTOM, "", "", false)
+            syncHasPassword = false
+            updateSyncUi(uiLanguage(graph.preferences.preferences()))
+        }
+    }
+
+    fun dismissSyncNotice() {
+        _ui.update { it.copy(sync = it.sync.copy(notice = null, noticeIsError = false)) }
+    }
+
+    fun exportState(uri: Uri) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val language = uiLanguage(graph.preferences.preferences())
+            val copy = stringsFor(language).syncCopy
+            val ok = graph.writeTextDocument(uri, StateTransfer.export(graph.store))
+            updateSyncUi(
+                language,
+                notice = if (ok) copy.exportDone else copy.exportFailed,
+                noticeIsError = !ok,
+            )
+        }
+    }
+
+    fun importState(uri: Uri) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val language = uiLanguage(graph.preferences.preferences())
+            val copy = stringsFor(language).syncCopy
+            val text = graph.readTextDocument(uri)
+            if (text == null) {
+                updateSyncUi(language, notice = copy.importFailed, noticeIsError = true)
+                return@launch
+            }
+            val result = runCatching {
+                StateTransfer.import(graph.store, text, Instant.now().toString(), today())
+            }
+            val imported = result.getOrNull()
+            if (imported == null) {
+                updateSyncUi(language, notice = copy.importFailed, noticeIsError = true)
+                return@launch
+            }
+            val summary = imported.summary
+            val changes = summary.booksAdded + summary.booksUpdated +
+                summary.cardsAdded + summary.cardsUpdated + summary.cardsDeleted
+            refreshLibrary()
+            refreshCards()
+            updateSyncUi(
+                language,
+                notice = if (changes == 0) copy.importNothing else copy.importDone,
+            )
+            scheduleAutoSync()
+        }
+    }
+
+    private fun onLocalStateWritten() {
+        if (syncWriteSuppressed.get()) return
+        scheduleAutoSync()
+    }
+
+    /** Debounced auto sync: finishing a page does not hit the network each turn. */
+    private fun scheduleAutoSync() {
+        val config = syncConfig ?: runCatching { graph.syncCredentials.config() }.getOrNull() ?: return
+        if (!config.enabled) return
+        synchronized(syncDebounceLock) {
+            syncDebounceJob?.cancel()
+            syncDebounceJob = viewModelScope.launch(Dispatchers.IO) {
+                delay(AUTO_SYNC_DEBOUNCE_MS)
+                performSync(config, SyncMode.AUTO)
+            }
+        }
+    }
+
+    private fun performSync(config: SyncConfig, mode: SyncMode) {
+        val language = uiLanguage(graph.preferences.preferences())
+        val copy = stringsFor(language).syncCopy
+        _ui.update { it.copy(sync = it.sync.copy(busy = true, notice = null, noticeIsError = false)) }
+        val credentials = runCatching { credentialsOf(config) }.getOrElse { error ->
+            updateSyncUi(
+                language,
+                notice = error.message ?: copy.passwordMissing,
+                noticeIsError = true,
+            )
+            return
+        }
+        syncWriteSuppressed.set(true)
+        val outcome = try {
+            graph.syncEngine.sync(credentials, mode)
+        } catch (error: SyncException) {
+            SyncOutcome.Failure(
+                category = error.category,
+                code = error.code,
+                message = error.message.orEmpty(),
+                status = error.status,
+            )
+        } finally {
+            syncWriteSuppressed.set(false)
+        }
+        // A download or merge can change preferences (including the UI
+        // language), so resolve the copy again before writing the result.
+        val resultLanguage = uiLanguage(graph.preferences.preferences())
+        val resultCopy = stringsFor(resultLanguage).syncCopy
+        when (outcome) {
+            is SyncOutcome.Success -> {
+                if (outcome.localChanged) {
+                    refreshLibrary()
+                    refreshCards()
+                }
+                updateSyncUi(resultLanguage, notice = successNotice(resultCopy, outcome))
+            }
+
+            is SyncOutcome.Failure -> {
+                updateSyncUi(
+                    resultLanguage,
+                    notice = resultCopy.errorFor(outcome.category.name),
+                    noticeIsError = true,
+                )
+            }
+
+            SyncOutcome.Busy, SyncOutcome.Skipped -> updateSyncUi(resultLanguage)
+        }
+    }
+
+    private fun successNotice(copy: SyncCopy, outcome: SyncOutcome.Success): String? {
+        val summary = outcome.summary
+        val base = when (outcome.action) {
+            com.pagelence.sync.SyncAction.UP_TO_DATE -> null
+            com.pagelence.sync.SyncAction.CREATE_REMOTE,
+            com.pagelence.sync.SyncAction.UPLOAD,
+            -> copy.syncUploaded
+
+            com.pagelence.sync.SyncAction.DOWNLOAD -> copy.syncDownloaded
+            com.pagelence.sync.SyncAction.UPLOAD_MERGED -> copy.syncMerged.format(
+                (summary?.booksAdded ?: 0) + (summary?.booksUpdated ?: 0),
+                (summary?.cardsAdded ?: 0) + (summary?.cardsUpdated ?: 0),
+                summary?.cardsDeleted ?: 0,
+            )
+        }
+        val warning = outcome.warnings.takeIf { it.isNotEmpty() }
+            ?.joinToString("；") { it }
+            ?.let { copy.warningPrefix + it }
+        return listOfNotNull(base, warning).takeIf { it.isNotEmpty() }?.joinToString("\n")
+    }
+
+    private fun credentialsOf(config: SyncConfig): WebDavCredentials {
+        val password = graph.syncCredentials.password()
+        if (password == null && graph.syncCredentials.hasPassword()) {
+            throw SyncException(
+                "无法读取已保存的密码，请重新输入",
+                com.pagelence.sync.SyncErrorCategory.AUTH,
+                "PASSWORD_UNREADABLE",
+            )
+        }
+        return WebDavCredentials(
+            url = config.url,
+            username = config.username,
+            password = password.orEmpty(),
+            allowHttp = config.allowHttp,
+        )
+    }
+
+    private fun updateSyncUi(
+        language: UiLanguage,
+        notice: String? = null,
+        noticeIsError: Boolean = false,
+    ) {
+        _ui.update {
+            it.copy(
+                sync = syncUiState(
+                    language = language,
+                    notice = notice,
+                    noticeIsError = noticeIsError,
+                ),
+            )
+        }
+    }
+
+    private fun syncUiState(
+        language: UiLanguage,
+        busy: Boolean = false,
+        notice: String? = null,
+        noticeIsError: Boolean = false,
+    ): SyncUiState {
+        val copy = stringsFor(language).syncCopy
+        val stored = syncConfig ?: graph.syncCredentials.config()
+        val status = graph.syncEngine.status()
+        val configured = stored?.enabled == true
+        val tone: SyncTone
+        val statusText: String
+        if (!configured) {
+            tone = SyncTone.IDLE
+            statusText = copy.statusIdle
+        } else {
+            val failedAt = status.lastFailureAt?.let(::parseInstant)
+            val okAt = status.lastSuccessAt?.let(::parseInstant)
+            if (failedAt != null && (okAt == null || failedAt.isAfter(okAt))) {
+                tone = SyncTone.ERROR
+                statusText = copy.statusFailure.format(
+                    formatSyncTime(status.lastFailureAt),
+                    copy.errorFor(status.lastFailureCategory),
+                )
+            } else if (okAt != null) {
+                tone = SyncTone.OK
+                statusText = copy.statusOk.format(formatSyncTime(status.lastSuccessAt))
+            } else {
+                tone = SyncTone.IDLE
+                statusText = copy.statusConfigured
+            }
+        }
+        val provider = stored?.provider ?: syncDraft.provider
+        return SyncUiState(
+            configured = configured,
+            provider = provider,
+            url = syncDraft.url,
+            username = syncDraft.username,
+            allowHttp = syncDraft.allowHttp,
+            hasPassword = syncHasPassword,
+            templateUrl = SyncProviders.templateUrl(provider),
+            busy = busy,
+            tone = tone,
+            status = statusText,
+            notice = notice,
+            noticeIsError = noticeIsError,
+        )
+    }
+
+    private fun parseInstant(value: String): Instant? =
+        runCatching { Instant.parse(value) }.getOrNull()
+
+    private fun formatSyncTime(value: String?): String {
+        val instant = value?.let(::parseInstant) ?: return "—"
+        return DateTimeFormatter.ofPattern("MM-dd HH:mm")
+            .withZone(ZoneId.systemDefault())
+            .format(instant)
     }
 
     // --- mapping ---------------------------------------------------------
@@ -2518,6 +3014,16 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         "lookup-" + term.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
 
     companion object {
+        /** Coalesce a burst of page turns into one write. */
+        private const val SAVE_DEBOUNCE_MS = 300L
+        /** Page turns and card taps coalesce; active reading never syncs per turn. */
+        private const val AUTO_SYNC_DEBOUNCE_MS = 30_000L
+        /** Do not sync again on every onStart (e.g. returning from the file picker). */
+        private const val FOREGROUND_SYNC_MIN_INTERVAL_SECONDS = 60L
+
+        /** Upper bound on the blocking flush during ON_STOP. */
+        private const val FLUSH_PROGRESS_TIMEOUT_MS = 1_000L
+
         private val PREVIEW_WORD = Regex("[A-Za-z]+(?:['’][A-Za-z]+)?")
 
         fun factory(graph: AppGraph): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
