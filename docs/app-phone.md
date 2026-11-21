@@ -228,11 +228,11 @@ Android **随包分发两本书**：《怪医杜立德》（Project Gutenberg #5
 - **应用标识卡**：启动图标的内嵌版本（64 视口、`#2B4458` 底 + 书页图形）、当前界面语言的
   应用名称、`v0.1.0 (1)`（versionName + versionCode）与一句话简介。
 - **入口卡**（每行 22dp 描边图标 + 标题 + 一行摘要，内部页带 chevron）：
-  - **检查更新**：公开渠道上线前，只弹窗说明当前是开发版、没有公开发布渠道，应用不在后台
-    检查更新；不发起任何网络请求。
-  - **官网 / GitHub 仓库**：地址常量集中在 `AboutScreen.kt` 的 `AboutLinks`；公开前为 `null`，
-    摘要显示「地址待公开」，点按时说明尚未公开，不打开假链接。填入地址后走系统
-    `ACTION_VIEW`，打开失败时提示重试。
+  - **检查更新**：打开 GitHub Releases 列表，不在应用内发起网络请求，也不在后台检查；
+    摘要显示当前版本与「开发版」。
+  - **官网 / GitHub 仓库**：地址常量集中在 `AboutScreen.kt` 的 `AboutLinks`，分别指向
+    `https://selwiro.github.io/pagelence/` 与 `https://github.com/Selwiro/pagelence`；
+    走系统 `ACTION_VIEW`，打开失败时提示重试。官网源文件在仓库 `site/`。
   - **隐私与数据**：数据位置、权限、联网场景、不收集什么、你的控制五张卡；明确「只申请网络
     权限」「只有点刷新目录、下载或导入线上书籍包才联网」「检查更新目前不联网」，与 Android 清单一致。
   - **开源许可**：本应用（代码 Apache-2.0、自制内容 CC BY-SA 4.0）、第三方组件、第三方数据、
@@ -303,7 +303,7 @@ adb shell am start -n com.pagelence/.MainActivity
 | 视觉 | 墨蓝 + 石板灰蓝色板浅色/深色；选中 chip、MetaChip 与提示面不再使用暖桃色；书架/书城显示默认排版封面；截图 onboarding/store/grammar/profile/settings/reader-guide/quiz/review/word-strip 均为新色板 |
 | 回归 | `:core:test :data:test` 176 个单测全绿；`:app-phone:assembleDebug` 成功；内容校验与两个书、题库、词级、词频脚本 `--check` 全绿 |
 
-复核（2026-11-19）：136 项单测重跑全绿；模拟器再次走查单元目录（读完单元显示「已读」并可回看）、双语导读、点词面板与词义语言回退、复习·单词/语法两个子页、纯白底色与段间无分隔线；截图已更新到 `screenshots` 分支（GitHub Pages 托管，本文件按 URL 引用）。
+复核（2026-11-19）：136 项单测重跑全绿；模拟器再次走查单元目录（读完单元显示「已读」并可回看）、双语导读、点词面板与词义语言回退、复习·单词/语法两个子页、纯白底色与段间无分隔线；截图已更新到官网（现由 `gh-pages` 分支托管，本文件按 URL 引用）。
 
 ## 十·五、2026-11-19 反馈验收
 

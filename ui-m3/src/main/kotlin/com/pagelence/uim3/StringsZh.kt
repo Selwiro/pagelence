@@ -389,7 +389,7 @@ private val ZhAboutCopy: AboutCopy = AboutCopy(
     openFailedBody = "请稍后重试，或在浏览器中手动打开。",
     linkUnavailableBody = "%s还没有公开地址；公开后会从这里直接打开。",
     updateTitle = "当前为开发版",
-    updateBody = "当前版本是 %s，暂无公开发布渠道，应用也不会在后台检查更新。发布渠道上线后，可在这里检查新版本。",
+    updateBody = "当前版本是 %s。新版本发布在 GitHub Releases，应用不会在后台自动检查更新。",
     privacySections = listOf(
         AboutSection(
             title = "数据保存在哪里",

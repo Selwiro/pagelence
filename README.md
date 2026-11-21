@@ -14,7 +14,7 @@
 
 内置书只选全球公版作品：当前随包分发两本——《怪医杜立德》（*The Story of Doctor Dolittle*，1920 年版，21 章 103 单元，A2，全书完整）与《爱丽丝漫游仙境记》（*Alice's Adventures in Wonderland*，1866 Macmillan 版，12 章 104 单元，B1，全书完整）。
 
-当前为 **0.1.0 开发版**：普通版（Material 3）已可安装运行，墨水屏版尚未开工，也没有公开发布渠道。
+当前为 **0.1.0 开发版**：普通版（Material 3）已可安装运行，墨水屏版尚未开工。官网与下载页在 <https://selwiro.github.io/pagelence/>，签名 release 包随 GitHub Releases 提供；网站源文件在 [`site/`](site/README.md)。
 
 ## 应用特点
 
@@ -59,8 +59,8 @@
 
 ## 界面预览
 
-截图取自 0.1.0 开发版（API 34 模拟器）。截图不随仓库提交：只有书架、正文与点词三张必要图放在
-`screenshots` 分支，由 GitHub Pages 输出，README 用完整 URL 引用。
+截图取自 0.1.0 开发版（API 34 模拟器）。截图不随默认分支提交：只有书架、正文与点词三张必要图随官网一起放在
+`gh-pages` 分支根目录，由 GitHub Pages 输出，README 用完整 URL 引用。
 
 | 书架 | 正文分页 | 点词词义 |
 |:---:|:---:|:---:|
@@ -190,8 +190,8 @@
 界面语言与词义语言互相独立：切界面语言只改文案与书名/单元名，词义仍按词义语言过滤。
 
 设置底部的「关于」进入独立页面：上方是应用图标、名称、`v0.1.0 (1)` 与一句话简介，下方依次是
-检查更新、官网、GitHub 仓库、隐私与数据、开源许可。官网与仓库地址公开前显示「地址待公开」，
-不打开假链接；检查更新只说明当前开发版状态，不发网络请求；隐私与数据、开源许可是应用内
+检查更新、官网、GitHub 仓库、隐私与数据、开源许可。官网指向 GitHub Pages，检查更新打开
+GitHub Releases，两者都走系统浏览器，不在应用内发网络请求；隐私与数据、开源许可是应用内
 可读的长页，摘要与 [LICENSE-CONTENT](LICENSE-CONTENT)、[第三方说明](THIRD_PARTY_NOTICES.md) 一致。
 
 ### 本地数据与迁移
@@ -220,9 +220,19 @@
 
 内容生产（M1）是首版发布的最长路径；工程侧不代写内容。
 
+## 下载
+
+- 官网：<https://selwiro.github.io/pagelence/>
+- 最新开发版（0.1.0，签名 release）：<https://github.com/Selwiro/pagelence/releases/tag/v0.1.0>
+  - 大小 13,050,047 字节（12.4 MB）
+  - SHA-256 `d211466ff60e3ebf79a5256580a589fccc2d295a740d861f7c901638552177c2`
+- 官网源文件在 [`site/`](site/README.md)，`site/deploy.sh` 构建后发布到 `gh-pages` 分支；GitHub Pages 从该分支根目录输出。
+
+这是开发版，界面与内容仍会调整。安装、覆盖升级与卸载会清掉本地进度的注意事项见下一节。
+
 ## 构建与安装
 
-当前发布形态为**内部开发版 0.1.0（versionCode 1）**，没有公开下载渠道，APK 由本地构建。发布签名已于 2026-11-21 配好，可构建签名后的 release 包；密钥库在仓库外，口令只在本机。
+当前发布形态为**开发版 0.1.0（versionCode 1）**：签名 release 包由 GitHub Releases 提供，debug 包由本地构建。发布签名已于 2026-11-21 配好；密钥库在仓库外，口令只在本机。
 
 ### 系统要求
 
@@ -475,11 +485,11 @@ python3 tools/migrate/record_progress_parity.py    # 重录进度规则对照 fi
 
 - [内容格式 v3](docs/content-format.md) · [进度格式 v2](docs/progress-format.md)
 - [普通版阅读壳](docs/app-phone.md) · [《怪医杜立德》书籍包说明](docs/books/doctor-dolittle.md)
-- [发布签名](docs/release-signing.md)
+- [发布签名](docs/release-signing.md) · [官网与截图托管](site/README.md)
 
 ## 反馈与贡献
 
-当前为 **0.1.0 开发版**：普通版已可安装运行，墨水屏版尚未开工；发布签名已配好，但还没有公开的发布渠道。问题与建议走 GitHub Issues，附版本号（「设置 → 关于」）、设备与复现步骤；安全问题请走私下的安全报告渠道，不要公开提 Issue。贡献流程、内容规范与截图托管方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+当前为 **0.1.0 开发版**：普通版已可安装运行，墨水屏版尚未开工；签名包通过 [GitHub Releases](https://github.com/Selwiro/pagelence/releases) 分发。问题与建议走 GitHub Issues，附版本号（「设置 → 关于」）、设备与复现步骤；安全问题请走私下的安全报告渠道，不要公开提 Issue。贡献流程、内容规范与截图托管方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ### 提交代码
 

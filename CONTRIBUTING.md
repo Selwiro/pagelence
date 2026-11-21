@@ -57,14 +57,14 @@ ECDICT_CSV=/path/to/ecdict.csv tools/ci_check.sh
 截图**不提交到默认分支**，只放少数必要的图，避免仓库被二进制文件撑大：
 
 1. 目前只维护三张：`library.png`（书架）、`reader.png`（正文分页）、`word-panel.png`（点词词义）。
-2. 把这几个 PNG 放到独立的 `screenshots` 分支根目录，文件名保持不变。
-3. 仓库的 GitHub Pages 来源指向该分支，README 用 `https://<owner>.github.io/<repo>/<name>.png` 引用。
+2. 图放在 `docs/screenshots/`（已被 `.gitignore` 排除）；`site/build.sh` 发布时把它们复制到 `gh-pages` 分支根目录，文件名保持不变。
+3. 仓库的 GitHub Pages 来源指向 `gh-pages` 分支根目录，README 与官网用 `https://<owner>.github.io/<repo>/<name>.png` 引用。
 
-换图时用同名文件覆盖提交，文档无需改动。截图前清掉状态栏通知与个人内容；其余验收截图留在本地，
-不进仓库也不上传。
+换图时用同名文件覆盖后重新运行 `site/deploy.sh`，文档无需改动。截图前清掉状态栏通知与个人内容；
+其余验收截图留在本地，不进仓库也不上传。
 
 ## 报告问题与安全
 
 - 一般问题与建议走 GitHub Issues，附版本号（「设置 → 关于」）、设备与复现步骤。
 - 安全问题不要公开提 Issue，请通过仓库主页的私下渠道联系维护者。
-- 当前为 0.1.0 开发版，不提供 Release 下载；构建方式见 [README](README.md)。
+- 当前为 0.1.0 开发版，签名包通过 [GitHub Releases](https://github.com/Selwiro/pagelence/releases) 分发；从源码构建见 [README](README.md)。

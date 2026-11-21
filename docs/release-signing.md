@@ -30,7 +30,7 @@ keyPassword=…
 - 有密钥库 → 创建 `signingConfigs.release` 并绑到 `buildTypes.release`，构建时打印一行 `:app-phone 发布签名：release 使用 … 签名`。
 - 文件或密钥库缺失 → 不创建签名配置，`assembleRelease` 照常成功，产物是 `app-phone-release-unsigned.apk`，同时打印提示。debug 构建从不读这些文件，本地开发与没有密钥的 CI 都不会因此失败。
 
-release 暂不开混淆与资源压缩：Compose 和 kotlinx.serialization 需要额外 keep 规则，等有发布渠道和真机回归矩阵再单独评估，`app-phone/proguard-rules.pro` 目前是说明性占位。
+release 暂不开混淆与资源压缩：Compose 和 kotlinx.serialization 需要额外 keep 规则，等真机回归矩阵稳定后再单独评估，`app-phone/proguard-rules.pro` 目前是说明性占位。
 
 ## 构建与校验
 
@@ -58,4 +58,4 @@ release 暂不开混淆与资源压缩：Compose 和 kotlinx.serialization 需�
 
 ## 轮换（暂不需要）
 
-已有 v3 签名且 `targetSdk ≥ 33` 时可以用 `apksigner rotate` 轮换密钥并保留升级能力，但目前没有发布渠道、也没有需要轮换的理由。真要换之前先补这一节的操作步骤，别直接生成新密钥库。
+已有 v3 签名且 `targetSdk ≥ 33` 时可以用 `apksigner rotate` 轮换密钥并保留升级能力，但目前只有 0.1.0 开发版通过 GitHub Releases 分发，没有需要轮换的理由。真要换之前先补这一节的操作步骤，别直接生成新密钥库。

@@ -392,8 +392,8 @@ private val EnAboutCopy: AboutCopy = AboutCopy(
     openFailedBody = "Please try again, or open it manually in a browser.",
     linkUnavailableBody = "%s does not have a public address yet; this row will open it once it does.",
     updateTitle = "Development build",
-    updateBody = "This is version %s. There is no public release channel yet, and the app never checks " +
-        "for updates in the background. Once releases are open, this row will check them.",
+    updateBody = "This is version %s. New versions are published on GitHub Releases, and the app never checks " +
+        "for updates in the background.",
     privacySections = listOf(
         AboutSection(
             title = "Where your data lives",

@@ -44,12 +44,13 @@ import com.pagelence.uim3.components.PageTopBar
 import com.pagelence.uim3.components.PagelenceIcons
 
 /**
- * 官网与代码仓库地址。公开前保持 `null`：关于页会显示「地址待公开」，
- * 不打开假链接，也不因为一次点击发起网络请求。
+ * 官网、代码仓库与发布页地址。官网由 GitHub Pages 托管，源文件在 `site/`；
+ * 检查更新只打开 Release 列表，不在后台请求网络。
  */
 private object AboutLinks {
-    val WEBSITE: String? = null
-    val GITHUB: String? = null
+    const val WEBSITE: String = "https://selwiro.github.io/pagelence/"
+    const val GITHUB: String = "https://github.com/Selwiro/pagelence"
+    const val RELEASES: String = "$GITHUB/releases"
 }
 
 private data class AboutNotice(val title: String, val body: String)
@@ -115,10 +116,15 @@ fun AboutScreen(
                             title = copy.checkUpdate,
                             subtitle = copy.checkUpdateSubtitle.format(version),
                             onClick = {
-                                notice = AboutNotice(
-                                    copy.updateTitle,
-                                    copy.updateBody.format(version),
-                                )
+                                val releases: String? = AboutLinks.RELEASES
+                                if (releases != null) {
+                                    openLink(releases, copy.checkUpdate)
+                                } else {
+                                    notice = AboutNotice(
+                                        copy.updateTitle,
+                                        copy.updateBody.format(version),
+                                    )
+                                }
                             },
                         )
                         RowDivider()
