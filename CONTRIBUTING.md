@@ -57,10 +57,10 @@ ECDICT_CSV=/path/to/ecdict.csv tools/ci_check.sh
 截图**不提交到默认分支**，只放少数必要的图，避免仓库被二进制文件撑大：
 
 1. 目前只维护三张：`library.png`（书架）、`reader.png`（正文分页）、`word-panel.png`（点词词义）。
-2. 图放在 `docs/screenshots/`（已被 `.gitignore` 排除）；`site/build.sh` 发布时把它们复制到 `gh-pages` 分支根目录，文件名保持不变。
+2. 图只提交到 `gh-pages` 分支根目录，文件名保持不变；本机留档可放 `docs/screenshots/`（已被 `.gitignore` 排除），不进 `main`。
 3. 仓库的 GitHub Pages 来源指向 `gh-pages` 分支根目录，README 与官网用 `https://<owner>.github.io/<repo>/<name>.png` 引用。
 
-换图时用同名文件覆盖后重新运行 `site/deploy.sh`，文档无需改动。截图前清掉状态栏通知与个人内容；
+换图时在 `gh-pages` 分支用同名文件覆盖提交，文档无需改动。截图前清掉状态栏通知与个人内容；
 其余验收截图留在本地，不进仓库也不上传。
 
 ## 报告问题与安全

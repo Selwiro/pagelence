@@ -35,7 +35,7 @@ signing.properties
 .tmp/
 *.log
 
-# ── 文档截图：不入默认分支，改由 screenshots 分支 + GitHub Pages 托管 ──
+# ── 文档截图：不入默认分支，只提交到 gh-pages 分支（GitHub Pages 根目录）──
 docs/screenshots/
 
 # ── Python 构建脚本 ─────────────────────────────────────────────────

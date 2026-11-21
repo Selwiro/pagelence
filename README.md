@@ -226,7 +226,7 @@ GitHub Releases，两者都走系统浏览器，不在应用内发网络请求�
 - 最新开发版（0.1.0，签名 release）：<https://github.com/Selwiro/pagelence/releases/tag/v0.1.0>
   - 大小 13,050,047 字节（12.4 MB）
   - SHA-256 `d211466ff60e3ebf79a5256580a589fccc2d295a740d861f7c901638552177c2`
-- 官网源文件在 [`site/`](site/README.md)，`site/deploy.sh` 构建后发布到 `gh-pages` 分支；GitHub Pages 从该分支根目录输出。
+- 官网源文件只在 [`gh-pages` 分支](https://github.com/Selwiro/pagelence/tree/gh-pages) 维护，不放进 `main`；GitHub Pages 从该分支根目录输出。
 
 这是开发版，界面与内容仍会调整。安装、覆盖升级与卸载会清掉本地进度的注意事项见下一节。
 
@@ -485,7 +485,7 @@ python3 tools/migrate/record_progress_parity.py    # 重录进度规则对照 fi
 
 - [内容格式 v3](docs/content-format.md) · [进度格式 v2](docs/progress-format.md)
 - [普通版阅读壳](docs/app-phone.md) · [《怪医杜立德》书籍包说明](docs/books/doctor-dolittle.md)
-- [发布签名](docs/release-signing.md) · [官网与截图托管](site/README.md)
+- [发布签名](docs/release-signing.md) · [官网与截图托管](https://github.com/Selwiro/pagelence/tree/gh-pages)
 
 ## 反馈与贡献
 

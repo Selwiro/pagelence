@@ -232,7 +232,7 @@ Android **随包分发两本书**：《怪医杜立德》（Project Gutenberg #5
     摘要显示当前版本与「开发版」。
   - **官网 / GitHub 仓库**：地址常量集中在 `AboutScreen.kt` 的 `AboutLinks`，分别指向
     `https://selwiro.github.io/pagelence/` 与 `https://github.com/Selwiro/pagelence`；
-    走系统 `ACTION_VIEW`，打开失败时提示重试。官网源文件在仓库 `site/`。
+    走系统 `ACTION_VIEW`，打开失败时提示重试。官网源文件只在仓库的 `gh-pages` 分支维护。
   - **隐私与数据**：数据位置、权限、联网场景、不收集什么、你的控制五张卡；明确「只申请网络
     权限」「只有点刷新目录、下载或导入线上书籍包才联网」「检查更新目前不联网」，与 Android 清单一致。
   - **开源许可**：本应用（代码 Apache-2.0、自制内容 CC BY-SA 4.0）、第三方组件、第三方数据、
