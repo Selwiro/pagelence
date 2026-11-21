@@ -265,7 +265,9 @@ app-phone (Android application, applicationId com.pagelence)
 单一 `state.json`（`filesDir/state.json`），格式即 `docs/progress-format.md` 的 `ReadingState`
 v2：进度、已读单元、生词卡（含墓碑）、偏好（主题/字号/`speechRate`/`seenGuideUnits`/
 `levelOnboardingDone`）、等级、日活、`deviceId`、`updatedAt`。写入用临时文件 + 原子改名；
-损坏时回退为空状态，v1 升级时自动迁移，更高版本只读已知字段、不自动改写。
+成功读取后保留一份 `state.json.bak`，主文件损坏时从备份恢复并把坏文件存为
+`state.json.corrupt`，只有主备都坏才回退为空状态并在启动时提示。v1 升级时自动迁移，
+更高版本只读已知字段、不自动改写。
 
 阅读页的续读点在翻页、切换环节、滚动停止和答题时写入：连续变化按 300ms 防抖合并，
 写入串行化，旧快照不会覆盖新位置；`ON_STOP` 与 `onCleared` 强制 flush。进程被杀后从
