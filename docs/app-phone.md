@@ -291,7 +291,8 @@ app-phone (Android application, applicationId com.pagelence)
     ├── presentation (纯 JVM)
     │    UI 模型、双语 Strings、ReaderSession（续读点/读完判定）、
     │    ReaderFlow（页序）、LibraryPresenter（书架/我的）、ReaderPresenter（单元状态）、
-    │    WordPanelPresenter（点词→词条面板）、StorePresenter（书城）
+    │    WordPanelPresenter（点词→词条面板）、StorePresenter（书城）、
+    │    AssessmentPresenter（测评题目与结果）
     ├── data (纯 JVM)
     │     state.json 读写；进度、卡片、偏好、等级与日活仓库
     └── core (纯 JVM)

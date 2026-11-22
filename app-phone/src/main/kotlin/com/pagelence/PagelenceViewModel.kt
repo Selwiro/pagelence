@@ -17,6 +17,7 @@ import com.pagelence.core.content.ContentOutline
 import com.pagelence.presentation.library.LibraryPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
+import com.pagelence.presentation.assessment.AssessmentPresenter
 import com.pagelence.presentation.store.StorePresenter
 import com.pagelence.presentation.store.formatBytes
 import com.pagelence.presentation.store.storeErrorPriority
@@ -1114,19 +1115,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             assessmentPlan = plan
             assessmentAnswers.clear()
             assessmentResult = null
-            val questions = plan.questions.map { question ->
-                val passage = plan.passages.firstOrNull { it.id == question.passageId }
-                AssessmentQuestionUi(
-                    id = question.id,
-                    level = question.level.name,
-                    skillLabel = skillLabel(strings, question.skill),
-                    prompt = question.prompt,
-                    options = question.options,
-                    selected = null,
-                    passageTitle = passage?.title,
-                    passageText = passage?.text,
-                )
-            }
+            val questions = AssessmentPresenter(strings).questions(plan)
             withContext(Dispatchers.Main) {
                 _ui.update {
                     it.copy(
@@ -1231,7 +1220,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 assessment = it.assessment.copy(
                     active = false,
                     submitted = true,
-                    result = toAssessmentResultUi(strings, result),
+                    result = AssessmentPresenter(strings).result(result),
                     index = it.assessment.questions.lastIndex.coerceAtLeast(0),
                 ),
             )
@@ -1265,32 +1254,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         assessmentResult = null
         back()
         refreshLibrary()
-    }
-
-    private fun toAssessmentResultUi(strings: Strings, result: AssessmentResult): AssessmentResultUi {
-        val band = if (result.bandLow == result.bandHigh) {
-            result.bandLow.name
-        } else {
-            "${result.bandLow.name}–${result.bandHigh.name}"
-        }
-        return AssessmentResultUi(
-            mode = result.mode,
-            scorePercent = result.scorePercent,
-            correct = result.correct,
-            total = result.total,
-            band = band,
-            suggested = result.suggested.name,
-            singleLevel = result.singleLevel,
-            skills = result.skillPercent.entries.sortedBy { it.key }.map { (skill, percent) ->
-                AssessmentSkillUi(skillLabel(strings, skill), percent)
-            },
-        )
-    }
-
-    private fun skillLabel(strings: Strings, skill: AssessmentSkill): String = when (skill) {
-        AssessmentSkill.VOCAB -> strings.assessmentSkillVocab
-        AssessmentSkill.GRAMMAR -> strings.assessmentSkillGrammar
-        AssessmentSkill.READING -> strings.assessmentSkillReading
     }
 
     // --- grammar tab -----------------------------------------------------
