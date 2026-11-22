@@ -16,6 +16,9 @@ import com.pagelence.core.content.BookSummary
 import com.pagelence.core.content.ContentOutline
 import com.pagelence.presentation.library.LibraryPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
+import com.pagelence.presentation.reader.WordPanelPresenter
+import com.pagelence.presentation.reader.toSelectedUi
+import com.pagelence.presentation.reader.toStripUi
 import com.pagelence.core.content.StoreCatalogRules
 import com.pagelence.core.content.Grammar
 import com.pagelence.core.content.GrammarPoint
@@ -1488,49 +1491,22 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val bookIndex = index ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val language = uiLanguage(graph.preferences.preferences())
-            val paragraph = bookIndex.paragraphById[paragraphId] ?: return@launch
-            val sentence = bookIndex.sentence(reader.unitId, sentenceNumber) ?: return@launch
-            // A dashed hint may cover several words. The tap handler reports
-            // only one word, so promote it to the whole target before lookup;
-            // otherwise the phrase's own explanation is unreachable.
-            val tap = HintTapResolver.resolve(
-                sentenceText = sentence.text,
-                sentenceNumber = sentenceNumber,
-                hints = paragraph.hints,
-                wordStart = start,
-                wordEnd = end,
-            )
-            val term = tap?.target ?: spelling
-            val lookup = graph.content.lookup(
-                reader.bookId,
-                reader.unitId,
-                paragraphId,
-                sentenceNumber,
-                term,
-            ) ?: return@launch
-            val hint = tap?.hint
-                ?: paragraph.hints.firstOrNull { it.target.equals(term, ignoreCase = true) }
-            val panel = toPanel(
-                paragraph = paragraph,
-                hint = hint,
-                lookup = lookup,
-                sentenceNumber = sentenceNumber,
-                sentenceZh = if (language == UiLanguage.EN) null
-                else bookIndex.sentence(reader.unitId, sentenceNumber)?.zh,
+            val result = WordPanelPresenter(
+                content = graph.content,
+                strings = stringsFor(language),
                 language = language,
-            )
-            pendingPanel = panel
-            val selected = SelectedTerm(
+            ).open(
+                index = bookIndex,
+                bookId = reader.bookId,
+                unitId = reader.unitId,
                 paragraphId = paragraphId,
                 sentenceNumber = sentenceNumber,
-                spelling = term,
-                term = panel.term,
-                ipa = panel.ipa,
-                gloss = panel.gloss,
-                start = tap?.start ?: start,
-                end = tap?.end ?: end,
-            )
-            wordSelection = WordSelectionState.select(selected)
+                spelling = spelling,
+                start = start,
+                end = end,
+            ) ?: return@launch
+            pendingPanel = result.panel
+            wordSelection = WordSelectionState.select(result.selected)
             _ui.update { state ->
                 state.reader?.let { current ->
                     state.copy(
@@ -1538,9 +1514,9 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                             // Tapping a word opens its entry right away; the old
                             // flow required a second tap on the top strip, which
                             // read as "nothing happened".
-                            wordPanel = panel,
-                            wordStrip = selected.toStripUi(),
-                            selectedWord = selected.toSelectedUi(),
+                            wordPanel = result.panel,
+                            wordStrip = result.selected.toStripUi(),
+                            selectedWord = result.selected.toSelectedUi(),
                         ),
                     )
                 } ?: state
@@ -3092,116 +3068,8 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     }
 
 
-    private fun splitSenses(definitions: List<com.pagelence.core.lexicon.DictionarySense>): List<SenseUi> {
-        val out = mutableListOf<SenseUi>()
-        definitions.forEach { sense ->
-            val parts = if (sense.language == "zh") splitChinese(sense.definition) else listOf(sense.definition)
-            parts.forEach { part ->
-                if (part.isNotBlank()) {
-                    out += SenseUi(
-                        pos = sense.pos,
-                        definition = part,
-                        language = sense.language,
-                        fromSurface = sense.fromSurface,
-                    )
-                }
-            }
-        }
-        return out
-    }
-
-    /** Split on commas/semicolons outside parentheses; English definitions stay whole. */
-    private fun splitChinese(value: String): List<String> {
-        val parts = mutableListOf<String>()
-        var depth = 0
-        var start = 0
-        value.forEachIndexed { index, char ->
-            when (char) {
-                '（', '(' -> depth += 1
-                '）', ')' -> if (depth > 0) depth -= 1
-                ',', '，', ';', '；' -> if (depth == 0) {
-                    parts += value.substring(start, index).trim()
-                    start = index + 1
-                }
-            }
-        }
-        parts += value.substring(start).trim()
-        return parts.filter { it.isNotEmpty() }
-    }
-
-    private fun toPanel(
-        paragraph: Paragraph,
-        hint: Hint?,
-        lookup: WordLookup,
-        sentenceNumber: Int,
-        sentenceZh: String?,
-        language: UiLanguage,
-    ): WordPanelUi = WordPanelUi(
-        term = lookup.term,
-        lemma = lookup.lemma,
-        pos = lookup.pos,
-        ipa = lookup.ipa,
-        level = lookup.level,
-        levelApprox = lookup.levelApprox,
-        levelSource = lookup.levelSource,
-        gloss = lookup.glossZh,
-        emptyLabel = when (lookup.label) {
-            "人名" -> stringsFor(language).properName
-            "地名" -> stringsFor(language).properPlace
-            "专名" -> stringsFor(language).properNoun
-            "未收录释义" -> if (lookup.glossZh.isNullOrBlank()) {
-                stringsFor(language).noDefinition
-            } else {
-                // The book explains this phrase even though ECDICT has no row;
-                // "未收录释义" next to a filled 「本句释义」 only reads as an error.
-                null
-            }
-            else -> null
-        },
-        note = lookup.note,
-        exampleEn = hint?.example?.en,
-        exampleZh = hint?.example?.zh,
-        sentenceZh = sentenceZh,
-        zipf = lookup.zipf,
-        frequencyBand = lookup.frequencyBand?.name?.lowercase(),
-        occurrences = lookup.bookOccurrences,
-        senses = lookup.definitions.map { sense ->
-            SenseUi(
-                pos = sense.pos,
-                definition = sense.definition,
-                language = sense.language,
-                fromSurface = sense.fromSurface,
-            )
-        },
-        collected = lookup.inWordCards,
-        paragraphId = paragraph.id,
-        sentenceNumber = sentenceNumber,
-        hintId = hint?.id,
-    )
 
 
-    /**
-     * Words worth saving after a quiz: hints that occur in
-     * the sentences the questions point at. No sentence numbers means no
-     * candidates, and the review hides the action.
-     */
-
-    private fun SelectedTerm.toStripUi(): WordStripUi = WordStripUi(
-        paragraphId = paragraphId,
-        sentenceNumber = sentenceNumber,
-        spelling = spelling,
-        term = term,
-        ipa = ipa,
-        gloss = gloss,
-    )
-
-    private fun SelectedTerm.toSelectedUi(): SelectedWordUi = SelectedWordUi(
-        paragraphId = paragraphId,
-        sentenceNumber = sentenceNumber,
-        spelling = spelling,
-        start = start,
-        end = end,
-    )
 
 
     private fun toCardUi(card: WordCard, bookTitle: String): WordCardUi = WordCardUi(
