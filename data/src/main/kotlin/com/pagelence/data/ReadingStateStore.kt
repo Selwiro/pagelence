@@ -1,8 +1,10 @@
 package com.pagelence.data
 
+import com.pagelence.core.content.PagelenceJson
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.ProgressRepository
+import com.pagelence.core.progress.ReaderPosition
 import com.pagelence.core.progress.ReadingState
 import com.pagelence.core.progress.ReadingStateCodec
 import com.pagelence.core.progress.STATE_SCHEMA_VERSION
@@ -13,9 +15,11 @@ import com.pagelence.sync.LocalState
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
+import java.time.Duration
 import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlinx.serialization.Serializable
 
 /**
  * The single local `state.json`, frozen by `docs/progress-format.md`.
@@ -37,6 +41,19 @@ class ReadingStateStore(
     private val backupFile: File? = file.parentFile?.let { File(it, "${file.name}.bak") }
     private val corruptFile: File? = file.parentFile?.let { File(it, "${file.name}.corrupt") }
 
+    /**
+     * Page turns only need a few hundred bytes; writing the whole document on
+     * every turn is what made the file grow with the card list. The journal is
+     * replayed on load and folded into `state.json` on the next full write.
+     */
+    private val journalFile: File? = file.parentFile?.let { File(it, "reader-position.json") }
+
+    /** The document as loaded, so a write can carry fields this build cannot see. */
+    private var rawDocument: kotlinx.serialization.json.JsonObject? = null
+
+    /** Version to write: this build's, unless the document came from a newer one. */
+    private var documentVersion: Int = STATE_SCHEMA_VERSION
+
     /** True when the main file was unreadable and the backup was used instead. */
     @Volatile
     var recoveredFromBackup: Boolean = false
@@ -47,7 +64,7 @@ class ReadingStateStore(
     var corruptWithoutBackup: Boolean = false
         private set
 
-    private var cached: ReadingState = load()
+    private var cached: ReadingState = load().let(::applyJournal)
     private var revision = 0L
     private val writeListeners = CopyOnWriteArrayList<() -> Unit>()
 
@@ -80,11 +97,12 @@ class ReadingStateStore(
 
     fun update(transform: (ReadingState) -> ReadingState): ReadingState = synchronized(lock) {
         val next = transform(cached).copy(
-            schemaVersion = STATE_SCHEMA_VERSION,
+            schemaVersion = documentVersion,
             updatedAt = now(),
             deviceId = cached.deviceId,
         )
         persist(next)
+        clearJournal()
         cached = next
         revision += 1
         notifyWrite()
@@ -125,11 +143,99 @@ class ReadingStateStore(
     }
 
     private fun commit(state: ReadingState) {
-        val next = state.copy(schemaVersion = STATE_SCHEMA_VERSION)
+        val next = state.copy(schemaVersion = documentVersion)
         persist(next)
+        clearJournal()
         cached = next
         revision += 1
         notifyWrite()
+    }
+
+    /**
+     * Save just the reader's place. Small atomic write, no rewrite of the whole
+     * document; the in-memory state already carries it, so sync/export see it.
+     */
+    fun saveReaderPoint(bookId: String, paragraphId: String?, position: ReaderPosition) {
+        synchronized(lock) {
+            val book = cached.books[bookId] ?: BookProgress(bookId = bookId)
+            val next = cached.copy(
+                books = cached.books + (
+                    bookId to book.copy(
+                        paragraphId = paragraphId ?: book.paragraphId,
+                        reader = position,
+                    )
+                    ),
+            )
+            val journal = journalFile
+            val written = journal != null && runCatching {
+                writeAtomically(
+                    journal,
+                    PagelenceJson.encodeToString(
+                        ReaderJournal.serializer(),
+                        ReaderJournal(bookId, paragraphId, position, now()),
+                    ),
+                )
+            }.isSuccess
+            if (!written) {
+                // No journal path or a failed write: fall back to the full document.
+                commit(next)
+                return
+            }
+            cached = next
+            revision += 1
+            notifyWrite()
+        }
+    }
+
+    private fun clearJournal() {
+        runCatching { journalFile?.delete() }
+    }
+
+    private fun applyJournal(state: ReadingState): ReadingState {
+        val journal = readJournal() ?: return state
+        if (journal.position.unitId.isBlank()) return state
+        val book = state.books[journal.bookId] ?: run {
+            clearJournal()
+            return state
+        }
+        val resumed = book.copy(
+            paragraphId = journal.paragraphId ?: book.paragraphId,
+            reader = journal.position,
+        )
+        return state.copy(books = state.books + (journal.bookId to resumed))
+    }
+
+    private fun readJournal(): ReaderJournal? {
+        val source = journalFile ?: return null
+        if (!source.isFile) return null
+        return runCatching {
+            PagelenceJson.decodeFromString(ReaderJournal.serializer(), source.readText(Charsets.UTF_8))
+        }.getOrNull()
+    }
+
+    /**
+     * Drop data that only grows: tombstones older than [TOMBSTONE_RETENTION_DAYS]
+     * and guide-visited ids of books that no longer have progress.
+     */
+    private fun compact(state: ReadingState): ReadingState {
+        val cutoff = runCatching { Instant.parse(now()).minus(Duration.ofDays(TOMBSTONE_RETENTION_DAYS)) }
+            .getOrNull()
+        val cards = if (cutoff == null) {
+            state.wordCards
+        } else {
+            state.wordCards.filterNot { card ->
+                val deleted = card.deletedAt?.let { runCatching { Instant.parse(it) }.getOrNull() }
+                deleted != null && deleted.isBefore(cutoff)
+            }
+        }
+        val guides = state.preferences.seenGuideUnits.filter { it.substringBefore("::") in state.books.keys }
+        if (cards.size == state.wordCards.size && guides.size == state.preferences.seenGuideUnits.size) {
+            return state
+        }
+        return state.copy(
+            wordCards = cards,
+            preferences = state.preferences.copy(seenGuideUnits = guides),
+        )
     }
 
     private fun notifyWrite() {
@@ -139,22 +245,27 @@ class ReadingStateStore(
     private fun load(): ReadingState {
         val main = decode(file)
         if (main != null) {
-            // Upgrade v1 in place; a document from a newer build is read but never
-            // rewritten automatically, so unknown fields survive on disk.
-            if (main.upgraded) persist(main.state)
+            adopt(main)
+            val state = compact(main.state)
+            // Upgrade v1 in place and apply one-time compaction; a document from
+            // a newer build is read but never rewritten automatically, so its
+            // unknown fields survive on disk.
+            if (main.upgraded || state != main.state) persist(state)
             // Keep one known-good copy per process start, not per page turn.
             runCatching { backupFile?.let { file.copyTo(it, overwrite = true) } }
-            return main.state
+            return state
         }
 
         val backup = decode(backupFile)
         if (backup != null) {
             recoveredFromBackup = true
+            adopt(backup)
             // Preserve the broken file for diagnosis, then heal the main file so
             // the notice is one-shot and the next launch starts normally.
             runCatching { corruptFile?.let { file.copyTo(it, overwrite = true) } }
-            runCatching { persist(backup.state) }
-            return backup.state
+            val state = compact(backup.state)
+            runCatching { persist(state) }
+            return state
         }
 
         if (file.isFile) {
@@ -165,6 +276,12 @@ class ReadingStateStore(
             return empty
         }
         return emptyState()
+    }
+
+    /** Remember the raw document and which schema version a later write should use. */
+    private fun adopt(decoded: ReadingStateCodec.Decoded) {
+        rawDocument = decoded.raw
+        documentVersion = if (decoded.fromFuture) decoded.sourceVersion else STATE_SCHEMA_VERSION
     }
 
     /** Decode one file; null means missing or unreadable. */
@@ -182,19 +299,41 @@ class ReadingStateStore(
     )
 
     private fun persist(state: ReadingState) {
-        file.parentFile?.mkdirs()
-        val temp = File(file.parentFile, "${file.name}.tmp")
-        temp.writeText(ReadingStateCodec.encode(state), Charsets.UTF_8)
+        writeAtomically(file, ReadingStateCodec.encode(state, rawDocument))
+    }
+
+    /** Temp file + atomic rename; the fallback keeps working on filesystems without it. */
+    private fun writeAtomically(target: File, text: String) {
+        target.parentFile?.mkdirs()
+        val temp = File(target.parentFile, "${target.name}.tmp")
+        temp.writeText(text, Charsets.UTF_8)
         runCatching {
             Files.move(
                 temp.toPath(),
-                file.toPath(),
+                target.toPath(),
                 StandardCopyOption.REPLACE_EXISTING,
                 StandardCopyOption.ATOMIC_MOVE,
             )
         }.onFailure {
-            Files.move(temp.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING)
+            Files.move(temp.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING)
         }
+    }
+
+    /**
+     * One queued page turn. `paragraphId` is the visible anchor, `position` the
+     * phase/page/answers; saving both keeps a kill from losing either.
+     */
+    @Serializable
+    private data class ReaderJournal(
+        val bookId: String,
+        val paragraphId: String? = null,
+        val position: ReaderPosition,
+        val savedAt: String,
+    )
+
+    private companion object {
+        /** Deleted cards are kept long enough for every device to see the tombstone. */
+        const val TOMBSTONE_RETENTION_DAYS = 180L
     }
 }
 
@@ -213,6 +352,10 @@ class StateProgressRepository(private val store: ReadingStateStore) : ProgressRe
             state.copy(books = state.books + (stamped.bookId to stamped))
         }
         return store.state().progress(stamped.bookId)
+    }
+
+    override fun savePosition(bookId: String, paragraphId: String?, position: ReaderPosition) {
+        store.saveReaderPoint(bookId, paragraphId, position)
     }
 }
 

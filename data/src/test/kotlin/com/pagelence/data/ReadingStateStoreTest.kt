@@ -345,3 +345,106 @@ class ReadingStateStoreTest {
         assertTrue(backup.isFile, "the pre-overwrite copy must survive the replace")
     }
 }
+
+/** T151: position journal, unknown-field forwarding and one-time compaction. */
+class ReadingStateStoreJournalTest {
+    private fun tempStore(file: File, now: () -> String = { "2026-11-19T01:00:00Z" }) =
+        ReadingStateStore(file, now = now, newDeviceId = { "device-test" })
+
+    @Test
+    fun `a page turn writes only the journal and survives a restart`() {
+        val dir = Files.createTempDirectory("pagelence-journal")
+        val file = dir.resolve("state.json").toFile()
+        val store = tempStore(file)
+        StateProgressRepository(store).save(
+            BookProgress(bookId = "doctor-dolittle-1920", paragraphId = "chapter-01-p001"),
+        )
+        val before = file.readText()
+
+        val position = ReaderPosition(unitId = "chapter-01-u01", textPage = 2, textProgress = 0.4f)
+        store.saveReaderPoint("doctor-dolittle-1920", "chapter-01-p003", position)
+
+        assertEquals(before, file.readText(), "state.json must not be rewritten on a page turn")
+        assertTrue(dir.resolve("reader-position.json").toFile().isFile, "the position goes to the journal")
+
+        val reopened = tempStore(file).state().progress("doctor-dolittle-1920")
+        assertEquals("chapter-01-p003", reopened.paragraphId)
+        assertEquals(position, reopened.reader)
+    }
+
+    @Test
+    fun `a full write folds the journal in and removes it`() {
+        val dir = Files.createTempDirectory("pagelence-journal")
+        val file = dir.resolve("state.json").toFile()
+        val store = tempStore(file)
+        StateProgressRepository(store).save(BookProgress(bookId = "b", paragraphId = "p1"))
+        store.saveReaderPoint("b", "p2", ReaderPosition(unitId = "u1", textPage = 1))
+
+        store.update { it.copy(wordCards = emptyList()) }
+
+        assertFalse(dir.resolve("reader-position.json").toFile().exists(), "the document now has the position")
+        assertTrue(file.readText().contains("\"p2\""), "the folded position is in state.json")
+    }
+
+    @Test
+    fun `a corrupt journal is ignored`() {
+        val dir = Files.createTempDirectory("pagelence-journal")
+        val file = dir.resolve("state.json").toFile()
+        tempStore(file).let { store ->
+            StateProgressRepository(store).save(BookProgress(bookId = "b", paragraphId = "p1"))
+            dir.resolve("reader-position.json").toFile().writeText("{not json")
+        }
+
+        assertEquals("p1", tempStore(file).state().progress("b").paragraphId)
+    }
+
+    @Test
+    fun `old tombstones and stale guide ids are compacted on load`() {
+        val dir = Files.createTempDirectory("pagelence-compact")
+        val file = dir.resolve("state.json").toFile()
+        val old = WordCard(
+            id = "old",
+            bookId = "b",
+            paragraphId = "p",
+            hintId = "h",
+            term = "old",
+            lemma = "old",
+            createdAt = "2020-01-01T00:00:00Z",
+            updatedAt = "2020-01-01T00:00:00Z",
+            deletedAt = "2020-01-01T00:00:00Z",
+        )
+        val live = old.copy(id = "live", term = "live", lemma = "live", deletedAt = null)
+        val state = com.pagelence.core.progress.ReadingState(
+            deviceId = "d",
+            updatedAt = "2026-11-19T01:00:00Z",
+            books = mapOf("b" to BookProgress(bookId = "b")),
+            wordCards = listOf(old, live),
+            preferences = Preferences(seenGuideUnits = listOf("b::u1", "gone::u1")),
+        )
+        file.writeText(ReadingStateCodec.encode(state))
+
+        val loaded = tempStore(file).state()
+
+        assertEquals(listOf("live"), loaded.wordCards.map { it.id })
+        assertEquals(listOf("b::u1"), loaded.preferences.seenGuideUnits)
+    }
+
+    @Test
+    fun `a newer document keeps unknown fields through a write`() {
+        val dir = Files.createTempDirectory("pagelence-future")
+        val file = dir.resolve("state.json").toFile()
+        file.writeText(
+            """{"schemaVersion":3,"deviceId":"d","updatedAt":"2026-11-19T01:00:00Z",""" +
+                """"books":{"b":{"bookId":"b","paragraphId":"p1","bookmarks":["x"]}},""" +
+                """"bookmarks":[{"id":"bm1"}]}""",
+        )
+        val store = tempStore(file)
+
+        store.update { it.copy(deviceId = it.deviceId) }
+
+        val written = file.readText()
+        assertTrue(written.contains("\"schemaVersion\":3"), "the version is not downgraded")
+        assertTrue(written.contains("bm1"), "top-level unknown fields survive")
+        assertTrue(written.contains("bookmarks"), "nested unknown fields survive")
+    }
+}

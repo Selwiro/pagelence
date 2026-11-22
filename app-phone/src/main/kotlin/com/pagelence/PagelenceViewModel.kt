@@ -1836,13 +1836,15 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             grammarReached = grammarReached,
         )
         val wasRead = point.unitId in current.readUnitIds
-        val next = if (grammarReached) {
-            ProgressSemantics.markUnitRead(current, bookIndex, point.unitId, now)
+        if (grammarReached && !wasRead) {
+            // Finishing the unit changes the read set and possibly finishedAt,
+            // so this one is a full write; everything else is just a page turn.
+            val next = ProgressSemantics.markUnitRead(current, bookIndex, point.unitId, now)
+            graph.progress.save(next.copy(reader = position))
+            graph.profile.recordCompletedUnit(today())
         } else {
-            current
+            graph.progress.savePosition(point.bookId, point.paragraphId, position)
         }
-        graph.progress.save(next.copy(reader = position))
-        if (grammarReached && !wasRead) graph.profile.recordCompletedUnit(today())
     }
 
     fun selectOption(questionIndex: Int, optionIndex: Int) {

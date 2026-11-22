@@ -226,11 +226,33 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
   `preferences`、`deviceId`、`updatedAt`；新增字段取默认（`selfLevel = null`、
   `levelSource = self`、`dailyActivity = {}`、`lastReadAt = null`）；把 `preferences`
   的 `levelOnboardingDone` 置 `true`，避免老用户被首次自评打断。读取后立即写回 v2。
-- **缺失或未知字段**：`ignoreUnknownKeys` + 字段默认值，读成默认值，不崩溃。
+- **缺失或未知字段**：读成默认值，不崩溃；写回时**保留未知字段**（见下）。
 - **损坏 JSON**：回退为空状态（并保留原文件内容到下一次写入前）；不清空已有磁盘文件。
-- **更高版本**：按已知字段尽力读取，不自动改写文件；用户下一次写状态时才写成当前版本。
-  这是有损的向前兼容，优先保证「不因版本不符丢数据」。
-- **写入**：临时文件 + 原子改名；`schemaVersion` 固定为当前版本。
+- **更高版本**：按已知字段尽力读取，加载时不改写文件；之后任何一次写入都把原始 JSON 的
+  未知字段合并回去，并把 `schemaVersion` 保持为文档原本的更高版本，避免旧版把新版数据
+  「降级抹掉」。合并只覆盖对象层级（顶层、`books.<id>`、`preferences` 等）；数组元素
+  （例如某张生词卡上的新字段）仍会被新版整体替换，v3 落地时在本文补充例外。
+- **写入**：临时文件 + 原子改名；`schemaVersion` 为当前版本，或在更高版本文档上保持原版本。
+
+## 九·一 阅读位置日志
+
+翻页只改「读到哪儿」，不值得每次重写整份文档。`ReadingStateStore.saveReaderPoint` 把
+`bookId / paragraphId / ReaderPosition / savedAt` 写进 `filesDir/reader-position.json`
+（约 250 字节，同样是临时文件 + 原子改名），内存状态同步更新，导出与同步看到的是最新位置。
+
+- 启动时先读 `state.json`，再把日志叠加到对应书上；日志里的书不存在、位置为空或 JSON
+  损坏时直接忽略（不删用户其他数据）。
+- 下一次整份写入（交卷、读完单元、改设置、同步写回等）会把日志中的位置一并写入
+  `state.json` 并删除日志。退出阅读器时写日志、切单元/交卷时写整份。
+- 崩溃/强杀后重启：日志仍在，续读位置不丢；日志最多比 `state.json` 多一页。
+
+## 九·二 一次性的压实
+
+加载时顺手清掉只增不减的数据，避免几年后状态文件与同步包无谓变大：
+
+- `wordCards` 里 `deletedAt` 超过 180 天的墓碑删除（保留期足够所有设备看到删除）。
+- `preferences.seenGuideUnits` 中所属书已不在 `books` 里的条目删除。
+- 只有真的删了东西才写回一次；统计与卡片内容不变。
 
 迁移 fixture：`data/src/test/resources/state-v1.json`；对照用例见
 `ReadingStateCodecTest` 与 `ReadingStateStoreTest`。

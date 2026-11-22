@@ -278,6 +278,16 @@ interface ProgressRepository {
     fun progress(bookId: String): BookProgress
 
     fun save(progress: BookProgress): BookProgress
+
+    /**
+     * Save only where the reader is (page turns). The file-backed store writes a
+     * small journal instead of the whole document; in-memory stores can keep the
+     * default, which folds the position into a normal save.
+     */
+    fun savePosition(bookId: String, paragraphId: String?, position: ReaderPosition) {
+        val current = progress(bookId)
+        save(current.copy(paragraphId = paragraphId ?: current.paragraphId, reader = position))
+    }
 }
 
 class InMemoryProgressRepository(
