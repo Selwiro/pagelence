@@ -2429,7 +2429,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     /** Download or resume; asks first when the active network is metered. */
     fun downloadDictionary() {
         val manifest = graph.fullDictManifest ?: return
-        if (!FullDictSource.enabled) return
+        if (!graph.config.fullDictEnabled) return
         if (!graph.dictionaryNetworkUnmetered()) {
             _ui.update { it.copy(dictionary = it.dictionary.copy(confirmMetered = true)) }
             return
@@ -2480,7 +2480,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                     ),
                 )
             }
-            val result = graph.fullDictInstaller.install(manifest, FullDictSource.url) { done, total ->
+            val result = graph.fullDictInstaller.install(manifest, graph.config.fullDictEntryUrl) { done, total ->
                 val percent = if (total <= 0) 0 else ((done * 100) / total).toInt().coerceIn(0, 100)
                 if (percent != lastPercent) {
                     lastPercent = percent
@@ -2540,8 +2540,8 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val language = uiLanguage(graph.preferences.preferences())
         return DictionaryPresenter(
             strings = stringsFor(language),
-            appVersionCode = BuildConfig.VERSION_CODE,
-            hostingEnabled = FullDictSource.enabled,
+            appVersionCode = graph.config.appVersionCode,
+            hostingEnabled = graph.config.fullDictEnabled,
         ).state(
             manifest = graph.fullDictManifest,
             installer = graph.fullDictInstaller,

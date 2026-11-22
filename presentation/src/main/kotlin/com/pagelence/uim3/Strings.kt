@@ -95,6 +95,8 @@ interface Strings {
     val dictLicenseNote: String
     val shelfReading: String
     val shelfFinished: String
+    /** 墨屏书架「可读的书」：随包书还没开始读时的入口。 */
+    val shelfAvailable: String
     val finishedDate: String
     val readAgain: String
     val finishedTitle: String
@@ -280,6 +282,9 @@ interface Strings {
     val pageQuiz: String
     val pageGrammar: String
     val pageReview: String
+
+    /** 墨水屏壳尚未实现的页面（书城、复习、我的、设置等）。 */
+    val einkUnavailable: String
     val nextPage: String
     val previousPage: String
     val scrollHint: String

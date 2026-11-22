@@ -100,6 +100,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":shell"))
     implementation(project(":core"))
     implementation(project(":presentation"))
     implementation(project(":data"))

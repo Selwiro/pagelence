@@ -57,7 +57,15 @@ if grep -rqE "^import (android|androidx)\." presentation/src/main/kotlin; then
   exit 1
 fi
 
+# :ui-eink 是自建设计系统：不能引入 material3 或图标库（见 docs/app-eink.md）。
+if grep -rqE "^import androidx\.compose\.material" ui-eink/src/main/kotlin; then
+  echo "error: :ui-eink 引入了 Material 组件，墨水屏壳应使用自建组件" >&2
+  grep -rnE "^import androidx\.compose\.material" ui-eink/src/main/kotlin >&2
+  exit 1
+fi
+
 # App 与 UI 必须真的编译：只跑 :core/:data 单测时，界面层的编译错误会漏过去。
+# 两个壳都要编译，否则「一套核心两个壳」会退化成只编译普通版。
 ./gradlew :core:test :data:test :sync:test :presentation:test --console=plain
-./gradlew :app-phone:assembleDebug --console=plain
-./gradlew :app-phone:lintDebug --console=plain
+./gradlew :app-phone:assembleDebug :app-eink:assembleDebug --console=plain
+./gradlew :app-phone:lintDebug :app-eink:lintDebug :ui-eink:lintDebug --console=plain

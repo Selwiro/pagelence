@@ -1,0 +1,94 @@
+package com.pagelence.uieink.screens
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.dp
+import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
+import com.pagelence.core.prefs.ReadingFont
+import com.pagelence.core.reading.MeasuredSentence
+import com.pagelence.core.reading.SentencePage
+import com.pagelence.core.reading.SentencePaginator
+import com.pagelence.presentation.pagination.PaginationCache
+import com.pagelence.presentation.pagination.PaginationFingerprint
+import com.pagelence.presentation.pagination.PaginationKey
+import com.pagelence.uim3.model.ParagraphUi
+import com.pagelence.uim3.model.ReaderUiState
+import com.pagelence.uieink.theme.LocalInkTypography
+
+/** 最近翻过的单元，避免来回换单元时重新测量（与普通版同口径）。 */
+private const val CacheEntries = 8
+private val pageCache = PaginationCache<List<SentencePage>>(CacheEntries)
+
+/**
+ * 墨水屏正文分页：与普通版同一套 [:core] 分页器，只换成墨水屏的字号与衬线字体。
+ *
+ * 墨水屏固定 19sp 衬线、行高 1.74，不跟普通版的字号/行距/页边距设置走——那些
+ * 是为手机小屏准备的档位；墨屏只保留「刷新强度」这类设备相关设置。
+ */
+@Composable
+internal fun rememberEinkTextPages(
+    state: ReaderUiState,
+    contentWidthPx: Int,
+    pageHeightPx: Int,
+): List<SentencePage> {
+    val measurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val readingStyle = LocalInkTypography.current.body
+    val key = PaginationKey(
+        bookId = state.bookId,
+        unitId = state.unitId,
+        contentWidthPx = contentWidthPx,
+        pageHeightPx = pageHeightPx,
+        fontSize = FontSize.MEDIUM,
+        readingFont = ReadingFont.SERIF,
+        lineSpacing = LineSpacing.NORMAL,
+        pageMargin = PageMargin.NORMAL,
+        showAllTranslations = false,
+        language = state.language,
+        density = density.density,
+        fontScale = density.fontScale,
+        fingerprint = PaginationFingerprint.of(state.paragraphs),
+    )
+    return remember(key) {
+        pageCache.getOrPut(key) {
+            // 页脚占一行，分页时先扣掉，避免最后一句被页脚压住。
+            val usableHeight = with(density) { (pageHeightPx - 44.dp.toPx()).toInt() }
+                .coerceAtLeast(200)
+            val measured = state.paragraphs.flatMap { paragraph ->
+                measureParagraph(paragraph, measurer, readingStyle, contentWidthPx, density)
+            }
+            SentencePaginator.paginate(measured, usableHeight)
+        }
+    }
+}
+
+private fun measureParagraph(
+    paragraph: ParagraphUi,
+    measurer: TextMeasurer,
+    style: TextStyle,
+    contentWidthPx: Int,
+    density: Density,
+): List<MeasuredSentence> = with(density) {
+    val width = contentWidthPx.coerceAtLeast(1)
+    paragraph.sentences.mapIndexed { index, sentence ->
+        val height = measurer.measure(
+            sentence.text,
+            style = style,
+            constraints = Constraints(maxWidth = width),
+        ).size.height
+        MeasuredSentence(
+            paragraphId = paragraph.id,
+            sentenceIndex = index,
+            heightPx = (height + 4.dp.toPx()).toInt(),
+            leadingHeightPx = if (index == 0) 22.dp.toPx().toInt() else 0,
+        )
+    }
+}

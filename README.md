@@ -65,7 +65,7 @@
 | 第二本内置书《爱丽丝》全书 104 单元的学习标注（句译、提示、测验、语法） | 已完成 |
 | 书城右上角菜单：导入本地书籍包、导入线上书籍包、添加源 | 已完成 |
 | 进度/生词卡导出与导入（JSON）、WebDAV 同步（可选，默认关闭） | 已完成；真机服务商联调仍待补 |
-| 墨水屏版 | 未开始（M5） |
+| 墨水屏版 | 第一增量（2026-11-22，T070）：书架、导读/正文翻页/测验/语法、读完页、进度读写；点词与复习未做，全刷待真机接入 |
 | 《怪医杜立德》全书 103 单元的学习标注（句译、提示、测验、语法） | 已完成 |
 
 ## 界面预览
@@ -281,6 +281,9 @@ GitHub Releases，两者都走系统浏览器，不在应用内发网络请求�
 ```sh
 ./gradlew :app-phone:assembleDebug
 adb install -r app-phone/build/outputs/apk/debug/app-phone-debug.apk
+# 墨水屏版
+./gradlew :app-eink:assembleDebug
+adb install -r app-eink/build/outputs/apk/debug/app-eink-debug.apk
 adb shell am start -n com.pagelence/.MainActivity
 ```
 
@@ -328,7 +331,7 @@ adb shell am start -n com.pagelence/.MainActivity
 - **导入与同步：** 本地书籍包导入、进度/生词卡 JSON 导出与导入、WebDAV 同步已实现；WebDAV 默认关闭，真实坚果云 / Nextcloud / 群晖的联调与 412 注入仍待补，见 [`docs/webdav-sync.md`](docs/webdav-sync.md)。
 - **默认源托管：** `DefaultBookSource.AVAILABLE = false`，书城不显示默认源也不请求；仓库上线后改为 `true` 即可复用现有镜像与下载规则，见 [`docs/book-sources.md`](docs/book-sources.md)。
 - **屏幕适配：** 以竖屏手机为主；宽度 360/572/906/1280dp 做了分页走查，平板双栏与真实 10/13 寸设备仍未验证。
-- **墨水屏版：** 尚未开工（M5）。
+- **墨水屏版：** 第一增量已可安装（`:app-eink`，`applicationId com.pagelence.eink`）：书架、阅读（导读/正文/测验/语法）、读完页与进度落盘；不滚动、无动效、方向键与翻页键翻页。点词词条、书签、复习、书城、设置、我的与厂商全刷仍未接，详见 [墨水屏壳说明](docs/app-eink.md)。
 - **语法库规模：** 共享库现有 256 个 CEFR-J 语法点（A1.1–B2.2），复习·语法页按级别列出并可查看详情；《怪医杜立德》103 个单元用到 55 个，复现按复习处理。
 - **APK 签名：** 发布签名已就绪（[说明](docs/release-signing.md)），但 debug 与 release 签名不同，两者不能互相覆盖安装，切换时要先卸载。密钥库仅存本机，尚未备份与纳入 CI。
 - **版本号：** `versionCode` / `versionName` 只有 `version.properties` 一处来源，发版前用 `python3 tools/bump_version.py patch|minor|major` 递增；`build.gradle.kts` 不再写死版本。
@@ -346,7 +349,7 @@ adb shell am start -n com.pagelence/.MainActivity
 | M2 | 普通版阅读壳（书库、阅读、点词、句译、测验、语法、生词卡、续读） | 已完成 |
 | M3 | 书籍包导入与进度、生词卡导出/导入 | 已完成 |
 | M4 | WebDAV 同步（可选，默认关闭） | 已实现；真实服务商联调待补 |
-| M5 | 墨水屏壳（独立设计系统，与普通版共用 `:core`） | 未开始 |
+| M5 | 墨水屏壳（独立设计系统，与普通版共用 `:core`） | 进行中：第一增量已落地（书架、阅读、读完页），点词/复习/书城/设置待补 |
 
 剩余工作集中在墨水屏壳与真实 WebDAV 服务商联调两块；两本内置书的内容与阅读体验主线已完成，
 没有已知的内容缺口。
@@ -377,7 +380,7 @@ adb shell am start -n com.pagelence/.MainActivity
 
 ```text
 仓库根目录
-├── settings.gradle.kts      包含 :core、:sync、:data、:ui-m3、:app-phone
+├── settings.gradle.kts      包含 :core、:sync、:data、:presentation、:shell、:ui-m3、:ui-eink、:app-phone、:app-eink
 ├── build.gradle.kts        根配置
 ├── gradle/libs.versions.toml   版本目录（Kotlin / Compose BOM / JUnit 5）
 ├── gradlew, gradle/wrapper/    Gradle 9.6.0 wrapper
@@ -394,7 +397,10 @@ adb shell am start -n com.pagelence/.MainActivity
 ├── sync/             纯 JVM：WebDAV 协议、字段合并、同步状态机、导出导入
 ├── data/             纯 JVM 持久化：state.json（实现 :sync 的 LocalState）
 ├── ui-m3/             Compose Material 3 页面、组件、主题与双语文案
-├── app-phone/           普通版壳：MainActivity、AppGraph、ViewModel、内容落盘
+├── ui-eink/           墨水屏页面与组件：自建设计系统，只依赖 Compose foundation
+├── shell/             两个壳共用的 Android 装配层：AppGraph、PagelenceViewModel、平台适配
+├── app-phone/           普通版壳：MainActivity、根组件、内容落盘
+├── app-eink/           墨水屏壳：MainActivity、根组件（applicationId com.pagelence.eink）
 ├── content/            由脚本生成，不手工编辑
 │  ├── books-index.json      内置书清单、大小与 SHA-256
 │  ├── books/doctor-dolittle/   《怪医杜立德》21 章 103 单元
@@ -428,9 +434,15 @@ adb shell am start -n com.pagelence/.MainActivity
 
 ```text
 app-phone (Android application, applicationId com.pagelence)
- MainActivity、AppGraph、PagelenceViewModel、AssetManagerReader（内容源适配）
+ MainActivity、PagelenceApp（根组件）
+app-eink (Android application, applicationId com.pagelence.eink)
+ MainActivity、EinkApp（根组件）+ ui-eink
+  ├── shell (Android library)
+  │   AppGraph、PagelenceViewModel、TTS/Keystore/Uri/网络/SQLite 适配；ShellConfig 注入版本号
   ├── ui-m3 (Android library, Compose Material 3)
   │   页面、组件、主题、UI 模型、双语文案；只接数据与回调
+  ├── ui-eink (Android library, Compose foundation)
+  │   墨水屏设计系统与页面；不依赖 material3
   ├── presentation (纯 JVM)
   │   UI 模型、双语 Strings、阅读会话（ReaderSession）、页序（ReaderFlow）、
   │   书架与「我的」的呈现规则（LibraryPresenter）
@@ -445,7 +457,8 @@ app-phone (Android application, applicationId com.pagelence)
 
 - `ui-m3` 不依赖 `data`，不写规则，只收 `…UiState` 与回调。
 - `:presentation` 不依赖 Android：模型、文案、阅读会话、页序与书架统计都在这里，普通版与将来的墨水屏壳共用；页面渲染与平台能力仍在各壳。
-- `PagelenceViewModel` 把 `:core` 结果映射成 UI 模型，把界面事件翻译成 `:core` 调用。
+- `PagelenceViewModel` 把 `:core` 结果映射成 UI 模型，把界面事件翻译成 `:core` 调用；它住在 `:shell`，两个壳共用，避免两套业务编排。
+- `:ui-eink` 不得引入 Material 组件（`ci_check.sh` 有断言）：墨水屏交互与 M3 不是一套。
 - 随包内容经 `ContentSource` 读取：APK 用 `AssetContentSource`（`AssetManager` 适配），下载书用 `FileContentSource`；启动不再把内容复制到 `filesDir`，升级也不重抄。
 - 每本书的 `outline.json` 提供书架所需的标题、单元与段落归属；书架/我的/书城不解析 `book.json` 正文，正文在打开书时才载入。
 - `:core` 不依赖 Android UI，可直接跑 JVM 单测。
@@ -523,14 +536,14 @@ python3 tools/migrate/record_progress_parity.py    # 重录进度规则对照 fi
 
 ### 版本与发布
 
-- `:app-phone` 自己维护 `versionCode` / `versionName`，当前 `1` / `0.1.0`；墨水屏壳加入后各自独立上架。
+- 两个壳共用 `version.properties`（当前 `1` / `0.1.0`），但各自有 `applicationId` 与签名产物，可独立上架。
 - 共享 `:core` 时用单 tag（如 `v1.0.0`）同时产出两个包；发布节奏不同时改用 `phone-v1.2.0`、`eink-v1.0.0` 双 tag。
 - 提交信息带 scope：`feat(core)`、`feat(phone)`、`feat(eink)`、`fix(phone)`、`chore(content)`。
 
 ### 文档
 
 - [内容格式 v3](docs/content-format.md) · [进度格式 v2](docs/progress-format.md)
-- [普通版阅读壳](docs/app-phone.md) · [《怪医杜立德》书籍包说明](docs/books/doctor-dolittle.md)
+- [普通版阅读壳](docs/app-phone.md) · [墨水屏阅读壳](docs/app-eink.md) · [《怪医杜立德》书籍包说明](docs/books/doctor-dolittle.md)
 - [发布签名](docs/release-signing.md) · [官网与截图托管](https://github.com/Selwiro/pagelence/tree/gh-pages)
 
 ## 反馈与贡献

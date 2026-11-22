@@ -36,7 +36,7 @@ import java.io.File
  * 手工依赖装配：两个壳共享 `:core`，Hilt 的收益不足（见 android-design.md 第五节）。
  * 这里只接线，不含业务规则。
  */
-class AppGraph(context: Context) {
+class AppGraph(context: Context, val config: ShellConfig = ShellConfig("0.0.0", 0)) {
     private val appContext = context.applicationContext
 
     val store: ReadingStateStore by lazy {
@@ -90,7 +90,7 @@ class AppGraph(context: Context) {
             settingsStore = sourceStore,
             downloads = downloads,
             cacheDir = File(appContext.filesDir, "source-cache").toPath(),
-            appVersionCode = BuildConfig.VERSION_CODE,
+            appVersionCode = config.appVersionCode,
             shippedBookIds = { shippedBookIds },
         )
     }
