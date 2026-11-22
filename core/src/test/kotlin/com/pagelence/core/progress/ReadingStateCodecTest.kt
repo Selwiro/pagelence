@@ -4,6 +4,8 @@ import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.GuideMode
 import com.pagelence.core.prefs.Language
 import com.pagelence.core.prefs.ReaderLayout
+import com.pagelence.core.wordcards.Srs
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -46,6 +48,19 @@ class ReadingStateCodecTest {
           }
         }
     """.trimIndent()
+
+    @Test
+    fun `a card written before the schedule existed reads as new and due`() {
+        val card = assertNotNull(ReadingStateCodec.decode(v1)).state.wordCards.single()
+
+        assertNull(card.dueAt)
+        assertEquals(0, card.intervalDays)
+        assertEquals(0, card.reviews)
+        assertEquals(Srs.DEFAULT_EASE, card.ease)
+        assertNull(card.lastReviewedAt)
+        assertTrue(Srs.isNew(card))
+        assertTrue(Srs.isDue(card, LocalDate.of(2026, 11, 22)))
+    }
 
     @Test
     fun `annotations are optional in v2 and survive a round trip`() {

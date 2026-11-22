@@ -4,13 +4,16 @@ import com.pagelence.core.content.ContentRepository
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.progress.ProgressRepository
 import com.pagelence.core.progress.ProgressSemantics
+import com.pagelence.core.wordcards.Srs
 import com.pagelence.core.wordcards.WordCard
 import com.pagelence.core.wordcards.WordCardRepository
 import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.model.FinishedBookUi
 import com.pagelence.uim3.model.SettingsUiState
 import com.pagelence.uim3.model.WordCardUi
+import com.pagelence.uim3.model.WordReviewUi
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -74,21 +77,39 @@ class FinishedPresenter(
     }
 }
 
-/** Collected word cards, newest last, with the book title resolved for each row. */
+/**
+ * Collected word cards: the list shown in 复习 → 单词 and today's review queue.
+ *
+ * Cards of a book that is no longer shipped stay in `state.json` but are not
+ * listed, so an upgrade never shows a card the app cannot open. The due date is
+ * counted against [today] (local calendar date), injected so tests can move the
+ * clock without touching the system.
+ */
 class WordCardPresenter(
     private val content: ContentRepository,
     private val cards: WordCardRepository,
     private val language: UiLanguage,
+    private val today: () -> LocalDate = { LocalDate.now() },
 ) {
-    fun cards(): List<WordCardUi> {
+    /** All visible cards, newest last. */
+    fun cards(): List<WordCardUi> = review().rows
+
+    /**
+     * One repository read for both the header counters and the list. The queue
+     * is ordered by the core rules: overdue first, then new cards.
+     */
+    fun review(): WordReviewUi {
         val titles = content.library().associate { summary ->
             summary.id to (summary.title?.let { titleFor(it) } ?: summary.id)
         }
-        // Cards of a book that is no longer shipped stay in state.json but are
-        // not listed; that keeps an upgrade from showing cards it cannot open.
-        return cards.all().mapNotNull { card ->
-            titles[card.bookId]?.let { title -> cardUi(card, title) }
-        }
+        val visible = cards.all().filter { it.bookId in titles }
+        val queue = Srs.queue(visible, today())
+        return WordReviewUi(
+            rows = visible.map { cardUi(it, titles.getValue(it.bookId)) },
+            queue = queue.cards.map { cardUi(it, titles.getValue(it.bookId)) },
+            dueCount = queue.due.size,
+            newCount = queue.fresh.size,
+        )
     }
 
     private fun cardUi(card: WordCard, bookTitle: String): WordCardUi = WordCardUi(
@@ -102,6 +123,10 @@ class WordCardPresenter(
         exampleZh = card.example?.zh,
         bookId = card.bookId,
         bookTitle = bookTitle,
+        mastery = Srs.mastery(card),
+        dueAt = card.dueAt?.takeIf { Srs.dueOn(card) != null && !Srs.isNew(card) },
+        reviews = card.reviews,
+        lapses = card.lapses,
     )
 
     private fun titleFor(title: com.pagelence.core.content.LocalizedText): String = when (language) {

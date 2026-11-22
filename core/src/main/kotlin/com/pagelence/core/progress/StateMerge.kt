@@ -2,6 +2,7 @@ package com.pagelence.core.progress
 
 import com.pagelence.core.lookup.LookupHistoryRules
 import com.pagelence.core.prefs.Preferences
+import com.pagelence.core.wordcards.Srs
 import com.pagelence.core.wordcards.WordCard
 import java.time.Instant
 
@@ -39,7 +40,7 @@ data class MergeResult(
  * | `readUnitIds` | set union, local order first |
  * | `finishedAt` | earliest non-null finish date; cleared on load when the union is incomplete |
  * | `paragraphId` / `reader` / `lastReadAt` | side with the later `lastReadAt` |
- * | `wordCards` | tombstone wins over any live copy; else later `updatedAt` |
+ * | `wordCards` | tombstone wins over any live copy; else later `updatedAt` for content, schedule from the later `lastReviewedAt` (T143) |
  * | `annotations` | same rule as `wordCards`: tombstone wins, else later `updatedAt` |
  * | `lookupHistory` | union by word id; the later `lookedUpAt` wins, newest first, capped |
  * | `dailyActivity` | per-day max, union of dates (`DailyActivityRules`) |
@@ -224,10 +225,20 @@ object StateMerge {
         return CardMerge(cards, added, updated, deleted)
     }
 
+    /**
+     * Content comes from the card with the later `updatedAt`; the review
+     * schedule is then overlaid from the side with the later `lastReviewedAt`
+     * (see [com.pagelence.core.wordcards.Srs.mergeSchedule]). Grading a card and
+     * collecting the same word on another device are independent edits, so the
+     * newer content must not roll back a newer due date.
+     */
     private fun laterCard(local: WordCard, remote: WordCard): WordCard {
         val localAt = instant(local.updatedAt)
         val remoteAt = instant(remote.updatedAt)
-        return if (remoteAt != null && (localAt == null || remoteAt.isAfter(localAt))) remote else local
+        val remoteIsNewer = remoteAt != null && (localAt == null || remoteAt.isAfter(localAt))
+        val base = if (remoteIsNewer) remote else local
+        val other = if (remoteIsNewer) local else remote
+        return Srs.mergeSchedule(base, other)
     }
 
     private data class AnnotationMerge(

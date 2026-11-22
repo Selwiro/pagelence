@@ -7,11 +7,14 @@ import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.InMemoryProgressRepository
 import com.pagelence.core.wordcards.InMemoryWordCardRepository
+import com.pagelence.core.wordcards.CardMastery
 import com.pagelence.core.wordcards.WordCard
 import com.pagelence.uim3.UiLanguage
 import java.nio.file.Path
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
@@ -42,6 +45,39 @@ class ShellPresentersTest {
 
         assertEquals(listOf("kept"), rows.map { it.term })
         assertEquals("怪医杜立德", rows.single().bookTitle)
+    }
+
+    @Test
+    fun `review splits today's queue into due and new cards`() {
+        val cards = InMemoryWordCardRepository()
+        cards.add(card("fresh", bookId))
+        cards.add(card("overdue", bookId).copy(dueAt = "2026-11-19", reviews = 2, intervalDays = 3))
+        cards.add(card("today", bookId).copy(dueAt = "2026-11-22", reviews = 1, intervalDays = 1))
+        cards.add(card("later", bookId).copy(dueAt = "2026-12-01", reviews = 3, intervalDays = 8))
+        cards.add(card("deleted", bookId).copy(deletedAt = "2026-11-21T00:00:00Z"))
+
+        val review = WordCardPresenter(content, cards, UiLanguage.ZH) { LocalDate.of(2026, 11, 22) }.review()
+
+        assertEquals(2, review.dueCount)
+        assertEquals(1, review.newCount)
+        assertEquals(listOf("overdue", "today", "fresh"), review.queue.map { it.term })
+        assertEquals(4, review.rows.size, "the list still shows the future card")
+        assertTrue(review.hasWork)
+        assertEquals(CardMastery.NEW, review.queue.last().mastery)
+        assertEquals("2026-11-19", review.queue.first().dueAt)
+    }
+
+    @Test
+    fun `a queue with nothing due shows no work`() {
+        val cards = InMemoryWordCardRepository()
+        cards.add(card("later", bookId).copy(dueAt = "2026-12-01", reviews = 3, intervalDays = 8))
+
+        val review = WordCardPresenter(content, cards, UiLanguage.ZH) { LocalDate.of(2026, 11, 22) }.review()
+
+        assertEquals(0, review.dueCount)
+        assertEquals(0, review.newCount)
+        assertFalse(review.hasWork)
+        assertTrue(review.queue.isEmpty())
     }
 
     @Test

@@ -441,13 +441,9 @@ interface Strings {
     val progressQuiz: String
     val progressGrammar: String
     val studyWords: String
-    val studyStart: String
     val studyPrompt: String
     val studyShowAnswer: String
-    val studyNext: String
-    val studyPrevious: String
     val studyExit: String
-    val studyDone: String
     val studyProgress: String
     val studyCards: String
     val annotations: String
@@ -481,6 +477,25 @@ interface Strings {
     val lookupClearBody: String
     val lookupBookRemoved: String
     val lookupCount: String
+    val reviewDueToday: String
+    val reviewStartDue: String
+    val reviewEmptyDueTitle: String
+    val reviewEmptyDueBody: String
+    val reviewFilterAll: String
+    val reviewFilterOftenWrong: String
+    val reviewGradeAgain: String
+    val reviewGradeHard: String
+    val reviewGradeGood: String
+    val reviewSummary: String
+    val reviewSummaryClose: String
+    val masteryNew: String
+    val masteryLearning: String
+    val masteryMastered: String
+    val reviewDueOn: String
+    val reviewLapses: String
+    val studyDone: String
+    val reviewEmptyOftenWrongTitle: String
+    val reviewEmptyOftenWrongBody: String
 }
 
 fun stringsFor(language: UiLanguage): Strings = when (language) {

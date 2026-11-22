@@ -68,6 +68,10 @@ class StateMergeTest {
             updatedAt: String = "2026-11-20T09:00:00Z",
             deletedAt: String? = null,
             term: String = "word",
+            dueAt: String? = null,
+            intervalDays: Int = 0,
+            reviews: Int = 0,
+            lastReviewedAt: String? = null,
         ): WordCard = WordCard(
             id = id,
             bookId = id.substringBefore("::"),
@@ -78,6 +82,10 @@ class StateMergeTest {
             createdAt = "2026-11-19T09:00:00Z",
             updatedAt = updatedAt,
             deletedAt = deletedAt,
+            dueAt = dueAt,
+            intervalDays = intervalDays,
+            reviews = reviews,
+            lastReviewedAt = lastReviewedAt,
         )
     }
 
@@ -188,6 +196,72 @@ class StateMergeTest {
         )
         val merged = StateMerge.merge(local, remote, base = null, Fixture.NOW, Fixture.TODAY).state
         assertTrue(merged.wordCards.single().isDeleted)
+    }
+
+    @Test
+    fun cardScheduleComesFromTheLaterReviewNotTheLaterEdit() {
+        // The local side was only edited (no review yet); the remote graded it.
+        // Content follows `updatedAt`, but the due date must survive the merge.
+        val local = Fixture.state(
+            cards = listOf(
+                Fixture.card(
+                    id = "b::p1::h1",
+                    updatedAt = "2026-11-21T09:00:00Z",
+                    term = "newer-content",
+                ),
+            ),
+        )
+        val remote = Fixture.state(
+            deviceId = "device-b",
+            cards = listOf(
+                Fixture.card(
+                    id = "b::p1::h1",
+                    updatedAt = "2026-11-20T09:00:00Z",
+                    dueAt = "2026-12-01",
+                    intervalDays = 8,
+                    reviews = 3,
+                    lastReviewedAt = "2026-11-20T09:00:00Z",
+                ),
+            ),
+        )
+        val merged = StateMerge.merge(local, remote, base = null, Fixture.NOW, Fixture.TODAY).state
+        val card = merged.wordCards.single()
+        assertEquals("newer-content", card.term, "content still follows updatedAt")
+        assertEquals("2026-12-01", card.dueAt, "schedule follows lastReviewedAt")
+        assertEquals(8, card.intervalDays)
+        assertEquals(3, card.reviews)
+    }
+
+    @Test
+    fun laterReviewWinsOverAnEarlierOne() {
+        val local = Fixture.state(
+            cards = listOf(
+                Fixture.card(
+                    id = "b::p1::h1",
+                    updatedAt = "2026-11-19T09:00:00Z",
+                    dueAt = "2026-11-25",
+                    intervalDays = 4,
+                    reviews = 2,
+                    lastReviewedAt = "2026-11-19T09:00:00Z",
+                ),
+            ),
+        )
+        val remote = Fixture.state(
+            deviceId = "device-b",
+            cards = listOf(
+                Fixture.card(
+                    id = "b::p1::h1",
+                    updatedAt = "2026-11-21T09:00:00Z",
+                    dueAt = "2026-12-15",
+                    intervalDays = 20,
+                    reviews = 4,
+                    lastReviewedAt = "2026-11-21T09:00:00Z",
+                ),
+            ),
+        )
+        val merged = StateMerge.merge(local, remote, base = null, Fixture.NOW, Fixture.TODAY).state
+        assertEquals("2026-12-15", merged.wordCards.single().dueAt)
+        assertEquals(4, merged.wordCards.single().reviews)
     }
 
     @Test

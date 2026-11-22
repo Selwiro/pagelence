@@ -16,8 +16,10 @@ import com.pagelence.uim3.model.AnnotationFilter
 import com.pagelence.uim3.model.AnnotationUi
 import com.pagelence.uim3.model.GrammarTabUiState
 import com.pagelence.uim3.model.LookupHistoryUi
+import com.pagelence.core.wordcards.ReviewGrade
+import com.pagelence.uim3.model.ReviewSessionUi
 import com.pagelence.uim3.model.ReviewTab
-import com.pagelence.uim3.model.WordCardUi
+import com.pagelence.uim3.model.WordReviewUi
 
 /**
  * 复习栏：两个子页。单词是收集的生词卡，语法是本书语法点与语法库。
@@ -27,7 +29,8 @@ import com.pagelence.uim3.model.WordCardUi
 fun ReviewScreen(
     strings: Strings,
     tab: ReviewTab,
-    cards: List<WordCardUi>,
+    review: WordReviewUi,
+    session: ReviewSessionUi?,
     grammar: GrammarTabUiState,
     annotations: List<AnnotationUi>,
     annotationFilter: AnnotationFilter,
@@ -39,6 +42,10 @@ fun ReviewScreen(
     onClearLookups: () -> Unit,
     onOpenPoint: (String) -> Unit,
     onDeleteCard: (String) -> Unit,
+    onStartReview: () -> Unit,
+    onRevealCard: () -> Unit,
+    onGradeCard: (ReviewGrade) -> Unit,
+    onCloseReview: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -74,7 +81,12 @@ fun ReviewScreen(
             when (tab) {
                 ReviewTab.WORDS -> WordCardsContent(
                     strings = strings,
-                    cards = cards,
+                    review = review,
+                    session = session,
+                    onStartReview = onStartReview,
+                    onReveal = onRevealCard,
+                    onGrade = onGradeCard,
+                    onCloseReview = onCloseReview,
                     onDelete = onDeleteCard,
                 )
 

@@ -20,6 +20,7 @@ import com.pagelence.presentation.lookup.LookupHistoryPresenter
 import com.pagelence.presentation.reader.PreviewPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
+import com.pagelence.presentation.review.ReviewSessionRules
 import com.pagelence.presentation.assessment.AssessmentPresenter
 import com.pagelence.presentation.book.BookDetailPresenter
 import com.pagelence.presentation.dictionary.DictionaryPresenter
@@ -88,6 +89,8 @@ import com.pagelence.core.source.SourceLine
 import com.pagelence.core.source.SourceResult
 import com.pagelence.core.reading.SelectedTerm
 import com.pagelence.core.reading.WordSelectionState
+import com.pagelence.core.wordcards.ReviewGrade
+import com.pagelence.core.wordcards.Srs
 import com.pagelence.core.wordcards.WordCard
 import com.pagelence.sync.StateTransfer
 import com.pagelence.sync.SyncException
@@ -149,7 +152,8 @@ import com.pagelence.uim3.model.StoreSourceUi
 import com.pagelence.uim3.model.StoreUiState
 import com.pagelence.uim3.model.SyncTone
 import com.pagelence.uim3.model.SyncUiState
-import com.pagelence.uim3.model.WordCardUi
+import com.pagelence.uim3.model.ReviewSessionUi
+import com.pagelence.uim3.model.WordReviewUi
 import com.pagelence.uim3.model.WordPanelUi
 import com.pagelence.uim3.model.WordStripUi
 import com.pagelence.uim3.stringsFor
@@ -217,7 +221,10 @@ data class AppUiState(
     val tab: MainTab = MainTab.SHELF,
     val library: LibraryUiState = LibraryUiState(),
     val reader: ReaderUiState? = null,
-    val cards: List<WordCardUi> = emptyList(),
+    /** 复习 → 单词：列表、今日到期/新卡计数与待复习队列。 */
+    val review: WordReviewUi = WordReviewUi(),
+    /** 正在进行的复习轮次；null 表示在列表或别的页面。 */
+    val reviewSession: ReviewSessionUi? = null,
     /** Cross-book bookmarks/highlights/notes for 复习 → 笔记. */
     val annotations: List<AnnotationUi> = emptyList(),
     /** Recent word lookups for 复习 → 查词, newest first. */
@@ -721,13 +728,13 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
     private fun refreshCards() {
         viewModelScope.launch(Dispatchers.IO) {
-            val cards = currentCards()
+            val review = currentReview()
             val language = uiLanguage(graph.preferences.preferences())
             val annotations = buildAnnotations(language)
             val lookups = currentLookupHistory(language)
             withContext(Dispatchers.Main) {
                 _ui.update {
-                    it.copy(cards = cards, annotations = annotations, lookupHistory = lookups)
+                    it.copy(review = review, annotations = annotations, lookupHistory = lookups)
                 }
             }
         }
@@ -2032,22 +2039,65 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     fun deleteCard(cardId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             graph.cards.remove(cardId, Instant.now().toString())
-            val cards = currentCards()
+            val review = currentReview()
             val reader = _ui.value.reader
-            _ui.update {
-                it.copy(
-                    cards = cards,
-                    reader = reader?.copy(cardsCount = graph.cards.list(reader.bookId).size),
-                )
+            withContext(Dispatchers.Main) {
+                _ui.update {
+                    it.copy(
+                        review = review,
+                        reviewSession = null,
+                        reader = reader?.copy(cardsCount = graph.cards.list(reader.bookId).size),
+                    )
+                }
             }
         }
     }
 
-    private fun currentCards(): List<WordCardUi> = WordCardPresenter(
+    private fun currentReview(): WordReviewUi = WordCardPresenter(
         content = graph.content,
         cards = graph.cards,
         language = uiLanguage(graph.preferences.preferences()),
-    ).cards()
+    ).review()
+
+    // --- spaced repetition (T143) ----------------------------------------
+
+    /** Start a round over the queue the page just showed. */
+    fun startReview() {
+        val review = _ui.value.review
+        if (!review.hasWork) return
+        _ui.update { it.copy(reviewSession = ReviewSessionRules.start(review.queue)) }
+    }
+
+    fun revealCard() {
+        _ui.update { state ->
+            state.copy(reviewSession = state.reviewSession?.let(ReviewSessionRules::reveal))
+        }
+    }
+
+    /**
+     * Apply one grade and move on. The card is written immediately (one atomic
+     * `state.json` write per grade), so killing the app mid-round keeps every
+     * card already graded and leaves the rest due. The round itself is not
+     * persisted: restarting recomputes the queue from the saved schedule.
+     */
+    fun gradeCard(grade: ReviewGrade) {
+        val session = _ui.value.reviewSession ?: return
+        if (!session.revealed) return
+        val cardId = session.current?.id ?: return
+        _ui.update { it.copy(reviewSession = ReviewSessionRules.grade(session, grade)) }
+        val now = Instant.now().toString()
+        val today = LocalDate.now()
+        viewModelScope.launch(Dispatchers.IO) {
+            val card = graph.cards.get(cardId)?.takeIf { !it.isDeleted } ?: return@launch
+            graph.cards.add(Srs.grade(card, grade, today, now))
+        }
+    }
+
+    /** Leave the round (or its summary) and refresh the counters. */
+    fun closeReview() {
+        _ui.update { it.copy(reviewSession = null) }
+        refreshCards()
+    }
 
     // --- bookmarks, highlights and notes ---------------------------------
 

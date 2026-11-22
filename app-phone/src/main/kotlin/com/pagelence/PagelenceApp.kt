@@ -472,7 +472,8 @@ private fun MainTabsShell(
                 Screen.REVIEW -> ReviewScreen(
                     strings = strings,
                     tab = state.reviewTab,
-                    cards = state.cards,
+                    review = state.review,
+                    session = state.reviewSession,
                     grammar = state.grammarTab,
                     annotations = state.annotations,
                     annotationFilter = state.annotationFilter,
@@ -484,6 +485,10 @@ private fun MainTabsShell(
                     onClearLookups = viewModel::clearLookups,
                     onOpenPoint = viewModel::openGrammarPoint,
                     onDeleteCard = viewModel::deleteCard,
+                    onStartReview = viewModel::startReview,
+                    onRevealCard = viewModel::revealCard,
+                    onGradeCard = viewModel::gradeCard,
+                    onCloseReview = viewModel::closeReview,
                 )
 
                 Screen.PROFILE -> ProfileScreen(

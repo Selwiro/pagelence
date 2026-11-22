@@ -15,6 +15,7 @@ import com.pagelence.core.progress.AnnotationKind
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.LevelSource
 import com.pagelence.core.progress.ReaderPhase
+import com.pagelence.core.wordcards.CardMastery
 import com.pagelence.sync.SyncProvider
 import com.pagelence.uim3.UiLanguage
 
@@ -594,7 +595,50 @@ data class WordCardUi(
     val exampleZh: String?,
     val bookId: String,
     val bookTitle: String,
+    /** Schedule state for the chip; see [com.pagelence.core.wordcards.CardMastery]. */
+    val mastery: CardMastery = CardMastery.NEW,
+    /** Local due date (`YYYY-MM-DD`); null for a card that was never reviewed. */
+    val dueAt: String? = null,
+    val reviews: Int = 0,
+    val lapses: Int = 0,
 )
+
+/**
+ * 复习 → 单词 data for one visit: every visible row plus the round that is due.
+ *
+ * [rows] is the library of cards (delete, browse), [queue] the ordered subset to
+ * review now. Keeping both means one repository read serves the header counters
+ * and the list, and closing a round only needs the rows refreshed.
+ */
+data class WordReviewUi(
+    val rows: List<WordCardUi> = emptyList(),
+    val queue: List<WordCardUi> = emptyList(),
+    /** Reviewed cards whose due date is today or earlier. */
+    val dueCount: Int = 0,
+    /** Cards that were never reviewed. */
+    val newCount: Int = 0,
+) {
+    val pending: Int get() = dueCount + newCount
+    val hasWork: Boolean get() = queue.isNotEmpty()
+}
+
+/**
+ * One review round: the queue is a snapshot taken when the reader taps 开始复习,
+ * so cards scheduled by a grade never reorder the round in progress. [index] ==
+ * [cards].size means the round is over and the summary is shown.
+ */
+data class ReviewSessionUi(
+    val cards: List<WordCardUi>,
+    val index: Int = 0,
+    val revealed: Boolean = false,
+    val remembered: Int = 0,
+    val unsure: Int = 0,
+    val forgotten: Int = 0,
+) {
+    val current: WordCardUi? get() = cards.getOrNull(index)
+    val finished: Boolean get() = index >= cards.size
+    val reviewed: Int get() = remembered + unsure + forgotten
+}
 
 data class PreviewWordUi(
     val term: String,

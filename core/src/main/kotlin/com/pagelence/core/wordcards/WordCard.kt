@@ -30,6 +30,19 @@ data class WordCard(
     val createdAt: String,
     val updatedAt: String,
     val deletedAt: String? = null,
+    /**
+     * Spaced-repetition schedule (T143). Optional on v2, so cards written before
+     * it decode as new and immediately due: `reviews == 0`, no `dueAt`.
+     * `dueAt` is a local calendar date (`YYYY-MM-DD`); [lastReviewedAt] stays an
+     * ISO-8601 UTC instant like the other timestamps. Rules in [Srs].
+     */
+    val dueAt: String? = null,
+    val intervalDays: Int = 0,
+    val ease: Double = Srs.DEFAULT_EASE,
+    val reviews: Int = 0,
+    val lapses: Int = 0,
+    val lastReviewedAt: String? = null,
+    val lastGrade: ReviewGrade? = null,
 ) {
     val isDeleted: Boolean get() = deletedAt != null
 

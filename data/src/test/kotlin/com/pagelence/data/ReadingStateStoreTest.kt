@@ -15,13 +15,17 @@ import com.pagelence.core.progress.LevelSource
 import com.pagelence.core.progress.ReaderPhase
 import com.pagelence.core.progress.ReaderPosition
 import com.pagelence.core.progress.ReadingStateCodec
+import com.pagelence.core.wordcards.ReviewGrade
+import com.pagelence.core.wordcards.Srs
 import com.pagelence.core.wordcards.WordCard
 import java.io.File
 import java.nio.file.Files
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ReadingStateStoreTest {
@@ -239,6 +243,39 @@ class ReadingStateStoreTest {
         assertEquals("2026-11-19T01:00:00Z", restored.createdAt)
         assertFalse(restored.isDeleted)
         assertEquals(1, cards.list("doctor-dolittle-1920").size)
+    }
+
+    @Test
+    fun `a graded card keeps its schedule across a restart`() {
+        val file = Files.createTempDirectory("pagelence-state").resolve("state.json").toFile()
+        val first = tempStore(file)
+        val cards = StateWordCardRepository(first)
+        cards.add(card())
+
+        val graded = Srs.grade(cards.get(card().id)!!, ReviewGrade.GOOD, LocalDate.of(2026, 11, 22), "2026-11-22T02:00:00Z")
+        cards.add(graded)
+
+        val reopened = StateWordCardRepository(tempStore(file))
+        val stored = assertNotNull(reopened.get(card().id))
+        assertEquals("2026-11-23", stored.dueAt)
+        assertEquals(1, stored.intervalDays)
+        assertEquals(1, stored.reviews)
+        assertEquals(ReviewGrade.GOOD, stored.lastGrade)
+        assertEquals("2026-11-22T02:00:00Z", stored.lastReviewedAt)
+        assertFalse(Srs.isDue(stored, LocalDate.of(2026, 11, 22)), "scheduled for tomorrow")
+    }
+
+    @Test
+    fun `a card without a schedule reads as new and immediately due`() {
+        val file = Files.createTempDirectory("pagelence-state").resolve("state.json").toFile()
+        val cards = StateWordCardRepository(tempStore(file))
+        cards.add(card())
+
+        val stored = assertNotNull(StateWordCardRepository(tempStore(file)).get(card().id))
+        assertNull(stored.dueAt)
+        assertEquals(0, stored.reviews)
+        assertEquals(Srs.DEFAULT_EASE, stored.ease)
+        assertTrue(Srs.isDue(stored, LocalDate.of(2026, 11, 22)))
     }
 
     @Test
