@@ -30,8 +30,10 @@ keyPassword=…
 - 有密钥库 → 创建 `signingConfigs.release` 并绑到 `buildTypes.release`，构建时打印一行 `:app-phone 发布签名：release 使用 … 签名`。
 - 文件或密钥库缺失 → 不创建签名配置，`assembleRelease` 照常成功，产物是 `app-phone-release-unsigned.apk`，同时打印提示。debug 构建从不读这些文件，本地开发与没有密钥的 CI 都不会因此失败。
 
-release 暂不开混淆与资源压缩：Compose 和 kotlinx.serialization 需要额外 keep 规则，
-等真机回归矩阵稳定后再单独评估（T155 接），`app-phone/proguard-rules.pro` 目前是说明性占位。
+release 已开启 R8 混淆与资源压缩（T155）。keep 规则集中在 `app-phone/proguard-rules.pro`：
+kotlinx.serialization 生成的 serializer / Companion，以及序列化用到的枚举名。实测 release
+从 13.0 MB 降到 5.7 MB（压缩后 5,940,414 字节），并在模拟器回归了启动、书城、开书、
+点词、测验选项与状态写入。
 
 ## 版本号
 
@@ -54,7 +56,7 @@ python3 tools/bump_version.py patch     # 或 minor / major
   app-phone/build/outputs/apk/release/app-phone-release.apk
 ```
 
-预期输出：`Verifies`、v2 与 v3 均为 `true`、签名者 1 个且 DN 为 `CN=Pagelence`。产物约 13 MB（debug 约 19 MB），比 debug 小是因为不含调试符号与 `android:debuggable`。
+预期输出：`Verifies`、v2 与 v3 均为 `true`、签名者 1 个且 DN 为 `CN=Pagelence`。产物约 5.7 MB（debug 约 19 MB），比 debug 小是因为 R8、资源压缩与不含调试符号。
 
 ## 备份
 

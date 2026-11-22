@@ -243,7 +243,7 @@ GitHub Releases，两者都走系统浏览器，不在应用内发网络请求�
 | --- | --- |
 | Android 版本 | Android 8.0（API 26）及以上 |
 | CPU 架构 | arm64-v8a / armeabi-v7a |
-| APK 大小 | 约 19 MB（debug）/ 约 13 MB（release），均含两本内置书、210 题题库、通用核心词典、五层词级表与词频表 |
+| APK 大小 | 约 19 MB（debug）/ 约 6 MB（release，R8 混淆 + 资源压缩），均含两本内置书、210 题题库、通用核心词典、五层词级表与词频表 |
 | 屏幕 | 竖屏手机布局；平板与横屏适配未做 |
 | 安装方式 | Android Studio 或 `adb install` |
 

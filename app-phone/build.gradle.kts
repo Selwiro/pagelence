@@ -81,10 +81,10 @@ android {
     }
     buildTypes {
         release {
-            // 暂不开混淆与资源压缩：Compose 与 kotlinx.serialization 需要额外 keep 规则，
-            // 等有发布渠道、有真机回归矩阵时再单独评估。
-            isMinifyEnabled = false
-            isShrinkResources = false
+            // 混淆 + 资源压缩：keep 规则见 proguard-rules.pro（主要是
+            // kotlinx.serialization 的生成 serializer 与枚举名）。
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             if (hasReleaseSigning) {
                 signingConfig = signingConfigs.getByName("release")
