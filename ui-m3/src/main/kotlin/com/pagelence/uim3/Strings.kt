@@ -25,6 +25,12 @@ interface Strings {
     val recoveryFromBackupBody: String
     val recoveryCorruptTitle: String
     val recoveryCorruptBody: String
+    val recoveryContentFailedTitle: String
+    val recoveryContentFailedBody: String
+    val recoveryContentPartialTitle: String
+    val recoveryContentPartialBody: String
+    val recoveryRetry: String
+    val recoveryLater: String
     val recoveryOk: String
     val startReading: String
     val continueReading: String

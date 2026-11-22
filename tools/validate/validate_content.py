@@ -39,6 +39,7 @@ from content import (  # noqa: E402
 )
 from assessment import validate_bank  # noqa: E402
 from gap import compute_gap  # noqa: E402
+from outline import build_outline  # noqa: E402
 from shelf import build_store, load_shelf, store_errors  # noqa: E402
 from taxonomy import category_errors, taxonomy_errors  # noqa: E402
 
@@ -346,6 +347,17 @@ def validate_book(book: dict, library: dict, where: str, report: Report) -> None
 
             validate_grammar(unit.get("grammar"), unit_text, library, uwhere, report)
 
+
+
+def validate_outline(book: dict, book_path: Path, report: Report) -> None:
+    """The shelf reads `outline.json` instead of parsing `book.json`; keep the two in step."""
+    path = book_path.parent / "outline.json"
+    where = path.relative_to(REPO).as_posix()
+    if not path.is_file():
+        report.error(where, "missing outline.json; regenerate with the book build script")
+        return
+    if read_json(path) != build_outline(book):
+        report.error(where, "outline.json does not match book.json; regenerate with the book build script")
 
 
 def validate_manifest(report: Report) -> None:
@@ -713,6 +725,7 @@ def main() -> None:
         book = read_json(book_path)
         where = book_path.relative_to(REPO).as_posix()
         validate_book(book, library, where, report)
+        validate_outline(book, book_path, report)
         validate_gap_report(book, library, report)
 
     validate_manifest(report)

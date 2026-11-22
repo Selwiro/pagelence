@@ -17,6 +17,14 @@ object ZhStrings : Strings {
     override val recoveryCorruptTitle: String get() = "进度文件损坏"
     override val recoveryCorruptBody: String get() =
         "主文件和备份都无法读取，应用已用空白进度启动。损坏的文件保留为 state.json.corrupt，方便排查。"
+    override val recoveryContentFailedTitle: String get() = "内容读不出来"
+    override val recoveryContentFailedBody: String get() =
+        "随包内容无法读取，可能是安装损坏。点「重试」重新加载；仍然失败就卸载重装，进度会随系统备份保留。"
+    override val recoveryContentPartialTitle: String get() = "有本书暂时打不开"
+    override val recoveryContentPartialBody: String get() =
+        "部分书籍的内容文件损坏，已从书架跳过。可以在书城删掉后重新下载，其他书不受影响。"
+    override val recoveryRetry: String get() = "重试"
+    override val recoveryLater: String get() = "稍后"
     override val recoveryOk: String get() = "知道了"
     override val startReading: String get() = "开始阅读"
     override val continueReading: String get() = "继续阅读"

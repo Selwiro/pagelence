@@ -12,6 +12,8 @@ import com.pagelence.core.assessment.AssessmentSkill
 import com.pagelence.core.assessment.levelSource
 import com.pagelence.core.content.Analysis
 import com.pagelence.core.content.ContentIndex
+import com.pagelence.core.content.BookSummary
+import com.pagelence.core.content.ContentOutline
 import com.pagelence.core.content.StoreCatalogRules
 import com.pagelence.core.content.Grammar
 import com.pagelence.core.content.GrammarPoint
@@ -162,8 +164,11 @@ enum class Screen {
 /** Four bottom-bar destinations; each keeps its own screen stack. */
 enum class MainTab { SHELF, STORE, REVIEW, PROFILE }
 
-/** One-shot message about state.json recovery, shown after startup. */
-enum class RecoveryNotice { FROM_BACKUP, CORRUPT }
+/**
+ * One-shot startup message: a recovered/damaged progress file, or content that
+ * could not be read (whole package vs. a few books).
+ */
+enum class RecoveryNotice { FROM_BACKUP, CORRUPT, CONTENT_FAILED, CONTENT_PARTIAL }
 
 fun rootScreen(tab: MainTab): Screen = when (tab) {
     MainTab.SHELF -> Screen.LIBRARY
@@ -293,25 +298,46 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             val prefs = graph.preferences.preferences()
             val language = uiLanguage(prefs)
             val strings = stringsFor(language)
-            val library = buildLibrary(strings, language)
-            val profile = buildProfile()
-            val grammarTab = buildGrammarTab(strings, language)
-            val store = buildStoreState(strings, language)
+            val skipped = mutableListOf<String>()
+            // A missing or unreadable manifest is the one failure that leaves the
+            // shelf unusable; show a retry instead of crashing on launch.
+            val library = runCatching { buildLibrary(strings, language, skipped) }
             val onboarding = !prefs.levelOnboardingDone
             val storedSync = graph.syncCredentials.config()
             syncConfig = storedSync
             syncDraft = storedSync ?: SyncConfig(SyncProvider.CUSTOM, "", "", false)
             syncHasPassword = graph.syncCredentials.hasPassword()
+
+            if (library.isFailure) {
+                _ui.update {
+                    it.copy(
+                        screen = Screen.LIBRARY,
+                        tab = MainTab.SHELF,
+                        settings = settingsOf(prefs, language),
+                        recovery = RecoveryNotice.CONTENT_FAILED,
+                    )
+                }
+                return@launch
+            }
+
+            // One broken book must not take the shelf, the profile or the store
+            // down with it; each section degrades to its empty state.
+            val profile = runCatching { buildProfile() }.getOrDefault(ProfileUiState())
+            val grammarTab = runCatching { buildGrammarTab(strings, language) }
+                .getOrDefault(GrammarTabUiState(loading = false))
+            val store = runCatching { buildStoreState(strings, language) }
+                .getOrDefault(StoreUiState(loading = false))
             val recovery = when {
                 graph.store.recoveredFromBackup -> RecoveryNotice.FROM_BACKUP
                 graph.store.corruptWithoutBackup -> RecoveryNotice.CORRUPT
+                skipped.isNotEmpty() -> RecoveryNotice.CONTENT_PARTIAL
                 else -> null
             }
             _ui.update {
                 it.copy(
                     screen = if (onboarding) Screen.ONBOARDING else Screen.LIBRARY,
                     tab = MainTab.SHELF,
-                    library = library,
+                    library = library.getOrDefault(LibraryUiState(loading = false)),
                     profile = profile,
                     grammarTab = grammarTab,
                     store = store,
@@ -324,43 +350,66 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
     }
 
+    /** Retry the content-dependent startup after a damaged package. */
+    fun retryContent() {
+        _ui.update { it.copy(recovery = null, library = LibraryUiState(loading = true)) }
+        bootstrap()
+    }
+
     fun refreshLibrary() {
         viewModelScope.launch(Dispatchers.IO) {
             val prefs = graph.preferences.preferences()
             val language = uiLanguage(prefs)
             val strings = stringsFor(language)
-            val library = buildLibrary(strings, language)
-            val profile = buildProfile()
-            val grammarTab = buildGrammarTab(strings, language)
+            val skipped = mutableListOf<String>()
+            val library = runCatching { buildLibrary(strings, language, skipped) }
+                .getOrDefault(LibraryUiState(loading = false))
+            val profile = runCatching { buildProfile() }.getOrDefault(ProfileUiState())
+            val grammarTab = runCatching { buildGrammarTab(strings, language) }
+                .getOrDefault(GrammarTabUiState(loading = false))
             _ui.update {
                 it.copy(
                     library = library,
                     profile = profile,
                     grammarTab = grammarTab,
                     settings = settingsOf(prefs, language),
+                    recovery = if (skipped.isNotEmpty()) RecoveryNotice.CONTENT_PARTIAL else it.recovery,
                 )
             }
         }
     }
 
-    private fun buildLibrary(strings: Strings, language: UiLanguage): LibraryUiState {
+    /**
+     * Build the shelf from `books-index.json` + each book's `outline.json`.
+     *
+     * Deliberately no `index(bookId)` here: parsing 1 MB of prose per book on
+     * every cold start is what made "add more books" expensive. A book whose
+     * outline/body is unreadable is skipped and reported, never fatal.
+     */
+    private fun buildLibrary(
+        strings: Strings,
+        language: UiLanguage,
+        skipped: MutableList<String> = mutableListOf(),
+    ): LibraryUiState {
         val shelfIds = graph.preferences.preferences().shelfBookIds.toSet()
         val entries = graph.content.library().mapNotNull { summary ->
-            val bookIndex = graph.content.index(summary.id) ?: return@mapNotNull null
+            val outline = runCatching {
+                graph.content.outline(summary.id)
+                    ?: graph.content.index(summary.id)?.let(ContentOutline::from)
+            }.getOrNull()
+            if (outline == null) {
+                skipped += summary.id
+                return@mapNotNull null
+            }
             val saved = graph.progress.progress(summary.id)
-            // Sanitise on load: unknown unit ids and a stale finish date (for
-            // example after a hand-edited document) must not keep a book in
-            // the finished group. `save` is a no-op when nothing changed.
-            val progress = ProgressSemantics.restore(saved, bookIndex)
-            if (progress != saved) graph.progress.save(progress)
-            val ui = toBookUi(bookIndex, progress, strings, language)
+            val ui = toBookUi(summary, outline, saved, strings, language)
             LibraryEntry(
                 bookId = ui.id,
                 readUnits = ui.readUnits,
                 hasResume = ui.readingUnitTitle != null,
                 finished = ui.finished,
-                lastReadAt = progress.lastReadAt,
-                finishedAt = progress.finishedAt,
+                lastReadAt = saved.lastReadAt,
+                finishedAt = saved.finishedAt,
             ) to ui
         }
         val sections = LibraryRules.sections(entries.map { it.first }, shelfIds)
@@ -377,12 +426,15 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         var totalReadUnits = 0
         var finishedBooks = 0
         graph.content.library().forEach { summary ->
-            val bookIndex = graph.content.index(summary.id) ?: return@forEach
+            val outline = runCatching {
+                graph.content.outline(summary.id)
+                    ?: graph.content.index(summary.id)?.let(ContentOutline::from)
+            }.getOrNull() ?: return@forEach
             val progress = graph.progress.progress(summary.id)
-            val read = ProgressSemantics.readUnitCount(progress, bookIndex)
-            totalUnits += bookIndex.units.size
+            val read = progress.readUnitIds.count { it in outline.unitIds }
+            totalUnits += outline.units.size
             totalReadUnits += read
-            if (bookIndex.units.isNotEmpty() && read == bookIndex.units.size) finishedBooks += 1
+            if (outline.units.isNotEmpty() && read == outline.units.size) finishedBooks += 1
         }
         val profile = graph.profile.profile()
         return ProfileUiState(
@@ -462,7 +514,13 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
             graph.speech.stop()
-            val bookIndex = graph.content.index(bookId) ?: return@launch
+            val bookIndex = runCatching { graph.content.index(bookId) }.getOrNull()
+            if (bookIndex == null) {
+                withContext(Dispatchers.Main) {
+                    _ui.update { it.copy(recovery = RecoveryNotice.CONTENT_FAILED) }
+                }
+                return@launch
+            }
             val saved = graph.progress.progress(bookId)
             val unit = unitId?.let(bookIndex::unit)
                 ?: saved.paragraphId?.let(bookIndex::unitOf)
@@ -1115,10 +1173,12 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val shipped = graph.content.library().associateBy { it.id }
         return graph.builtInCatalog.books().map { entry ->
             val summary = shipped[entry.id]
-            // `available` takes its identity from the package; only planned
-            // entries carry title/author/level in the store.
-            val book = summary?.let { graph.content.book(it.id) }
-            val title = entry.title ?: book?.title
+            // Identity comes from the package outline, never from parsing the
+            // book body: the store is part of startup.
+            val outline = summary?.let {
+                runCatching { graph.content.outline(it.id) }.getOrNull()
+            }
+            val title = entry.title ?: outline?.title ?: summary?.title
                 ?: LocalizedText(zh = entry.id, en = entry.id)
             val available = entry.status == StoreCatalogRules.STATUS_AVAILABLE && summary != null
             BuiltInBookUi(
@@ -1127,9 +1187,9 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 coverTitle = title.en ?: title.zh ?: entry.id,
                 monogram = entry.monogram
                     ?: title.zh.orEmpty().ifBlank { title.en.orEmpty() }.ifBlank { entry.id }.take(1),
-                author = entry.author ?: book?.author,
+                author = entry.author ?: outline?.author,
                 level = entry.level ?: summary?.level,
-                description = (entry.summary ?: book?.description)?.let { textFor(it, language) },
+                description = (entry.summary ?: outline?.description)?.let { textFor(it, language) },
                 unitCount = summary?.units ?: 0,
                 available = available,
                 order = entry.order,
@@ -2091,7 +2151,13 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
      */
     fun rereadBook(bookId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val bookIndex = graph.content.index(bookId) ?: return@launch
+            val bookIndex = runCatching { graph.content.index(bookId) }.getOrNull()
+            if (bookIndex == null) {
+                withContext(Dispatchers.Main) {
+                    _ui.update { it.copy(recovery = RecoveryNotice.CONTENT_FAILED) }
+                }
+                return@launch
+            }
             val first = bookIndex.units.firstOrNull() ?: return@launch
             val stored = graph.progress.progress(bookId)
             graph.progress.save(
@@ -2851,32 +2917,37 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     // --- mapping ---------------------------------------------------------
 
     private fun toBookUi(
-        bookIndex: ContentIndex,
+        summary: BookSummary,
+        outline: ContentOutline,
         progress: BookProgress,
         strings: Strings,
         language: UiLanguage,
     ): BookUi {
-        val book = bookIndex.book
-        val readingUnit = progress.paragraphId?.let(bookIndex::unitOf)
-        val read = ProgressSemantics.readUnitCount(progress, bookIndex)
+        val title = outline.title ?: summary.title ?: LocalizedText(zh = summary.id, en = summary.id)
+        val author = outline.author
+        val read = progress.readUnitIds.count { it in outline.unitIds }
+        // Prefer the paragraph anchor; a finished unit has no anchor, so fall
+        // back to the resume point's unit id.
+        val readingUnit = progress.paragraphId?.let(outline::unitOfParagraph)
+            ?: progress.reader?.unitId?.let(outline::unit)
         val subtitle = buildList {
-            book.author?.let(::add)
-            book.edition?.let(::add)
-            add(strings.unitCount.format(bookIndex.units.size))
+            author?.let(::add)
+            outline.edition?.let(::add)
+            add(strings.unitCount.format(outline.units.size))
         }.joinToString(" · ")
         return BookUi(
-            id = book.id,
-            title = titleFor(book.title, language),
-            monogram = (book.title.zh ?: book.title.en ?: book.id).take(1),
-            author = book.author,
-            coverTitle = book.title.en ?: book.title.zh ?: book.id,
+            id = summary.id,
+            title = titleFor(title, language),
+            monogram = (title.zh ?: title.en ?: summary.id).take(1),
+            author = author,
+            coverTitle = title.en ?: title.zh ?: summary.id,
             subtitle = subtitle,
-            unitCount = bookIndex.units.size,
+            unitCount = outline.units.size,
             readUnits = read,
             readingUnitTitle = readingUnit?.title?.let { titleFor(it, language) },
-            finished = bookIndex.units.isNotEmpty() && read == bookIndex.units.size,
+            finished = outline.units.isNotEmpty() && read == outline.units.size,
             finishedOn = formatDate(progress.finishedAt),
-            coverPath = graph.content.coverPath(book.id),
+            coverPath = graph.content.coverPath(summary.id),
         )
     }
 

@@ -88,6 +88,7 @@ private fun AppContent(
     val strings = stringsFor(state.settings.language)
 
     state.recovery?.let { recovery ->
+        val retryable = recovery == RecoveryNotice.CONTENT_FAILED
         AlertDialog(
             onDismissRequest = viewModel::dismissRecovery,
             title = {
@@ -95,6 +96,8 @@ private fun AppContent(
                     when (recovery) {
                         RecoveryNotice.FROM_BACKUP -> strings.recoveryFromBackupTitle
                         RecoveryNotice.CORRUPT -> strings.recoveryCorruptTitle
+                        RecoveryNotice.CONTENT_FAILED -> strings.recoveryContentFailedTitle
+                        RecoveryNotice.CONTENT_PARTIAL -> strings.recoveryContentPartialTitle
                     },
                 )
             },
@@ -103,11 +106,24 @@ private fun AppContent(
                     when (recovery) {
                         RecoveryNotice.FROM_BACKUP -> strings.recoveryFromBackupBody
                         RecoveryNotice.CORRUPT -> strings.recoveryCorruptBody
+                        RecoveryNotice.CONTENT_FAILED -> strings.recoveryContentFailedBody
+                        RecoveryNotice.CONTENT_PARTIAL -> strings.recoveryContentPartialBody
                     },
                 )
             },
             confirmButton = {
-                TextButton(onClick = viewModel::dismissRecovery) { Text(strings.recoveryOk) }
+                if (retryable) {
+                    TextButton(onClick = viewModel::retryContent) { Text(strings.recoveryRetry) }
+                } else {
+                    TextButton(onClick = viewModel::dismissRecovery) { Text(strings.recoveryOk) }
+                }
+            },
+            dismissButton = if (retryable) {
+                {
+                    TextButton(onClick = viewModel::dismissRecovery) { Text(strings.recoveryLater) }
+                }
+            } else {
+                null
             },
         )
     }

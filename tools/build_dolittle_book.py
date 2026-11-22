@@ -29,6 +29,7 @@ from content import (  # noqa: E402
     split_sentences,
 )
 from gap import compute_gap, render_markdown  # noqa: E402
+from outline import build_outline  # noqa: E402
 
 ANDROID = Path(__file__).resolve().parents[1]
 REPO = ANDROID
@@ -578,6 +579,7 @@ def write_outputs(book: dict, stats: dict, check: bool) -> None:
     )
     outputs = {
         BOOK_DIR / "book.json": book_text,
+        BOOK_DIR / "outline.json": dump(build_outline(book)),
         REPORTS_DIR / f"{book['id']}.gap.json": dump(report),
         REPORTS_DIR / f"{book['id']}.hints.json": dump(hint_overlap_report(book)),
         REPORTS_DIR / f"{book['id']}.long-sentences.json": dump(long_sentence_report(book)),

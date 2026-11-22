@@ -23,6 +23,12 @@ interface ContentRepository {
 
     fun index(bookId: String): ContentIndex?
 
+    /**
+     * The lightweight per-book index used by the shelf and the store. Never
+     * parses `book.json`; null when the package has no outline and no fallback.
+     */
+    fun outline(bookId: String): ContentOutline? = null
+
     fun grammarPoint(id: String): GrammarPoint?
 
     /** Every grammar point shipped with the app, for the "grammar book" list. */
@@ -98,10 +104,12 @@ class FileContentRepository(
         bookCache.clear()
         indexCache.clear()
         queries.clear()
+        outlineCache.clear()
     }
 
     private val bookCache = mutableMapOf<String, Book>()
     private val indexCache = mutableMapOf<String, ContentIndex>()
+    private val outlineCache = mutableMapOf<String, ContentOutline?>()
 
     private val grammar: Map<String, GrammarPoint> by lazy {
         val path = "grammar/grammar-library.json"
@@ -145,6 +153,14 @@ class FileContentRepository(
         val created = ContentIndex(loaded)
         indexCache[bookId] = created
         return created
+    }
+
+    override fun outline(bookId: String): ContentOutline? = outlineCache.getOrPut(bookId) {
+        val summary = summaries().firstOrNull { it.id == bookId } ?: return@getOrPut null
+        val source = sourceOf(summary)
+        val path = summary.path.substringBeforeLast('/') + "/outline.json"
+        if (!source.exists(path)) return@getOrPut null
+        runCatching { PagelenceJson.decodeFromString<ContentOutline>(source.readText(path)) }.getOrNull()
     }
 
     override fun grammarPoint(id: String): GrammarPoint? = grammar[id]
@@ -231,6 +247,8 @@ class InMemoryContentRepository(
     override fun book(bookId: String): Book? = bookById[bookId]
 
     override fun index(bookId: String): ContentIndex? = indexById[bookId]
+
+    override fun outline(bookId: String): ContentOutline? = indexById[bookId]?.let(ContentOutline::from)
 
     override fun grammarPoint(id: String): GrammarPoint? = grammarById[id]
 

@@ -18,6 +18,16 @@ object EnStrings : Strings {
     override val recoveryCorruptBody: String get() =
         "Neither the progress file nor its backup could be read, so the app started with empty " +
             "progress. The damaged file is kept as state.json.corrupt for diagnosis."
+    override val recoveryContentFailedTitle: String get() = "Content unavailable"
+    override val recoveryContentFailedBody: String get() =
+        "The bundled content could not be read, which usually means a damaged install. " +
+            "Tap Retry to load it again; if that fails, reinstall the app (progress is kept in system backup)."
+    override val recoveryContentPartialTitle: String get() = "One book is temporarily unavailable"
+    override val recoveryContentPartialBody: String get() =
+        "Some book files are damaged and were skipped on the shelf. " +
+            "Remove and re-download them from the store; other books are unaffected."
+    override val recoveryRetry: String get() = "Retry"
+    override val recoveryLater: String get() = "Later"
     override val recoveryOk: String get() = "Got it"
     override val startReading: String get() = "Start reading"
     override val continueReading: String get() = "Continue"
