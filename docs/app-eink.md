@@ -35,7 +35,7 @@
 | --- | --- | --- |
 | 颜色 | 纯白纸面 + 近黑正文 + 4 级灰；无深色模式 | `theme/InkTheme.kt` |
 | 排版 | 正文衬线 19sp / 行高 33sp（约 1.74）；界面无衬线；标题 20sp 粗体 | `InkTypography` |
-| 组件 | 只有文字、描边块、1px 分隔线、反色主按钮；共 10 个 | `components/InkComponents.kt` |
+| 组件 | 只有文字、描边块、1px 分隔线、反色主按钮；共 9 个 | `components/InkComponents.kt` |
 | 动效 | 无 | 全部 `indication = null` |
 | 阴影/圆角 | 无 | 分层用 1px 描边与留白 |
 | 触控 | 按钮与可点行 ≥48dp | `InkButton` / `InkTextButton` |
@@ -69,7 +69,7 @@
 1. **抽出 `:shell`**：`AppGraph`、`PagelenceViewModel`、`SpeechController`、`SyncCredentialStore`
    与内容/词典适配共 10 个文件从 `:app-phone` 移到 `:shell`，包名不变；`BuildConfig` 依赖改为
    `ShellConfig`。普通版行为与产物不变（模拟器回归通过）。
-2. **`:ui-eink` 设计系统**：`InkTheme`、`InkColors`、`InkTypography` 与 10 个组件。
+2. **`:ui-eink` 设计系统**：`InkTheme`、`InkColors`、`InkTypography` 与 9 个组件。
 3. **书架**：在读 / 已读完 / 可读的书三段；冷启动时用随包书单补「可读的书」，新装用户也能开书。
 4. **阅读**：与普通版共用 `ReaderFlow` 页序（导读 → 正文 → 测验 → 语法）与 `:core` 的
    `SentencePaginator`；正文按固定 19sp 衬线分页；左右翻页带 + 键盘翻页；测验选项、提交、
