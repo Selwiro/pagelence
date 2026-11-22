@@ -15,6 +15,7 @@ import com.pagelence.core.content.ContentIndex
 import com.pagelence.core.content.BookSummary
 import com.pagelence.core.content.ContentOutline
 import com.pagelence.presentation.library.LibraryPresenter
+import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.core.content.StoreCatalogRules
 import com.pagelence.core.content.Grammar
 import com.pagelence.core.content.GrammarPoint
@@ -1464,7 +1465,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             unitId = unit.id,
             unitTitle = unit.title?.let { titleFor(it, language) } ?: unit.id,
             chapterTitle = chapter?.title?.let { titleFor(it, language) } ?: "",
-            grammar = grammarUi(grammar, language),
+            grammar = readerPresenter(bookId).grammar(grammar),
         )
     }
 
@@ -1608,7 +1609,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                     ),
                 )
             }
-            val counts = countCards(reader.bookId)
+            val counts = graph.cards.list(reader.bookId).size
             val collected = graph.cards.find(reader.bookId, panel.lemma, panel.term) != null
             pendingPanel = pendingPanel?.copy(collected = collected)
             _ui.update { state ->
@@ -1818,7 +1819,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val unit = bookIndex.unit(reader.unitId) ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val seen = mutableSetOf<String>()
-            val candidates = quizWordCandidates(unit)
+            val candidates = readerPresenter(reader.bookId).quizCandidates(unit)
                 .filter { candidate ->
                     graph.cards.find(reader.bookId, candidate.lemma, candidate.term) == null &&
                         seen.add(WordCard.lemmaKey(candidate.lemma))
@@ -1846,7 +1847,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 )
             }
             quizCollected += candidates.size
-            val counts = countCards(reader.bookId)
+            val counts = graph.cards.list(reader.bookId).size
             _ui.update { state ->
                 state.reader?.let { current ->
                     state.copy(
@@ -2125,7 +2126,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             _ui.update {
                 it.copy(
                     cards = cards,
-                    reader = reader?.copy(cardsCount = countCards(reader.bookId)),
+                    reader = reader?.copy(cardsCount = graph.cards.list(reader.bookId).size),
                 )
             }
         }
@@ -2854,6 +2855,19 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
     // --- mapping ---------------------------------------------------------
 
+    private fun readerPresenter(bookId: String): ReaderPresenter {
+        val prefs = graph.preferences.preferences()
+        val language = uiLanguage(prefs)
+        return ReaderPresenter(
+            content = graph.content,
+            cards = graph.cards,
+            strings = stringsFor(language),
+            language = language,
+            preferences = prefs,
+            bookLevel = bookLevel(bookId),
+        )
+    }
+
     private fun buildReader(
         bookIndex: ContentIndex,
         unit: StudyUnit,
@@ -2861,140 +2875,19 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         startAtText: Boolean = false,
         startAtGuide: Boolean = false,
         startAtGrammar: Boolean = false,
-    ): ReaderUiState {
-        val prefs = graph.preferences.preferences()
-        val language = uiLanguage(prefs)
-        val book = bookIndex.book
-        val chapter = bookIndex.chapterByUnitId[unit.id]
-        var number = 0
-        val sentenceByNumber = mutableMapOf<Int, Sentence>()
-        val paragraphs = unit.paragraphs.map { paragraph ->
-            // Sentence-level hints explain a whole line; underlining the line
-            // would look like an error, so only words and phrases are marked.
-            val wordHints = paragraph.hints.filter { it.kind != "sentence" }
-            val sentences = buildList {
-                bookIndex.sentences(paragraph).forEach { sentence ->
-                    number += 1
-                    sentenceByNumber[number] = sentence
-                    // A hint with a sentence number underlines that sentence
-                    // only; otherwise the same spelling elsewhere in the
-                    // paragraph would look tappable but open nothing.
-                    val annotated = wordHints
-                        .filter { it.sentence == null || it.sentence == number }
-                        .mapTo(mutableSetOf()) { it.target }
-                    add(
-                        SentenceUi(
-                            number = number,
-                            text = sentence.text,
-                            zh = if (language == UiLanguage.EN) null else sentence.zh,
-                            annotated = annotated,
-                            analysis = sentence.analysis?.let { toAnalysisUi(it, language) },
-                        ),
-                    )
-                }
-            }
-            ParagraphUi(
-                id = paragraph.id,
-                sentences = sentences,
-            )
-        }
-        val quiz = unit.quiz.mapIndexed { position, item ->
-            val sentence = item.sentence?.let { sentenceByNumber[it] }
-            QuizQuestionUi(
-                question = item.question,
-                options = item.options,
-                selected = quizAnswers[position],
-                correct = item.answer,
-                feedback = if (language == UiLanguage.EN) {
-                    item.feedback.en?.takeIf { it.isNotBlank() } ?: stringsFor(language).quizFeedbackGeneric
-                } else {
-                    item.feedback.zh
-                },
-                revealed = quizSubmitted,
-                sentenceNumber = item.sentence,
-                sentenceText = sentence?.text,
-                sentenceZh = if (language == UiLanguage.EN) null else sentence?.zh,
-            )
-        }
-        val collectible = quizWordCandidates(unit).count { candidate ->
-            graph.cards.find(book.id, candidate.lemma, candidate.term) == null
-        }
-        // The contents sheet numbers units across the whole book, matching the
-        // reader's "position / total" label; chapter-local numbers restart at 1
-        // and make a free jump feel inconsistent.
-        val unitPositions = bookIndex.units
-            .mapIndexed { position, item -> item.id to position + 1 }
-            .toMap()
-        val resume = progress.reader?.takeIf { it.unitId == unit.id }
-        val showGuide = showGuideInitially(book, unit, progress, prefs)
-        val hasGuide = unit.introduction?.let { !it.zh.isNullOrBlank() || !it.en.isNullOrBlank() } == true
-        return ReaderUiState(
-            bookId = book.id,
-            unitId = unit.id,
-            bookTitle = titleFor(book.title, language),
-            chapterTitle = chapter?.title?.let { titleFor(it, language) } ?: "",
-            unitTitle = unit.title?.let { titleFor(it, language) } ?: stringsFor(language).unit.format(unit.number),
-            chapterNumber = chapter?.number ?: 0,
-            unitNumber = unit.number,
-            unitPosition = bookIndex.units.indexOfFirst { it.id == unit.id } + 1,
-            unitCount = bookIndex.units.size,
-            introductionZh = if (language == UiLanguage.EN) null else unit.introduction?.zh,
-            introductionEn = unit.introduction?.en,
-            showGuideInitially = (showGuide || startAtGuide) && !startAtText,
-            paragraphs = paragraphs,
-            startParagraphId = progress.paragraphId?.takeIf { pid ->
-                unit.paragraphs.any { it.id == pid }
-            },
-            quiz = quiz,
-            quizSubmitted = quizSubmitted,
-            quizScore = quiz.indices.count { quizAnswers[it] == quiz[it].correct },
-            quizCollectibleCount = collectible,
-            quizCollectedCount = quizCollected,
-            grammar = unit.grammar?.let { grammarUi(it, language) },
-            unitRead = unit.id in progress.readUnitIds,
-            hasNextUnit = bookIndex.nextUnit(unit.id) != null,
-            hasPreviousUnit = bookIndex.previousUnit(unit.id) != null,
-            resumePhase = when {
-                startAtText -> ReaderPhase.TEXT
-                startAtGrammar -> ReaderPhase.GRAMMAR
-                startAtGuide && hasGuide -> ReaderPhase.GUIDE
-                resume != null -> resume.phase
-                showGuide && hasGuide -> ReaderPhase.GUIDE
-                else -> ReaderPhase.TEXT
-            },
-            resumeTextPage = resume?.textPage ?: 0,
-            resumeTextProgress = resume?.textProgress ?: 0f,
-            bookLevel = bookLevel(book.id),
-            preview = null,
-            preference = prefs,
-            language = language,
-            wordPanel = null,
-            wordStrip = null,
-            selectedWord = null,
-            cardsCount = countCards(book.id),
-            speechNotice = null,
-            toc = book.chapters.map { chapter ->
-                TocChapterUi(
-                    id = chapter.id,
-                    number = chapter.number,
-                    title = chapter.title?.let { titleFor(it, language) }.orEmpty(),
-                    units = chapter.units.map { tocUnit ->
-                        val position = unitPositions[tocUnit.id] ?: tocUnit.number
-                        TocUnitUi(
-                            id = tocUnit.id,
-                            number = position,
-                            title = tocUnit.title?.let { titleFor(it, language) }
-                                ?: stringsFor(language).unit.format(position),
-                            read = tocUnit.id in progress.readUnitIds,
-                            current = tocUnit.id == unit.id,
-                        )
-                    },
-                )
-            },
-        )
-    }
+    ): ReaderUiState = readerPresenter(bookIndex.book.id).unit(
+        bookIndex = bookIndex,
+        unit = unit,
+        progress = progress,
+        quizAnswers = quizAnswers,
+        quizSubmitted = quizSubmitted,
+        quizCollected = quizCollected,
+        startAtText = startAtText,
+        startAtGuide = startAtGuide,
+        startAtGrammar = startAtGrammar,
+    )
 
-    /** Book CEFR band from the built-in shelf or a source catalog; self-level is the fallback. */
+
     private fun bookLevel(bookId: String): String? {
         graph.builtInCatalog.books().firstOrNull { it.id == bookId }?.level?.let { return it }
         storeSnapshots.forEach { snapshot ->
@@ -3003,17 +2896,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         return graph.profile.profile().selfLevel?.name
     }
 
-    private fun showGuideInitially(
-        book: com.pagelence.core.content.Book,
-        unit: StudyUnit,
-        progress: BookProgress,
-        prefs: Preferences,
-    ): Boolean {
-        val first = unit.paragraphs.firstOrNull()?.id ?: return false
-        val atStart = progress.paragraphId == null || progress.paragraphId == first
-        val seen = "${book.id}::${unit.id}" in prefs.seenGuideUnits
-        return !seen && unit.id !in progress.readUnitIds && atStart && unit.introduction != null
-    }
 
     fun onGuideStarted() {
         val reader = _ui.value.reader ?: return
@@ -3172,7 +3054,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 updatedAt = now,
             ),
         )
-        val count = countCards(reader.bookId)
+        val count = graph.cards.list(reader.bookId).size
         withContext(Dispatchers.Main) {
             _ui.update { state ->
                 val current = state.reader
@@ -3198,28 +3080,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
     }
 
-    private fun toAnalysisUi(analysis: Analysis, language: UiLanguage): AnalysisUi {
-        fun pick(text: com.pagelence.core.content.LocalizedText?): String? =
-            if (language == UiLanguage.EN) text?.en?.takeIf { it.isNotBlank() }
-            else text?.zh?.takeIf { it.isNotBlank() } ?: text?.en?.takeIf { it.isNotBlank() }
-        return AnalysisUi(
-            level = analysis.level,
-            core = analysis.core,
-            parts = analysis.parts.map { part ->
-                AnalysisPartUi(
-                    text = part.text,
-                    role = part.role,
-                    description = if (language == UiLanguage.EN) {
-                        part.en?.takeIf { it.isNotBlank() }
-                    } else {
-                        part.zh
-                    },
-                )
-            },
-            order = pick(analysis.order),
-            note = pick(analysis.note),
-        )
-    }
 
     private fun levelRank(level: String?): Int? = when (level) {
         "A1" -> 0
@@ -3231,29 +3091,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         else -> null
     }
 
-    private fun grammarUi(grammar: Grammar, language: UiLanguage): GrammarUi {
-        val primaryPointId = grammar.pointIds.firstOrNull()
-        val point: GrammarPoint? = primaryPointId?.let(graph.content::grammarPoint)
-        val extra = grammar.pointIds.drop(1).mapNotNull { id ->
-            graph.content.grammarPoint(id)?.let { related ->
-                GrammarRelatedUi(id, related.name.let { textFor(it, language) }.orEmpty())
-            }
-        }
-        return GrammarUi(
-            excerpt = grammar.excerpt,
-            topic = grammar.topic,
-            pointId = primaryPointId,
-            pointName = point?.name?.let { textFor(it, language) },
-            levelLabel = point?.levelLabel,
-            explain = grammar.explain?.let { textFor(it, language) }
-                ?: point?.explain?.let { textFor(it, language) },
-            form = grammar.form?.let { textFor(it, language) }
-                ?: point?.form?.let { textFor(it, language) },
-            pitfalls = point?.pitfalls?.mapNotNull { textFor(it, language) }.orEmpty(),
-            focus = grammar.focus?.let { textFor(it, language) },
-            extraPoints = extra,
-        )
-    }
 
     private fun splitSenses(definitions: List<com.pagelence.core.lexicon.DictionarySense>): List<SenseUi> {
         val out = mutableListOf<SenseUi>()
@@ -3342,54 +3179,12 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         hintId = hint?.id,
     )
 
-    private data class QuizWordCandidate(
-        val paragraphId: String,
-        val hintId: String,
-        val term: String,
-        val lemma: String,
-        val pos: String? = null,
-        val zh: String? = null,
-        val en: String? = null,
-        val ipa: String? = null,
-        val example: HintExample? = null,
-    )
 
     /**
      * Words worth saving after a quiz: hints that occur in
      * the sentences the questions point at. No sentence numbers means no
      * candidates, and the review hides the action.
      */
-    private fun quizWordCandidates(unit: StudyUnit): List<QuizWordCandidate> {
-        val targetSentences = unit.quiz.mapNotNull { it.sentence }.toSet()
-        if (targetSentences.isEmpty()) return emptyList()
-        val found = LinkedHashMap<String, QuizWordCandidate>()
-        var number = 0
-        for (paragraph in unit.paragraphs) {
-            for (sentence in paragraph.sentences) {
-                number += 1
-                if (number !in targetSentences) continue
-                paragraph.hints.filter { it.kind != "sentence" }.forEach { hint ->
-                    if (!sentence.text.contains(hint.target, ignoreCase = true)) return@forEach
-                    val key = "${paragraph.id}::${hint.id}"
-                    found.putIfAbsent(
-                        key,
-                        QuizWordCandidate(
-                            paragraphId = paragraph.id,
-                            hintId = hint.id,
-                            term = hint.target,
-                            lemma = hint.lemma ?: hint.target.lowercase(),
-                            pos = hint.pos,
-                            zh = hint.zh,
-                            en = hint.en,
-                            ipa = hint.ipa,
-                            example = hint.example,
-                        ),
-                    )
-                }
-            }
-        }
-        return found.values.toList()
-    }
 
     private fun SelectedTerm.toStripUi(): WordStripUi = WordStripUi(
         paragraphId = paragraphId,
@@ -3408,7 +3203,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         end = end,
     )
 
-    private fun countCards(bookId: String): Int = graph.cards.list(bookId).size
 
     private fun toCardUi(card: WordCard, bookTitle: String): WordCardUi = WordCardUi(
         id = card.id,
