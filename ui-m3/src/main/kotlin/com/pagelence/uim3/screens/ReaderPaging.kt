@@ -25,10 +25,22 @@ import androidx.compose.ui.unit.dp
 import com.pagelence.core.reading.MeasuredSentence
 import com.pagelence.core.reading.SentencePage
 import com.pagelence.core.reading.SentencePaginator
+import com.pagelence.presentation.pagination.PaginationCache
+import com.pagelence.presentation.pagination.PaginationFingerprint
+import com.pagelence.presentation.pagination.PaginationKey
 import com.pagelence.uim3.model.ParagraphUi
 import com.pagelence.uim3.model.ReaderUiState
 import com.pagelence.uim3.model.SentenceUi
 import com.pagelence.uim3.theme.readingTextStyle
+
+/** Recent units kept across page turns, guides and quiz trips (E-15). */
+private const val TextPageCacheEntries = 8
+
+/**
+ * Process-wide so returning to a unit does not measure it again. Keys are
+ * cheap, so the LRU lookup is safe to do during composition.
+ */
+private val textPageCache = PaginationCache<List<SentencePage>>(TextPageCacheEntries)
 
 @Composable
 internal fun rememberTextPages(
@@ -39,27 +51,37 @@ internal fun rememberTextPages(
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
     val readingStyle = readingTextStyle(state.preference.fontSize)
-    return remember(
-        state.unitId,
-        contentWidthPx,
-        pageHeightPx,
-        state.preference.fontSize,
-        state.preference.language,
-        state.paragraphs,
-    ) {
-        // Leave room for the page indicator chip at the bottom of a text page.
-        val usableHeight = with(density) { (pageHeightPx - 42.dp.toPx()).toInt() }
-            .coerceAtLeast(200)
-        val measured = state.paragraphs.flatMap { paragraph ->
-            measureSentences(
-                paragraph = paragraph,
-                measurer = measurer,
-                readingStyle = readingStyle,
-                contentWidthPx = contentWidthPx,
-                density = density,
-            )
+    // E-15: key on small values plus a text fingerprint instead of the
+    // paragraph list; the old key deep-compared the whole unit on every state
+    // rebuild. Bookmark/highlight/note changes do not invalidate the cache
+    // because the reader draws those markers after the text (no reflow).
+    val key = PaginationKey(
+        bookId = state.bookId,
+        unitId = state.unitId,
+        contentWidthPx = contentWidthPx,
+        pageHeightPx = pageHeightPx,
+        fontSize = state.preference.fontSize,
+        language = state.language,
+        density = density.density,
+        fontScale = density.fontScale,
+        fingerprint = PaginationFingerprint.of(state.paragraphs),
+    )
+    return remember(key) {
+        textPageCache.getOrPut(key) {
+            // Leave room for the page indicator chip at the bottom of a text page.
+            val usableHeight = with(density) { (pageHeightPx - 42.dp.toPx()).toInt() }
+                .coerceAtLeast(200)
+            val measured = state.paragraphs.flatMap { paragraph ->
+                measureSentences(
+                    paragraph = paragraph,
+                    measurer = measurer,
+                    readingStyle = readingStyle,
+                    contentWidthPx = contentWidthPx,
+                    density = density,
+                )
+            }
+            SentencePaginator.paginate(measured, usableHeight)
         }
-        SentencePaginator.paginate(measured, usableHeight)
     }
 }
 

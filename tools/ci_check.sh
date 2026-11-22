@@ -58,6 +58,6 @@ if grep -rqE "^import (android|androidx)\." presentation/src/main/kotlin; then
 fi
 
 # App 与 UI 必须真的编译：只跑 :core/:data 单测时，界面层的编译错误会漏过去。
-./gradlew :core:test :data:test :sync:test --console=plain
+./gradlew :core:test :data:test :sync:test :presentation:test --console=plain
 ./gradlew :app-phone:assembleDebug --console=plain
 ./gradlew :app-phone:lintDebug --console=plain
