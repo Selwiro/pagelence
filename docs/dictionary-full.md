@@ -111,7 +111,7 @@ content/dict-manifest.json     # 随 APK，入库
 | 删除 | 二次确认后目录清空，状态回「未安装」，查词回核心表 |
 | 非 Wi-Fi 提示 | 关 Wi-Fi 后点下载弹出「当前非 Wi-Fi / 约 82.0 MB / 关闭 / 继续下载」 |
 | App 升级 | 用默认构建 `install -r` 覆盖安装后，已安装词表仍在，状态仍为「已安装」 |
-| 真实托管 | 从 GitHub Release `dict-39cfb96` 下载：302 跟随后 `Range` 续传 40 MB 分片，sha256 校验通过并安装；设置页显示「已安装」 |
+| 真实托管 | 从 GitHub Release `dict-39cfb96` 下载：302 跟随后 `Range` 续传 40 MB 分片，sha256 校验通过并安装；默认构建（入口默认打开）再完整下载一次，设备端 `sha256sum` 与 manifest 一致，设置页显示「已安装」 |
 | B 单测 | `:core` 全绿（含 manifest schema/版本/大小/sha、续传、200 重下、取消保留、删除、崩溃补指纹）；`:data` 20 全绿 |
 | CI | `tools/ci_check.sh` 通过；新增的 `build_full_dictionary.py --check` 在无产物时跳过 |
 

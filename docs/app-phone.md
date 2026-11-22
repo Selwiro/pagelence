@@ -428,7 +428,7 @@ adb shell am start -n com.pagelence/.MainActivity
 | 离线查词 | 导入 1 单元测试书：安装前 `flibbertigibbet` 提示未收录；安装后显示音标与 `n. 饶舌的人`，断网仍可查 |
 | 删除 | 删除后目录清空、状态回「未安装」、查词回核心表 |
 | 升级保留 | 默认构建 `install -r` 覆盖后，已下载词表与「已安装」状态保留 |
-| 真实托管 | 从 GitHub Release `dict-39cfb96` 下载：302 跟随后 `Range` 续传 40 MB 分片，sha256 校验通过并安装；设置页显示「已安装」 |
+| 真实托管 | 从 GitHub Release `dict-39cfb96` 下载：302 跟随后 `Range` 续传 40 MB 分片，sha256 校验通过并安装；默认构建（入口默认打开）再完整下载一次，设备端 `sha256sum` 与 manifest 一致，设置页显示「已安装」 |
 | 回归 | `:core` 234、`:data` 20 单测全绿；`:app-phone:assembleDebug`、`tools/ci_check.sh` 通过；`check_strings.py` 404 条中英成对 |
 
 ## 十一、已知限制
