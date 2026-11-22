@@ -39,17 +39,6 @@ internal data class ProgressSegment(
     val active: Boolean,
 )
 
-internal sealed interface ReaderPage {
-    /** Transient page before the guide; swiping back opens the previous unit's grammar. */
-    data object PreviousUnit : ReaderPage
-    data object Guide : ReaderPage
-    data class Text(val page: SentencePage) : ReaderPage
-    data object TextScroll : ReaderPage
-    data class Quiz(val index: Int) : ReaderPage
-    data object Grammar : ReaderPage
-    /** Transient page after the grammar; swiping on opens the next unit's guide. */
-    data object NextUnit : ReaderPage
-}
 
 internal data class PagePosition(
     val phase: ReaderPhase,

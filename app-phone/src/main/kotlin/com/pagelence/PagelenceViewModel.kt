@@ -14,6 +14,7 @@ import com.pagelence.core.content.Analysis
 import com.pagelence.core.content.ContentIndex
 import com.pagelence.core.content.BookSummary
 import com.pagelence.core.content.ContentOutline
+import com.pagelence.presentation.library.LibraryPresenter
 import com.pagelence.core.content.StoreCatalogRules
 import com.pagelence.core.content.Grammar
 import com.pagelence.core.content.GrammarPoint
@@ -386,68 +387,27 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
      * every cold start is what made "add more books" expensive. A book whose
      * outline/body is unreadable is skipped and reported, never fatal.
      */
+    private fun presenter(strings: Strings, language: UiLanguage) = LibraryPresenter(
+        content = graph.content,
+        progress = graph.progress,
+        profiles = graph.profile,
+        strings = strings,
+        language = language,
+    )
+
     private fun buildLibrary(
         strings: Strings,
         language: UiLanguage,
         skipped: MutableList<String> = mutableListOf(),
     ): LibraryUiState {
         val shelfIds = graph.preferences.preferences().shelfBookIds.toSet()
-        val entries = graph.content.library().mapNotNull { summary ->
-            val outline = runCatching {
-                graph.content.outline(summary.id)
-                    ?: graph.content.index(summary.id)?.let(ContentOutline::from)
-            }.getOrNull()
-            if (outline == null) {
-                skipped += summary.id
-                return@mapNotNull null
-            }
-            val saved = graph.progress.progress(summary.id)
-            val ui = toBookUi(summary, outline, saved, strings, language)
-            LibraryEntry(
-                bookId = ui.id,
-                readUnits = ui.readUnits,
-                hasResume = ui.readingUnitTitle != null,
-                finished = ui.finished,
-                lastReadAt = saved.lastReadAt,
-                finishedAt = saved.finishedAt,
-            ) to ui
-        }
-        val sections = LibraryRules.sections(entries.map { it.first }, shelfIds)
-        val byId = entries.associate { it.first.bookId to it.second }
-        return LibraryUiState(
-            books = sections.reading.mapNotNull { byId[it.bookId] },
-            finished = sections.finished.mapNotNull { byId[it.bookId] },
-            loading = false,
-        )
+        return presenter(strings, language).shelf(shelfIds, skipped)
     }
 
     private fun buildProfile(): ProfileUiState {
-        var totalUnits = 0
-        var totalReadUnits = 0
-        var finishedBooks = 0
-        graph.content.library().forEach { summary ->
-            val outline = runCatching {
-                graph.content.outline(summary.id)
-                    ?: graph.content.index(summary.id)?.let(ContentOutline::from)
-            }.getOrNull() ?: return@forEach
-            val progress = graph.progress.progress(summary.id)
-            val read = progress.readUnitIds.count { it in outline.unitIds }
-            totalUnits += outline.units.size
-            totalReadUnits += read
-            if (outline.units.isNotEmpty() && read == outline.units.size) finishedBooks += 1
-        }
-        val profile = graph.profile.profile()
-        return ProfileUiState(
-            level = profile.selfLevel,
-            levelSource = profile.levelSource,
-            levelScore = profile.levelScore,
-            levelUpdatedAt = profile.levelUpdatedAt,
-            totalUnits = totalUnits,
-            totalReadUnits = totalReadUnits,
-            finishedBooks = finishedBooks,
-            readingDays = profile.readingDays,
-            heatmap = toHeatmapUi(profile),
-        )
+        val prefs = graph.preferences.preferences()
+        val language = uiLanguage(prefs)
+        return presenter(stringsFor(language), language).profile()
     }
 
     // --- reading ---------------------------------------------------------
@@ -1406,17 +1366,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         assessmentResult = null
         back()
         refreshLibrary()
-    }
-
-    private fun toHeatmapUi(profile: com.pagelence.core.progress.ReadingProfile): HeatmapUi {
-        val map = HeatmapRules.build(profile.dailyActivity, LocalDate.now())
-        return HeatmapUi(
-            weeks = map.weeks.map { week ->
-                week.map { cell -> cell?.let { HeatmapCellUi(it.date.toString(), it.level) } }
-            },
-            activeDays = map.activeDays,
-            totalUnits = map.totalUnits,
-        )
     }
 
     private fun toAssessmentResultUi(strings: Strings, result: AssessmentResult): AssessmentResultUi {
@@ -2904,41 +2853,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     }
 
     // --- mapping ---------------------------------------------------------
-
-    private fun toBookUi(
-        summary: BookSummary,
-        outline: ContentOutline,
-        progress: BookProgress,
-        strings: Strings,
-        language: UiLanguage,
-    ): BookUi {
-        val title = outline.title ?: summary.title ?: LocalizedText(zh = summary.id, en = summary.id)
-        val author = outline.author
-        val read = progress.readUnitIds.count { it in outline.unitIds }
-        // Prefer the paragraph anchor; a finished unit has no anchor, so fall
-        // back to the resume point's unit id.
-        val readingUnit = progress.paragraphId?.let(outline::unitOfParagraph)
-            ?: progress.reader?.unitId?.let(outline::unit)
-        val subtitle = buildList {
-            author?.let(::add)
-            outline.edition?.let(::add)
-            add(strings.unitCount.format(outline.units.size))
-        }.joinToString(" · ")
-        return BookUi(
-            id = summary.id,
-            title = titleFor(title, language),
-            monogram = (title.zh ?: title.en ?: summary.id).take(1),
-            author = author,
-            coverTitle = title.en ?: title.zh ?: summary.id,
-            subtitle = subtitle,
-            unitCount = outline.units.size,
-            readUnits = read,
-            readingUnitTitle = readingUnit?.title?.let { titleFor(it, language) },
-            finished = outline.units.isNotEmpty() && read == outline.units.size,
-            finishedOn = formatDate(progress.finishedAt),
-            coverPath = graph.content.coverPath(summary.id),
-        )
-    }
 
     private fun buildReader(
         bookIndex: ContentIndex,

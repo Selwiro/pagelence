@@ -289,7 +289,8 @@ app-phone (Android application, applicationId com.pagelence)
     ├── ui-m3 (Android library, Compose Material 3)
     │     页面、组件、主题、UI 模型、双语文案；只接数据与回调
     ├── presentation (纯 JVM)
-    │    UI 模型、UiLanguage 与 ReaderSession（续读点/读完判定）
+    │    UI 模型、双语 Strings、ReaderSession（续读点/读完判定）、
+    │    ReaderFlow（页序）、LibraryPresenter（书架/我的统计）
     ├── data (纯 JVM)
     │     state.json 读写；进度、卡片、偏好、等级与日活仓库
     └── core (纯 JVM)

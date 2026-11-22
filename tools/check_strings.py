@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 ANDROID = Path(__file__).resolve().parents[1]
-UI = ANDROID / "ui-m3" / "src" / "main" / "kotlin" / "com" / "pagelence" / "uim3"
+UI = ANDROID / "presentation" / "src" / "main" / "kotlin" / "com" / "pagelence" / "uim3"
 INTERFACE = UI / "Strings.kt"
 ZH = UI / "StringsZh.kt"
 EN = UI / "StringsEn.kt"

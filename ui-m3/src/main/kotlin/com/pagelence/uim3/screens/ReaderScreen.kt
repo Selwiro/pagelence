@@ -57,6 +57,8 @@ import com.pagelence.core.progress.ReaderPhase
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.GrammarCard
 import com.pagelence.uim3.model.ReaderUiState
+import com.pagelence.presentation.reader.ReaderFlow
+import com.pagelence.presentation.reader.ReaderPage
 import com.pagelence.uim3.model.SentenceUi
 import kotlinx.coroutines.launch
 
@@ -194,7 +196,7 @@ fun ReaderScreen(
                     hasGuide,
                     paged,
                 ) {
-                    buildPages(state, textPages, hasGuide, paged)
+                    ReaderFlow.pages(state, textPages, hasGuide, paged)
                 }
 
                 if (pages.isEmpty()) {

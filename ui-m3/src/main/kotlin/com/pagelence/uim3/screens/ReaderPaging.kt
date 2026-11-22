@@ -30,26 +30,6 @@ import com.pagelence.uim3.model.ReaderUiState
 import com.pagelence.uim3.model.SentenceUi
 import com.pagelence.uim3.theme.readingTextStyle
 
-internal fun buildPages(
-    state: ReaderUiState,
-    textPages: List<SentencePage>,
-    hasGuide: Boolean,
-    paged: Boolean,
-): List<ReaderPage> = buildList {
-    // Paged layout gets one bridge page at each open edge: before the guide
-    // when a previous unit exists, after the grammar when a next unit exists.
-    if (paged && state.hasPreviousUnit) add(ReaderPage.PreviousUnit)
-    if (hasGuide) add(ReaderPage.Guide)
-    if (paged) {
-        textPages.forEach { add(ReaderPage.Text(it)) }
-    } else {
-        add(ReaderPage.TextScroll)
-    }
-    state.quiz.indices.forEach { add(ReaderPage.Quiz(it)) }
-    if (state.grammar != null) add(ReaderPage.Grammar)
-    if (paged && state.hasNextUnit) add(ReaderPage.NextUnit)
-}
-
 @Composable
 internal fun rememberTextPages(
     state: ReaderUiState,

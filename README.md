@@ -405,7 +405,8 @@ app-phone (Android application, applicationId com.pagelence)
   ├── ui-m3 (Android library, Compose Material 3)
   │   页面、组件、主题、UI 模型、双语文案；只接数据与回调
   ├── presentation (纯 JVM)
-  │   UI 模型与 UiLanguage、阅读会话（ReaderSession：续读点/读完判定）
+  │   UI 模型、双语 Strings、阅读会话（ReaderSession）、页序（ReaderFlow）、
+  │   书架与「我的」的呈现规则（LibraryPresenter）
   ├── data (纯 JVM)
   │   state.json 读写；实现 :core 的进度、生词卡、偏好、等级与日活仓库
   │   同时实现 :sync 的 LocalState（快照 + 修订号 + 条件写回）
@@ -416,7 +417,7 @@ app-phone (Android application, applicationId com.pagelence)
 ```
 
 - `ui-m3` 不依赖 `data`，不写规则，只收 `…UiState` 与回调。
-- `:presentation` 不依赖 Android：UI 模型与 `ReaderSession` 供普通版和将来的墨水屏壳共用；阅读页渲染与文案仍在各壳。
+- `:presentation` 不依赖 Android：模型、文案、阅读会话、页序与书架统计都在这里，普通版与将来的墨水屏壳共用；页面渲染与平台能力仍在各壳。
 - `PagelenceViewModel` 把 `:core` 结果映射成 UI 模型，把界面事件翻译成 `:core` 调用。
 - 随包内容经 `ContentSource` 读取：APK 用 `AssetContentSource`（`AssetManager` 适配），下载书用 `FileContentSource`；启动不再把内容复制到 `filesDir`，升级也不重抄。
 - 每本书的 `outline.json` 提供书架所需的标题、单元与段落归属；书架/我的/书城不解析 `book.json` 正文，正文在打开书时才载入。
