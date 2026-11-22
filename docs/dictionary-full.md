@@ -1,7 +1,8 @@
 # 完整词表（可选下载）
 
-状态：2026-11-22 实现（T123）。**托管尚未上线**：release 默认关闭下载入口，
-只显示版本、体积与「下载地址尚未上线」；词表与 manifest 已可生成、校验与安装。
+状态：2026-11-22 实现（T123）并上线。词表托管在 GitHub Releases
+（tag [`dict-39cfb96`](https://github.com/Selwiro/pagelence/releases/tag/dict-39cfb96)），
+`gradle.properties` 默认打开设置页下载入口；已安装用户离线可查，升级不清包。
 格式依据见 [App 内容规范](../../../management/app-content-spec.md) §3.3.7。
 
 ## 一、形态
@@ -110,22 +111,28 @@ content/dict-manifest.json     # 随 APK，入库
 | 删除 | 二次确认后目录清空，状态回「未安装」，查词回核心表 |
 | 非 Wi-Fi 提示 | 关 Wi-Fi 后点下载弹出「当前非 Wi-Fi / 约 82.0 MB / 关闭 / 继续下载」 |
 | App 升级 | 用默认构建 `install -r` 覆盖安装后，已安装词表仍在，状态仍为「已安装」 |
+| 真实托管 | 从 GitHub Release `dict-39cfb96` 下载：302 跟随后 `Range` 续传 40 MB 分片，sha256 校验通过并安装；设置页显示「已安装」 |
 | B 单测 | `:core` 全绿（含 manifest schema/版本/大小/sha、续传、200 重下、取消保留、删除、崩溃补指纹）；`:data` 20 全绿 |
 | CI | `tools/ci_check.sh` 通过；新增的 `build_full_dictionary.py --check` 在无产物时跳过 |
 
 ## 六、托管（GitHub Releases）
 
-选定方案：词表与 manifest 作为 GitHub Release 资产，**每个 `dictVersion` 一个 tag**，
+已上线：词表与 manifest 作为 GitHub Release 资产，**每个 `dictVersion` 一个 tag**，
 `FullDictSource.URL` 指固定地址：
 
 ```
 https://github.com/Selwiro/pagelence/releases/download/dict-39cfb96/full-dict.sqlite
 ```
 
-已验证（2026-11-22）：该地址 302 到 `release-assets.githubusercontent.com` 的签名 URL，
-签名 URL 支持 `Range`（实测 206、取 100 字节）；签名约 1 小时过期，续传时重新打开稳定
-地址即可拿到新签名。`AndroidDictTransport` 因此**手动跟随跳转**、在每一跳重发 `Range`，
-不依赖 `HttpURLConnection` 的自动重定向行为。
+已验证（2026-11-22，真实 Release）：该地址 302 到 `release-assets.githubusercontent.com`
+的签名 URL，签名 URL 支持 `Range`（206）；签名约 1 小时过期，续传时重新打开稳定地址即可
+拿到新签名。`AndroidDictTransport` 因此**手动跟随跳转**、在每一跳重发 `Range`，不依赖
+`HttpURLConnection` 的自动重定向行为；模拟器上用「40 MB 本地分片 + 真实 GitHub 地址续传」
+跑通到 sha256 校验通过。
+
+**为什么标记 pre-release**：App 的 `v0.1.0` 本身是 Pre-release，词表若是普通 Release 会
+被 GitHub 当成「Latest Release」，把「检查更新」的落点从 App 变成词表。因此词表 Release
+保留 Pre-release 标记，资产地址不受影响。
 
 上传（产物在 `dist/dict/`，不入库）：
 
@@ -139,8 +146,9 @@ gh release create dict-39cfb96 \
   --notes "ECDICT 完整词表，字段与核心表同构；MIT，许可全文与 manifest 一并附上。"
 ```
 
-上传后把入口默认打开：在 `gradle.properties` 写 `pagelence.fullDictEnabled=true`
-（或构建时 `-Ppagelence.fullDictEnabled=true`），再发版；`-P...=false` 可临时关闭。
+入口默认值在 `gradle.properties`：`pagelence.fullDictEnabled=true`（临时关闭用
+`-Ppagelence.fullDictEnabled=false`）。新增版本时用 `gh release upload dict-<版本> …`
+补资产，或对尚未发布的 tag 直接用 `gh release create`。
 
 - 不要用 `releases/latest/download/...`：latest 随 App 发版移动，manifest 固定的版本
   可能对不上；用 tag 固定。
@@ -151,7 +159,7 @@ gh release create dict-39cfb96 \
 
 ## 七、遗留
 
-- **尚未上传**：文件还没传到 Release，`pagelence.fullDictEnabled` 默认 false，
-  release 只显示「下载地址尚未上线」。
-- 词表更新需要重新生成 manifest 并随 App 发版（§3.3.7 的既定取舍）。
-- 未在真机验证后台被杀后的续传（模拟器只验证主动暂停与失败路径）。
+- 词表更新需要重新生成 manifest 并随 App 发版（§3.3.7 的既定取舍）；新版本用新 tag，
+  并同步改 `FullDictSource.URL`。
+- 未在真机验证后台被杀后的续传（模拟器验证了主动暂停、40 MB 分片续传与 GitHub 跳转）。
+- GitHub Release 资产没有项目自己的镜像；GitHub 不可达时下载失败可重试，核心表不受影响。

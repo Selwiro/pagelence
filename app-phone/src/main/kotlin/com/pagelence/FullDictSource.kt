@@ -3,10 +3,9 @@ package com.pagelence
 /**
  * Where the published full ECDICT table lives.
  *
- * As with the default book source, hosting is not live yet, so [enabled] is
- * false by release default and the settings row explains that instead of
- * offering a download that would 404. A local verification build can point the
- * URL elsewhere and turn the entry on:
+ * Hosting is live on GitHub Releases (tag `dict-39cfb96`); `gradle.properties`
+ * turns the settings entry on by default. A build can still close the entry or
+ * point the URL elsewhere:
  *
  * `./gradlew :app-phone:assembleDebug -Ppagelence.fullDictEnabled=true \\
  *   -Ppagelence.fullDictUrl=http://10.0.2.2:9000/full-dict.sqlite`
