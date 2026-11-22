@@ -276,14 +276,15 @@ Android **随包分发两本书**：《怪医杜立德》（Project Gutenberg #5
   `ACCESS_NETWORK_STATE` 权限，只读传输类型。
 - 词表放在 `filesDir/dictionaries/`，不在随包 `content/` 下，App 升级（`install -r`）
   后仍在。
-- 托管未上线：`FullDictSource.enabled` 默认 false，release 只显示「下载地址尚未上线」；
-  本地验收可用 `-Ppagelence.fullDictEnabled=true -Ppagelence.fullDictUrl=…` 打开。
+- 托管：GitHub Releases 的 tag `dict-39cfb96`（资产 `full-dict.sqlite` / `dict-manifest.json` /
+  `LICENSE-ECDICT.txt`），`gradle.properties` 默认打开下载入口；`-Ppagelence.fullDictEnabled=false`
+  可临时关闭，`-Ppagelence.fullDictUrl=…` 可指向本地验收服务。
 
 ## 七、模块边界
 
 ```
 app-phone (Android application, applicationId com.pagelence)
-  MainActivity、AppGraph（手工装配）、PagelenceViewModel（状态/导航/TTS 编排）、ContentSeed
+  MainActivity、AppGraph（手工装配）、PagelenceViewModel（状态/导航/TTS 编排）、AssetManagerReader
     ├── ui-m3 (Android library, Compose Material 3)
     │     页面、组件、主题、UI 模型、双语文案；只接数据与回调
     ├── data (纯 JVM)
@@ -296,11 +297,12 @@ app-phone (Android application, applicationId com.pagelence)
 - `ui-m3` 不依赖 `data`，不写存储规则；分页高度测量在 UI，分组规则在 `:core`。
 - `PagelenceViewModel` 把 `:core` 结果映射成 UI 模型；导航栈、四栏、TTS 结果映射也在壳层。
 - `SpeechController` 在 `app-phone`，用系统 TTS；`ui-m3` 只接 `onSpeakWord/onSpeakSentence`。
-- `ContentSeed` 把 APK 内 `content/` 复制到 `filesDir/content`，`books-index.json` 变化时重播。
+- 随包内容经 `ContentSource` 读取：APK 用 `AssetContentSource`（`AssetManager` 适配），下载书用 `FileContentSource`；不再复制到 `filesDir`。
+- 书架、我的、书城只读 `books-index.json` 与每本书的 `outline.json`；`book.json` 在打开书时才解析。
 
 ## 八、存储
 
-单一 `state.json`（`filesDir/state.json`），格式即 `docs/progress-format.md` 的 `ReadingState`
+用户数据只有一份 `state.json`（`filesDir/state.json`），格式即 `docs/progress-format.md` 的 `ReadingState`
 v2：进度、已读单元、生词卡（含墓碑）、偏好（主题/字号/`speechRate`/`seenGuideUnits`/
 `levelOnboardingDone`）、等级、日活、`deviceId`、`updatedAt`。写入用临时文件 + 原子改名；
 成功读取后保留一份 `state.json.bak`，主文件损坏时从备份恢复并把坏文件存为
@@ -310,6 +312,9 @@ v2：进度、已读单元、生词卡（含墓碑）、偏好（主题/字号/`
 阅读页的续读点在翻页、切换环节、滚动停止和答题时写入：连续变化按 300ms 防抖合并，
 写入串行化，旧快照不会覆盖新位置；`ON_STOP` 与 `onCleared` 强制 flush。进程被杀后从
 同一页、同一环节和同一组测验选项恢复，段落锚点与续读点在同一次写入里更新。
+
+内容包不落在用户目录：随包内容直接从 APK `assets/` 读取，只有下载/导入的书进入
+`filesDir/downloaded/`，完整词表在 `filesDir/dictionaries/`，都可用设置或书城删除。
 
 **与设计稿的差异**：android-design.md 第九节计划 Room。M2 先实现为 `ReadingStateStore`
 （纯 JVM、可单测），因为同步/导出本来就是这份 JSON；仓库接口已在 `:core` 固定。
@@ -326,7 +331,7 @@ adb install -r app-phone/build/outputs/apk/debug/app-phone-debug.apk
 adb shell am start -n com.pagelence/.MainActivity
 ```
 
-- `minSdk 26`、`compileSdk 37`、`buildToolsVersion 36.0.0`。
+- `minSdk 26`、`compileSdk 37`、`targetSdk 37`；`buildToolsVersion` 跟随 AGP 默认。
 - 模拟器：本机 AVD（`milenote2`，API 34，arm64）；受限环境启动需
   `-grpc <port> -grpc-use-token`。宽度矩阵通过 `adb shell wm density` 切换后复验。
 
@@ -401,6 +406,7 @@ adb shell am start -n com.pagelence/.MainActivity
 | 离线查词 | 导入 1 单元测试书：安装前 `flibbertigibbet` 提示未收录；安装后显示音标与 `n. 饶舌的人`，断网仍可查 |
 | 删除 | 删除后目录清空、状态回「未安装」、查词回核心表 |
 | 升级保留 | 默认构建 `install -r` 覆盖后，已下载词表与「已安装」状态保留 |
+| 真实托管 | 从 GitHub Release `dict-39cfb96` 下载：302 跟随后 `Range` 续传 40 MB 分片，sha256 校验通过并安装；设置页显示「已安装」 |
 | 回归 | `:core` 234、`:data` 20 单测全绿；`:app-phone:assembleDebug`、`tools/ci_check.sh` 通过；`check_strings.py` 404 条中英成对 |
 
 ## 十一、已知限制
@@ -412,4 +418,4 @@ adb shell am start -n com.pagelence/.MainActivity
 - 两本内置书都已完整：《怪医杜立德》103 个单元、《爱丽丝》104 个单元都有标题、导读、逐句句译、测验与语法解析。
 - 《爱丽丝》的对话被冻结切分规则按感叹号切开，句译按片段逐条给出，读起来会比整句碎；这是切分规则的限制，不是内容缺口。
 - 点词按单词粒度；顶栏始终显示书籍信息，完整释义在底部词义面板。
-- 完整词表的正式托管地址尚未上线，release 只显示「下载地址尚未上线」；词表更新需随 App 发版（见 `docs/dictionary-full.md`）。
+- 完整词表托管在 GitHub Releases（tag `dict-39cfb96`，标记 Pre-release 以免顶掉 App 的 Latest）；词表更新需重新生成 manifest 并随 App 发版（见 `docs/dictionary-full.md`）。

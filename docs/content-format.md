@@ -24,6 +24,7 @@ content/
   store.json                        书城内置书架（schemaVersion 2）：order/status/策展字段
   taxonomy.json                     分类词表（schemaVersion 1）：四个分类 id 与旧名别名
   books/<dir>/book.json             一本书一个文件（schemaVersion 3），导入导出也是这一个文件
+  books/<dir>/outline.json          书架用的轻量索引：标题/作者/单元/段落归属，由 book.json 生成
   grammar/grammar-library.json      语法库 schema 2，随应用；256 条，与教員版 1:1
   third-party/                      词级五层表、通用核心词典、词频表与许可文本
 content-src/<book>/meta.json        编辑源：包元数据、章题、切分参数
@@ -33,7 +34,8 @@ reports/<bookId>.gap.json           编辑产物：内容缺口、提示重复�
 ```
 
 `reports/` 放在仓库根、不在 `content/` 下，因此不会被打进 APK；它只给编辑和
-`--check` 用。
+`--check` 用。`outline.json` 随包分发，但只含书架需要的字段，App 启动时不解析
+`book.json` 正文；`validate_content.py` 校验两者一致。
 
 `content/` 由脚本生成，不手工编辑：
 

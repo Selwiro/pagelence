@@ -45,7 +45,7 @@
 | 屏幕分页、导读独立页、四栏导航、复习栏（单词/语法） | 已完成并验收；朗读入口按 2026-11-19 反馈暂时下线 |
 | 单元目录（任意跳转/回看）、双语带读、点词即查、纯白底色、去段间线 | 已完成并验收（2026-11-19 反馈） |
 | 通用核心词典（ECDICT 38,292 条：3 万词内常用词 + 考试/Oxford/CEFR 词 + 两本书词形，中英双释义，屈折形按原形取义） | 已完成，生成脚本 `tools/build_dictionaries.py` |
-| 完整词表可选下载（SQLite 770,575 条 / 82 MiB，dict-manifest、暂停续传、sha256 校验、删除回核心表） | 已完成；托管上线前 release 默认隐藏下载，见 [`docs/dictionary-full.md`](docs/dictionary-full.md) |
+| 完整词表可选下载（SQLite 770,575 条 / 82 MiB，dict-manifest、暂停续传、sha256 校验、删除回核心表） | 已完成；托管在 GitHub Releases（`dict-39cfb96`），见 [`docs/dictionary-full.md`](docs/dictionary-full.md) |
 | 词级五层（list / aligned / derived / tag / freq）与词频表随包；面板显示 A1–C2 等级与本书次数，不再显示词频档；中文词性标签单行 | 已完成，脚本 `tools/build_word_levels.py`、`tools/build_word_frequencies.py` |
 | 语法库 schema 2 与按级别浏览/详情 | 已完成，共 256 条（与教师版 1:1） |
 | 我的页整合、快速/高级测评、题库（210 题，含 15 篇短文） | 已完成并验收 |
@@ -212,8 +212,8 @@ GitHub Releases，两者都走系统浏览器，不在应用内发网络请求�
 | 《怪医杜立德》 | 21 章、103 单元、729 段、25,498 词 | 全书 103 个单元：1,724 句句译、563 条提示、206 道测验、103 则语法 | 无缺口（`contentStatus: complete`）；长难句解析为可选字段，候选 286 句只进报告 |
 | 《爱丽丝漫游仙境记》 | 12 章、104 单元、779 段、26,568 词 | 全书 104 个单元：1,359 句句译、479 条提示、208 道测验、104 则语法 | 无缺口（`contentStatus: complete`）；长难句解析为可选字段，候选 368 句只进报告 |
 
-逐单元明细见 [`doctor-dolittle-1920.gap.json`](content/reports/doctor-dolittle-1920.gap.json) 与
-[`alice-1866.gap.json`](content/reports/alice-1866.gap.json)；底本与使用范围见
+逐单元明细见 [`doctor-dolittle-1920.gap.json`](reports/doctor-dolittle-1920.gap.json) 与
+[`alice-1866.gap.json`](reports/alice-1866.gap.json)；底本与使用范围见
 [`docs/books/doctor-dolittle.md`](docs/books/doctor-dolittle.md) 与
 [`docs/books/alice-1866.md`](docs/books/alice-1866.md)。
 
@@ -280,7 +280,7 @@ adb shell am start -n com.pagelence/.MainActivity
 | --- | --- |
 | 数据存储 | 应用私有目录下的单文件 `state.json`（schema v2） |
 | 写入方式 | 临时文件 + 原子改名，降低写入中断造成损坏的风险 |
-| 书籍内容 | 随 APK 分发的 `assets/`，首次启动复制到 `filesDir/content`；`books-index.json` 变化时重播 |
+| 书籍内容 | 随 APK 分发的 `assets/`，启动时直接从 APK 读取，不复制到 `filesDir`；书架只读每本书的 `outline.json` |
 | 词典、词级与词频 | 随包分发的离线数据，运行时只读；本书次数开书时内存扫描，不落盘 |
 | 账号与统计 | 无账号、无订阅、无广告、无埋点 |
 | 第三方 SDK | 不引入统计、广告、推送或崩溃上报 SDK；运行时依赖只有 AndroidX、Compose、Kotlin 与 OkHttp（仅同步），测试用 JUnit 5 |
@@ -304,6 +304,9 @@ adb shell am start -n com.pagelence/.MainActivity
 - **墨水屏版：** 尚未开工（M5）。
 - **语法库规模：** 共享库现有 256 个 CEFR-J 语法点（A1.1–B2.2），复习·语法页按级别列出并可查看详情；《怪医杜立德》103 个单元用到 55 个，复现按复习处理。
 - **APK 签名：** 发布签名已就绪（[说明](docs/release-signing.md)），但 debug 与 release 签名不同，两者不能互相覆盖安装，切换时要先卸载。密钥库仅存本机，尚未备份与纳入 CI。
+- **版本号：** `versionCode` / `versionName` 只有 `version.properties` 一处来源，发版前用 `python3 tools/bump_version.py patch|minor|major` 递增；`build.gradle.kts` 不再写死版本。
+- **系统备份：** 云备份与换机迁移只带 `state.json`、同步基线与书城设置（`res/xml/backup_rules.xml`、`data_extraction_rules.xml`）；内容包、完整词表、下载书与缓存不进备份。
+- **构建门禁：** `tools/ci_check.sh` 现在会编译 App、跑 `:sync:test` 与 `lintDebug`；缺 wordfreq / ECDICT 时默认失败，CI 用 `PAGELENCE_ALLOW_MISSING=1` 跳过并打印跳过项。
 
 ## 开发计划
 
@@ -398,7 +401,7 @@ adb shell am start -n com.pagelence/.MainActivity
 
 ```text
 app-phone (Android application, applicationId com.pagelence)
- MainActivity、AppGraph、PagelenceViewModel、ContentSeed
+ MainActivity、AppGraph、PagelenceViewModel、AssetManagerReader（内容源适配）
   ├── ui-m3 (Android library, Compose Material 3)
   │   页面、组件、主题、UI 模型、双语文案；只接数据与回调
   ├── data (纯 JVM)
@@ -412,7 +415,8 @@ app-phone (Android application, applicationId com.pagelence)
 
 - `ui-m3` 不依赖 `data`，不写规则，只收 `…UiState` 与回调。
 - `PagelenceViewModel` 把 `:core` 结果映射成 UI 模型，把界面事件翻译成 `:core` 调用。
-- `ContentSeed` 把 APK 内 `assets/`（即 `content/`）复制到 `filesDir/content`；`:core` 只认目录，不依赖 `AssetManager`。
+- 随包内容经 `ContentSource` 读取：APK 用 `AssetContentSource`（`AssetManager` 适配），下载书用 `FileContentSource`；启动不再把内容复制到 `filesDir`，升级也不重抄。
+- 每本书的 `outline.json` 提供书架所需的标题、单元与段落归属；书架/我的/书城不解析 `book.json` 正文，正文在打开书时才载入。
 - `:core` 不依赖 Android UI，可直接跑 JVM 单测。
 
 ### 构建环境
