@@ -49,6 +49,13 @@ fi
 
 python3 tools/validate/validate_content.py
 
+# :presentation 必须保持 Android-free，M5 才能直接复用。
+if grep -rqE "^import (android|androidx)\." presentation/src/main/kotlin; then
+  echo "error: :presentation 引入了 Android 依赖" >&2
+  grep -rnE "^import (android|androidx)\." presentation/src/main/kotlin >&2
+  exit 1
+fi
+
 # App 与 UI 必须真的编译：只跑 :core/:data 单测时，界面层的编译错误会漏过去。
 ./gradlew :core:test :data:test :sync:test --console=plain
 ./gradlew :app-phone:assembleDebug --console=plain
