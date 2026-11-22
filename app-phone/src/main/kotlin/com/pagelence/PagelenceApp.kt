@@ -229,6 +229,7 @@ private fun AppContent(
             onAnnotateHints = viewModel::setAnnotateHints,
             onDefinitionMode = viewModel::setDefinitionMode,
             onGuideMode = viewModel::setGuideMode,
+            onDailyGoal = viewModel::setDailyGoal,
         )
 
         Screen.SYNC -> SyncScreen(

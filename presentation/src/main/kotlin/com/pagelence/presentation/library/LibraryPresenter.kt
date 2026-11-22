@@ -11,6 +11,7 @@ import com.pagelence.core.progress.LibraryRules
 import com.pagelence.core.progress.ProgressRepository
 import com.pagelence.core.progress.ReadingProfile
 import com.pagelence.core.progress.ReadingProfileRepository
+import com.pagelence.core.progress.ReadingStreakRules
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.model.BookUi
@@ -88,6 +89,11 @@ class LibraryPresenter(
             if (outline.units.isNotEmpty() && read == outline.units.size) finishedBooks += 1
         }
         val profile = profiles.profile()
+        val streak = ReadingStreakRules.summarize(
+            activity = profile.dailyActivity,
+            goalMinutes = profile.dailyGoalMinutes,
+            today = today(),
+        )
         return ProfileUiState(
             level = profile.selfLevel,
             levelSource = profile.levelSource,
@@ -98,6 +104,14 @@ class LibraryPresenter(
             finishedBooks = finishedBooks,
             readingDays = profile.readingDays,
             heatmap = heatmap(profile),
+            dailyGoalMinutes = streak.goalMinutes,
+            todaySeconds = streak.todaySeconds,
+            todayUnits = streak.todayUnits,
+            metToday = streak.metToday,
+            secondsToGoal = streak.secondsToGoal,
+            currentStreak = streak.currentDays,
+            longestStreak = streak.longestDays,
+            metDays = streak.metDays,
         )
     }
 

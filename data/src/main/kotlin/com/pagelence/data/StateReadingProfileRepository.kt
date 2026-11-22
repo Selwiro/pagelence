@@ -1,5 +1,6 @@
 package com.pagelence.data
 
+import com.pagelence.core.prefs.DailyGoal
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.DailyActivityRules
 import com.pagelence.core.progress.LevelSource
@@ -39,6 +40,31 @@ class StateReadingProfileRepository(private val store: ReadingStateStore) : Read
     override fun recordCompletedUnit(date: String): ReadingProfile {
         val next = store.update { state ->
             state.copy(dailyActivity = DailyActivityRules.recordCompletedUnit(state.dailyActivity, date))
+        }
+        return ReadingProfile.of(next)
+    }
+
+    override fun recordReadingSeconds(date: String, seconds: Int): ReadingProfile {
+        if (seconds <= 0) return profile()
+        val next = store.update { state ->
+            state.copy(
+                dailyActivity = DailyActivityRules.recordReadingSeconds(
+                    state.dailyActivity,
+                    date,
+                    seconds,
+                ),
+            )
+        }
+        return ReadingProfile.of(next)
+    }
+
+    override fun setDailyGoal(minutes: Int): ReadingProfile {
+        val next = store.update { state ->
+            state.copy(
+                preferences = state.preferences.copy(
+                    dailyGoalMinutes = DailyGoal.sanitize(minutes),
+                ),
+            )
         }
         return ReadingProfile.of(next)
     }

@@ -7,15 +7,16 @@ import java.time.format.DateTimeParseException
  * Rules for the v2 daily activity log.
  *
  * A day is present once the reader opened a book (reading day) and carries the
- * number of units finished that day. Only the last [RETAIN_DAYS] local dates are
- * kept; malformed keys are dropped instead of failing a load.
+ * number of units finished that day, plus the seconds spent in the reader
+ * ([DailyActivity.readingSeconds], T162). Only the last [RETAIN_DAYS] local dates
+ * are kept; malformed keys are dropped instead of failing a load.
  *
- * Sync merge (T069): take the per-day maximum of `completedUnits` and union the
- * keys. Both devices add to the same local day, so summing would double count;
- * buckets by device would show the same day twice in the heat map. The max rule
- * is intentionally lossy when one device reads more on the same day after the
- * other synced, which is acceptable for a "did I read today" display and keeps
- * the merge conflict-free.
+ * Sync merge (T069): take the per-day maximum of `completedUnits` and
+ * `readingSeconds`, and union the keys. Both devices add to the same local day,
+ * so summing would double count; buckets by device would show the same day twice
+ * in the heat map. The max rule is intentionally lossy when one device reads
+ * more on the same day after the other synced, which is acceptable for a "did I
+ * read today" display and keeps the merge conflict-free.
  */
 object DailyActivityRules {
     const val RETAIN_DAYS = 365
@@ -39,17 +40,48 @@ object DailyActivityRules {
         )
     }
 
+    /**
+     * Add [seconds] of reader time to [date] (T162).
+     *
+     * A non-positive delta is ignored, and the day is capped at
+     * [ReadingStreakRules.MAX_SECONDS_PER_DAY] so a device whose monotonic clock
+     * jumps cannot write an absurd total.
+     */
+    fun recordReadingSeconds(
+        activity: Map<String, DailyActivity>,
+        date: String,
+        seconds: Int,
+    ): Map<String, DailyActivity> {
+        if (seconds <= 0) return activity
+        val current = activity[date] ?: DailyActivity()
+        val total = (current.readingSeconds.coerceAtLeast(0) + seconds)
+            .coerceAtMost(ReadingStreakRules.MAX_SECONDS_PER_DAY)
+        return prune(activity + (date to current.copy(readingSeconds = total)), date)
+    }
+
     fun readingDays(activity: Map<String, DailyActivity>): Int =
         activity.keys.count { parse(it) != null }
 
     fun totalCompletedUnits(activity: Map<String, DailyActivity>): Int =
         activity.values.sumOf { it.completedUnits }
 
+    /** Total in-reader seconds over the retained window. */
+    fun totalReadingSeconds(activity: Map<String, DailyActivity>): Int =
+        activity.values.sumOf { it.readingSeconds.coerceAtLeast(0) }
+
     /** Drop malformed keys and sort the remaining dates; used when reading state. */
     fun sanitize(activity: Map<String, DailyActivity>): Map<String, DailyActivity> =
         activity.entries
             .mapNotNull { (key, value) ->
-                if (parse(key) == null) null else key to value.copy(completedUnits = value.completedUnits.coerceAtLeast(0))
+                if (parse(key) == null) {
+                    null
+                } else {
+                    key to value.copy(
+                        completedUnits = value.completedUnits.coerceAtLeast(0),
+                        readingSeconds = value.readingSeconds
+                            .coerceIn(0, ReadingStreakRules.MAX_SECONDS_PER_DAY),
+                    )
+                }
             }
             .sortedBy { it.first }
             .toMap()
@@ -79,9 +111,12 @@ object DailyActivityRules {
     ): Map<String, DailyActivity> {
         val keys = local.keys + remote.keys
         val merged = keys.associateWith { key ->
-            val a = local[key]?.completedUnits ?: 0
-            val b = remote[key]?.completedUnits ?: 0
-            DailyActivity(completedUnits = maxOf(a, b))
+            val a = local[key] ?: DailyActivity()
+            val b = remote[key] ?: DailyActivity()
+            DailyActivity(
+                completedUnits = maxOf(a.completedUnits, b.completedUnits),
+                readingSeconds = maxOf(a.readingSeconds, b.readingSeconds),
+            )
         }
         return prune(merged, today)
     }

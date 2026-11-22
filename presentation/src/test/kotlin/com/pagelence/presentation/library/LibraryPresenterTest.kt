@@ -8,6 +8,7 @@ import com.pagelence.core.content.FileContentRepository
 import com.pagelence.core.content.GrammarPoint
 import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.CefrLevel
+import com.pagelence.core.progress.DailyActivity
 import com.pagelence.core.progress.InMemoryProgressRepository
 import com.pagelence.core.progress.LevelSource
 import com.pagelence.core.progress.ReadingProfile
@@ -15,6 +16,7 @@ import com.pagelence.core.progress.ReadingProfileRepository
 import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.stringsFor
 import java.nio.file.Path
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -43,15 +45,39 @@ class LibraryPresenterTest {
         override fun recordCompletedUnit(date: String) = profile()
     }
 
+    private fun profileRepo(
+        activity: Map<String, DailyActivity>,
+        goalMinutes: Int = 10,
+    ): ReadingProfileRepository = object : ReadingProfileRepository {
+        override fun profile() = ReadingProfile(
+            dailyActivity = activity,
+            dailyGoalMinutes = goalMinutes,
+        )
+
+        override fun setLevel(
+            level: CefrLevel?,
+            source: LevelSource,
+            score: Int?,
+            updatedAt: String,
+        ) = profile()
+
+        override fun recordReadingDay(date: String) = profile()
+
+        override fun recordCompletedUnit(date: String) = profile()
+    }
+
     private fun presenter(
         progress: InMemoryProgressRepository = InMemoryProgressRepository(),
         repository: ContentRepository = content,
+        profiles: ReadingProfileRepository = emptyProfile,
+        today: LocalDate = LocalDate.of(2026, 11, 22),
     ) = LibraryPresenter(
         content = repository,
         progress = progress,
-        profiles = emptyProfile,
+        profiles = profiles,
         strings = stringsFor(UiLanguage.ZH),
         language = UiLanguage.ZH,
+        today = { today },
     )
 
     @Test
@@ -116,5 +142,36 @@ class LibraryPresenterTest {
         assertEquals(207, profile.totalUnits)
         assertEquals(2, profile.totalReadUnits)
         assertEquals(0, profile.finishedBooks)
+    }
+
+    @Test
+    fun `profile carries todays reading time, goal and streak`() {
+        val profiles = profileRepo(
+            activity = mapOf(
+                "2026-11-20" to DailyActivity(readingSeconds = 900),
+                "2026-11-21" to DailyActivity(readingSeconds = 600),
+                "2026-11-22" to DailyActivity(completedUnits = 1, readingSeconds = 300),
+            ),
+        )
+
+        val profile = presenter(profiles = profiles).profile()
+
+        assertEquals(10, profile.dailyGoalMinutes)
+        assertEquals(300, profile.todaySeconds)
+        assertEquals(1, profile.todayUnits)
+        assertEquals(false, profile.metToday)
+        assertEquals(300, profile.secondsToGoal)
+        assertEquals(2, profile.currentStreak, "yesterday and the day before are met")
+        assertEquals(2, profile.longestStreak)
+        assertEquals(0.5f, profile.goalFraction)
+    }
+
+    @Test
+    fun `an unread profile shows the default goal and no streak`() {
+        val profile = presenter().profile()
+
+        assertEquals(10, profile.dailyGoalMinutes)
+        assertEquals(0, profile.currentStreak)
+        assertEquals(0f, profile.goalFraction)
     }
 }

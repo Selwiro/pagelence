@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pagelence.core.prefs.DailyGoal
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.FontSize
 import com.pagelence.core.prefs.LineSpacing
@@ -75,6 +76,7 @@ fun SettingsScreen(
     onAnnotateHints: (Boolean) -> Unit,
     onDefinitionMode: (DefinitionMode) -> Unit,
     onGuideMode: (GuideMode) -> Unit,
+    onDailyGoal: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var confirmDictionaryDelete by remember { mutableStateOf(false) }
@@ -165,6 +167,20 @@ fun SettingsScreen(
                     selected = state.guideMode,
                     onSelect = onGuideMode,
                 )
+            }
+            SettingBlock(strings.dailyGoal) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    ChoiceRow(
+                        options = DailyGoal.OPTIONS.map { it to strings.goalMinutesOption.format(it) },
+                        selected = DailyGoal.sanitize(state.dailyGoalMinutes),
+                        onSelect = onDailyGoal,
+                    )
+                    Text(
+                        strings.dailyGoalHint,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
             Row(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),

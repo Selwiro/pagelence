@@ -415,6 +415,53 @@ interface Strings {
     val heatmapLess: String
     val heatmapMore: String
     val heatmapSummary: String
+    val todayLabel: String
+    /** "12 / 10 分钟" — read so far today, then the goal. */
+    val todayProgress: String
+    val todayGoalMet: String
+    /** "还差 7 分钟达标". */
+    val todayGoalRemaining: String
+    val todayUnitsLine: String
+    val streakCurrent: String
+    val streakRestart: String
+    val streakStart: String
+    val streakLongest: String
+    val dailyGoal: String
+    val dailyGoalHint: String
+    val goalMinutesOption: String
+    val achievements: String
+    val achievementWallSummary: String
+    val achievementWallEmpty: String
+    val achievementWallHint: String
+    val achievementsForBook: String
+    val achievementNew: String
+    val achievementUnlocked: String
+    val achievementLocked: String
+    val achievementUnlockedOn: String
+    val achievementProgress: String
+    val achievementProgressHours: String
+    val achievementSeeAll: String
+    val finishedNotes: String
+    val achFirstBook: String
+    val achFirstBookHint: String
+    val achThreeBooks: String
+    val achThreeBooksHint: String
+    val achHundredUnits: String
+    val achHundredUnitsHint: String
+    val achStreak3: String
+    val achStreak3Hint: String
+    val achStreak7: String
+    val achStreak7Hint: String
+    val achStreak30: String
+    val achStreak30Hint: String
+    val achCards50: String
+    val achCards50Hint: String
+    val achNotes20: String
+    val achNotes20Hint: String
+    val achReadingHours10: String
+    val achReadingHours10Hint: String
+    val achLevelB1: String
+    val achLevelB1Hint: String
     val readingLayout: String
     val layoutPaged: String
     val layoutScroll: String

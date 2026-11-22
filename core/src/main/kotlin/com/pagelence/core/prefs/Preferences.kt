@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.floatOrNull
+import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
 
 @Serializable
@@ -141,6 +142,11 @@ data class Preferences(
      * controls what the library shows before the first unit is read.
      */
     val shelfBookIds: List<String> = emptyList(),
+    /**
+     * Daily reading goal in minutes (T162), one of [DailyGoal.OPTIONS]. The
+     * streak and the "今日" card read it; nothing is ever locked behind it.
+     */
+    val dailyGoalMinutes: Int = DailyGoal.DEFAULT_MINUTES,
 ) {
     companion object {
         fun restore(raw: JsonObject?): Preferences {
@@ -215,6 +221,7 @@ data class Preferences(
                 speechRate = (raw.float("speechRate") ?: 1.0f).coerceIn(MIN_SPEECH_RATE, MAX_SPEECH_RATE),
                 seenGuideUnits = raw.stringList("seenGuideUnits"),
                 shelfBookIds = raw.stringList("shelfBookIds"),
+                dailyGoalMinutes = DailyGoal.sanitize(raw.int("dailyGoalMinutes")),
             )
         }
 
@@ -232,6 +239,9 @@ data class Preferences(
 
         private fun JsonObject.float(key: String): Float? =
             runCatching { this[key]?.jsonPrimitive?.floatOrNull }.getOrNull()
+
+        private fun JsonObject.int(key: String): Int? =
+            runCatching { this[key]?.jsonPrimitive?.intOrNull }.getOrNull()
 
         private fun JsonObject.stringList(key: String): List<String> {
             val value = this[key] ?: return emptyList()

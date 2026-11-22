@@ -360,6 +360,9 @@ class ReadingStateStoreTest {
         first.recordReadingDay("2026-11-19")
         first.recordCompletedUnit("2026-11-19")
         first.recordCompletedUnit("2026-11-19")
+        first.recordReadingSeconds("2026-11-19", 420)
+        first.recordReadingSeconds("2026-11-19", 30)
+        first.setDailyGoal(15)
 
         val restored = StateReadingProfileRepository(tempStore(file)).profile()
         assertEquals(CefrLevel.B1, restored.selfLevel)
@@ -368,6 +371,8 @@ class ReadingStateStoreTest {
         assertEquals("2026-11-19T03:00:00Z", restored.levelUpdatedAt)
         assertEquals(2, restored.readingDays)
         assertEquals(2, restored.activity("2026-11-19").completedUnits)
+        assertEquals(450, restored.activity("2026-11-19").readingSeconds)
+        assertEquals(15, restored.dailyGoalMinutes)
     }
 
     @Test

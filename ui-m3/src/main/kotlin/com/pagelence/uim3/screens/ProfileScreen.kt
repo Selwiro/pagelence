@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -25,6 +26,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -39,6 +41,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pagelence.uim3.model.AchievementUi
+import com.pagelence.uim3.model.AchievementWallUi
 import com.pagelence.uim3.model.HeatmapUi
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.uim3.Strings
@@ -93,7 +97,9 @@ fun ProfileScreen(
                     onOpenAssessment = onOpenAssessment,
                 )
             }
+            item(key = "today") { TodayCard(strings, state) }
             item(key = "stats") { StatsRow(strings, state) }
+            item(key = "achievements") { AchievementCard(strings, state.achievements) }
             item(key = "heatmap") { HeatmapCard(strings, state.heatmap) }
         }
     }
@@ -176,6 +182,211 @@ private fun LevelCard(
             }
         }
     }
+}
+
+
+/**
+ * 成就墙: the derived catalogue, unlocked first. Tapping a cell explains how the
+ * item is counted — the copy deliberately repeats the rule, because a badge the
+ * reader cannot verify reads as decoration.
+ */
+@Composable
+private fun AchievementCard(strings: Strings, wall: AchievementWallUi) {
+    var selectedId by rememberSaveable { mutableStateOf<String?>(null) }
+    val selected = wall.items.firstOrNull { it.id == selectedId }
+
+    ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(18.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    strings.achievements,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f),
+                )
+                Text(
+                    strings.achievementWallSummary.format(wall.unlocked, wall.total),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Spacer(Modifier.height(10.dp))
+            if (wall.isEmpty) {
+                Text(
+                    strings.achievementWallEmpty,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            } else {
+                if (wall.unlocked == 0) {
+                    Text(
+                        strings.achievementWallEmpty,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.height(10.dp))
+                }
+                wall.items.chunked(2).forEach { row ->
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        row.forEach { item ->
+                            AchievementCell(
+                                strings = strings,
+                                item = item,
+                                modifier = Modifier.weight(1f),
+                                onClick = { selectedId = item.id },
+                            )
+                        }
+                        if (row.size == 1) Spacer(Modifier.weight(1f))
+                    }
+                    Spacer(Modifier.height(8.dp))
+                }
+                Text(
+                    strings.achievementWallHint,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+
+    if (selected != null) {
+        AchievementDialog(strings, selected) { selectedId = null }
+    }
+}
+
+@Composable
+private fun AchievementCell(
+    strings: Strings,
+    item: AchievementUi,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    Surface(
+        modifier = modifier.clickable(onClick = onClick),
+        shape = MaterialTheme.shapes.medium,
+        color = if (item.unlocked) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surfaceContainer
+        },
+    ) {
+        Column(Modifier.padding(12.dp).fillMaxWidth()) {
+            Text(
+                item.title,
+                style = MaterialTheme.typography.titleSmall,
+                maxLines = 2,
+            )
+            Spacer(Modifier.height(4.dp))
+            if (item.unlocked) {
+                Text(
+                    item.unlockedOn?.let { strings.achievementUnlockedOn.format(it) }
+                        ?: strings.achievementUnlocked,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            } else {
+                LinearProgressIndicator(
+                    progress = { item.fraction },
+                    modifier = Modifier.fillMaxWidth().height(4.dp),
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    item.progressLabel ?: strings.achievementLocked,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AchievementDialog(strings: Strings, item: AchievementUi, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(item.title) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(item.description, style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    if (item.unlocked) {
+                        item.unlockedOn?.let { strings.achievementUnlockedOn.format(it) }
+                            ?: strings.achievementUnlocked
+                    } else {
+                        item.progressLabel?.let { "${strings.achievementLocked} · $it" }
+                            ?: strings.achievementLocked
+                    },
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                if (!item.unlocked) {
+                    LinearProgressIndicator(
+                        progress = { item.fraction },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text(strings.close) }
+        },
+    )
+}
+
+/** 今日: reading time against the daily goal, plus the streak it feeds*/
+/**
+ * 今日: reading time against the daily goal, plus the streak it feeds.
+ *
+ * The goal is a nudge, so a missed day never shows as a failure: today's copy is
+ * "还差 N 分钟" or "今日已达标", and the chip switches from "连续 N 天" to
+ * "今天重新开始" while the best run stays visible underneath.
+ */
+@Composable
+private fun TodayCard(strings: Strings, state: ProfileUiState) {
+    val minutes = state.todaySeconds / 60
+    val remainingMinutes = ((state.secondsToGoal + 59) / 60).coerceAtLeast(1)
+    val details = buildList {
+        add(
+            if (state.metToday) strings.todayGoalMet
+            else strings.todayGoalRemaining.format(remainingMinutes),
+        )
+        if (state.todayUnits > 0) add(strings.todayUnitsLine.format(state.todayUnits))
+        if (state.longestStreak > 0) add(strings.streakLongest.format(state.longestStreak))
+    }.joinToString(" · ")
+
+    ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(18.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    strings.todayLabel,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f),
+                )
+                MetaChip(streakLabel(strings, state))
+            }
+            Spacer(Modifier.height(10.dp))
+            Text(
+                strings.todayProgress.format(minutes, state.dailyGoalMinutes),
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            Spacer(Modifier.height(10.dp))
+            LinearProgressIndicator(
+                progress = { state.goalFraction },
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                details,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+private fun streakLabel(strings: Strings, state: ProfileUiState): String = when {
+    state.currentStreak > 0 -> strings.streakCurrent.format(state.currentStreak)
+    state.longestStreak > 0 -> strings.streakRestart
+    else -> strings.streakStart
 }
 
 /**

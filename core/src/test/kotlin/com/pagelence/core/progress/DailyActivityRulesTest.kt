@@ -75,4 +75,55 @@ class DailyActivityRulesTest {
         assertEquals(setOf("2026-11-19"), sanitized.keys)
         assertEquals(0, sanitized.getValue("2026-11-19").completedUnits)
     }
+
+    @Test
+    fun `reading seconds accumulate per day and ignore non-positive input`() {
+        var activity = DailyActivityRules.recordReadingSeconds(emptyMap(), "2026-11-19", 90)
+        activity = DailyActivityRules.recordReadingSeconds(activity, "2026-11-19", 30)
+        activity = DailyActivityRules.recordReadingSeconds(activity, "2026-11-19", 0)
+        activity = DailyActivityRules.recordReadingSeconds(activity, "2026-11-19", -60)
+
+        assertEquals(120, activity.getValue("2026-11-19").readingSeconds)
+        assertEquals(120, DailyActivityRules.totalReadingSeconds(activity))
+    }
+
+    @Test
+    fun `a day of reading is capped instead of trusting the clock`() {
+        var activity = emptyMap<String, DailyActivity>()
+        repeat(6) {
+            activity = DailyActivityRules.recordReadingSeconds(activity, "2026-11-19", 10_000)
+        }
+
+        assertEquals(
+            ReadingStreakRules.MAX_SECONDS_PER_DAY,
+            activity.getValue("2026-11-19").readingSeconds,
+        )
+    }
+
+    @Test
+    fun `merge keeps the larger reading time for the same day`() {
+        val local = mapOf("2026-11-19" to DailyActivity(completedUnits = 1, readingSeconds = 600))
+        val remote = mapOf("2026-11-19" to DailyActivity(completedUnits = 0, readingSeconds = 900))
+
+        val merged = DailyActivityRules.mergeDayMax(local, remote, "2026-11-19")
+
+        assertEquals(1, merged.getValue("2026-11-19").completedUnits)
+        assertEquals(900, merged.getValue("2026-11-19").readingSeconds)
+    }
+
+    @Test
+    fun `sanitize drops negative and oversized reading seconds`() {
+        val sanitized = DailyActivityRules.sanitize(
+            mapOf(
+                "2026-11-19" to DailyActivity(readingSeconds = -90),
+                "2026-11-20" to DailyActivity(readingSeconds = 999_999),
+            ),
+        )
+
+        assertEquals(0, sanitized.getValue("2026-11-19").readingSeconds)
+        assertEquals(
+            ReadingStreakRules.MAX_SECONDS_PER_DAY,
+            sanitized.getValue("2026-11-20").readingSeconds,
+        )
+    }
 }

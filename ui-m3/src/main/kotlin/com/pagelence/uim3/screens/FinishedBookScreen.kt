@@ -125,6 +125,62 @@ fun FinishedBookScreen(
                 )
             }
 
+            state.noteCount.takeIf { it > 0 }?.let {
+                Spacer(Modifier.height(12.dp))
+                Text(
+                    strings.finishedNotes.format(it),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                )
+            }
+
+            val reached = state.achievements.items.filter { it.id in state.newAchievementIds }
+            val others = state.achievements.items.filter {
+                it.unlocked && it.id !in state.newAchievementIds
+            }
+            val shown = (reached + others).take(4)
+            if (shown.isNotEmpty()) {
+                Spacer(Modifier.height(24.dp))
+                Text(
+                    strings.achievementsForBook,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(8.dp))
+                shown.forEach { item ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            item.title,
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Text(
+                            if (item.id in state.newAchievementIds) {
+                                strings.achievementNew
+                            } else {
+                                item.unlockedOn?.let { strings.achievementUnlockedOn.format(it) }
+                                    ?: strings.achievementUnlocked
+                            },
+                            style = MaterialTheme.typography.labelMedium,
+                            color = if (item.id in state.newAchievementIds) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            },
+                        )
+                    }
+                }
+                Text(
+                    strings.achievementSeeAll,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
             Spacer(Modifier.height(34.dp))
             Button(
                 onClick = onReread,

@@ -38,6 +38,7 @@ class MainActivity : ComponentActivity() {
      * has no lifecycle callbacks.
      */
     override fun onStop() {
+        viewModel.onAppBackground()
         viewModel.flushProgress()
         super.onStop()
     }

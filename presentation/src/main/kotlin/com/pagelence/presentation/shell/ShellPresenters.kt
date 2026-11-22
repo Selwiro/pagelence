@@ -1,6 +1,7 @@
 package com.pagelence.presentation.shell
 
 import com.pagelence.core.content.ContentRepository
+import com.pagelence.core.prefs.DailyGoal
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.progress.ProgressRepository
 import com.pagelence.core.progress.ProgressSemantics
@@ -31,6 +32,7 @@ class SettingsPresenter(private val preferences: Preferences) {
         definitionMode = preferences.definitionMode,
         guideMode = preferences.guideMode,
         speechRate = preferences.speechRate,
+        dailyGoalMinutes = DailyGoal.sanitize(preferences.dailyGoalMinutes),
     )
 
     private val language: UiLanguage =

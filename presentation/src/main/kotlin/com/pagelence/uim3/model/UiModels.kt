@@ -137,6 +137,12 @@ data class FinishedBookUi(
     /** Display date of the finish; null for a book finished before T139. */
     val finishedOn: String?,
     val coverPath: String?,
+    /** Live bookmarks/highlights/notes the reader left in this book. */
+    val noteCount: Int = 0,
+    /** The whole catalogue, so the ending can show the wall's state. */
+    val achievements: AchievementWallUi = AchievementWallUi(),
+    /** Ids this book's completion just reached; highlighted on the ending. */
+    val newAchievementIds: List<String> = emptyList(),
 )
 
 /** One built-in title on the store shelf; planned titles are visible but not readable yet. */
@@ -200,7 +206,32 @@ data class HeatmapUi(
     val isEmpty: Boolean get() = activeDays == 0
 }
 
-/** "我的": level, cross-book progress and recent reading. */
+/**
+ * One achievement card: localized copy plus the derived progress. [unlockedOn]
+ * is a display date (`YYYY-MM-DD`) and stays null where the crossing date cannot
+ * be derived from existing state.
+ */
+data class AchievementUi(
+    val id: String,
+    val title: String,
+    val description: String,
+    val unlocked: Boolean,
+    val unlockedOn: String? = null,
+    /** "68 / 100"-style progress; null for unlocked items. */
+    val progressLabel: String? = null,
+    val fraction: Float = 0f,
+)
+
+/** The catalogue, already ordered: unlocked first, then closest to unlocking. */
+data class AchievementWallUi(
+    val items: List<AchievementUi> = emptyList(),
+    val unlocked: Int = 0,
+    val total: Int = 0,
+) {
+    val isEmpty: Boolean get() = total == 0
+}
+
+/** "我的": level, today's goal, cross-book progress and the heat map. */
 data class ProfileUiState(
     val level: CefrLevel? = null,
     val levelSource: LevelSource = LevelSource.SELF,
@@ -211,7 +242,25 @@ data class ProfileUiState(
     val finishedBooks: Int = 0,
     val readingDays: Int = 0,
     val heatmap: HeatmapUi = HeatmapUi(),
-)
+    /** Daily goal in minutes, already snapped to the offered values (T162). */
+    val dailyGoalMinutes: Int = 10,
+    val todaySeconds: Int = 0,
+    val todayUnits: Int = 0,
+    val metToday: Boolean = false,
+    /** Seconds still needed today; 0 once met. */
+    val secondsToGoal: Int = 0,
+    val currentStreak: Int = 0,
+    val longestStreak: Int = 0,
+    val metDays: Int = 0,
+    val achievements: AchievementWallUi = AchievementWallUi(),
+) {
+    /** 0..1 for the today progress bar; clamped so a long day does not overflow. */
+    val goalFraction: Float
+        get() {
+            val goal = dailyGoalMinutes.coerceAtLeast(1) * 60
+            return (todaySeconds.toFloat() / goal).coerceIn(0f, 1f)
+        }
+}
 
 /** One page of a placement test; reading questions carry their passage. */
 data class AssessmentQuestionUi(
@@ -711,6 +760,8 @@ data class SettingsUiState(
     val definitionMode: DefinitionMode,
     val guideMode: GuideMode,
     val speechRate: Float = 1.0f,
+    /** Daily reading goal in minutes (T162). */
+    val dailyGoalMinutes: Int = 10,
 )
 
 /**

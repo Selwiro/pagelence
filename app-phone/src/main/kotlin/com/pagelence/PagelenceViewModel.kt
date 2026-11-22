@@ -1,6 +1,7 @@
 package com.pagelence
 
 import android.net.Uri
+import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -14,10 +15,12 @@ import com.pagelence.core.content.Analysis
 import com.pagelence.core.content.ContentIndex
 import com.pagelence.core.content.BookSummary
 import com.pagelence.core.content.ContentOutline
+import com.pagelence.presentation.achievements.AchievementPresenter
 import com.pagelence.presentation.annotations.AnnotationPresenter
 import com.pagelence.presentation.library.LibraryPresenter
 import com.pagelence.presentation.lookup.LookupHistoryPresenter
 import com.pagelence.presentation.reader.PreviewPresenter
+import com.pagelence.presentation.reader.ReadingClock
 import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
 import com.pagelence.presentation.review.ReviewSessionRules
@@ -54,6 +57,7 @@ import com.pagelence.core.dict.DictInstallResult
 import com.pagelence.core.dict.DictManifest
 import com.pagelence.core.dict.DictRejection
 import com.pagelence.core.dict.DictRules
+import com.pagelence.core.prefs.DailyGoal
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.FontSize
 import com.pagelence.core.prefs.LineSpacing
@@ -167,9 +171,12 @@ import java.util.concurrent.atomic.AtomicReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -321,6 +328,17 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private val progressWriteLock = Mutex()
     private var readerSaveJob: Job? = null
 
+    /**
+     * Reading-time accounting (T162). The clock only runs while the reader is on
+     * screen and the app is in the foreground; [readingPendingSeconds] holds the
+     * seconds not written yet and is flushed every [READING_TICK_MS] and when the
+     * reader is left, so a process kill loses at most one tick.
+     */
+    private val readingClock = ReadingClock()
+    private var readingTicker: Job? = null
+    private var readingPendingSeconds = 0
+    private var appInForeground = true
+
     private val stacks: MutableMap<MainTab, MutableList<Screen>> = MainTab.entries.associateWith {
         mutableListOf(rootScreen(it))
     }.toMutableMap()
@@ -333,13 +351,96 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         // debounced sync; the store is the single choke point, so no call site
         // has to remember.
         graph.store.addWriteListener { onLocalStateWritten() }
+        observeReadingTime()
         bootstrap()
     }
 
     override fun onCleared() {
         flushProgress()
+        flushReadingSeconds(blocking = true)
         graph.speech.shutdown()
         super.onCleared()
+    }
+
+    // --- reading time ----------------------------------------------------
+
+    /**
+     * The reader screen and app foreground together decide whether time counts.
+     * Watching [AppUiState.screen] instead of every navigation helper is what
+     * keeps this correct for the many ways in and out of the reader.
+     */
+    private fun observeReadingTime() {
+        viewModelScope.launch {
+            _ui.map { it.screen }.distinctUntilChanged().collect {
+                applyReadingClock()
+            }
+        }
+    }
+
+    private fun applyReadingClock() {
+        val now = SystemClock.elapsedRealtime()
+        val active = appInForeground && _ui.value.screen == Screen.READER
+        if (active) {
+            if (!readingClock.running) {
+                readingClock.start(now)
+                startReadingTicker()
+            }
+            return
+        }
+        if (readingClock.running) {
+            queueReadingSeconds(readingClock.stop(now))
+        }
+        readingTicker?.cancel()
+        readingTicker = null
+        flushReadingSeconds()
+    }
+
+    private fun startReadingTicker() {
+        readingTicker?.cancel()
+        readingTicker = viewModelScope.launch(Dispatchers.IO) {
+            while (isActive) {
+                delay(READING_TICK_MS)
+                val seconds = readingClock.tick(SystemClock.elapsedRealtime())
+                if (seconds > 0) {
+                    queueReadingSeconds(seconds)
+                    flushReadingSeconds()
+                }
+            }
+        }
+    }
+
+    private fun queueReadingSeconds(seconds: Int) {
+        if (seconds > 0) readingPendingSeconds += seconds
+    }
+
+    /**
+     * Write the pending seconds into today's log. Called from IO coroutines and
+     * from `ON_STOP`; [blocking] is only for `onCleared`, where the process may
+     * be gone right after.
+     */
+    private fun flushReadingSeconds(blocking: Boolean = false) {
+        val seconds = readingPendingSeconds
+        if (seconds <= 0) return
+        readingPendingSeconds = 0
+        val date = today()
+        if (blocking) {
+            runCatching {
+                runBlocking {
+                    withTimeoutOrNull(FLUSH_PROGRESS_TIMEOUT_MS) {
+                        graph.profile.recordReadingSeconds(date, seconds)
+                    }
+                }
+            }
+            return
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching { graph.profile.recordReadingSeconds(date, seconds) }
+                .getOrNull() ?: return@launch
+            val profile = runCatching { buildProfile() }.getOrNull() ?: return@launch
+            withContext(Dispatchers.Main) {
+                _ui.update { it.copy(profile = profile) }
+            }
+        }
     }
 
     // --- startup ---------------------------------------------------------
@@ -460,8 +561,19 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private fun buildProfile(): ProfileUiState {
         val prefs = graph.preferences.preferences()
         val language = uiLanguage(prefs)
-        return presenter(stringsFor(language), language).profile()
+        val strings = stringsFor(language)
+        val base = presenter(strings, language).profile()
+        return base.copy(achievements = achievementPresenter(strings, language).wall())
     }
+
+    private fun achievementPresenter(strings: Strings, language: UiLanguage) = AchievementPresenter(
+        content = graph.content,
+        progress = graph.progress,
+        profiles = graph.profile,
+        cards = graph.cards,
+        annotations = graph.annotations,
+        strings = strings,
+    )
 
     // --- reading ---------------------------------------------------------
 
@@ -1953,12 +2065,22 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         refreshLibrary()
     }
 
-    private fun buildFinishedBook(bookId: String): FinishedBookUi? = FinishedPresenter(
-        content = graph.content,
-        progress = graph.progress,
-        cards = graph.cards,
-        language = uiLanguage(graph.preferences.preferences()),
-    ).finished(bookId)
+    private fun buildFinishedBook(bookId: String): FinishedBookUi? {
+        val language = uiLanguage(graph.preferences.preferences())
+        val strings = stringsFor(language)
+        val base = FinishedPresenter(
+            content = graph.content,
+            progress = graph.progress,
+            cards = graph.cards,
+            language = language,
+        ).finished(bookId) ?: return null
+        val achievements = achievementPresenter(strings, language).forBook(bookId)
+        return base.copy(
+            noteCount = runCatching { graph.annotations.list(bookId).size }.getOrDefault(0),
+            achievements = achievements.wall,
+            newAchievementIds = achievements.newIds,
+        )
+    }
 
 
     fun openFinishedSummary() {
@@ -2474,6 +2596,11 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         )
     }
 
+    fun setDailyGoal(minutes: Int) {
+        val prefs = graph.preferences.preferences().copy(dailyGoalMinutes = DailyGoal.sanitize(minutes))
+        savePreferences(prefs)
+    }
+
     private fun savePreferences(prefs: Preferences) {
         viewModelScope.launch(Dispatchers.IO) {
             graph.preferences.save(prefs)
@@ -2516,6 +2643,8 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
      * there would wipe the export/import notice the reader just got.
      */
     fun onAppForeground() {
+        appInForeground = true
+        applyReadingClock()
         viewModelScope.launch(Dispatchers.IO) {
             graph.syncEngine.clearBackoff()
             val config = graph.syncCredentials.config() ?: return@launch
@@ -2533,6 +2662,12 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             }
             performSync(config, SyncMode.AUTO)
         }
+    }
+
+    /** The app went to the background: stop counting and write what we have. */
+    fun onAppBackground() {
+        appInForeground = false
+        applyReadingClock()
     }
 
     fun setSyncProvider(provider: SyncProvider) {
@@ -3144,6 +3279,9 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
         /** Upper bound on the blocking flush during ON_STOP. */
         private const val FLUSH_PROGRESS_TIMEOUT_MS = 1_000L
+
+        /** How often reading time is written while the reader is open. */
+        private const val READING_TICK_MS = 15_000L
 
         fun factory(graph: AppGraph): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

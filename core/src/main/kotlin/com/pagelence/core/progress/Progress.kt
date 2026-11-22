@@ -2,6 +2,7 @@ package com.pagelence.core.progress
 
 import com.pagelence.core.content.ContentIndex
 import com.pagelence.core.lookup.LookupEntry
+import com.pagelence.core.prefs.DailyGoal
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.wordcards.WordCard
 import kotlinx.serialization.SerialName
@@ -82,6 +83,13 @@ enum class LevelSource {
 @Serializable
 data class DailyActivity(
     val completedUnits: Int = 0,
+    /**
+     * Seconds spent in the reader that day (T162). An optional v2 field, so
+     * documents written before it decode as 0; [ReadingStreakRules] back-fills
+     * those legacy days from [completedUnits] so an existing reader does not
+     * lose a running streak when they update.
+     */
+    val readingSeconds: Int = 0,
 )
 
 /**
@@ -137,6 +145,8 @@ data class ReadingProfile(
     val dailyActivity: Map<String, DailyActivity> = emptyMap(),
     /** Question ids of the last two placement tests, oldest paper first. */
     val recentAssessmentPapers: List<List<String>> = emptyList(),
+    /** Daily reading goal in minutes; always one of [DailyGoal.OPTIONS]. */
+    val dailyGoalMinutes: Int = DailyGoal.DEFAULT_MINUTES,
 ) {
     val readingDays: Int get() = dailyActivity.size
 
@@ -150,6 +160,10 @@ data class ReadingProfile(
             levelScore = state.levelScore,
             levelUpdatedAt = state.levelUpdatedAt,
             dailyActivity = state.dailyActivity,
+            recentAssessmentPapers = state.recentAssessmentPapers,
+            dailyGoalMinutes = DailyGoal.sanitize(
+                state.preferences.dailyGoalMinutes,
+            ),
         )
     }
 }
@@ -173,6 +187,15 @@ interface ReadingProfileRepository {
 
     /** Record one finished unit on [date]. */
     fun recordCompletedUnit(date: String): ReadingProfile
+
+    /**
+     * Accumulate [seconds] of reader time on [date]. Non-positive input is a
+     * no-op, so a mis-clocked tick cannot move the total backwards.
+     */
+    fun recordReadingSeconds(date: String, seconds: Int): ReadingProfile = profile()
+
+    /** Set the daily goal in minutes; the value is snapped to [DailyGoal.OPTIONS]. */
+    fun setDailyGoal(minutes: Int): ReadingProfile = profile()
 
     /** Question ids drawn by the last two tests, flattened, oldest first. */
     fun recentAssessmentIds(): List<String> = emptyList()
