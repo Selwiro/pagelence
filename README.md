@@ -44,8 +44,9 @@
 | 状态 v2（等级、日活、v1→v2 迁移）、首次 A1–C2 自评、等级提示 | 已完成 |
 | 屏幕分页、导读独立页、四栏导航、复习栏（单词/语法） | 已完成并验收；朗读入口按 2026-11-19 反馈暂时下线 |
 | 单元目录（任意跳转/回看）、双语带读、点词即查、纯白底色、去段间线 | 已完成并验收（2026-11-19 反馈） |
-| 通用核心词典（ECDICT 38,292 条：3 万词内常用词 + 考试/Oxford/CEFR 词 + 两本书词形，中英双释义，屈折形按原形取义） | 已完成，生成脚本 `tools/build_dictionaries.py` |
+| 通用核心词典（ECDICT 38,229 条：3 万词内常用词 + 考试/Oxford/CEFR 词 + 两本书词形，中英双释义，屈折形按原形取义） | 已完成，生成脚本 `tools/build_dictionaries.py` |
 | 完整词表可选下载（SQLite 770,575 条 / 82 MiB，dict-manifest、暂停续传、sha256 校验、删除回核心表） | 已完成；托管在 GitHub Releases（`dict-39cfb96`），见 [`docs/dictionary-full.md`](docs/dictionary-full.md) |
+| 点词词表改为随包二进制索引（`lexicon.bin`，约 11 MB，键排序 + 偏移） | 已完成（T156）；首次点词不再把三份 JSON 解析成对象图，只解释被点的一条 |
 | 词级五层（list / aligned / derived / tag / freq）与词频表随包；面板显示 A1–C2 等级与本书次数，不再显示词频档；中文词性标签单行 | 已完成，脚本 `tools/build_word_levels.py`、`tools/build_word_frequencies.py` |
 | 语法库 schema 2 与按级别浏览/详情 | 已完成，共 256 条（与教师版 1:1） |
 | 我的页整合、快速/高级测评、题库（210 题，含 15 篇短文） | 已完成并验收 |
@@ -462,6 +463,7 @@ python3 tools/migrate/import_reference_data.py    # 生成语法库、复制 ECD
 python3 tools/build_word_levels.py           # 五层词级表 + 覆盖率报告 + 210 条抽查（需 wordfreq 3.0.2）
 python3 tools/build_word_frequencies.py        # 词频表与四档切点（需 wordfreq 3.0.2）
 python3 tools/build_dictionaries.py --ecdict-csv <ecdict.csv> # 重建通用核心词典
+python3 tools/build_lexicon.py                 # 三表合成随包 lexicon.bin（--check 校验）
 python3 tools/build_dolittle_book.py         # 重建《怪医杜立德》
 python3 tools/author/dolittle_worksheet.py 7      # 打印第 7 章编辑工作表
 python3 tools/author/lint_dolittle_overlay.py 7    # 校验第 7 章 overlay

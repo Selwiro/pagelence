@@ -14,6 +14,9 @@ CC BY-SA 4.0。完整授权框架见 [LICENSE](LICENSE)、[LICENSE-CONTENT](LICE
 | 词级五层衍生表 | 由上述四份数据推算（`aligned`/`derived`/`tag`/`freq` 层），项目自制 | CC BY-SA 4.0 | `content/third-party/word-levels.json` 的 `sources` 标明每格来源 |
 | 本书出现次数 | 运行时以正文为输入单遍扫描，不随包存表 | CC BY-SA 4.0 | 仅内存（`WordQuery.countWords`） |
 
+APK 里的 ECDICT 核心词典、词级表与词频表以 `content/third-party/lexicon.bin` 的索引段
+分发；三份 JSON 是构建源（`tools/build_lexicon.py`），不单独进包（T156）。
+
 ## 运行时依赖
 
 | 依赖 | 版本 | 许可 | 用途 |
