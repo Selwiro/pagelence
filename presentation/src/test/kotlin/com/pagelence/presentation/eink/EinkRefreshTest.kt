@@ -86,3 +86,21 @@ class EinkRefreshTest {
         assertEquals(2, decision.state.pagesSinceFullRefresh)
     }
 }
+
+class EinkRefreshPresetsTest {
+    @Test
+    fun presetsAreOrderedFromLightToStrong() {
+        val presets = EinkRefreshPresets.all
+        assertEquals(3, presets.size)
+        assertTrue(presets[0].fullRefreshEveryPages > presets[1].fullRefreshEveryPages)
+        assertTrue(presets[1].fullRefreshEveryPages > presets[2].fullRefreshEveryPages)
+    }
+
+    @Test
+    fun indexFallsBackToStandard() {
+        assertEquals(0, EinkRefreshPresets.indexOf(EinkRefreshPresets.Light))
+        assertEquals(1, EinkRefreshPresets.indexOf(EinkRefreshSettings.Default))
+        assertEquals(2, EinkRefreshPresets.indexOf(EinkRefreshPresets.Strong))
+        assertEquals(1, EinkRefreshPresets.indexOf(EinkRefreshSettings(fullRefreshEveryPages = 999)))
+    }
+}

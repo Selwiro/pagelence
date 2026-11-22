@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.core.view.WindowCompat
 import com.pagelence.PagelenceViewModel
 
 /**
@@ -25,9 +26,15 @@ class MainActivity : ComponentActivity() {
         // 墨水屏默认浅色：状态栏与导航栏也用白色，避免深色条在整页刷新时留下残影。
         window.statusBarColor = Color.WHITE
         window.navigationBarColor = Color.WHITE
+        // 白底白图标等于没有状态栏：把系统图标切回深色。
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = true
+            isAppearanceLightNavigationBars = true
+        }
         setContent {
             EinkApp(
                 viewModel = viewModel,
+                appVersion = BuildConfig.VERSION_NAME,
                 onFullRefresh = refresher::fullRefresh,
             )
         }

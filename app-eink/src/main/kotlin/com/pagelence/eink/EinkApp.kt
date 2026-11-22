@@ -1,5 +1,8 @@
 package com.pagelence.eink
 
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,54 +18,94 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.pagelence.MainTab
 import com.pagelence.PagelenceViewModel
 import com.pagelence.RecoveryNotice
 import com.pagelence.Screen
+import com.pagelence.presentation.eink.EinkRefreshSettings
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.model.FinishedBookUi
+import com.pagelence.uim3.model.ReviewTab
 import com.pagelence.uim3.stringsFor
 import com.pagelence.uieink.components.InkButton
+import com.pagelence.uieink.components.InkConfirmPage
 import com.pagelence.uieink.components.InkNotice
+import com.pagelence.uieink.components.InkTabBar
 import com.pagelence.uieink.components.InkText
 import com.pagelence.uieink.components.InkTextButton
 import com.pagelence.uieink.components.InkTopBar
+import com.pagelence.uieink.screens.EinkAboutScreen
+import com.pagelence.uieink.screens.EinkGrammarPointScreen
+import com.pagelence.uieink.screens.EinkProfileScreen
 import com.pagelence.uieink.screens.EinkReaderScreen
+import com.pagelence.uieink.screens.EinkReviewData
+import com.pagelence.uieink.screens.EinkReviewScreen
+import com.pagelence.uieink.screens.EinkSettingsScreen
 import com.pagelence.uieink.screens.EinkShelfScreen
+import com.pagelence.uieink.screens.EinkStoreScreen
+import com.pagelence.uieink.screens.EinkSyncScreen
+import com.pagelence.uieink.screens.EinkWordPanelScreen
 import com.pagelence.uieink.theme.InkTheme
 import com.pagelence.uieink.theme.LocalInkColors
 import com.pagelence.uieink.theme.LocalInkTypography
 
 /**
- * 墨水屏壳的根组件：只做屏幕切换与事件转发，与普通版的 `PagelenceApp` 同构。
+ * 墨水屏壳根组件：屏幕切换、四栏导航与事件转发，与普通版 `PagelenceApp` 同构。
  *
- * 本轮覆盖书架、阅读（导读/正文/测验/语法）、读完页与首次启动；书城、复习、
- * 我的、设置仍是占位页（[Strings.einkUnavailable]），后续增量补齐。
+ * 覆盖：书架、书城、复习（四子页）、我的、设置、同步、阅读、读完页、语法点、
+ * 关于与首次启动。业务判断全部在 `:shell` 的 ViewModel / `:core`。
  */
 @Composable
 fun EinkApp(
     viewModel: PagelenceViewModel,
+    appVersion: String,
     onFullRefresh: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.ui.collectAsState()
     val strings = stringsFor(state.settings.language)
+    val context = LocalContext.current
+    var refreshSettings by remember { mutableStateOf(EinkDeviceSettings.refresh(context)) }
+
+    // 书城：导入本地书籍包；同步：导出/导入整份进度。两条都用 SAF，不申请存储权限。
+    val importBookLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument(),
+    ) { uri -> uri?.let(viewModel::importLocalPackage) }
+    val exportLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json"),
+    ) { uri -> uri?.let(viewModel::exportState) }
+    val importLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument(),
+    ) { uri -> uri?.let(viewModel::importState) }
+
+    val root = state.screen == Screen.LIBRARY && state.tab == MainTab.SHELF ||
+        state.screen == Screen.STORE && state.tab == MainTab.STORE ||
+        state.screen == Screen.REVIEW && state.tab == MainTab.REVIEW ||
+        state.screen == Screen.PROFILE && state.tab == MainTab.PROFILE
+
+    BackHandler(enabled = state.reader?.wordPanel != null) { viewModel.closeWordPanel() }
+    BackHandler(enabled = state.reader?.wordPanel == null && !root) {
+        when (state.screen) {
+            Screen.READER -> viewModel.requestCloseReader()
+            Screen.SETTINGS -> viewModel.backFromSettings()
+            else -> viewModel.back()
+        }
+    }
+
     InkTheme {
         Column(modifier.fillMaxSize()) {
             state.recovery?.let { recovery ->
-                RecoveryBar(
-                    strings = strings,
-                    recovery = recovery,
-                    onRetry = viewModel::retryContent,
-                    onDismiss = viewModel::dismissRecovery,
-                )
+                RecoveryBar(strings, recovery, viewModel::retryContent, viewModel::dismissRecovery)
             }
             Box(Modifier.weight(1f).fillMaxWidth()) {
                 when (state.screen) {
                     Screen.LIBRARY -> {
-                        // 书架只列在读书；冷启动时用随包书单补一段「可读的书」，
-                        // 否则新装用户没有入口（墨屏版本轮还没有书城页）。
                         val needsBuiltIn = state.library.books.isEmpty() &&
                             state.library.finished.isEmpty() &&
                             state.store.builtIn.isEmpty() &&
@@ -78,6 +121,95 @@ fun EinkApp(
                             builtIn = state.store.builtIn,
                         )
                     }
+                    Screen.STORE -> EinkStoreScreen(
+                        strings = strings,
+                        store = state.store,
+                        onRefresh = viewModel::refreshStore,
+                        onOpenBook = viewModel::openBook,
+                        onDownload = viewModel::downloadBook,
+                        onRemoveDownloaded = viewModel::removeDownloadedBook,
+                        onImportLocal = { importBookLauncher.launch(arrayOf("application/json", "application/octet-stream", "*/*")) },
+                        onAddSource = viewModel::addCustomSource,
+                        onToggleSource = viewModel::toggleCustomSource,
+                        onDeleteSource = viewModel::deleteCustomSource,
+                    )
+                    Screen.REVIEW -> EinkReviewScreen(
+                        strings = strings,
+                        data = EinkReviewData(
+                            tab = state.reviewTab,
+                            words = state.review,
+                            session = state.reviewSession,
+                            grammar = state.grammarTab,
+                            annotations = state.annotations,
+                            annotationFilter = state.annotationFilter,
+                            lookups = state.lookupHistory,
+                        ),
+                        onSelectTab = viewModel::selectReviewTab,
+                        onStartReview = viewModel::startReview,
+                        onReveal = viewModel::revealCard,
+                        onGrade = viewModel::gradeCard,
+                        onCloseSession = viewModel::closeReview,
+                        onDeleteCard = viewModel::deleteCard,
+                        onOpenGrammarPoint = viewModel::openGrammarPoint,
+                        onOpenAnnotation = viewModel::openAnnotation,
+                        onSelectFilter = viewModel::selectAnnotationFilter,
+                        onOpenLookup = viewModel::openLookup,
+                        onClearLookups = viewModel::clearLookups,
+                    )
+                    Screen.PROFILE -> EinkProfileScreen(
+                        strings = strings,
+                        profile = state.profile,
+                        onOpenSettings = viewModel::openSettings,
+                    )
+                    Screen.SETTINGS -> EinkSettingsScreen(
+                        strings = strings,
+                        settings = state.settings,
+                        dictionary = state.dictionary,
+                        refresh = refreshSettings,
+                        appVersion = appVersion,
+                        onBack = viewModel::backFromSettings,
+                        onLanguage = viewModel::setLanguage,
+                        onDailyGoal = viewModel::setDailyGoal,
+                        onRefresh = { settings ->
+                            refreshSettings = settings
+                            EinkDeviceSettings.saveRefresh(context, settings)
+                        },
+                        onDefinitionMode = viewModel::setDefinitionMode,
+                        onGuideMode = viewModel::setGuideMode,
+                        onOpenAbout = viewModel::openAbout,
+                        onOpenSync = viewModel::openSync,
+                        onDownloadDictionary = viewModel::downloadDictionary,
+                        onDeleteDictionary = viewModel::deleteFullDictionary,
+                    )
+                    Screen.ABOUT -> EinkAboutScreen(
+                        strings = strings,
+                        appVersion = appVersion,
+                        onBack = viewModel::back,
+                    )
+                    Screen.GRAMMAR_POINT -> {
+                        val point = state.grammarPoint
+                        if (point == null) {
+                            Loading(strings)
+                        } else {
+                            EinkGrammarPointScreen(strings, point, viewModel::back)
+                        }
+                    }
+                    Screen.SYNC -> EinkSyncScreen(
+                        strings = strings,
+                        sync = state.sync,
+                        onBack = viewModel::back,
+                        onProvider = viewModel::setSyncProvider,
+                        onUrl = viewModel::setSyncUrl,
+                        onUsername = viewModel::setSyncUsername,
+                        onAllowHttp = viewModel::setSyncAllowHttp,
+                        onSave = viewModel::saveSyncConfig,
+                        onSyncNow = viewModel::syncNow,
+                        onDisable = viewModel::disableSync,
+                        onExport = { exportLauncher.launch("pagelence-state.json") },
+                        onImport = { importLauncher.launch(arrayOf("application/json", "application/octet-stream", "*/*")) },
+                        onConfirmImport = viewModel::confirmImport,
+                        onCancelImport = viewModel::cancelImport,
+                    )
                     Screen.READER -> {
                         val reader = state.reader
                         if (reader == null) {
@@ -93,6 +225,8 @@ fun EinkApp(
                                 onNextUnit = viewModel::nextUnit,
                                 onPreviousUnit = viewModel::previousUnit,
                                 onFullRefresh = onFullRefresh,
+                                onWordClick = viewModel::onWordClick,
+                                refreshSettings = refreshSettings,
                             )
                         }
                     }
@@ -112,32 +246,53 @@ fun EinkApp(
                     Screen.ONBOARDING -> OnboardingPage(strings, viewModel::skipOnboarding)
                     else -> PlaceholderPage(strings, viewModel::back)
                 }
+
+                // 词条：整页覆盖，保留原页状态；返回键先关词条。
+                val panel = state.reader?.wordPanel
+                if (panel != null && state.screen == Screen.READER) {
+                    Box(Modifier.fillMaxSize().background(LocalInkColors.current.paper)) {
+                        EinkWordPanelScreen(
+                            strings = strings,
+                            panel = panel,
+                            definitionMode = state.settings.definitionMode,
+                            onToggleCard = viewModel::toggleCard,
+                            onClose = viewModel::closeWordPanel,
+                        )
+                    }
+                }
                 if (state.readerExitConfirm) {
                     Overlay {
-                        ConfirmPage(
-                            strings = strings,
+                        InkConfirmPage(
                             title = strings.quizExitTitle,
                             body = strings.quizExitBody,
                             confirmLabel = strings.quizExitConfirm,
                             onConfirm = viewModel::closeReader,
-                            stayLabel = strings.quizStay,
-                            onStay = viewModel::dismissReaderExit,
+                            cancelLabel = strings.quizStay,
+                            onCancel = viewModel::dismissReaderExit,
                         )
                     }
                 }
-                state.levelPrompt?.let { prompt ->
+                state.levelPrompt?.let {
                     Overlay {
-                        ConfirmPage(
-                            strings = strings,
+                        InkConfirmPage(
                             title = strings.levelPromptTitle,
                             body = strings.levelPromptBody,
                             confirmLabel = strings.levelPromptAccept,
                             onConfirm = viewModel::acceptLevelPrompt,
-                            stayLabel = strings.levelPromptKeep,
-                            onStay = viewModel::keepLevelPrompt,
+                            cancelLabel = strings.levelPromptKeep,
+                            onCancel = viewModel::keepLevelPrompt,
                         )
                     }
                 }
+            }
+            if (root) {
+                InkTabBar(
+                    labels = listOf(strings.tabShelf, strings.tabStore, strings.tabReview, strings.tabMe),
+                    selected = state.tab.ordinal.coerceAtLeast(0),
+                    onSelect = { index ->
+                        MainTab.entries.getOrNull(index)?.let(viewModel::selectTab)
+                    },
+                )
             }
         }
     }
@@ -184,28 +339,6 @@ private fun RecoveryBar(
             label = if (recovery == RecoveryNotice.CONTENT_FAILED) strings.recoveryRetry else strings.recoveryOk,
             onClick = if (recovery == RecoveryNotice.CONTENT_FAILED) onRetry else onDismiss,
         )
-    }
-}
-
-@Composable
-private fun ConfirmPage(
-    strings: Strings,
-    title: String,
-    body: String,
-    confirmLabel: String,
-    onConfirm: () -> Unit,
-    stayLabel: String,
-    onStay: () -> Unit,
-) {
-    val typography = LocalInkTypography.current
-    Column(Modifier.fillMaxSize().padding(24.dp)) {
-        InkText(title, style = typography.title)
-        Spacer(Modifier.height(12.dp))
-        InkText(body, style = typography.body)
-        Spacer(Modifier.height(24.dp))
-        InkButton(confirmLabel, onClick = onConfirm, primary = true)
-        Spacer(Modifier.height(10.dp))
-        InkButton(stayLabel, onClick = onStay)
     }
 }
 
@@ -260,14 +393,4 @@ private fun PlaceholderPage(strings: Strings, onBack: () -> Unit) {
             InkText(strings.einkUnavailable, style = typography.body)
         }
     }
-}
-
-/** 供 Activity 传入的「全刷」接入点类型说明见 [EinkRefresher]。 */
-interface EinkRefresher {
-    fun fullRefresh()
-}
-
-/** 没有厂商刷新 SDK 时的默认实现：什么都不做，仅保证调用点存在。 */
-object NoopEinkRefresher : EinkRefresher {
-    override fun fullRefresh() = Unit
 }

@@ -15,10 +15,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 /**
- * 墨水屏调色板：纯黑白 + 少量灰阶，不提供深色模式（白字黑底残影更明显）。
+ * 墨水屏调色板：纯白纸面 + 黑字 + 少量灰阶。
  *
- * 分层一律靠 1px 描边或留白，不用阴影；选中态不用浅色块，只加粗描边与文字，
- * 避免 16 级灰里的浅填充在真实屏幕上糊成一片。
+ * **禁止黑底**（2026-11-22 用户明确要求）：任何面——按钮、表头、选中态、提示条——
+ * 都保持白底黑字，强调只用「更粗的描边 + 更重的字重」，不用反色块。
+ * 不提供深色模式；不用阴影；选中态不用浅色块，避免 16 级灰糊成一片。
  */
 @Immutable
 data class InkColors(
@@ -28,9 +29,6 @@ data class InkColors(
     val inkMuted: Color = Color(0xFF6B6B6B),
     /** 1px 描边；比正文浅但比留白重，墨水屏上仍可辨。 */
     val rule: Color = Color(0xFF9C9C9C),
-    /** 反色块（主按钮）；白字黑底在墨水屏上边缘清晰。 */
-    val inversePaper: Color = Color(0xFF111111),
-    val inverseInk: Color = Color(0xFFF8F8F8),
     /** 区块底色；只用在中性提示条上。 */
     val fill: Color = Color(0xFFECECEC),
 ) {

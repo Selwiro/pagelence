@@ -71,3 +71,26 @@ object EinkRefreshRules {
         )
     }
 }
+
+/** 设置页的三档「刷新强度」；数值越大越容易全刷，残影少但闪得多。 */
+object EinkRefreshPresets {
+    val Light = EinkRefreshSettings(
+        fullRefreshOnUnitChange = true,
+        fullRefreshEveryPages = 24,
+        fullRefreshEverySeconds = 180,
+    )
+    val Standard = EinkRefreshSettings.Default
+    val Strong = EinkRefreshSettings(
+        fullRefreshOnUnitChange = true,
+        fullRefreshEveryPages = 5,
+        fullRefreshEverySeconds = 40,
+    )
+
+    val all: List<EinkRefreshSettings> get() = listOf(Light, Standard, Strong)
+
+    /** 当前设置落在第几档；对不上（例如手改过）返回标准档。 */
+    fun indexOf(settings: EinkRefreshSettings): Int {
+        val found = all.indexOfFirst { it == settings }
+        return if (found >= 0) found else 1
+    }
+}

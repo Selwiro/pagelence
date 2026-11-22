@@ -3,6 +3,8 @@ package com.pagelence.uieink.screens
 import android.os.SystemClock
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +36,14 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.nativeKeyCode
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pagelence.core.prefs.GuideMode
 import com.pagelence.core.progress.ReaderPhase
@@ -46,9 +55,12 @@ import com.pagelence.presentation.eink.EinkRefreshSettings
 import com.pagelence.presentation.eink.EinkRefreshState
 import com.pagelence.presentation.reader.ReaderFlow
 import com.pagelence.presentation.reader.ReaderPage
+import com.pagelence.presentation.text.WordBoundary
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.model.GrammarUi
 import com.pagelence.uim3.model.ReaderUiState
+import com.pagelence.uim3.model.SelectedWordUi
+import com.pagelence.uim3.model.SentenceUi
 import com.pagelence.uieink.components.InkButton
 import com.pagelence.uieink.components.InkChoiceRow
 import com.pagelence.uieink.components.InkDivider
@@ -77,6 +89,7 @@ fun EinkReaderScreen(
     onNextUnit: () -> Unit,
     onPreviousUnit: () -> Unit,
     onFullRefresh: () -> Unit,
+    onWordClick: (paragraphId: String, sentenceNumber: Int, spelling: String, start: Int, end: Int) -> Unit,
     modifier: Modifier = Modifier,
     refreshSettings: EinkRefreshSettings = EinkRefreshSettings.Default,
 ) {
@@ -197,6 +210,7 @@ fun EinkReaderScreen(
                                 page = page.page,
                                 onPrevious = turnPrevious,
                                 onNext = turnNext,
+                                onWordClick = onWordClick,
                             )
                             is ReaderPage.TextScroll -> TextPageView(
                                 strings = strings,
@@ -204,6 +218,7 @@ fun EinkReaderScreen(
                                 page = textPages.firstOrNull(),
                                 onPrevious = turnPrevious,
                                 onNext = turnNext,
+                                onWordClick = onWordClick,
                             )
                             is ReaderPage.Quiz -> QuizPageView(
                                 strings = strings,
@@ -290,6 +305,7 @@ private fun TextPageView(
     page: SentencePage?,
     onPrevious: () -> Unit,
     onNext: () -> Unit,
+    onWordClick: (String, Int, String, Int, Int) -> Unit,
 ) {
     val typography = LocalInkTypography.current
     val colors = LocalInkColors.current
@@ -315,18 +331,71 @@ private fun TextPageView(
                 val start = chunk.sentenceStart.coerceIn(0, sentenceCount)
                 val end = chunk.sentenceEndExclusive.coerceIn(start, sentenceCount)
                 if (start == end) return@forEach
-                Spacer(Modifier.height(14.dp))
-                InkText(
-                    paragraph.sentences.subList(start, end).joinToString(" ") { it.text },
-                    style = typography.body,
-                )
+                paragraph.sentences.subList(start, end).forEachIndexed { index, sentence ->
+                    // 段首留白与分页测量里的 22dp 对应，段内句子之间 4dp。
+                    Spacer(Modifier.height(if (index == 0) 20.dp else 4.dp))
+                    InkSentence(
+                        sentence = sentence,
+                        paragraphId = paragraph.id,
+                        selected = state.selectedWord,
+                        onWordClick = onWordClick,
+                    )
+                }
             }
             Spacer(Modifier.height(24.dp))
         }
-        // 翻页带只占左右留白，不遮正文中间，给后续点词留出位置。
+        // 翻页带只占左右留白，不遮正文中间，点词由正文自己处理。
         PageTurnZone(Modifier.align(Alignment.CenterStart), onClick = onPrevious)
         PageTurnZone(Modifier.align(Alignment.CenterEnd), onClick = onNext)
     }
+}
+
+/**
+ * 一句正文：整句可点，点哪查哪。选中词用灰底高亮，与普通版同口径。
+ *
+ * 墨屏不做逐词点击区域（那需要每个词一个可点节点、内存与刷新都更贵），
+ * 而是按文字布局把点按位置换算成字符偏移，再扩成完整单词。
+ */
+@Composable
+private fun InkSentence(
+    sentence: SentenceUi,
+    paragraphId: String,
+    selected: SelectedWordUi?,
+    onWordClick: (String, Int, String, Int, Int) -> Unit,
+) {
+    val typography = LocalInkTypography.current
+    val colors = LocalInkColors.current
+    var layout by remember(sentence.text) { mutableStateOf<TextLayoutResult?>(null) }
+    val highlight = selected
+        ?.takeIf { it.paragraphId == paragraphId && it.sentenceNumber == sentence.number }
+    val text = remember(sentence.text, highlight?.start, highlight?.end) {
+        buildAnnotatedString {
+            append(sentence.text)
+            if (highlight != null && highlight.start in 0..highlight.end && highlight.end < sentence.text.length) {
+                addStyle(
+                    SpanStyle(background = colors.fill, fontWeight = FontWeight.SemiBold),
+                    highlight.start,
+                    highlight.end + 1,
+                )
+            }
+        }
+    }
+    BasicText(
+        text = text,
+        modifier = Modifier
+            .fillMaxWidth()
+            .pointerInput(sentence.text) {
+                detectTapGestures { offset ->
+                    val result = layout ?: return@detectTapGestures
+                    val index = result.getOffsetForPosition(offset)
+                    WordBoundary.wordAt(sentence.text, index)?.let { hit ->
+                        onWordClick(paragraphId, sentence.number, hit.text, hit.start, hit.end)
+                    }
+                }
+            },
+        style = typography.body.merge(TextStyle(color = colors.ink)),
+        onTextLayout = { layout = it },
+    )
 }
 
 @Composable

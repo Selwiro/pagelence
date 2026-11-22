@@ -182,6 +182,11 @@ interface Strings {
     val pageMarginNarrow: String
     val pageMarginNormal: String
     val pageMarginWide: String
+    /** 墨水屏：整页刷新强度（残影与闪屏的取舍）。 */
+    val refreshStrength: String
+    val refreshLight: String
+    val refreshStandard: String
+    val refreshStrong: String
     val showAllTranslations: String
     val hideAllTranslations: String
     val inBookSearch: String
@@ -352,6 +357,10 @@ interface Strings {
     val storeDownloading: String
     val storeDownloaded: String
     val storeSourcesCount: String
+    /** 墨水屏书城：刷新目录、下载、已下载三段用的通用词。 */
+    val refreshStore: String
+    val download: String
+    val downloadedBooks: String
     val storeChooseSource: String
     val storeInstalledTitle: String
     val storeSize: String
