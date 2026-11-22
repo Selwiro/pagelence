@@ -563,7 +563,27 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         val language = uiLanguage(prefs)
         val strings = stringsFor(language)
         val base = presenter(strings, language).profile()
-        return base.copy(achievements = achievementPresenter(strings, language).wall())
+        return includePendingReading(base)
+            .copy(achievements = achievementPresenter(strings, language).wall())
+    }
+
+    /**
+     * Seconds the clock counted but the store has not written yet. Folding them
+     * into the built profile keeps "今日" honest when a screen is rebuilt in the
+     * same instant the last 15-second chunk is being flushed; the numbers are
+     * recomputed from scratch after the write anyway.
+     */
+    private fun includePendingReading(profile: ProfileUiState): ProfileUiState {
+        val pending = readingPendingSeconds
+        if (pending <= 0) return profile
+        val goalSeconds = profile.dailyGoalMinutes.coerceAtLeast(1) * 60
+        val seconds = profile.todaySeconds + pending
+        val met = seconds >= goalSeconds || profile.metToday
+        return profile.copy(
+            todaySeconds = seconds,
+            metToday = met,
+            secondsToGoal = if (met) 0 else (goalSeconds - seconds).coerceAtLeast(0),
+        )
     }
 
     private fun achievementPresenter(strings: Strings, language: UiLanguage) = AchievementPresenter(
