@@ -77,7 +77,7 @@ class LexiconIndex private constructor(private val data: ByteArray) : Lexicon,
                 KIND_DICTIONARY -> dict = table
                 KIND_LEVELS -> lev = table
                 KIND_FREQUENCIES -> freq = table
-                else -> error("lexicon.bin has unknown section kind $kind")
+                else -> throw IllegalArgumentException("lexicon.bin has unknown section kind $kind")
             }
             body += keysLength + valuesLength + blobLength
         }
