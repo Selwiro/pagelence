@@ -34,6 +34,8 @@ ANDROID = Path(__file__).resolve().parents[1]
 REPO = ANDROID
 SRC_DIR = ANDROID / "content-src" / "doctor-dolittle"
 CONTENT_DIR = ANDROID / "content"
+# 报告是给编辑看的产物，不进 APK，所以放在 content/ 之外的 reports/。
+REPORTS_DIR = ANDROID / "reports"
 BOOK_DIR = CONTENT_DIR / "books" / "doctor-dolittle"
 DICTIONARY = CONTENT_DIR / "third-party" / "dictionaries" / "ecdict.json"
 WORD_LEVELS = CONTENT_DIR / "third-party" / "word-levels.json"
@@ -576,9 +578,9 @@ def write_outputs(book: dict, stats: dict, check: bool) -> None:
     )
     outputs = {
         BOOK_DIR / "book.json": book_text,
-        CONTENT_DIR / "reports" / f"{book['id']}.gap.json": dump(report),
-        CONTENT_DIR / "reports" / f"{book['id']}.hints.json": dump(hint_overlap_report(book)),
-        CONTENT_DIR / "reports" / f"{book['id']}.long-sentences.json": dump(long_sentence_report(book)),
+        REPORTS_DIR / f"{book['id']}.gap.json": dump(report),
+        REPORTS_DIR / f"{book['id']}.hints.json": dump(hint_overlap_report(book)),
+        REPORTS_DIR / f"{book['id']}.long-sentences.json": dump(long_sentence_report(book)),
     }
     if check:
         # In check mode the on-disk book is the reference; stale book text is

@@ -50,7 +50,7 @@ B1 档第二本内置书 *Alice's Adventures in Wonderland* 的 Android 书籍�
 - **提示**：只标注词典解决不了的——专名与译名（柴郡猫、假海龟、红心王后等）、多词单位、
   本句语境义、文化所指（`caucus-race`、`tarts`、`croquet`）与双关（`tails`/`tales`、
   `porpoise`/`purpose`）。删掉了样章时期与词典重复的普通词（`conversation`、`hedge`、
-  `remarkable` 等）；重复率报告见 `content/reports/alice-1866.hints.json`。
+  `remarkable` 等）；重复率报告见 `reports/alice-1866.hints.json`。
 - **测验**：每单元 2 题，考大意与因果，不考细节或语法术语；题干英文、反馈中英双语，并用
   `sentence` 指回单元内支撑答案的句子。选项由构建脚本按单元 id 确定性轮转，答案位置均衡。
 - **语法**：每单元一个主讲点，`pointIds` 指向共享语法库（过去进行时、过去完成时、`so…that`、
@@ -61,10 +61,10 @@ B1 档第二本内置书 *Alice's Adventures in Wonderland* 的 Android 书籍�
 
 ## 缺口与报告
 
-`content/reports/alice-1866.gap.json` 为 `complete`：104 个单元零缺口，1,359 句全部有句译。
+`reports/alice-1866.gap.json` 为 `complete`：104 个单元零缺口，1,359 句全部有句译。
 长难句解析（`sentences[].analysis`）是可选字段，候选 368 句只在
-`content/reports/alice-1866.long-sentences.json` 报告，不参与完整度；提示重复率报告为
-`content/reports/alice-1866.hints.json`。
+`reports/alice-1866.long-sentences.json` 报告，不参与完整度；提示重复率报告为
+`reports/alice-1866.hints.json`。
 
 ## 编辑与验证
 

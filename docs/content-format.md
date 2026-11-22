@@ -26,11 +26,14 @@ content/
   books/<dir>/book.json             一本书一个文件（schemaVersion 3），导入导出也是这一个文件
   grammar/grammar-library.json      语法库 schema 2，随应用；256 条，与教員版 1:1
   third-party/                      词级五层表、通用核心词典、词频表与许可文本
-  reports/<bookId>.gap.json         内容缺口报告（机器可读）
 content-src/<book>/meta.json        编辑源：包元数据、章题、切分参数
 content-src/<book>/units/*.json     编辑源：已编写的学习单元
 content-src/shelf.json              编辑源：书架顺序、状态、封面子字与钩子
+reports/<bookId>.gap.json           编辑产物：内容缺口、提示重复率、长难句候选（不进 APK）
 ```
+
+`reports/` 放在仓库根、不在 `content/` 下，因此不会被打进 APK；它只给编辑和
+`--check` 用。
 
 `content/` 由脚本生成，不手工编辑：
 
@@ -98,8 +101,8 @@ python3 tools/build_dictionaries.py --ecdict-csv /tmp/ecdict.csv --check
 | `freq` | wordfreq 3.0.2 | 按词性用纯 `list` 词拟合 zipf 阈值（DP、单调），`zipf = 0` 不落档 |
 
 专名、缩写、无中文释义的词不标级；五层后仍无级的词不显示级别。
-`content/reports/word-levels-coverage.json` 记录各层条数、覆盖率、级别分布与未覆盖原因；
-`content/reports/levels-audit.json` 是按预测级分层、每级 35 条、种子 42 的抽查样本与判定。
+`reports/word-levels-coverage.json` 记录各层条数、覆盖率、级别分布与未覆盖原因；
+`reports/levels-audit.json` 是按预测级分层、每级 35 条、种子 42 的抽查样本与判定。
 
 `third-party/word-frequencies.json` 是全局 `lemma → zipf` 表（一位小数），`bands` 存
 `high`/`common`/`normal` 三个分位切点（90/70/40 分位），面板按它显示「高频 / 较常见 / 一般 / 少见」。

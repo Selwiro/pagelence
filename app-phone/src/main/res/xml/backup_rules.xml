@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android 11 及以下的整机备份规则（fullBackupContent）。
+
+  只备份阅读进度本身：`state.json` 与其损坏恢复用的 `.bak`、同步的基线与状态、
+  书城源设置。内容包（13MB）、下载的完整词表（可到 82MB）、导入的书籍包、
+  网络缓存都不备份——它们要么能重装恢复，要么属于「只在本机」的承诺范围。
+
+  注意：同步口令用 Android Keystore 加密，换机后 Keystore 密钥不存在，
+  备份 SharedPreferences 没有意义，因此不列入。
+-->
+<full-backup-content>
+    <include domain="file" path="state.json" />
+    <include domain="file" path="state.json.bak" />
+    <include domain="file" path="sync-state.json" />
+    <include domain="file" path="sync-baseline.json" />
+    <include domain="file" path="source-settings.json" />
+</full-backup-content>

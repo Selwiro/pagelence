@@ -23,17 +23,27 @@ val signingNote = if (hasReleaseSigning) {
 }
 logger.lifecycle(":app-phone 发布签名：$signingNote")
 
+// 版本号单一来源：`version.properties`。发版用 tools/bump_version.py 递增，
+// 构建脚本不再散落写死版本；文件缺失时退回 1/0.1.0，保证局部检出也能构建。
+val versionProperties = Properties().apply {
+    val file = rootProject.file("version.properties")
+    if (file.isFile) file.inputStream().use { load(it) }
+}
+val appVersionCode = versionProperties.getProperty("versionCode")?.trim()?.toIntOrNull() ?: 1
+val appVersionName = versionProperties.getProperty("versionName")?.trim().orEmpty().ifBlank { "0.1.0" }
+
 android {
     namespace = "com.pagelence"
     compileSdk = 37
-    buildToolsVersion = "36.0.0"
 
     defaultConfig {
         applicationId = "com.pagelence"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        // 与 compileSdk 对齐。targetSdk 每落后一版，上架要求就会在未来某个节点
+        // 逼着一次跳两级；edge-to-edge / 预测性返回等行为变更列入真机走查清单。
+        targetSdk = 37
+        versionCode = appVersionCode
+        versionName = appVersionName
         // 完整词表是可选下载；托管上线前默认关闭，本地验收可用 -P 覆盖地址并打开。
         val fullDictUrl = (project.findProperty("pagelence.fullDictUrl") as String? ?: "").replace("\"", "")
         val fullDictEnabled = (project.findProperty("pagelence.fullDictEnabled") as String? ?: "false")
@@ -49,8 +59,9 @@ android {
         compose = true
         buildConfig = true
     }
-    // 内容包随 APK 分发；首次启动复制到 filesDir，之后按 manifest 变化决定是否重播。
-    sourceSets.getByName("main").assets.srcDir("../content")
+    // 内容包随 APK 分发。给编辑看的缺口与审计报告放在仓库根 `reports/`，
+    // 不在 assets 源目录里，所以不会进包。
+    sourceSets.getByName("main").assets.srcDirs("../content")
     packaging {
         resources.excludes += setOf("/META-INF/{AL2.0,LGPL2.1}")
     }

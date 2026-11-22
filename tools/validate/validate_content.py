@@ -48,7 +48,7 @@ GRAMMAR = CONTENT / "grammar" / "grammar-library.json"
 ASSESSMENT = CONTENT / "assessment" / "bank.json"
 MANIFEST = CONTENT / "books-index.json"
 STORE = CONTENT / "store.json"
-REPORTS = CONTENT / "reports"
+REPORTS = ANDROID / "reports"
 SRC = ANDROID / "content-src"
 
 HINT_KINDS = {"word", "phrase", "sentence"}

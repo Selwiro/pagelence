@@ -42,6 +42,8 @@ REPO = ANDROID
 SRC_DIR = ANDROID / "content-src" / "alice"
 SOURCE = SRC_DIR / "source" / "chapters.json"
 CONTENT_DIR = ANDROID / "content"
+# 报告是给编辑看的产物，不进 APK，所以放在 content/ 之外的 reports/。
+REPORTS_DIR = ANDROID / "reports"
 BOOK_ID = "alice-1866"
 BOOK_DIR = CONTENT_DIR / "books" / BOOK_ID
 GRAMMAR = CONTENT_DIR / "grammar" / "grammar-library.json"
@@ -446,9 +448,9 @@ def write_outputs(book: dict, stats: dict, meta: dict, check: bool) -> None:
     )
     outputs = {
         BOOK_DIR / "book.json": dump(book),
-        CONTENT_DIR / "reports" / f"{book['id']}.gap.json": dump(report),
-        CONTENT_DIR / "reports" / f"{book['id']}.hints.json": dump(hint_overlap_report(book)),
-        CONTENT_DIR / "reports" / f"{book['id']}.long-sentences.json": dump(
+        REPORTS_DIR / f"{book['id']}.gap.json": dump(report),
+        REPORTS_DIR / f"{book['id']}.hints.json": dump(hint_overlap_report(book)),
+        REPORTS_DIR / f"{book['id']}.long-sentences.json": dump(
             long_sentence_report(book, meta["level"])
         ),
     }

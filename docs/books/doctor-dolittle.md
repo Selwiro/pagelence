@@ -53,7 +53,7 @@ Frederick A. Stokes Company（纽约）版。取回记录在本机 `inputs/base-
 | 点词提示 | 563 条，每单元 3–11 条 |
 | 读后测验 | 206 道（每单元 2 道） |
 | 语法解析 | 103 则（每单元 1 个主讲点） |
-| 长难句解析 | 1 条示例；候选报告见 `content/reports/doctor-dolittle-1920.long-sentences.json` |
+| 长难句解析 | 1 条示例；候选报告见 `reports/doctor-dolittle-1920.long-sentences.json` |
 
 单元切分在 `meta.json` 的 `unitRanges` 中冻结为每章段落区间（1 起），不再由动态规划重算；
 正文改版时必须同步改区间，否则 id 会移动。id 规则仍是 `chapter-01`、`chapter-01-u01`、
@@ -65,7 +65,7 @@ Frederick A. Stokes Company（纽约）版。取回记录在本机 `inputs/base-
 - `introduction`：双语导读，2–3 句；只给情境与钩子，不说本单元的回答、决定或结局。
 - `paragraphs[].sentences[]`：与冻结切分逐句对应，句译忠实、保留引号与语气。
 - `paragraphs[].hints[]`：只写词典解决不了的：专名译名、多词单位、本句语境义、文化所指、
-  本书教学点。与通用词典重复的只有 `Parson` 一条（重复率报告 `content/reports/doctor-dolittle-1920.hints.json`）。
+  本书教学点。与通用词典重复的只有 `Parson` 一条（重复率报告 `reports/doctor-dolittle-1920.hints.json`）。
 - `unit.quiz`：每单元 2 题，考大意理解，3 个选项，`sentence` 指回单元句序，`feedback`
   中英各一句。构建时按单元 id 确定性地轮转选项，避免正确答案总在第一个。
 - `unit.grammar`：每单元一个主讲点，`excerpt` 逐字取自本单元原文，`pointIds[0]` 命中语法库

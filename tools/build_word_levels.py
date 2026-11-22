@@ -76,8 +76,8 @@ def require(path: "Path | None", env: str, what: str) -> Path:
 ECDICT = ANDROID / "content" / "third-party" / "dictionaries" / "ecdict.json"
 BOOKS = ANDROID / "content" / "books"
 OUT_LEVELS = ANDROID / "content" / "third-party" / "word-levels.json"
-OUT_REPORT = ANDROID / "content" / "reports" / "word-levels-coverage.json"
-OUT_AUDIT = ANDROID / "content" / "reports" / "levels-audit.json"
+OUT_REPORT = ANDROID / "reports" / "word-levels-coverage.json"
+OUT_AUDIT = ANDROID / "reports" / "levels-audit.json"
 
 LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
 RANK = {level: index for index, level in enumerate(LEVELS)}

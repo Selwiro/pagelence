@@ -30,7 +30,21 @@ keyPassword=…
 - 有密钥库 → 创建 `signingConfigs.release` 并绑到 `buildTypes.release`，构建时打印一行 `:app-phone 发布签名：release 使用 … 签名`。
 - 文件或密钥库缺失 → 不创建签名配置，`assembleRelease` 照常成功，产物是 `app-phone-release-unsigned.apk`，同时打印提示。debug 构建从不读这些文件，本地开发与没有密钥的 CI 都不会因此失败。
 
-release 暂不开混淆与资源压缩：Compose 和 kotlinx.serialization 需要额外 keep 规则，等真机回归矩阵稳定后再单独评估，`app-phone/proguard-rules.pro` 目前是说明性占位。
+release 暂不开混淆与资源压缩：Compose 和 kotlinx.serialization 需要额外 keep 规则，
+等真机回归矩阵稳定后再单独评估（T155 接），`app-phone/proguard-rules.pro` 目前是说明性占位。
+
+## 版本号
+
+`versionCode` / `versionName` 只有一处来源：仓库根 [`version.properties`](../version.properties)，
+由 `:app-phone/build.gradle.kts` 读取。发版前：
+
+```sh
+python3 tools/bump_version.py patch     # 或 minor / major
+./gradlew :app-phone:assembleRelease
+```
+
+脚本同时 +1 `versionCode` 并打印新旧版本；关于页显示的是同一组值（`BuildConfig`）。
+不要手改 `build.gradle.kts` 里的版本——那样会绕开这个唯一来源。
 
 ## 构建与校验
 
@@ -44,7 +58,7 @@ release 暂不开混淆与资源压缩：Compose 和 kotlinx.serialization 需�
 
 ## 备份
 
-密钥库文件和口令必须各自异地备份（例如密码管理器 + 离线盘）。**丢失任一项都无法补救**：Android 不允许换密钥覆盖升级，已安装的用户只能卸载重装，而卸载会一并删除本地进度与生词卡——当前还没有导出功能。备份时不要放进仓库、网盘公开链接或任何会被打包进 APK 的位置。
+密钥库文件和口令必须各自异地备份（例如密码管理器 + 离线盘）。**丢失任一项都无法补救**：Android 不允许换密钥覆盖升级，已安装的用户只能卸载重装，而卸载会一并删除本地进度与生词卡（用户可先用设置里的「导出进度」自行备份）。备份时不要放进仓库、网盘公开链接或任何会被打包进 APK 的位置。
 
 ## 与调试包的关系
 
