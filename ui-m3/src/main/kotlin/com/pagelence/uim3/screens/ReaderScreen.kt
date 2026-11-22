@@ -143,6 +143,26 @@ import kotlinx.coroutines.launch
 
 private val SentenceTranslateIconSize = 14.dp
 private val SentenceAnalysisIconSize = 14.dp
+
+/**
+ * Page-turn tap zones live in the 22dp text margin only. A 48dp zone would
+ * cover the last words of every line and steal their taps, so the zone matches
+ * the margin; full height keeps it easy to hit.
+ */
+private val PageTurnZoneWidth = 22.dp
+
+/**
+ * Extra hit area around the 14dp inline icons. The placeholder stays 14dp so
+ * pagination does not move; taps land in this slop instead of on a word.
+ */
+private val SentenceIconSlop = 14.dp
+
+/**
+ * Inline glyphs stay 14dp, but their placeholder is 28dp so the tap target is
+ * bigger than the glyph. A 48dp inline box would change line height and
+ * pagination; TalkBack reaches the same action through semantics.
+ */
+private val SentenceIconTouchSize = 24.dp
 private const val SentenceTranslateInlineId = "sentence-translate"
 private const val SentenceAnalysisInlineId = "sentence-analysis"
 
@@ -680,7 +700,7 @@ fun ReaderScreen(
                                     modifier = Modifier
                                         .align(Alignment.CenterStart)
                                         .fillMaxHeight()
-                                        .width(20.dp)
+                                        .width(PageTurnZoneWidth)
                                         .clickable(
                                             onClickLabel = strings.previousPage,
                                             onClick = { goTo(pagerState.currentPage - 1) },
@@ -692,7 +712,7 @@ fun ReaderScreen(
                                     modifier = Modifier
                                         .align(Alignment.CenterEnd)
                                         .fillMaxHeight()
-                                        .width(20.dp)
+                                        .width(PageTurnZoneWidth)
                                         .clickable(
                                             onClickLabel = strings.nextPage,
                                             onClick = { goTo(pagerState.currentPage + 1) },
@@ -1611,13 +1631,18 @@ private fun TextScrollView(
                 }
             }
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scroll)
-            .padding(horizontal = 22.dp, vertical = 10.dp),
-    ) {
-        state.paragraphs.forEach { paragraph ->
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+        Column(
+            modifier = Modifier
+                // Same reading column as the paged layout: on a tablet a full
+                // width line is too long to read comfortably.
+                .widthIn(max = 760.dp)
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .verticalScroll(scroll)
+                .padding(horizontal = 22.dp, vertical = 10.dp),
+        ) {
+            state.paragraphs.forEach { paragraph ->
             ParagraphBlock(
                 strings = strings,
                 paragraph = paragraph,
@@ -1635,7 +1660,8 @@ private fun TextScrollView(
         Button(onClick = onEnterQuiz, modifier = Modifier.fillMaxWidth()) {
             Text(enterLabel)
         }
-        Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(24.dp))
+        }
     }
 }
 
@@ -2001,16 +2027,21 @@ private fun ParagraphText(
                 detectTapGestures { offset ->
                     val result = layout ?: return@detectTapGestures
                     val index = result.getOffsetForPosition(offset)
+                    // 14dp glyphs are hard to hit with a thumb; accept a tap
+                    // within a fingertip of the icon without changing layout.
+                    val slop = SentenceIconSlop.toPx()
                     data.analysisStarts.entries.firstOrNull { (at, _) ->
                         val box = result.getBoundingBox(at)
-                        offset.x in box.left..box.right && offset.y in box.top..box.bottom
+                        offset.x in (box.left - slop)..(box.right + slop) &&
+                            offset.y in (box.top - slop)..(box.bottom + slop)
                     }?.value?.let { sentence ->
                         onAnalysis(sentence)
                         return@detectTapGestures
                     }
                     data.iconStarts.entries.firstOrNull { (at, _) ->
                         val box = result.getBoundingBox(at)
-                        offset.x in box.left..box.right && offset.y in box.top..box.bottom
+                        offset.x in (box.left - slop)..(box.right + slop) &&
+                            offset.y in (box.top - slop)..(box.bottom + slop)
                     }?.value?.let { sentence ->
                         onTranslate(paragraphId, sentence)
                         return@detectTapGestures
