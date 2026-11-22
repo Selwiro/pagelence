@@ -294,7 +294,8 @@ app-phone (Android application, applicationId com.pagelence)
     │    WordPanelPresenter（点词→词条面板）、StorePresenter（书城）、
     │    AssessmentPresenter（测评）、BookDetailPresenter（书籍详情）、
     │    GrammarPresenter（语法库）、DictionaryPresenter（完整词表）、
-    │    SyncPresenter（同步状态）、PreviewPresenter（预习词）
+    │    SyncPresenter（同步状态）、PreviewPresenter（预习词）、
+    │    SettingsPresenter / FinishedPresenter / WordCardPresenter
     ├── data (纯 JVM)
     │     state.json 读写；进度、卡片、偏好、等级与日活仓库
     └── core (纯 JVM)
@@ -307,6 +308,19 @@ app-phone (Android application, applicationId com.pagelence)
 - `SpeechController` 在 `app-phone`，用系统 TTS；`ui-m3` 只接 `onSpeakWord/onSpeakSentence`。
 - 随包内容经 `ContentSource` 读取：APK 用 `AssetContentSource`（`AssetManager` 适配），下载书用 `FileContentSource`；不再复制到 `filesDir`。
 - 书架、我的、书城只读 `books-index.json` 与每本书的 `outline.json`；`book.json` 在打开书时才解析。
+
+### `:presentation` 的边界（M5 复用）
+
+`:presentation` 只依赖 `:core` / `:sync`，不含 `android.*`。它承担“把数据变成界面模型”的规则：
+UI 模型与双语文案、阅读会话（续读点/读完判定）、页序、单元阅读状态、词条面板、书架/我的统计、
+书城、书籍详情、测评、语法库、完整词表、同步状态、预习词、设置/完成页/生词卡列表。
+
+壳层（`app-phone` 或未来的墨水屏壳）保留：导航栈与 `Screen`、协程与线程切换、`AppGraph` 装配、
+TTS/文件选择器/网络/Keystore 等平台服务，以及把 presenter 结果写进状态流。
+
+给 M5 的最小接入：装配自己的 `AppGraph` 等价物（内容源 + 四个仓库 + 平台服务），用
+`ReaderPresenter` 产出 `ReaderUiState`、`ReaderFlow` 决定页序、`ReaderSession` 保存位置；
+其余页面用对应 presenter 取 `…UiState`，不需要复制文案或映射代码。
 
 ## 八、存储
 
