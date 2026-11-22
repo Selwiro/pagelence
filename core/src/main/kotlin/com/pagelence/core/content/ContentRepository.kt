@@ -9,7 +9,6 @@ import com.pagelence.core.lexicon.WordLookup
 import com.pagelence.core.lexicon.WordQuery
 import com.pagelence.core.wordcards.WordCardRepository
 import java.nio.file.Path
-import kotlin.io.path.exists
 
 /**
  * Read access to books, the grammar library and the word tables.
@@ -42,37 +41,55 @@ interface ContentRepository {
 }
 
 /**
- * Loads the content package from `work/android/content`.
+ * Loads a content package through a [ContentSource].
  *
- * [extraContentDir] is a second, writable root for downloaded books
- * (`filesDir/downloaded/`, same layout). Lookup tables always come from the
- * shipped root; a downloaded book shares the word levels, dictionaries and
- * grammar library, and simply has no per-book frequency/occurrence tables.
+ * The shipped package is read straight from the APK assets; [extra] is a
+ * second, writable source for downloaded books (`filesDir/downloaded/`, same
+ * layout). Lookup tables always come from the shipped source; a downloaded book
+ * shares the word levels, dictionaries and grammar library, and simply has no
+ * per-book frequency/occurrence tables.
+ *
+ * The `Path` constructor is kept for tests and tools; the app passes sources.
  */
 class FileContentRepository(
-    private val contentDir: Path,
+    private val shipped: ContentSource,
     private val cards: WordCardRepository? = null,
-    private val extraContentDir: Path? = null,
+    private val extra: ContentSource? = null,
     /** Optional downloaded full ECDICT table, queried after the shipped core. */
     private val fullDictionary: DictionarySource? = null,
 ) : ContentRepository {
+    /** Convenience for tests and file-based tools. */
+    constructor(
+        contentDir: Path,
+        cards: WordCardRepository? = null,
+        extraContentDir: Path? = null,
+        fullDictionary: DictionarySource? = null,
+    ) : this(
+        FileContentSource(contentDir),
+        cards,
+        extraContentDir?.let { FileContentSource(it) },
+        fullDictionary,
+    )
+
     private var manifestCache: ContentManifest? = null
     private var extraManifestCache: ContentManifest? = null
 
     private fun manifest(): ContentManifest =
-        manifestCache ?: loadManifest(contentDir).also { manifestCache = it }
+        manifestCache ?: loadManifest(shipped).also { manifestCache = it }
 
     private fun extraManifest(): ContentManifest? {
         extraManifestCache?.let { return it }
-        val root = extraContentDir ?: return null
-        if (!root.resolve("books-index.json").exists()) return null
-        return loadManifest(root).also { extraManifestCache = it }
+        val source = extra ?: return null
+        if (!source.exists("books-index.json")) return null
+        return loadManifest(source).also { extraManifestCache = it }
     }
 
     private fun summaries(): List<BookSummary> = manifest().books + extraManifest()?.books.orEmpty()
 
-    private fun rootOf(summary: BookSummary): Path =
-        if (extraManifest()?.books?.any { it.id == summary.id } == true) extraContentDir!! else contentDir
+    private fun sourceOf(summary: BookSummary): ContentSource = when {
+        extraManifest()?.books?.any { it.id == summary.id } == true -> extra ?: shipped
+        else -> shipped
+    }
 
     /** Re-read manifests after a book was downloaded or removed. */
     fun refresh() {
@@ -87,14 +104,14 @@ class FileContentRepository(
     private val indexCache = mutableMapOf<String, ContentIndex>()
 
     private val grammar: Map<String, GrammarPoint> by lazy {
-        val path = contentDir.resolve("grammar/grammar-library.json")
-        if (!path.exists()) emptyMap()
-        else PagelenceJson.decodeFromString<GrammarLibrary>(path.toFile().readText(Charsets.UTF_8)).points.associateBy { it.id }
+        val path = "grammar/grammar-library.json"
+        if (!shipped.exists(path)) emptyMap()
+        else PagelenceJson.decodeFromString<GrammarLibrary>(shipped.readText(path)).points.associateBy { it.id }
     }
 
     private val levels: WordLevelTable by lazy {
-        val path = contentDir.resolve("third-party/word-levels.json")
-        if (!path.exists()) WordLevelTable() else WordQuery.parseLevels(path.toFile().readText(Charsets.UTF_8))
+        val path = "third-party/word-levels.json"
+        if (!shipped.exists(path)) WordLevelTable() else WordQuery.parseLevels(shipped.readText(path))
     }
 
     private val occurrences = mutableMapOf<String, BookOccurrences>()
@@ -102,14 +119,14 @@ class FileContentRepository(
 
     /** One app-wide wordfreq table; book counts are scanned, not shipped. */
     private val frequencies: WordFrequencyTable by lazy {
-        val path = contentDir.resolve("third-party/word-frequencies.json")
-        if (!path.exists()) WordFrequencyTable()
-        else WordQuery.parseWordFrequencies(path.toFile().readText(Charsets.UTF_8))
+        val path = "third-party/word-frequencies.json"
+        if (!shipped.exists(path)) WordFrequencyTable()
+        else WordQuery.parseWordFrequencies(shipped.readText(path))
     }
 
     private val dictionary: DictionaryFile? by lazy {
-        val path = contentDir.resolve("third-party/dictionaries/ecdict.json")
-        if (path.exists()) WordQuery.parseDictionary(path.toFile().readText(Charsets.UTF_8)) else null
+        val path = "third-party/dictionaries/ecdict.json"
+        if (shipped.exists(path)) WordQuery.parseDictionary(shipped.readText(path)) else null
     }
 
     override fun library(): List<BookSummary> = summaries()
@@ -117,7 +134,7 @@ class FileContentRepository(
     override fun book(bookId: String): Book? {
         bookCache[bookId]?.let { return it }
         val summary = summaries().firstOrNull { it.id == bookId } ?: return null
-        val loaded = loadBook(rootOf(summary).resolve(summary.path))
+        val loaded = loadBook(sourceOf(summary), summary.path)
         bookCache[bookId] = loaded
         return loaded
     }
@@ -144,8 +161,10 @@ class FileContentRepository(
 
     override fun coverPath(bookId: String): String? {
         val summary = summaries().firstOrNull { it.id == bookId } ?: return null
-        val cover = rootOf(summary).resolve(summary.path).parent.resolve("cover.jpg")
-        return if (cover.exists()) cover.toString() else null
+        val source = sourceOf(summary)
+        val cover = summary.path.substringBeforeLast('/') + "/cover.jpg"
+        if (!source.exists(cover)) return null
+        return source.filePath(cover)
     }
 
     private fun query(bookId: String): WordQuery? {
@@ -168,12 +187,17 @@ class FileContentRepository(
     }
 
     companion object {
-        fun loadManifest(contentDir: Path): ContentManifest {
-            val path = contentDir.resolve("books-index.json")
-            return PagelenceJson.decodeFromString(path.toFile().readText(Charsets.UTF_8))
-        }
+        fun loadManifest(source: ContentSource): ContentManifest =
+            PagelenceJson.decodeFromString(source.readText("books-index.json"))
 
-        fun loadBook(path: Path): Book = PagelenceJson.decodeFromString(path.toFile().readText(Charsets.UTF_8))
+        /** File-based convenience, used by tests and tools. */
+        fun loadManifest(contentDir: Path): ContentManifest = loadManifest(FileContentSource(contentDir))
+
+        fun loadBook(source: ContentSource, path: String): Book =
+            PagelenceJson.decodeFromString(source.readText(path))
+
+        /** File-based convenience, used by tests and tools. */
+        fun loadBook(path: Path): Book = loadBook(FileContentSource(path.parent), path.fileName.toString())
     }
 }
 

@@ -1,8 +1,6 @@
 package com.pagelence.core.content
 
 import java.nio.file.Path
-import kotlin.io.path.exists
-import kotlin.io.path.readText
 import kotlinx.serialization.Serializable
 
 /**
@@ -64,13 +62,15 @@ object StoreCatalogRules {
         )
 }
 
-/** Reads `content/store.json`; a missing or malformed file yields an empty shelf. */
-class FileBuiltInStoreCatalog(private val contentDir: Path) {
+/** Reads `store.json` from a package source; a missing or malformed file yields an empty shelf. */
+class FileBuiltInStoreCatalog(private val source: ContentSource) {
+    /** Convenience for tests and file-based tools. */
+    constructor(contentDir: Path) : this(FileContentSource(contentDir))
+
     fun catalog(): BuiltInStoreCatalog {
-        val path = contentDir.resolve("store.json")
-        if (!path.exists()) return BuiltInStoreCatalog()
+        if (!source.exists("store.json")) return BuiltInStoreCatalog()
         return runCatching {
-            PagelenceJson.decodeFromString<BuiltInStoreCatalog>(path.readText(Charsets.UTF_8))
+            PagelenceJson.decodeFromString<BuiltInStoreCatalog>(source.readText("store.json"))
         }.getOrDefault(BuiltInStoreCatalog())
     }
 

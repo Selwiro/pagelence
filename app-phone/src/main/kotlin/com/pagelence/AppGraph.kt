@@ -3,9 +3,12 @@ package com.pagelence
 import android.content.Context
 import android.net.Uri
 import com.pagelence.core.assessment.FileAssessmentRepository
+import com.pagelence.core.content.AssetContentSource
 import com.pagelence.core.content.ContentRepository
+import com.pagelence.core.content.ContentSource
 import com.pagelence.core.content.FileBuiltInStoreCatalog
 import com.pagelence.core.content.FileContentRepository
+import com.pagelence.core.content.FileContentSource
 import com.pagelence.core.dict.DictManifest
 import com.pagelence.core.dict.DictManifestCodec
 import com.pagelence.core.dict.FullDictInstaller
@@ -78,12 +81,19 @@ class AppGraph(context: Context) {
         )
     }
 
-    private val contentDir: File by lazy { ContentSeed.ensure(appContext) }
+    /**
+     * The package that ships inside the APK, read through `AssetManager`.
+     * Nothing is copied to `filesDir`: the APK assets are the single copy, so
+     * an update never re-copies 13 MB and the install does not pay for it twice.
+     */
+    private val shippedContent: ContentSource by lazy {
+        AssetContentSource(AssetManagerReader(appContext.assets))
+    }
 
-    /** Book ids that ship inside the APK, read from the seeded content manifest. */
+    /** Book ids that ship inside the APK, read from the shipped manifest. */
     private val shippedBookIds: Set<String> by lazy {
         runCatching {
-            FileContentRepository.loadManifest(contentDir.toPath()).books.map { it.id }.toSet()
+            FileContentRepository.loadManifest(shippedContent).books.map { it.id }.toSet()
         }.getOrDefault(emptySet())
     }
 
@@ -148,9 +158,8 @@ class AppGraph(context: Context) {
     /** The pinned `dict-manifest.json` shipped in `content/`, if present. */
     val fullDictManifest: DictManifest? by lazy {
         runCatching {
-            val file = File(contentDir, "dict-manifest.json")
-            if (!file.isFile) return@runCatching null
-            DictManifestCodec.decode(file.readText(Charsets.UTF_8))
+            if (!shippedContent.exists("dict-manifest.json")) return@runCatching null
+            DictManifestCodec.decode(shippedContent.readText("dict-manifest.json"))
         }.getOrNull()
     }
 
@@ -170,7 +179,12 @@ class AppGraph(context: Context) {
     fun dictionaryNetworkUnmetered(): Boolean = DictionaryNetwork.isUnmetered(appContext)
 
     val content: ContentRepository by lazy {
-        FileContentRepository(contentDir.toPath(), cards, downloads.dir, fullDictionary)
+        FileContentRepository(
+            shipped = shippedContent,
+            cards = cards,
+            extra = FileContentSource(downloads.dir),
+            fullDictionary = fullDictionary,
+        )
     }
 
     /** Re-read the content manifests after a download or removal. */
@@ -179,12 +193,12 @@ class AppGraph(context: Context) {
     }
 
     val assessment: FileAssessmentRepository by lazy {
-        FileAssessmentRepository(contentDir.toPath())
+        FileAssessmentRepository(shippedContent)
     }
 
     /** Planned built-in shelf; availability still comes from the content manifest. */
     val builtInCatalog: FileBuiltInStoreCatalog by lazy {
-        FileBuiltInStoreCatalog(contentDir.toPath())
+        FileBuiltInStoreCatalog(shippedContent)
     }
 
     val speech: SpeechController by lazy { SpeechController(appContext) }
