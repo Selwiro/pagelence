@@ -17,6 +17,10 @@ import com.pagelence.core.content.ContentOutline
 import com.pagelence.presentation.library.LibraryPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
+import com.pagelence.presentation.store.StorePresenter
+import com.pagelence.presentation.store.formatBytes
+import com.pagelence.presentation.store.storeErrorPriority
+import com.pagelence.presentation.store.storeErrorText
 import com.pagelence.presentation.reader.toSelectedUi
 import com.pagelence.presentation.reader.toStripUi
 import com.pagelence.core.content.StoreCatalogRules
@@ -902,7 +906,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 language = uiLanguage(graph.preferences.preferences()),
                 refreshing = false,
                 error = if (ok.isEmpty() && failures.isNotEmpty()) {
-                    storeError(strings, failures.minByOrNull(::storeErrorPriority)!!)
+                    storeErrorText(strings, failures.minByOrNull(::storeErrorPriority)!!)
                 } else {
                     null
                 },
@@ -937,7 +941,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                     refreshStore()
                 }
                 is SourceResult.Err -> _ui.update {
-                    it.copy(store = it.store.copy(error = storeError(strings, result.error)))
+                    it.copy(store = it.store.copy(error = storeErrorText(strings, result.error)))
                 }
             }
         }
@@ -1001,7 +1005,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 refreshLibrary()
             }
             is SourceResult.Err -> _ui.update {
-                it.copy(store = it.store.copy(importing = false, error = storeError(strings, result.error)))
+                it.copy(store = it.store.copy(importing = false, error = storeErrorText(strings, result.error)))
             }
         }
     }
@@ -1033,7 +1037,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                         it.copy(
                             store = it.store.copy(
                                 downloadingId = null,
-                                error = storeError(strings, result.error),
+                                error = storeErrorText(strings, result.error),
                             ),
                         )
                     }
@@ -1062,6 +1066,14 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
     }
 
+    private fun storePresenter(strings: Strings, language: UiLanguage) = StorePresenter(
+        content = graph.content,
+        sources = graph.sourceManager,
+        catalog = graph.builtInCatalog,
+        strings = strings,
+        language = language,
+    )
+
     private fun buildStoreState(
         strings: Strings,
         language: UiLanguage,
@@ -1070,131 +1082,14 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         notice: String? = null,
         downloadingId: String? = _ui.value.store.downloadingId,
         importing: Boolean = _ui.value.store.importing,
-    ): StoreUiState {
-        val settings = graph.sourceManager.settings()
-        val installed = graph.sourceManager.installed()
-        val installedHashes = installed.associate { it.bookId to it.sha256 }
-        val installedIds = installedHashes.keys
-        val entries = CatalogRules.merge(storeSnapshots)
-        val books = entries.map { entry ->
-            val book = entry.book
-            StoreBookUi(
-                id = book.id,
-                title = titleFor(book.title, language),
-                coverTitle = book.title.en ?: book.title.zh ?: book.id,
-                author = book.author,
-                level = book.level,
-                description = book.description?.let { textFor(it, language) },
-                sizeLabel = formatBytes(book.sizeBytes),
-                sourceNames = entry.sources.map(graph.sourceManager::sourceName),
-                sourceIds = entry.sources,
-                installed = book.id in installedIds,
-                updateAvailable = installedHashes[book.id]?.let { it != book.sha256 } == true,
-                downloading = downloadingId == book.id,
-            )
-        }
-        val sources = settings.customSources.map {
-            StoreSourceUi(it.id, it.name, it.catalogUrl, builtIn = false, enabled = it.enabled)
-        }
-        val snapshot = storeSnapshots.firstOrNull()
-        val status = snapshot?.let {
-            if (it.fromCache) strings.storeStatusCached.format(it.fetchedAt.take(10))
-            else strings.storeStatusUpdated.format(it.fetchedAt.take(10))
-        }
-        return StoreUiState(
-            loading = false,
-            refreshing = refreshing,
-            allowLocalHttp = settings.allowLocalHttp,
-            books = books,
-            builtIn = builtInBooks(language),
-            sources = sources,
-            installed = installed.map {
-                InstalledBookUi(
-                    id = it.bookId,
-                    title = titleFor(it.title, language),
-                    units = it.units,
-                    sourceName = when (it.sourceId) {
-                        ImportedSource.LOCAL -> strings.storeImportedLocal
-                        ImportedSource.ONLINE -> strings.storeImportedOnline
-                        else -> graph.sourceManager.sourceName(it.sourceId)
-                    },
-                )
-            },
-            downloadingId = downloadingId,
-            importing = importing,
-            status = status,
-            error = error,
-            notice = notice,
-        )
-    }
-
-    /**
-     * The planned five-level shelf from `content/store.json`. A title is
-     * readable only when the content manifest actually ships it; the rest stay
-     * visible as "in production" instead of pretending to be downloadable.
-     */
-    private fun builtInBooks(language: UiLanguage): List<BuiltInBookUi> {
-        val shipped = graph.content.library().associateBy { it.id }
-        return graph.builtInCatalog.books().map { entry ->
-            val summary = shipped[entry.id]
-            // Identity comes from the package outline, never from parsing the
-            // book body: the store is part of startup.
-            val outline = summary?.let {
-                runCatching { graph.content.outline(it.id) }.getOrNull()
-            }
-            val title = entry.title ?: outline?.title ?: summary?.title
-                ?: LocalizedText(zh = entry.id, en = entry.id)
-            val available = entry.status == StoreCatalogRules.STATUS_AVAILABLE && summary != null
-            BuiltInBookUi(
-                id = entry.id,
-                title = titleFor(title, language),
-                coverTitle = title.en ?: title.zh ?: entry.id,
-                monogram = entry.monogram
-                    ?: title.zh.orEmpty().ifBlank { title.en.orEmpty() }.ifBlank { entry.id }.take(1),
-                author = entry.author ?: outline?.author,
-                level = entry.level ?: summary?.level,
-                description = (entry.summary ?: outline?.description)?.let { textFor(it, language) },
-                unitCount = summary?.units ?: 0,
-                available = available,
-                order = entry.order,
-                status = entry.status,
-                coverPath = graph.content.coverPath(entry.id),
-            )
-        }
-    }
-
-    /** Prefer a specific content error over a transport one when listing failures. */
-    private fun storeErrorPriority(error: SourceError): Int = when (error) {
-        is SourceError.AlreadyBuiltIn -> 0
-        is SourceError.BadCatalog -> 0
-        is SourceError.BadPackage -> 1
-        is SourceError.UnreadableFile -> 2
-        is SourceError.Checksum -> 2
-        is SourceError.TooLarge -> 3
-        is SourceError.Insecure -> 4
-        is SourceError.Http -> 5
-        is SourceError.Network -> 6
-        is SourceError.NotInstalled -> 7
-    }
-
-    private fun storeError(strings: Strings, error: SourceError): String = when (error) {
-        is SourceError.Network -> strings.storeErrorNetwork
-        is SourceError.Http -> strings.storeErrorHttp.format(error.code)
-        is SourceError.Insecure -> strings.storeErrorHttps
-        is SourceError.TooLarge -> strings.storeErrorTooLarge
-        is SourceError.BadCatalog -> strings.storeErrorBadCatalog.format(error.detail)
-        is SourceError.BadPackage -> strings.storeErrorBadPackage.format(error.detail)
-        is SourceError.Checksum -> strings.storeErrorChecksum
-        is SourceError.NotInstalled -> strings.storeErrorBadPackage.format(error.detail)
-        is SourceError.AlreadyBuiltIn -> strings.storeErrorBuiltIn
-        is SourceError.UnreadableFile -> strings.storeErrorFile
-    }
-
-    private fun formatBytes(bytes: Long): String = when {
-        bytes >= 1024 * 1024 -> String.format("%.1f MB", bytes / 1024.0 / 1024.0)
-        bytes >= 1024 -> String.format("%d KB", bytes / 1024)
-        else -> "$bytes B"
-    }
+    ): StoreUiState = storePresenter(strings, language).store(
+        snapshots = storeSnapshots,
+        refreshing = refreshing,
+        error = error,
+        notice = notice,
+        downloadingId = downloadingId,
+        importing = importing,
+    )
 
     // --- assessment ------------------------------------------------------
 
