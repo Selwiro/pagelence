@@ -7,8 +7,9 @@
 
 ## 一、形态
 
-- 随包核心表仍是 `content/third-party/dictionaries/ecdict.json`（38,292 条，7.9 MiB，
-  开箱即用、离线可查）。
+- 随包核心表仍是 `content/third-party/dictionaries/ecdict.json`（38,229 条，7.9 MiB，
+  开箱即用、离线可查）；APK 里它以 `third-party/lexicon.bin` 的索引段出现，点词时只
+  解释被点的那一条（T156，见 [内容格式](content-format.md#随包的二进制词表-lexiconbin)）。
 - 完整表是**可选下载**的单个 SQLite 文件，字段与核心表同构：
 
   ```sql

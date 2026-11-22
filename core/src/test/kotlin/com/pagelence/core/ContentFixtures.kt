@@ -1,6 +1,7 @@
 package com.pagelence.core
 
 import java.nio.file.Path
+import kotlin.io.path.readBytes
 import kotlin.io.path.readText
 
 /** Access to the real shipped content package and to test fixtures. */
@@ -20,4 +21,6 @@ object ContentFixtures {
     }
 
     fun read(path: String): String = contentDir.resolve(path).readText()
+
+    fun readBytes(path: String): ByteArray = contentDir.resolve(path).readBytes()
 }

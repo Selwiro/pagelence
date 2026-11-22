@@ -62,6 +62,12 @@ android {
     // 内容包随 APK 分发。给编辑看的缺口与审计报告放在仓库根 `reports/`，
     // 不在 assets 源目录里，所以不会进包。
     sourceSets.getByName("main").assets.srcDirs("../content")
+    // `content/` is also the build source for tools and tests, but the three
+    // generated tables ship only as `third-party/lexicon.bin`; keeping the JSON
+    // in the APK would add ~11 MB of dead weight (T156).
+    androidResources {
+        ignoreAssetsPattern = "ecdict.json:word-levels.json:word-frequencies.json"
+    }
     packaging {
         resources.excludes += setOf("/META-INF/{AL2.0,LGPL2.1}")
     }

@@ -3,6 +3,7 @@ package com.pagelence.core.content
 import com.pagelence.core.lexicon.DictionaryFile
 import com.pagelence.core.lexicon.DictionarySource
 import com.pagelence.core.lexicon.BookOccurrences
+import com.pagelence.core.lexicon.Lexicon
 import com.pagelence.core.lexicon.WordFrequencyTable
 import com.pagelence.core.lexicon.WordLevelTable
 import com.pagelence.core.lexicon.WordLookup
@@ -63,6 +64,12 @@ class FileContentRepository(
     private val extra: ContentSource? = null,
     /** Optional downloaded full ECDICT table, queried after the shipped core. */
     private val fullDictionary: DictionarySource? = null,
+    /**
+     * The binary lexicon index, loaded on the first lookup. A provider rather
+     * than a value so the app does not read ~11 MB at startup and a test can
+     * keep using the JSON tables. Null keeps the JSON fallback below.
+     */
+    private val lexicon: () -> Lexicon? = { null },
 ) : ContentRepository {
     /** Convenience for tests and file-based tools. */
     constructor(
@@ -70,11 +77,13 @@ class FileContentRepository(
         cards: WordCardRepository? = null,
         extraContentDir: Path? = null,
         fullDictionary: DictionarySource? = null,
+        lexicon: () -> Lexicon? = { null },
     ) : this(
         FileContentSource(contentDir),
         cards,
         extraContentDir?.let { FileContentSource(it) },
         fullDictionary,
+        lexicon,
     )
 
     private var manifestCache: ContentManifest? = null
@@ -186,16 +195,18 @@ class FileContentRepository(
     private fun query(bookId: String): WordQuery? {
         val index = index(bookId) ?: return null
         return queries.getOrPut(bookId) {
+            val indexed = lexicon()
             WordQuery(
                 index = index,
-                levels = levels,
-                frequencies = frequencies.takeIf { it.entries.isNotEmpty() },
+                levels = indexed?.levels ?: levels,
+                frequencies = indexed?.frequencies
+                    ?: frequencies.takeIf { it.entries.isNotEmpty() },
                 // The whole book is scanned once on first lookup and the table
                 // stays in memory for the session; nothing is written to disk.
                 occurrences = occurrences.getOrPut(bookId) {
                     BookOccurrences(WordQuery.countWords(index.book))
                 },
-                ecdict = dictionary,
+                ecdict = indexed?.dictionary ?: dictionary,
                 fullDictionary = fullDictionary,
                 cards = cards,
             )

@@ -12,6 +12,7 @@ import com.pagelence.core.content.FileContentSource
 import com.pagelence.core.dict.DictManifest
 import com.pagelence.core.dict.DictManifestCodec
 import com.pagelence.core.dict.FullDictInstaller
+import com.pagelence.core.lexicon.LexiconIndex
 import com.pagelence.core.source.DownloadedBooks
 import com.pagelence.core.source.SourceLimits
 import com.pagelence.core.source.SourceManager
@@ -93,6 +94,18 @@ class AppGraph(context: Context) {
      */
     private val shippedContent: ContentSource by lazy {
         AssetContentSource(AssetManagerReader(appContext.assets))
+    }
+
+    /**
+     * The three global word tables as one binary index. Read on the first word
+     * tap (~11 MB) instead of parsing ~11 MB of JSON into object graphs, which
+     * used to add ~95 MB of heap. A missing or stale file only disables
+     * dictionary lookups; the reader itself keeps working.
+     */
+    private val lexiconIndex: LexiconIndex? by lazy {
+        runCatching {
+            LexiconIndex.parse(shippedContent.readBytes("third-party/lexicon.bin"))
+        }.getOrNull()
     }
 
     /** Book ids that ship inside the APK, read from the shipped manifest. */
@@ -189,6 +202,7 @@ class AppGraph(context: Context) {
             cards = cards,
             extra = FileContentSource(downloads.dir),
             fullDictionary = fullDictionary,
+            lexicon = { lexiconIndex },
         )
     }
 

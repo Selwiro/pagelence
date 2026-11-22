@@ -440,4 +440,6 @@ adb shell am start -n com.pagelence/.MainActivity
 - 两本内置书都已完整：《怪医杜立德》103 个单元、《爱丽丝》104 个单元都有标题、导读、逐句句译、测验与语法解析。
 - 《爱丽丝》的对话被冻结切分规则按感叹号切开，句译按片段逐条给出，读起来会比整句碎；这是切分规则的限制，不是内容缺口。
 - 点词按单词粒度；顶栏始终显示书籍信息，完整释义在底部词义面板。
+- 点词首次会把约 11 MB 的 `third-party/lexicon.bin` 读入并常驻（IO 线程，模拟器约 0.3 s），
+  之后查词只解释被点的一条；不再像 T156 之前那样把三份 JSON 解析成 80 MB 级的对象图。
 - 完整词表托管在 GitHub Releases（tag `dict-39cfb96`，标记 Pre-release 以免顶掉 App 的 Latest）；词表更新需重新生成 manifest 并随 App 发版（见 `docs/dictionary-full.md`）。

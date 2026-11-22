@@ -10,14 +10,35 @@ import kotlinx.serialization.Serializable
  * Read-only word tables shipped with the app (five-layer CEFR levels, the
  * wordfreq table, per-book occurrence counts scanned at runtime) plus the
  * offline dictionary. None of them is part of the sync document.
+ *
+ * The app reads the three global tables through [LexiconIndex], which keeps
+ * them as one binary blob and decodes only the tapped term. The data classes
+ * below are the in-memory form used by tests, tools and the JSON fallback.
  */
+
+/** One word's level slots and where each slot came from. */
+data class WordLevels(
+    val levels: Map<String, String>,
+    /** Per slot provenance: `list` / `aligned` / `derived` / `tag` / `freq`. */
+    val sources: Map<String, String> = emptyMap(),
+)
+
+/** Level lookup, in-memory ([WordLevelTable]) or indexed ([LexiconIndex]). */
+interface WordLevelSource {
+    fun lookup(term: String): WordLevels?
+}
 
 @Serializable
 data class WordLevelTable(
     val levels: Map<String, Map<String, String>> = emptyMap(),
     /** Per slot provenance: `list` / `aligned` / `derived` / `tag` / `freq`. */
     val sources: Map<String, Map<String, String>> = emptyMap(),
-) {
+) : WordLevelSource {
+    override fun lookup(term: String): WordLevels? {
+        val slots = levels[term] ?: return null
+        return WordLevels(slots, sources[term] ?: emptyMap())
+    }
+
     fun sourceOf(word: String, pos: String): String? = sources[word]?.get(pos)
 }
 
@@ -26,22 +47,33 @@ data class FrequencyBands(
     val high: Double = 4.5,
     val common: Double = 3.5,
     val normal: Double = 2.5,
-)
+) {
+    fun bandOf(zipf: Double): FrequencyBand = when {
+        zipf >= high -> FrequencyBand.HIGH
+        zipf >= common -> FrequencyBand.COMMON
+        zipf >= normal -> FrequencyBand.NORMAL
+        else -> FrequencyBand.LOW
+    }
+}
 
 enum class FrequencyBand { HIGH, COMMON, NORMAL, LOW }
+
+/** Zipf lookup, in-memory ([WordFrequencyTable]) or indexed ([LexiconIndex]). */
+interface WordFrequencySource {
+    fun zipf(term: String): Double?
+
+    fun bandOf(zipf: Double): FrequencyBand
+}
 
 /** Global lemma → zipf table from wordfreq 3.0.2; bands cut at build time. */
 @Serializable
 data class WordFrequencyTable(
     val bands: FrequencyBands = FrequencyBands(),
     val entries: Map<String, Double> = emptyMap(),
-) {
-    fun bandOf(zipf: Double): FrequencyBand = when {
-        zipf >= bands.high -> FrequencyBand.HIGH
-        zipf >= bands.common -> FrequencyBand.COMMON
-        zipf >= bands.normal -> FrequencyBand.NORMAL
-        else -> FrequencyBand.LOW
-    }
+) : WordFrequencySource {
+    override fun zipf(term: String): Double? = entries[term]
+
+    override fun bandOf(zipf: Double): FrequencyBand = bands.bandOf(zipf)
 }
 
 /** Word counts for one book, produced by scanning its text once on open. */
@@ -136,10 +168,11 @@ data class DictionarySense(
  */
 class WordQuery(
     private val index: ContentIndex,
-    private val levels: WordLevelTable = WordLevelTable(),
-    private val frequencies: WordFrequencyTable? = null,
+    private val levels: WordLevelSource = WordLevelTable(),
+    private val frequencies: WordFrequencySource? = null,
     private val occurrences: BookOccurrences? = null,
-    private val ecdict: DictionaryFile? = null,
+    /** Core table first; a [DictionaryFile] or the indexed [LexiconIndex]. */
+    private val ecdict: DictionarySource? = null,
     /** Optional downloaded full ECDICT table; queried only when the core misses. */
     private val fullDictionary: DictionarySource? = null,
     private val cards: WordCardRepository? = null,
@@ -218,19 +251,19 @@ class WordQuery(
 
     private fun levelOf(lemma: String, pos: String?): LevelHit? {
         val key = normalizeSurface(lemma)
-        val entry = levels.levels[key] ?: return null
+        val entry = levels.lookup(key) ?: return null
         val chosen: Pair<String, String>? = if (pos == null) {
             // Without a part of speech, do not promote a common word just
             // because one of its rarer senses is graded higher (`very` is A1
             // as an adverb and B2 as an adjective). The lowest sense is the
             // safe default for a reading aid.
-            entry.entries.minByOrNull { levelRank(it.value) }?.let { it.key to it.value }
+            entry.levels.entries.minByOrNull { levelRank(it.value) }?.let { it.key to it.value }
         } else {
-            posAliases(pos).mapNotNull { alias -> entry[alias]?.let { alias to it } }
+            posAliases(pos).mapNotNull { alias -> entry.levels[alias]?.let { alias to it } }
                 .minByOrNull { levelRank(it.second) }
         }
         if (chosen == null) return null
-        val source = levels.sourceOf(key, chosen.first) ?: "list"
+        val source = entry.sources[chosen.first] ?: "list"
         return LevelHit(chosen.second, source)
     }
 
@@ -245,8 +278,8 @@ class WordQuery(
     }
 
     private fun frequencyOf(normalized: String, lemma: String): Double? {
-        val table = frequencies?.entries ?: return null
-        return table[normalized] ?: table[lemma]
+        val table = frequencies ?: return null
+        return table.zipf(normalized) ?: table.zipf(lemma)
     }
 
     private fun occurrencesOf(normalized: String, lemma: String): Int? {

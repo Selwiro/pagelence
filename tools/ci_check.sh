@@ -30,6 +30,7 @@ python3 tools/build_dolittle_book.py --check
 python3 tools/build_shelf.py --check
 python3 tools/build_assessment_bank.py --check
 python3 tools/build_full_dictionary.py --check
+python3 tools/build_lexicon.py --check
 
 if ! python3 -c "import wordfreq" 2>/dev/null; then
   missing "wordfreq 3.0.2（pip install wordfreq==3.0.2）"

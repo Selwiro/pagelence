@@ -26,7 +26,7 @@ content/
   books/<dir>/book.json             一本书一个文件（schemaVersion 3），导入导出也是这一个文件
   books/<dir>/outline.json          书架用的轻量索引：标题/作者/单元/段落归属，由 book.json 生成
   grammar/grammar-library.json      语法库 schema 2，随应用；256 条，与教員版 1:1
-  third-party/                      词级五层表、通用核心词典、词频表与许可文本
+  third-party/                      通用核心词典/词级/词频的 JSON 构建源、lexicon.bin 与许可文本
 content-src/<book>/meta.json        编辑源：包元数据、章题、切分参数
 content-src/<book>/units/*.json     编辑源：已编写的学习单元
 content-src/shelf.json              编辑源：书架顺序、状态、封面子字与钩子
@@ -46,6 +46,7 @@ reports/<bookId>.gap.json           编辑产物：内容缺口、提示重复�
 | `python3 tools/build_word_frequencies.py` | 由 wordfreq 3.0.2 生成随包词频表与四档切点 |
 | `python3 tools/build_assessment_bank.py` | 合并分级测评题库，`--check` 校验是否最新 |
 | `python3 tools/build_dictionaries.py --ecdict-csv <ecdict.csv>` | 从完整 ECDICT 重建通用核心词典（另需先下载固定版本 CSV） |
+| `python3 tools/build_lexicon.py` | 把核心词典、词级表、词频表合成随包的 `third-party/lexicon.bin`（`--check` 校验是否最新） |
 | `python3 tools/build_dolittle_book.py` | 从 Gutenberg 文本重建《怪医杜立德》 |
 | `python3 tools/build_alice_book.py` | 从 Wikisource 文本重建《爱丽丝》 |
 | `python3 tools/build_shelf.py` | 合并 `shelf.json` 与 `books-index.json`，生成 `store.json` |
@@ -111,6 +112,18 @@ python3 tools/build_dictionaries.py --ecdict-csv /tmp/ecdict.csv --check
 
 书的出现次数与逐段词频不再随包：`WordQuery.countWords` 在首次查词时对全书单遍扫描，
 结果缓存内存；扫描属性派生，不写回书或 `state.json`。
+
+### 随包的二进制词表 `lexicon.bin`
+
+APK 只打包 `third-party/lexicon.bin` 一个文件，三份 JSON 只留在仓库里给构建脚本、
+校验脚本与单测使用（Gradle 的 `ignoreAssetsPattern` 把它们排除出 assets）。文件格式
+是「排序后的键 + 偏移 + 原 JSON 条目」：App 首次点词时整体读入（约 11 MB），按键
+二分查找，只把点中的那一条解释成对象，因此不再为 3.8 万条词典、3.3 万条词级和
+3.8 万条词频建内存对象图（T156，模拟器实测首次点词 +12 MB 而不是 +81 MB）。
+
+`build_lexicon.py --check` 已进 `tools/ci_check.sh`；`LexiconIndexTest` 还会抽样比对
+JSON 与二进制两条路径的查词结果，防止索引与源表静默漂移。改动任何一份 JSON 后
+必须重新生成 `lexicon.bin`，否则 CI 失败。
 
 ### 编辑源元数据 `meta.json`
 

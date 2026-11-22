@@ -4,6 +4,7 @@ import java.io.FileNotFoundException
 import java.io.InputStream
 import java.nio.file.Path
 import kotlin.io.path.exists
+import kotlin.io.path.readBytes
 import kotlin.io.path.readText
 
 /**
@@ -22,6 +23,9 @@ interface ContentSource {
 
     fun readText(path: String): String
 
+    /** Raw bytes for binary package files (the compact lexicon index). */
+    fun readBytes(path: String): ByteArray = readText(path).toByteArray(Charsets.UTF_8)
+
     /**
      * Absolute file path for a package file, when the source is backed by the
      * file system. Assets return null: callers that need a real path (cover
@@ -35,6 +39,8 @@ class FileContentSource(private val root: Path) : ContentSource {
     override fun exists(path: String): Boolean = root.resolve(path).exists()
 
     override fun readText(path: String): String = root.resolve(path).readText(Charsets.UTF_8)
+
+    override fun readBytes(path: String): ByteArray = root.resolve(path).readBytes()
 
     override fun filePath(path: String): String = root.resolve(path).toString()
 }
@@ -66,6 +72,27 @@ class AssetContentSource(private val reader: AssetReader) : ContentSource {
 
     override fun readText(path: String): String =
         reader.open(path).use { stream -> stream.bufferedReader(Charsets.UTF_8).readText() }
+
+    override fun readBytes(path: String): ByteArray = reader.open(path).use { stream ->
+        // AssetInputStream reports the uncompressed size up front. Sizing the
+        // array exactly avoids ByteArrayOutputStream's doubling, which briefly
+        // needs twice the file size on low-memory devices (T156).
+        val expected = runCatching { stream.available() }.getOrDefault(0)
+        if (expected <= 0) return@use stream.readBytes()
+        val bytes = ByteArray(expected)
+        var offset = 0
+        while (offset < expected) {
+            val read = stream.read(bytes, offset, expected - offset)
+            if (read < 0) break
+            offset += read
+        }
+        when {
+            offset < expected -> bytes.copyOf(offset)
+            stream.read() == -1 -> bytes
+            // The asset grew between available() and the read; keep the tail.
+            else -> bytes + stream.readBytes()
+        }
+    }
 }
 
 /** In-memory package for tests: missing files throw like a real source. */
