@@ -15,6 +15,7 @@ import com.pagelence.core.content.ContentIndex
 import com.pagelence.core.content.BookSummary
 import com.pagelence.core.content.ContentOutline
 import com.pagelence.presentation.library.LibraryPresenter
+import com.pagelence.presentation.reader.PreviewPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
 import com.pagelence.presentation.assessment.AssessmentPresenter
@@ -22,6 +23,7 @@ import com.pagelence.presentation.book.BookDetailPresenter
 import com.pagelence.presentation.dictionary.DictionaryPresenter
 import com.pagelence.presentation.grammar.GrammarPresenter
 import com.pagelence.presentation.store.StorePresenter
+import com.pagelence.presentation.sync.SyncPresenter
 import com.pagelence.presentation.store.formatBytes
 import com.pagelence.presentation.store.storeErrorPriority
 import com.pagelence.presentation.store.storeErrorText
@@ -2467,49 +2469,25 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         noticeIsError: Boolean = false,
         importPreview: ImportPreviewUi? = null,
     ): SyncUiState {
-        val copy = stringsFor(language).syncCopy
         val stored = syncConfig ?: graph.syncCredentials.config()
         val status = graph.syncEngine.status()
-        val configured = stored?.enabled == true
-        val tone: SyncTone
-        val statusText: String
-        if (!configured) {
-            tone = SyncTone.IDLE
-            statusText = copy.statusIdle
-        } else {
-            val failedAt = status.lastFailureAt?.let(::parseInstant)
-            val okAt = status.lastSuccessAt?.let(::parseInstant)
-            if (failedAt != null && (okAt == null || failedAt.isAfter(okAt))) {
-                tone = SyncTone.ERROR
-                statusText = copy.statusFailure.format(
-                    formatSyncTime(status.lastFailureAt),
-                    copy.errorFor(status.lastFailureCategory),
-                )
-            } else if (okAt != null) {
-                tone = SyncTone.OK
-                statusText = copy.statusOk.format(formatSyncTime(status.lastSuccessAt))
-            } else {
-                tone = SyncTone.IDLE
-                statusText = copy.statusConfigured
-            }
-        }
-        val provider = stored?.provider ?: syncDraft.provider
-        return SyncUiState(
-            configured = configured,
-            provider = provider,
+        return SyncPresenter(stringsFor(language).syncCopy).state(
+            configured = stored?.enabled == true,
+            provider = stored?.provider ?: syncDraft.provider,
             url = syncDraft.url,
             username = syncDraft.username,
             allowHttp = syncDraft.allowHttp,
             hasPassword = syncHasPassword,
-            templateUrl = SyncProviders.templateUrl(provider),
+            lastSuccessAt = status.lastSuccessAt,
+            lastFailureAt = status.lastFailureAt,
+            lastFailureCategory = status.lastFailureCategory,
             busy = busy,
-            tone = tone,
-            status = statusText,
             notice = notice,
             noticeIsError = noticeIsError,
             importPreview = importPreview,
         )
     }
+
 
     private fun parseInstant(value: String): Instant? =
         runCatching { Instant.parse(value) }.getOrNull()
@@ -2660,53 +2638,9 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         bookIndex: ContentIndex,
         unit: StudyUnit,
         bookLevel: String?,
-    ): List<PreviewWordUi> {
-        val threshold = (levelRank(bookLevel) ?: return emptyList()) + 1
-        val words = mutableListOf<PreviewWordUi>()
-        val seen = mutableSetOf<String>()
-        var sentenceNumber = 0
-        unit.paragraphs.forEach { paragraph ->
-            bookIndex.sentences(paragraph).forEach { sentence ->
-                sentenceNumber += 1
-                PREVIEW_WORD.findAll(sentence.text).forEach { match ->
-                    val term = match.value
-                    if (term.length < 2) return@forEach
-                    val lookup = graph.content.lookup(
-                        bookId = bookIndex.book.id,
-                        unitId = unit.id,
-                        paragraphId = paragraph.id,
-                        sentenceIndex = sentenceNumber,
-                        spelling = term,
-                    ) ?: return@forEach
-                    val rank = levelRank(lookup.level) ?: return@forEach
-                    if (rank < threshold) return@forEach
-                    val key = WordCard.lemmaKey(lookup.lemma)
-                    if (!seen.add(key)) return@forEach
-                    val zh = lookup.definitions
-                        .firstOrNull { it.language == "zh" && it.definition.isNotBlank() }
-                        ?.definition
-                        ?: lookup.glossZh
-                    val en = lookup.definitions
-                        .firstOrNull { it.language == "en" && it.definition.isNotBlank() }
-                        ?.definition
-                    if (zh.isNullOrBlank() && en.isNullOrBlank()) return@forEach
-                    words += PreviewWordUi(
-                        term = term,
-                        lemma = lookup.lemma,
-                        ipa = lookup.ipa,
-                        pos = lookup.pos,
-                        level = lookup.level.orEmpty(),
-                        zh = zh,
-                        en = en,
-                        exampleEn = sentence.text,
-                        exampleZh = sentence.zh,
-                        inWordCards = graph.cards.find(bookIndex.book.id, lookup.lemma, term) != null,
-                    )
-                }
-            }
-        }
-        return words
-    }
+    ): List<PreviewWordUi> = PreviewPresenter(graph.content, graph.cards)
+        .words(bookIndex, unit, bookLevel)
+
 
     private suspend fun addPreviewCard(reader: ReaderUiState, word: PreviewWordUi) {
         val now = Instant.now().toString()
@@ -2824,8 +2758,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
         /** Upper bound on the blocking flush during ON_STOP. */
         private const val FLUSH_PROGRESS_TIMEOUT_MS = 1_000L
-
-        private val PREVIEW_WORD = Regex("[A-Za-z]+(?:['’][A-Za-z]+)?")
 
         fun factory(graph: AppGraph): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

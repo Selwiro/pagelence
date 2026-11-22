@@ -293,7 +293,8 @@ app-phone (Android application, applicationId com.pagelence)
     │    ReaderFlow（页序）、LibraryPresenter（书架/我的）、ReaderPresenter（单元状态）、
     │    WordPanelPresenter（点词→词条面板）、StorePresenter（书城）、
     │    AssessmentPresenter（测评）、BookDetailPresenter（书籍详情）、
-    │    GrammarPresenter（语法库）、DictionaryPresenter（完整词表状态）
+    │    GrammarPresenter（语法库）、DictionaryPresenter（完整词表）、
+    │    SyncPresenter（同步状态）、PreviewPresenter（预习词）
     ├── data (纯 JVM)
     │     state.json 读写；进度、卡片、偏好、等级与日活仓库
     └── core (纯 JVM)
