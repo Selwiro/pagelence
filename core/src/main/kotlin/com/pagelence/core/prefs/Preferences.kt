@@ -66,6 +66,29 @@ enum class FontSize {
     @SerialName("xlarge") XLARGE,
 }
 
+/** Body face for the reading surface. UI chrome always follows the theme font. */
+@Serializable
+enum class ReadingFont {
+    @SerialName("sans") SANS,
+    @SerialName("serif") SERIF,
+}
+
+/** Line height as a multiple of the body size. */
+@Serializable
+enum class LineSpacing {
+    @SerialName("compact") COMPACT,
+    @SerialName("normal") NORMAL,
+    @SerialName("relaxed") RELAXED,
+}
+
+/** Horizontal page margin of the reading column. */
+@Serializable
+enum class PageMargin {
+    @SerialName("narrow") NARROW,
+    @SerialName("normal") NORMAL,
+    @SerialName("wide") WIDE,
+}
+
 /**
  * Interface and word-meaning preferences, frozen at version 1.
  *
@@ -88,6 +111,17 @@ data class Preferences(
     val guideMode: GuideMode = GuideMode.BILINGUAL,
     val theme: ThemeMode = ThemeMode.SYSTEM,
     val fontSize: FontSize = FontSize.MEDIUM,
+    /** Body face of the reading surface (T158). */
+    val readingFont: ReadingFont = ReadingFont.SANS,
+    /** Line height as a multiple of the body size (T158). */
+    val lineSpacing: LineSpacing = LineSpacing.NORMAL,
+    /** Horizontal margin of the reading column (T158). */
+    val pageMargin: PageMargin = PageMargin.NORMAL,
+    /**
+     * Show every book translation under its sentence (T159). Off keeps the
+     * per-sentence translate icon as the only way to reveal one.
+     */
+    val showAllTranslations: Boolean = false,
     /** Underline words that have a curated hint or contextual gloss. */
     val annotateHints: Boolean = true,
     val handledOffers: List<String> = emptyList(),
@@ -157,6 +191,24 @@ data class Preferences(
                     "medium" -> FontSize.MEDIUM
                     else -> FontSize.MEDIUM
                 },
+                readingFont = when (raw.text("readingFont")) {
+                    "serif" -> ReadingFont.SERIF
+                    "sans" -> ReadingFont.SANS
+                    else -> ReadingFont.SANS
+                },
+                lineSpacing = when (raw.text("lineSpacing")) {
+                    "compact" -> LineSpacing.COMPACT
+                    "relaxed" -> LineSpacing.RELAXED
+                    "normal" -> LineSpacing.NORMAL
+                    else -> LineSpacing.NORMAL
+                },
+                pageMargin = when (raw.text("pageMargin")) {
+                    "narrow" -> PageMargin.NARROW
+                    "wide" -> PageMargin.WIDE
+                    "normal" -> PageMargin.NORMAL
+                    else -> PageMargin.NORMAL
+                },
+                showAllTranslations = raw.boolean("showAllTranslations") ?: false,
                 annotateHints = raw.boolean("annotateHints") ?: true,
                 handledOffers = raw.stringList("handledOffers"),
                 levelOnboardingDone = raw.boolean("levelOnboardingDone") ?: false,

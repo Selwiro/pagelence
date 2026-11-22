@@ -5,7 +5,9 @@
 
 2026-11-20 在 v2 上追加两个向后兼容的可选字段：单本进度的 `reader`（单元续读点）和
 偏好的 `readerLayoutChosen`（是否明确选过阅读方式）。2026-11-22（T139）再追加单本进度的
-`finishedAt`（读完时间），T144 追加顶层 `annotations`（书签/划线/笔记）。
+`finishedAt`（读完时间），T144 追加顶层 `annotations`（书签/划线/笔记）。同日 T158/T159
+在偏好里追加 `readingFont`、`lineSpacing`、`pageMargin`、`showAllTranslations`，T161 追加
+顶层 `lookupHistory`（查词历史）。
 旧文档没有这些字段时按默认解码；`readingState` 的版本号不变。
 
 一份 `state.json` 同时承担：本地保存、导出/导入、WebDAV 同步。三处共用同一个序列化器
@@ -36,6 +38,7 @@
   },
   "wordCards": [ /* 见第五节 */ ],
   "annotations": [ /* 见第五·一节 */ ],
+  "lookupHistory": [ /* 见第五·二节 */ ],
   "preferences": { /* 见第六节 */ },
   "selfLevel": "B1",
   "levelSource": "self",
@@ -58,6 +61,7 @@
 | `books` | 是 | 键为 `bookId`，值为单本进度 |
 | `wordCards` | 否 | 生词卡（含墓碑） |
 | `annotations` | 否 | 句子级书签/划线/笔记（含墓碑），见第五·一节 |
+| `lookupHistory` | 否 | 最近查过的词，见第五·二节；最多 200 条 |
 | `preferences` | 否 | 界面与词义偏好 |
 | `selfLevel` | 否 | A1–C2 自评/测评等级；`null` 表示未设置 |
 | `levelSource` | 是 | `self`、`quick`、`full`；未设置时仍写 `self` |
@@ -205,6 +209,27 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
 - `AnnotationRules.anchor` 把记录解析回当前内容；解析失败时保留 `quote`，列表显示
   「原句有更新」，不崩溃。
 
+## 五·二、查词历史（`lookupHistory`）
+
+每次点词查义后追加一条；复习 → 查词按时间倒序展示，点一条回到原句并重新打开词义。
+同一本书、同一原形只保留最新一条（`id` 为 `bookId::lemma`），重复查词只刷新时间与位置。
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `id` | 是 | `bookId::原形`（小写、压缩空白），跨设备稳定 |
+| `bookId` / `unitId` / `paragraphId` | 是 | 定位回原书；书已移除时列表标「书籍已移除」且不可点 |
+| `sentenceNumber` | 是 | 单元内 1-based 句号 |
+| `term` / `lemma` | 是 | 词面与原形；短语提示按整条记录 |
+| `start` / `end` | 是 | 词面在句中的字符范围，用于重新高亮 |
+| `gloss` / `ipa` | 否 | 词义与音标快照，供列表显示；词典更新后仍可读 |
+| `lookedUpAt` | 是 | ISO-8601 UTC；排序与合并都用解析后的时间，不按字符串比较 |
+
+- 读取与写入都走 `LookupHistoryRules.sanitize`：丢弃空 id / 空书 / 句号 < 1 的记录，
+  按 `id` 去重后取 `lookedUpAt` 较晚者，倒序保留最近 **200** 条。
+- 合并：按 `id` 取并集，`lookedUpAt` 较晚者胜，再按时间倒序截断；不做墓碑
+  （历史是「最近查过」，清空后两端都为空，不需要保留删除记录）。
+- 清空历史写空列表；生词卡不受影响。
+
 ## 六、偏好
 
 与 Web 版存储键一致，未知值回落到默认值（不报错）：
@@ -219,6 +244,10 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
 | `guideMode` | `zh`、`en`、`immersive` | `zh` |
 | `theme` | `system`、`light`、`dark` | `system` |
 | `fontSize` | `small`、`medium`、`large`、`xlarge` | `medium` |
+| `readingFont` | `sans`、`serif`：正文字体（T158） | `sans` |
+| `lineSpacing` | `compact`、`normal`、`relaxed`：行高倍数 1.45 / 1.62 / 1.85（T158） | `normal` |
+| `pageMargin` | `narrow`、`normal`、`wide`：正文左右留白 14 / 22 / 32dp（T158） | `normal` |
+| `showAllTranslations` | `true`、`false`：阅读页是否一键显示全部句译（T159） | `false` |
 | `annotateHints` | `true`、`false`：是否给有书内释义的词/短语加浅色虚线 | `true` |
 | `handledOffers` | 已处理的里程碑 id 列表 | 空 |
 | `levelOnboardingDone` | 首次 A1–C2 自评是否已展示并处理（选择或跳过） | `false`（v1 迁移为 `true`） |
@@ -277,6 +306,7 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
 加载时顺手清掉只增不减的数据，避免几年后状态文件与同步包无谓变大：
 
 - `wordCards` 与 `annotations` 里 `deletedAt` 超过 180 天的墓碑删除（保留期足够所有设备看到删除）。
+- `lookupHistory` 读取时清洗并截断到 200 条。
 - `preferences.seenGuideUnits` 中所属书已不在 `books` 里的条目删除。
 - 只有真的删了东西才写回一次；统计与卡片内容不变。
 
@@ -296,6 +326,7 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
 - `dailyActivity`：按日 max，见第四节。
 - `wordCards`：按 `id` 合并；任一端是墓碑即取墓碑（不复活），否则 `updatedAt` 较晚者胜。
 - `annotations`：与 `wordCards` 相同的按 `id` 合并规则；同句同类冲突时 `updatedAt` 较晚者胜。
+- `lookupHistory`：按 `id` 取并集，`lookedUpAt` 较晚者胜，倒序截断到 200 条；没有墓碑。
 - 等级：`levelUpdatedAt` 较晚者胜；相同则保留本机。
 - 偏好：整组取文档 `updatedAt` 较晚的一端；本机是空文档（新装/清数据）时取文件里的偏好；
   `deviceId`、`updatedAt` 始终用本机值。

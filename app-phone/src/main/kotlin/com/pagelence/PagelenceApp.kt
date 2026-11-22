@@ -36,6 +36,7 @@ import com.pagelence.uim3.screens.AboutScreen
 import com.pagelence.uim3.screens.AssessmentScreen
 import com.pagelence.uim3.screens.BookInfoScreen
 import com.pagelence.uim3.screens.BookOverviewScreen
+import com.pagelence.uim3.screens.BookSearchScreen
 import com.pagelence.uim3.screens.FinishedBookScreen
 import com.pagelence.uim3.screens.GrammarDetailScreen
 import com.pagelence.uim3.screens.GrammarPointScreen
@@ -171,7 +172,9 @@ private fun AppContent(
                     onBack = viewModel::requestCloseReader,
                     onOpenCards = viewModel::openCards,
                     onOpenSettings = viewModel::openSettings,
+                    onOpenSearch = viewModel::openBookSearch,
                     onWordClick = viewModel::onWordClick,
+                    onToggleAllTranslations = viewModel::toggleAllTranslations,
                     onOpenGrammarPoint = viewModel::openGrammarPoint,
                     onCloseWordPanel = viewModel::closeWordPanel,
                     onToggleCard = viewModel::toggleCard,
@@ -219,6 +222,9 @@ private fun AppContent(
             onLanguage = viewModel::setLanguage,
             onTheme = viewModel::setTheme,
             onFontSize = viewModel::setFontSize,
+            onReadingFont = viewModel::setReadingFont,
+            onLineSpacing = viewModel::setLineSpacing,
+            onPageMargin = viewModel::setPageMargin,
             onReaderLayout = viewModel::setReaderLayout,
             onAnnotateHints = viewModel::setAnnotateHints,
             onDefinitionMode = viewModel::setDefinitionMode,
@@ -283,6 +289,14 @@ private fun AppContent(
                 )
             }
         }
+
+        Screen.SEARCH -> BookSearchScreen(
+            strings = strings,
+            state = state.search,
+            onBack = viewModel::back,
+            onQueryChange = viewModel::updateSearchQuery,
+            onOpenHit = viewModel::openSearchHit,
+        )
 
         Screen.BOOK_FINISHED -> {
             val finished = state.finishedBook
@@ -462,9 +476,12 @@ private fun MainTabsShell(
                     grammar = state.grammarTab,
                     annotations = state.annotations,
                     annotationFilter = state.annotationFilter,
+                    lookups = state.lookupHistory,
                     onSelectTab = viewModel::selectReviewTab,
                     onSelectAnnotationFilter = viewModel::selectAnnotationFilter,
                     onOpenAnnotation = viewModel::openAnnotation,
+                    onOpenLookup = viewModel::openLookup,
+                    onClearLookups = viewModel::clearLookups,
                     onOpenPoint = viewModel::openGrammarPoint,
                     onDeleteCard = viewModel::deleteCard,
                 )

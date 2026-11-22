@@ -1,5 +1,6 @@
 package com.pagelence.core.progress
 
+import com.pagelence.core.lookup.LookupHistoryRules
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.wordcards.WordCard
 import java.time.Instant
@@ -15,6 +16,7 @@ data class MergeSummary(
     val annotationsAdded: Int = 0,
     val annotationsUpdated: Int = 0,
     val annotationsDeleted: Int = 0,
+    val lookupsChanged: Int = 0,
     val preferencesFromRemote: Boolean = false,
     val levelFromRemote: Boolean = false,
 )
@@ -39,6 +41,7 @@ data class MergeResult(
  * | `paragraphId` / `reader` / `lastReadAt` | side with the later `lastReadAt` |
  * | `wordCards` | tombstone wins over any live copy; else later `updatedAt` |
  * | `annotations` | same rule as `wordCards`: tombstone wins, else later `updatedAt` |
+ * | `lookupHistory` | union by word id; the later `lookedUpAt` wins, newest first, capped |
  * | `dailyActivity` | per-day max, union of dates (`DailyActivityRules`) |
  * | level fields | later `levelUpdatedAt`; missing timestamps fall back to the document `updatedAt` |
  * | `preferences` | base-aware last write wins; a blank local document takes the file's copy, see [mergePreferences] |
@@ -64,6 +67,7 @@ object StateMerge {
         val cards = mergeCards(local.wordCards, remote.wordCards)
         val annotationMerge = mergeAnnotations(local.annotations, remote.annotations)
         val activity = DailyActivityRules.mergeDayMax(local.dailyActivity, remote.dailyActivity, today)
+        val lookups = LookupHistoryRules.merge(local.lookupHistory, remote.lookupHistory)
         val levelDoc = laterLevel(local, remote)
         val (preferences, preferencesFromRemote) = mergePreferences(local, remote, base)
 
@@ -81,6 +85,7 @@ object StateMerge {
             dailyActivity = activity,
             recentAssessmentPapers = mergePapers(local.recentAssessmentPapers, remote.recentAssessmentPapers),
             annotations = annotationMerge.list,
+            lookupHistory = lookups,
         )
         val summary = MergeSummary(
             booksAdded = bookSummary.first,
@@ -92,6 +97,7 @@ object StateMerge {
             annotationsAdded = annotationMerge.added,
             annotationsUpdated = annotationMerge.updated,
             annotationsDeleted = annotationMerge.deleted,
+            lookupsChanged = lookups.count { entry -> local.lookupHistory.none { it == entry } },
             preferencesFromRemote = preferencesFromRemote,
             levelFromRemote = levelDoc !== local,
         )

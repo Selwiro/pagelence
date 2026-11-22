@@ -3,6 +3,9 @@ package com.pagelence.uim3.model
 import com.pagelence.core.assessment.AssessmentMode
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.core.prefs.ReaderLayout
 import com.pagelence.core.prefs.GuideMode
 import com.pagelence.core.prefs.LevelRecommendation
@@ -515,7 +518,34 @@ data class ReaderUiState(
 )
 
 /** Sub-pages of the 复习 tab. */
-enum class ReviewTab { WORDS, GRAMMAR, NOTES }
+enum class ReviewTab { WORDS, GRAMMAR, NOTES, LOOKUPS }
+
+/** Current in-book search state; the query survives opening a result. */
+data class SearchUiState(
+    val bookId: String,
+    val bookTitle: String,
+    val query: String = "",
+    val hits: List<SearchHitUi> = emptyList(),
+    val truncated: Boolean = false,
+    val hasSearched: Boolean = false,
+)
+
+/** One result row. [snippet] already contains the match and ellipses. */
+data class SearchHitUi(
+    val bookId: String,
+    val unitId: String,
+    val paragraphId: String,
+    val sentenceNumber: Int,
+    val chapterLabel: String,
+    val unitLabel: String,
+    val snippet: String,
+    val matchStart: Int,
+    val matchLength: Int,
+    /** Original English sentence, shown as context for a translation hit. */
+    val sentence: String,
+    val translation: String?,
+    val matchedTranslation: Boolean,
+)
 
 /** One unit row in the reader's contents sheet. */
 data class TocUnitUi(
@@ -532,6 +562,25 @@ data class TocChapterUi(
     val number: Int,
     val title: String,
     val units: List<TocUnitUi>,
+)
+
+/** One row of 复习 → 查词. [available] is false when the book was removed. */
+data class LookupHistoryUi(
+    val id: String,
+    val bookId: String,
+    val unitId: String,
+    val paragraphId: String,
+    val sentenceNumber: Int,
+    val term: String,
+    val lemma: String,
+    val gloss: String?,
+    val ipa: String?,
+    val start: Int,
+    val end: Int,
+    val bookTitle: String,
+    val unitLabel: String,
+    val lookedUpAtLabel: String,
+    val available: Boolean,
 )
 
 data class WordCardUi(
@@ -610,6 +659,9 @@ data class SettingsUiState(
     val language: UiLanguage,
     val theme: ThemeMode,
     val fontSize: FontSize,
+    val readingFont: ReadingFont = ReadingFont.SANS,
+    val lineSpacing: LineSpacing = LineSpacing.NORMAL,
+    val pageMargin: PageMargin = PageMargin.NORMAL,
     val readerLayout: ReaderLayout = ReaderLayout.PAGED,
     val annotateHints: Boolean,
     val definitionMode: DefinitionMode,

@@ -16,6 +16,7 @@ import com.pagelence.core.content.BookSummary
 import com.pagelence.core.content.ContentOutline
 import com.pagelence.presentation.annotations.AnnotationPresenter
 import com.pagelence.presentation.library.LibraryPresenter
+import com.pagelence.presentation.lookup.LookupHistoryPresenter
 import com.pagelence.presentation.reader.PreviewPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
@@ -23,6 +24,7 @@ import com.pagelence.presentation.assessment.AssessmentPresenter
 import com.pagelence.presentation.book.BookDetailPresenter
 import com.pagelence.presentation.dictionary.DictionaryPresenter
 import com.pagelence.presentation.grammar.GrammarPresenter
+import com.pagelence.presentation.search.SearchPresenter
 import com.pagelence.presentation.store.StorePresenter
 import com.pagelence.presentation.shell.FinishedPresenter
 import com.pagelence.presentation.shell.SettingsPresenter
@@ -45,12 +47,17 @@ import com.pagelence.core.content.Paragraph
 import com.pagelence.core.content.Sentence
 import com.pagelence.core.content.StudyUnit
 import com.pagelence.core.lexicon.WordLookup
+import com.pagelence.core.lookup.LookupEntry
+import com.pagelence.core.lookup.LookupHistoryRules
 import com.pagelence.core.dict.DictInstallResult
 import com.pagelence.core.dict.DictManifest
 import com.pagelence.core.dict.DictRejection
 import com.pagelence.core.dict.DictRules
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.core.prefs.GuideMode
 import com.pagelence.core.prefs.LevelDefaults
 import com.pagelence.core.prefs.LevelRecommendation
@@ -116,6 +123,7 @@ import com.pagelence.uim3.model.GrammarRelatedUi
 import com.pagelence.uim3.model.GrammarUi
 import com.pagelence.uim3.model.ImportPreviewUi
 import com.pagelence.uim3.model.LibraryUiState
+import com.pagelence.uim3.model.LookupHistoryUi
 import com.pagelence.uim3.model.LevelPromptUi
 import com.pagelence.uim3.model.ParagraphUi
 import com.pagelence.uim3.model.ProfileUiState
@@ -125,6 +133,8 @@ import com.pagelence.uim3.model.ReaderPreviewUi
 import com.pagelence.uim3.model.ReaderJumpUi
 import com.pagelence.uim3.model.ReaderUiState
 import com.pagelence.uim3.model.ReviewTab
+import com.pagelence.uim3.model.SearchHitUi
+import com.pagelence.uim3.model.SearchUiState
 import com.pagelence.uim3.model.SelectedWordUi
 import com.pagelence.uim3.model.SenseUi
 import com.pagelence.uim3.model.TocChapterUi
@@ -183,6 +193,7 @@ enum class Screen {
     BOOK_DETAIL,
     BOOK_INFO,
     BOOK_FINISHED,
+    SEARCH,
 }
 
 /** Four bottom-bar destinations; each keeps its own screen stack. */
@@ -209,6 +220,8 @@ data class AppUiState(
     val cards: List<WordCardUi> = emptyList(),
     /** Cross-book bookmarks/highlights/notes for 复习 → 笔记. */
     val annotations: List<AnnotationUi> = emptyList(),
+    /** Recent word lookups for 复习 → 查词, newest first. */
+    val lookupHistory: List<LookupHistoryUi> = emptyList(),
     val annotationFilter: AnnotationFilter = AnnotationFilter.ALL,
     val settings: SettingsUiState = SettingsUiState(
         language = UiLanguage.ZH,
@@ -240,6 +253,8 @@ data class AppUiState(
     val dictionary: DictionaryUiState = DictionaryUiState(),
     /** Set when startup had to recover from a backup or start empty. */
     val recovery: RecoveryNotice? = null,
+    /** Current in-book search; null outside the search screen. */
+    val search: SearchUiState? = null,
 )
 
 /** A level waiting for the reader to accept, keep or edit the recommended modes. */
@@ -501,11 +516,61 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         openBookAt(reader.bookId, unitId, push = false)
     }
 
+    /** Open 书内搜索 for the current book, keeping the last query (T160). */
+    fun openBookSearch() {
+        val reader = _ui.value.reader ?: return
+        val bookIndex = index?.takeIf { it.book.id == reader.bookId } ?: return
+        val presenter = SearchPresenter(_ui.value.settings.language)
+        val previous = _ui.value.search?.takeIf { it.bookId == reader.bookId }
+        push(Screen.SEARCH)
+        _ui.update {
+            it.copy(
+                search = if (previous == null) {
+                    presenter.initial(bookIndex)
+                } else {
+                    presenter.search(bookIndex, previous.query)
+                },
+            )
+        }
+    }
+
+    /** Keystroke handler; scanning one book is cheap enough to run inline. */
+    fun updateSearchQuery(query: String) {
+        val current = _ui.value.search ?: return
+        val bookIndex = index?.takeIf { it.book.id == current.bookId } ?: return
+        val next = SearchPresenter(_ui.value.settings.language).search(bookIndex, query)
+        _ui.update { it.copy(search = next) }
+    }
+
+    /** Jump to a result: same book reuses the reader, another unit swaps it. */
+    fun openSearchHit(hit: SearchHitUi) {
+        val reader = _ui.value.reader
+        val jump = ReaderJumpUi(
+            paragraphId = hit.paragraphId,
+            sentenceNumber = hit.sentenceNumber,
+            token = ++annotationJumpToken,
+        )
+        val next = popScreen() ?: return
+        _ui.update { it.copy(screen = next, search = null) }
+        when {
+            reader != null && reader.bookId == hit.bookId && reader.unitId == hit.unitId ->
+                _ui.update { state ->
+                    state.reader?.let { state.copy(reader = it.copy(jumpTarget = jump)) } ?: state
+                }
+
+            reader != null && reader.bookId == hit.bookId ->
+                openBookAt(hit.bookId, hit.unitId, push = false, jump = jump)
+
+            else -> openBookAt(hit.bookId, hit.unitId, push = true, jump = jump)
+        }
+    }
+
     private fun openBookAt(
         bookId: String,
         unitId: String?,
         push: Boolean = true,
         jump: ReaderJumpUi? = null,
+        lookup: LookupHistoryUi? = null,
     ) {
         clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
@@ -560,6 +625,11 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 // Persist the entry point immediately: a kill before the first
                 // page turn should still resume at this unit and phase.
                 saveReaderPosition(reader, immediate = true)
+            }
+            // Reopening a history row also opens that word's panel; the reader
+            // state above is committed before the lookup runs.
+            lookup?.let {
+                onWordClick(it.paragraphId, it.sentenceNumber, it.term, it.start, it.end)
             }
         }
     }
@@ -652,12 +722,23 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private fun refreshCards() {
         viewModelScope.launch(Dispatchers.IO) {
             val cards = currentCards()
-            val annotations = buildAnnotations(uiLanguage(graph.preferences.preferences()))
+            val language = uiLanguage(graph.preferences.preferences())
+            val annotations = buildAnnotations(language)
+            val lookups = currentLookupHistory(language)
             withContext(Dispatchers.Main) {
-                _ui.update { it.copy(cards = cards, annotations = annotations) }
+                _ui.update {
+                    it.copy(cards = cards, annotations = annotations, lookupHistory = lookups)
+                }
             }
         }
     }
+
+    private fun currentLookupHistory(language: UiLanguage): List<LookupHistoryUi> =
+        LookupHistoryPresenter(
+            content = graph.content,
+            lookups = graph.lookups,
+            language = language,
+        ).list()
 
     private fun buildAnnotations(language: UiLanguage): List<AnnotationUi> =
         annotationPresenter(language).all(graph.annotations.all())
@@ -1304,6 +1385,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             ) ?: return@launch
             pendingPanel = result.panel
             wordSelection = WordSelectionState.select(result.selected)
+            recordLookup(reader.bookId, reader.unitId, paragraphId, sentenceNumber, result.panel, start, end)
             _ui.update { state ->
                 state.reader?.let { current ->
                     state.copy(
@@ -1343,6 +1425,76 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                     ),
                 )
             } ?: state
+        }
+    }
+
+    /** Remember this lookup for 复习 → 查词; failures never break the panel (T161). */
+    private fun recordLookup(
+        bookId: String,
+        unitId: String,
+        paragraphId: String,
+        sentenceNumber: Int,
+        panel: WordPanelUi,
+        start: Int,
+        end: Int,
+    ) {
+        runCatching {
+            val gloss = panel.gloss ?: panel.senses
+                .firstOrNull { it.language == "zh" && !it.fromSurface }
+                ?.definition
+            graph.lookups.record(
+                LookupEntry(
+                    id = LookupHistoryRules.idOf(bookId, panel.lemma, panel.term),
+                    bookId = bookId,
+                    unitId = unitId,
+                    paragraphId = paragraphId,
+                    sentenceNumber = sentenceNumber,
+                    term = panel.term,
+                    lemma = panel.lemma,
+                    start = start,
+                    end = end,
+                    gloss = gloss,
+                    ipa = panel.ipa,
+                    lookedUpAt = Instant.now().toString(),
+                ),
+            )
+        }
+    }
+
+    /**
+     * History row → the same sentence with its word panel open (T161). A removed
+     * book is not tappable (the presenter marks it), so this only runs for books
+     * still installed.
+     */
+    fun openLookup(entry: LookupHistoryUi) {
+        if (!entry.available) return
+        if (runCatching { graph.content.index(entry.bookId) }.getOrNull() == null) return
+        val reader = _ui.value.reader
+        val jump = ReaderJumpUi(
+            paragraphId = entry.paragraphId,
+            sentenceNumber = entry.sentenceNumber,
+            token = ++annotationJumpToken,
+        )
+        when {
+            reader != null && reader.bookId == entry.bookId && reader.unitId == entry.unitId -> {
+                _ui.update { state ->
+                    state.reader?.let { state.copy(reader = it.copy(jumpTarget = jump)) } ?: state
+                }
+                onWordClick(entry.paragraphId, entry.sentenceNumber, entry.term, entry.start, entry.end)
+            }
+
+            reader != null && reader.bookId == entry.bookId ->
+                openBookAt(entry.bookId, entry.unitId, push = false, jump = jump, lookup = entry)
+
+            else -> openBookAt(entry.bookId, entry.unitId, push = true, jump = jump, lookup = entry)
+        }
+    }
+
+    fun clearLookups() {
+        viewModelScope.launch(Dispatchers.IO) {
+            graph.lookups.clear()
+            val lookups = currentLookupHistory(uiLanguage(graph.preferences.preferences()))
+            withContext(Dispatchers.Main) { _ui.update { it.copy(lookupHistory = lookups) } }
         }
     }
 
@@ -2233,6 +2385,24 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
     fun setFontSize(size: FontSize) {
         savePreferences(graph.preferences.preferences().copy(fontSize = size))
+    }
+
+    fun setReadingFont(font: ReadingFont) {
+        savePreferences(graph.preferences.preferences().copy(readingFont = font))
+    }
+
+    fun setLineSpacing(spacing: LineSpacing) {
+        savePreferences(graph.preferences.preferences().copy(lineSpacing = spacing))
+    }
+
+    fun setPageMargin(margin: PageMargin) {
+        savePreferences(graph.preferences.preferences().copy(pageMargin = margin))
+    }
+
+    /** 全部句译: one switch for every sentence translation in the current unit (T159). */
+    fun toggleAllTranslations() {
+        val prefs = graph.preferences.preferences()
+        savePreferences(prefs.copy(showAllTranslations = !prefs.showAllTranslations))
     }
 
     fun setReaderLayout(layout: ReaderLayout) {

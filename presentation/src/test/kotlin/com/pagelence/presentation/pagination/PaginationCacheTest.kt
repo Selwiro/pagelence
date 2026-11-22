@@ -1,6 +1,9 @@
 package com.pagelence.presentation.pagination
 
 import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.uim3.UiLanguage
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -36,6 +39,10 @@ class PaginationCacheTest {
         assertEquals("english", cache.getOrPut(key(language = UiLanguage.EN)) { "english" })
         assertEquals("denser", cache.getOrPut(key(density = 3.0f)) { "denser" })
         assertEquals("scaled", cache.getOrPut(key(fontScale = 1.3f)) { "scaled" })
+        assertEquals("serif", cache.getOrPut(key(readingFont = ReadingFont.SERIF)) { "serif" })
+        assertEquals("relaxed", cache.getOrPut(key(lineSpacing = LineSpacing.RELAXED)) { "relaxed" })
+        assertEquals("wide", cache.getOrPut(key(pageMargin = PageMargin.WIDE)) { "wide" })
+        assertEquals("translated", cache.getOrPut(key(showAllTranslations = true)) { "translated" })
     }
 
     @Test
@@ -79,12 +86,20 @@ class PaginationCacheTest {
         language: UiLanguage = UiLanguage.ZH,
         density: Float = 2.75f,
         fontScale: Float = 1f,
+        readingFont: ReadingFont = ReadingFont.SANS,
+        lineSpacing: LineSpacing = LineSpacing.NORMAL,
+        pageMargin: PageMargin = PageMargin.NORMAL,
+        showAllTranslations: Boolean = false,
     ) = PaginationKey(
         bookId = "doctor-dolittle",
         unitId = unitId,
         contentWidthPx = width,
         pageHeightPx = 600,
         fontSize = fontSize,
+        readingFont = readingFont,
+        lineSpacing = lineSpacing,
+        pageMargin = pageMargin,
+        showAllTranslations = showAllTranslations,
         language = language,
         density = density,
         fontScale = fontScale,

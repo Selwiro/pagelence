@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
@@ -48,6 +49,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.PagelenceIcons
+import com.pagelence.uim3.components.TranslateIcon
 import com.pagelence.uim3.model.ReaderUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,9 +60,11 @@ internal fun ReaderTopBar(
     onBack: () -> Unit,
     onOpenCards: () -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenSearch: () -> Unit,
     onOpenToc: () -> Unit,
     onOpenAnnotations: () -> Unit,
     annotationCount: Int,
+    onToggleTranslations: () -> Unit,
 ) {
     TopAppBar(
         title = {
@@ -81,6 +85,22 @@ internal fun ReaderTopBar(
             }
         },
         actions = {
+            // One tap turns every book translation on or off (T159).
+            IconButton(onClick = onToggleTranslations) {
+                Icon(
+                    TranslateIcon,
+                    contentDescription = if (state.preference.showAllTranslations) {
+                        strings.hideAllTranslations
+                    } else {
+                        strings.showAllTranslations
+                    },
+                    tint = if (state.preference.showAllTranslations) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                )
+            }
             IconButton(onClick = onOpenToc) {
                 Icon(
                     Icons.AutoMirrored.Filled.List,
@@ -94,6 +114,7 @@ internal fun ReaderTopBar(
                 onOpenCards = onOpenCards,
                 onOpenSettings = onOpenSettings,
                 onOpenAnnotations = onOpenAnnotations,
+                onOpenSearch = onOpenSearch,
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -111,6 +132,7 @@ internal fun MoreMenu(
     onOpenCards: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenAnnotations: () -> Unit,
+    onOpenSearch: () -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box {
@@ -140,6 +162,14 @@ internal fun MoreMenu(
                 onClick = {
                     expanded = false
                     onOpenAnnotations()
+                },
+            )
+            DropdownMenuItem(
+                text = { Text(strings.inBookSearch) },
+                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    onOpenSearch()
                 },
             )
             DropdownMenuItem(

@@ -62,6 +62,7 @@ import com.pagelence.uim3.model.SentenceMarkUi
 import com.pagelence.presentation.reader.ReaderFlow
 import com.pagelence.presentation.reader.ReaderPage
 import com.pagelence.uim3.model.SentenceUi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -76,7 +77,9 @@ fun ReaderScreen(
     onBack: () -> Unit,
     onOpenCards: () -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenSearch: () -> Unit,
     onWordClick: (paragraphId: String, sentenceNumber: Int, spelling: String, start: Int, end: Int) -> Unit,
+    onToggleAllTranslations: () -> Unit,
     onOpenGrammarPoint: (String) -> Unit,
     onCloseWordPanel: () -> Unit,
     onToggleCard: () -> Unit,
@@ -119,6 +122,8 @@ fun ReaderScreen(
     var progressTargets by remember { mutableStateOf<Map<ProgressKind, Int>>(emptyMap()) }
     var pagerStateRef by remember { mutableStateOf<androidx.compose.foundation.pager.PagerState?>(null) }
     var expandedTranslation by remember(state.unitId) { mutableStateOf<ExpandedTranslation?>(null) }
+    // Brief highlight after a list/search jump so the target sentence is findable.
+    var focusSentence by remember(state.unitId) { mutableStateOf<SentenceFocus?>(null) }
     var textScrollProgress by remember(state.unitId) { mutableStateOf(state.resumeTextProgress) }
     var returnToTextAfterPreview by remember { mutableStateOf(false) }
     var forceTextTop by remember { mutableStateOf(false) }
@@ -157,9 +162,11 @@ fun ReaderScreen(
                     },
                     onOpenCards = onOpenCards,
                     onOpenSettings = onOpenSettings,
+                    onOpenSearch = onOpenSearch,
                     onOpenToc = { showToc = true },
                     onOpenAnnotations = { showAnnotations = true },
                     annotationCount = state.annotations.size,
+                    onToggleTranslations = onToggleAllTranslations,
                 )
                 if (preview == null) {
                     ReaderProgressBar(
@@ -195,13 +202,18 @@ fun ReaderScreen(
         } else {
             BoxWithConstraints(Modifier.fillMaxSize().padding(padding).navigationBarsPadding()) {
                 val density = LocalDensity.current
-                // The text column is min(screen, 760dp) minus its 22dp side padding.
-                val textWidth = minOf(maxWidth, 760.dp) - 44.dp
+                // The text column is min(screen, 760dp) minus the reader's
+                // chosen page margins (T158); page-turn zones shrink with the
+                // margin so they never cover a word.
+                val pagePadding = state.preference.pageMargin.horizontalPadding()
+                val textWidth = minOf(maxWidth, 760.dp) - pagePadding * 2
+                val pageTurnZone = minOf(pagePadding, PageTurnZoneWidth)
                 val contentWidthPx = with(density) { textWidth.roundToPx().coerceAtLeast(1) }
                 val pageHeightPx = with(density) { (maxHeight - 4.dp).roundToPx().coerceAtLeast(1) }
                 val textPages = if (paged) {
                     rememberTextPages(
                         state = state,
+                        strings = strings,
                         contentWidthPx = contentWidthPx,
                         pageHeightPx = pageHeightPx,
                     )
@@ -406,16 +418,24 @@ fun ReaderScreen(
                             if (pageIndex >= 0) {
                                 pagerState.scrollToPage(textStart + pageIndex)
                                 lastReportedPage = textStart + pageIndex
+                                focusSentence = SentenceFocus(target.paragraphId, target.sentenceNumber)
                             }
                             onJumpHandled()
                         } else if (state.paragraphs.any { it.id == target.paragraphId }) {
                             pagerState.scrollToPage(textStart)
                             pendingScrollParagraph = target.paragraphId
+                            focusSentence = SentenceFocus(target.paragraphId, target.sentenceNumber)
                         } else {
                             // The paragraph moved or disappeared; the list already
                             // showed the stored quote, so there is nothing to scroll to.
                             onJumpHandled()
                         }
+                    }
+
+                    LaunchedEffect(focusSentence) {
+                        if (focusSentence == null) return@LaunchedEffect
+                        delay(2600)
+                        focusSentence = null
                     }
 
                     LaunchedEffect(pages.size) {
@@ -535,6 +555,7 @@ fun ReaderScreen(
                                     onNextPage = { goTo(index + 1) },
                                     onNextUnit = onNextUnit,
                                     expandedTranslation = expandedTranslation,
+                                    focus = focusSentence,
                                     onTranslate = { paragraphId, sentence ->
                                         expandedTranslation = toggleTranslation(
                                             current = expandedTranslation,
@@ -557,6 +578,7 @@ fun ReaderScreen(
                                         state = state,
                                         startAtTop = forceTextTop,
                                         expandedTranslation = expandedTranslation,
+                                        focus = focusSentence,
                                         enterLabel = when {
                                             state.quiz.isNotEmpty() -> strings.enterQuiz
                                             state.grammar != null -> strings.continueReading
@@ -641,7 +663,7 @@ fun ReaderScreen(
                                     modifier = Modifier
                                         .align(Alignment.CenterStart)
                                         .fillMaxHeight()
-                                        .width(PageTurnZoneWidth)
+                                        .width(pageTurnZone)
                                         .clickable(
                                             onClickLabel = strings.previousPage,
                                             onClick = { goTo(pagerState.currentPage - 1) },
@@ -653,7 +675,7 @@ fun ReaderScreen(
                                     modifier = Modifier
                                         .align(Alignment.CenterEnd)
                                         .fillMaxHeight()
-                                        .width(PageTurnZoneWidth)
+                                        .width(pageTurnZone)
                                         .clickable(
                                             onClickLabel = strings.nextPage,
                                             onClick = { goTo(pagerState.currentPage + 1) },

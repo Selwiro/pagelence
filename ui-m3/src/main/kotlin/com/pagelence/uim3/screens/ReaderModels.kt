@@ -6,12 +6,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.pagelence.core.prefs.PageMargin
 import com.pagelence.core.progress.ReaderPhase
 import com.pagelence.core.reading.SentencePage
 
 internal val SentenceTranslateIconSize = 14.dp
 internal val SentenceAnalysisIconSize = 14.dp
+
+/** Horizontal margin of the reading column; the same value feeds paging. */
+internal fun PageMargin.horizontalPadding(): Dp = when (this) {
+    PageMargin.NARROW -> 14.dp
+    PageMargin.NORMAL -> 22.dp
+    PageMargin.WIDE -> 32.dp
+}
 
 /**
  * Page-turn tap zones live in the 22dp text margin only. A 48dp zone would
@@ -44,6 +53,12 @@ internal data class PagePosition(
     val phase: ReaderPhase,
     val textPage: Int,
     val textProgress: Float,
+)
+
+/** Temporarily highlights the sentence a list row or search result jumped to. */
+internal data class SentenceFocus(
+    val paragraphId: String,
+    val sentenceNumber: Int,
 )
 
 internal data class ExpandedTranslation(

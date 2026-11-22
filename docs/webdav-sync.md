@@ -67,6 +67,8 @@ sync-backups/         服务器不返回 ETag 时，覆盖前的远端副本（�
 | `readUnitIds` | 并集，保留本机顺序，远端新增按远端顺序追加 |
 | `paragraphId` / `reader` / `lastReadAt` | `lastReadAt` 较晚的一端胜出 |
 | `wordCards` | 按 `id`；任一端是墓碑即取墓碑（已删除的卡不因另一端更晚的编辑复活），否则 `updatedAt` 较晚者胜 |
+| `annotations` | 与 `wordCards` 相同的墓碑与 `updatedAt` 规则 |
+| `lookupHistory` | 按词条 `id` 取并集，`lookedUpAt` 较晚者胜，倒序截断到 200 条；不做墓碑 |
 | `dailyActivity` | 每天 `completedUnits` 取 max，日期取并集（`DailyActivityRules.mergeDayMax`） |
 | 等级四字段 | `levelUpdatedAt` 较晚的一端；两端都缺该字段时回退到文档 `updatedAt` |
 | `preferences` | 有基线时按「哪边改过」裁决；两边都改取文档 `updatedAt` 较晚者；本机是空文档（新装/清数据）时取文件里的偏好 |

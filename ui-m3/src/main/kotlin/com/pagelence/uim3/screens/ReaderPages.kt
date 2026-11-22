@@ -332,10 +332,12 @@ internal fun TextPageView(
     onNextPage: () -> Unit,
     onNextUnit: () -> Unit,
     expandedTranslation: ExpandedTranslation?,
+    focus: SentenceFocus?,
     onTranslate: (String, SentenceUi) -> Unit,
     onSentenceLongPress: (String, SentenceUi) -> Unit,
 ) {
     val scroll = rememberScrollState()
+    val horizontalPadding = state.preference.pageMargin.horizontalPadding()
     val atEnd by remember { derivedStateOf { scroll.value >= scroll.maxValue - 8 } }
     val scrollable = page.scrollable || expandedTranslation != null
     Box(Modifier.fillMaxSize()) {
@@ -350,7 +352,7 @@ internal fun TextPageView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .widthIn(max = 760.dp)
-                    .padding(horizontal = 22.dp, vertical = 10.dp),
+                    .padding(horizontal = horizontalPadding, vertical = 10.dp),
             ) {
                 page.chunks.forEach { chunk ->
                     ParagraphChunkView(
@@ -358,6 +360,7 @@ internal fun TextPageView(
                         state = state,
                         chunk = chunk,
                         expandedTranslation = expandedTranslation,
+                        focus = focus,
                         onWordClick = onWordClick,
                         onAnalysis = onAnalysis,
                         onTranslate = onTranslate,
@@ -422,6 +425,7 @@ internal fun ParagraphChunkView(
     state: ReaderUiState,
     chunk: TextPageChunk,
     expandedTranslation: ExpandedTranslation?,
+    focus: SentenceFocus?,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
     onTranslate: (String, SentenceUi) -> Unit,
@@ -433,7 +437,7 @@ internal fun ParagraphChunkView(
     if (chunk.sentenceStart >= end) return
     val chunkSentences = paragraph.sentences.subList(chunk.sentenceStart, end)
     val expandedIndex = expandedTranslation
-        ?.takeIf { it.paragraphId == paragraph.id }
+        ?.takeIf { !state.preference.showAllTranslations && it.paragraphId == paragraph.id }
         ?.let { expanded -> chunkSentences.indexOfFirst { it.number == expanded.sentenceNumber } }
         ?: -1
     if (expandedIndex < 0) {
@@ -442,8 +446,12 @@ internal fun ParagraphChunkView(
             paragraphId = paragraph.id,
             sentences = chunkSentences,
             fontSize = state.preference.fontSize,
+            readingFont = state.preference.readingFont,
+            lineSpacing = state.preference.lineSpacing,
+            showAllTranslations = state.preference.showAllTranslations,
             annotateHints = state.preference.annotateHints,
             selectedWord = state.selectedWord,
+            focus = focus,
             onWordClick = onWordClick,
             onAnalysis = onAnalysis,
             onTranslate = onTranslate,
@@ -455,8 +463,12 @@ internal fun ParagraphChunkView(
             paragraphId = paragraph.id,
             sentences = chunkSentences.subList(0, expandedIndex + 1),
             fontSize = state.preference.fontSize,
+            readingFont = state.preference.readingFont,
+            lineSpacing = state.preference.lineSpacing,
+            showAllTranslations = state.preference.showAllTranslations,
             annotateHints = state.preference.annotateHints,
             selectedWord = state.selectedWord,
+            focus = focus,
             onWordClick = onWordClick,
             onAnalysis = onAnalysis,
             onTranslate = onTranslate,
@@ -469,8 +481,12 @@ internal fun ParagraphChunkView(
                 paragraphId = paragraph.id,
                 sentences = chunkSentences.subList(expandedIndex + 1, chunkSentences.size),
                 fontSize = state.preference.fontSize,
+                readingFont = state.preference.readingFont,
+                lineSpacing = state.preference.lineSpacing,
+                showAllTranslations = state.preference.showAllTranslations,
                 annotateHints = state.preference.annotateHints,
                 selectedWord = state.selectedWord,
+                focus = focus,
                 onWordClick = onWordClick,
                 onAnalysis = onAnalysis,
                 onTranslate = onTranslate,
@@ -486,6 +502,7 @@ internal fun TextScrollView(
     state: ReaderUiState,
     startAtTop: Boolean,
     expandedTranslation: ExpandedTranslation?,
+    focus: SentenceFocus?,
     enterLabel: String,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
@@ -497,6 +514,7 @@ internal fun TextScrollView(
     onScrollHandled: () -> Unit = {},
 ) {
     val scroll = rememberScrollState()
+    val horizontalPadding = state.preference.pageMargin.horizontalPadding()
     var restored by remember { mutableStateOf(false) }
     var hasScrolled by remember { mutableStateOf(false) }
     val paragraphOffsets = remember { mutableStateMapOf<String, Int>() }
@@ -539,7 +557,7 @@ internal fun TextScrollView(
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .verticalScroll(scroll)
-                .padding(horizontal = 22.dp, vertical = 10.dp),
+                .padding(horizontal = horizontalPadding, vertical = 10.dp),
         ) {
             state.paragraphs.forEach { paragraph ->
             Box(
@@ -551,9 +569,13 @@ internal fun TextScrollView(
                     strings = strings,
                     paragraph = paragraph,
                     fontSize = state.preference.fontSize,
+                    readingFont = state.preference.readingFont,
+                    lineSpacing = state.preference.lineSpacing,
+                    showAllTranslations = state.preference.showAllTranslations,
                     annotateHints = state.preference.annotateHints,
                     selectedWord = state.selectedWord,
                     expandedTranslation = expandedTranslation,
+                    focus = focus,
                     onWordClick = onWordClick,
                     onAnalysis = onAnalysis,
                     onTranslate = onTranslate,

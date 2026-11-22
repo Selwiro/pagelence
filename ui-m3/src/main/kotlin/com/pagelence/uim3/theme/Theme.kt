@@ -14,6 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.core.prefs.ThemeMode
 
 /**
@@ -102,14 +104,15 @@ private val AppShapes = Shapes(
 )
 
 /**
- * Body style for the reading surface. The phone shell uses the default sans
- * family; the e-ink shell can pass [FontFamily.Serif] without changing the
- * reading rules or the state schema.
+ * Body style for the reading surface (T158). Typeface, size and line height all
+ * come from the reader's preferences; the same style feeds both rendering and
+ * paged measurement, so a change never leaves the last page half measured.
  */
 @Composable
 fun readingTextStyle(
     fontSize: FontSize,
-    fontFamily: FontFamily = FontFamily.SansSerif,
+    readingFont: ReadingFont = ReadingFont.SANS,
+    lineSpacing: LineSpacing = LineSpacing.NORMAL,
 ): TextStyle {
     val size = when (fontSize) {
         FontSize.SMALL -> 17.sp
@@ -117,10 +120,19 @@ fun readingTextStyle(
         FontSize.LARGE -> 22.sp
         FontSize.XLARGE -> 25.sp
     }
+    val family = when (readingFont) {
+        ReadingFont.SANS -> FontFamily.SansSerif
+        ReadingFont.SERIF -> FontFamily.Serif
+    }
+    val heightFactor = when (lineSpacing) {
+        LineSpacing.COMPACT -> 1.45f
+        LineSpacing.NORMAL -> 1.62f
+        LineSpacing.RELAXED -> 1.85f
+    }
     return TextStyle(
-        fontFamily = fontFamily,
+        fontFamily = family,
         fontSize = size,
-        lineHeight = size * 1.62f,
+        lineHeight = size * heightFactor,
         letterSpacing = 0.1.sp,
     )
 }

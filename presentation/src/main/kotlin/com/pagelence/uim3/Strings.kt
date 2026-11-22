@@ -169,6 +169,26 @@ interface Strings {
     val fontMedium: String
     val fontLarge: String
     val fontXLarge: String
+    val readingFont: String
+    val fontSans: String
+    val fontSerif: String
+    val lineSpacing: String
+    val lineSpacingCompact: String
+    val lineSpacingNormal: String
+    val lineSpacingRelaxed: String
+    val pageMargin: String
+    val pageMarginNarrow: String
+    val pageMarginNormal: String
+    val pageMarginWide: String
+    val showAllTranslations: String
+    val hideAllTranslations: String
+    val inBookSearch: String
+    val searchHint: String
+    val searchPrompt: String
+    val searchNoResults: String
+    val searchClear: String
+    val searchResultsCount: String
+    val searchTruncated: String
     val contentLicense: String
     val annotateHints: String
     val annotateHintsHint: String
@@ -453,6 +473,14 @@ interface Strings {
     val annotationAnchorMoved: String
     val annotationFilterAll: String
     val reviewNotes: String
+    val reviewLookups: String
+    val lookupEmptyTitle: String
+    val lookupEmptyHint: String
+    val lookupClear: String
+    val lookupClearTitle: String
+    val lookupClearBody: String
+    val lookupBookRemoved: String
+    val lookupCount: String
 }
 
 fun stringsFor(language: UiLanguage): Strings = when (language) {

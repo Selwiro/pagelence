@@ -1,6 +1,8 @@
 package com.pagelence.data
 
 import com.pagelence.core.content.HintExample
+import com.pagelence.core.lookup.LookupEntry
+import com.pagelence.core.lookup.LookupHistoryRules
 import com.pagelence.core.prefs.Language
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.progress.Annotation
@@ -44,6 +46,37 @@ class ReadingStateStoreTest {
         createdAt = createdAt,
         updatedAt = createdAt,
     )
+
+    private fun lookup(term: String = "skiff", at: String = "2026-11-22T08:00:00Z") = LookupEntry(
+        id = LookupHistoryRules.idOf("doctor-dolittle-1920", term, term),
+        bookId = "doctor-dolittle-1920",
+        unitId = "chapter-01-u01",
+        paragraphId = "chapter-01-p002",
+        sentenceNumber = 3,
+        term = term,
+        lemma = term,
+        start = 4,
+        end = 9,
+        gloss = "小艇",
+        ipa = "skɪf",
+        lookedUpAt = at,
+    )
+
+    @Test
+    fun `lookup history survives a restart and can be cleared`() {
+        val file = Files.createTempDirectory("pagelence-state").resolve("state.json").toFile()
+        val first = tempStore(file)
+        val repository = StateLookupHistoryRepository(first)
+        repository.record(lookup())
+        repository.record(lookup(term = "boat", at = "2026-11-22T09:00:00Z"))
+
+        val reopened = StateLookupHistoryRepository(tempStore(file))
+        assertEquals(listOf("boat", "skiff"), reopened.all().map { it.term })
+        assertEquals(3, reopened.all().first().sentenceNumber)
+
+        reopened.clear()
+        assertTrue(StateLookupHistoryRepository(tempStore(file)).all().isEmpty())
+    }
 
     @Test
     fun `progress survives a restart`() {

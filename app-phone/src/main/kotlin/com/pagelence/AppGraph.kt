@@ -19,6 +19,7 @@ import com.pagelence.core.source.SourceManager
 import com.pagelence.core.source.SourceStore
 import com.pagelence.data.ReadingStateStore
 import com.pagelence.data.StateAnnotationRepository
+import com.pagelence.data.StateLookupHistoryRepository
 import com.pagelence.data.StatePreferencesRepository
 import com.pagelence.data.StateProgressRepository
 import com.pagelence.data.StateReadingProfileRepository
@@ -46,6 +47,9 @@ class AppGraph(context: Context) {
 
     /** Sentence-level bookmarks/highlights/notes, tombstones included. */
     val annotations: StateAnnotationRepository by lazy { StateAnnotationRepository(store) }
+
+    /** Recent word lookups, one row per word per book (T161). */
+    val lookups: StateLookupHistoryRepository by lazy { StateLookupHistoryRepository(store) }
 
     /** WebDAV settings and the Keystore-encrypted application password. */
     val syncCredentials: SyncCredentialStore by lazy { SyncCredentialStore(appContext) }

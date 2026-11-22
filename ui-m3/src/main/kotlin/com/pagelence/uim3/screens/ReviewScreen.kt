@@ -15,6 +15,7 @@ import com.pagelence.uim3.components.PageTopBar
 import com.pagelence.uim3.model.AnnotationFilter
 import com.pagelence.uim3.model.AnnotationUi
 import com.pagelence.uim3.model.GrammarTabUiState
+import com.pagelence.uim3.model.LookupHistoryUi
 import com.pagelence.uim3.model.ReviewTab
 import com.pagelence.uim3.model.WordCardUi
 
@@ -30,9 +31,12 @@ fun ReviewScreen(
     grammar: GrammarTabUiState,
     annotations: List<AnnotationUi>,
     annotationFilter: AnnotationFilter,
+    lookups: List<LookupHistoryUi>,
     onSelectTab: (ReviewTab) -> Unit,
     onSelectAnnotationFilter: (AnnotationFilter) -> Unit,
     onOpenAnnotation: (AnnotationUi) -> Unit,
+    onOpenLookup: (LookupHistoryUi) -> Unit,
+    onClearLookups: () -> Unit,
     onOpenPoint: (String) -> Unit,
     onDeleteCard: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -59,6 +63,7 @@ fun ReviewScreen(
                                     ReviewTab.WORDS -> strings.reviewWords
                                     ReviewTab.GRAMMAR -> strings.reviewGrammar
                                     ReviewTab.NOTES -> strings.reviewNotes
+                                    ReviewTab.LOOKUPS -> strings.reviewLookups
                                 },
                                 style = MaterialTheme.typography.labelLarge,
                             )
@@ -85,6 +90,13 @@ fun ReviewScreen(
                     filter = annotationFilter,
                     onSelectFilter = onSelectAnnotationFilter,
                     onOpen = onOpenAnnotation,
+                )
+
+                ReviewTab.LOOKUPS -> LookupHistoryContent(
+                    strings = strings,
+                    lookups = lookups,
+                    onOpen = onOpenLookup,
+                    onClear = onClearLookups,
                 )
             }
         }

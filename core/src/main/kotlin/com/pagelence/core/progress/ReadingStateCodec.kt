@@ -1,6 +1,7 @@
 package com.pagelence.core.progress
 
 import com.pagelence.core.content.PagelenceJson
+import com.pagelence.core.lookup.LookupHistoryRules
 import com.pagelence.core.prefs.ReaderLayout
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -94,6 +95,7 @@ object ReadingStateCodec {
             levelScore = decoded.levelScore?.coerceIn(0, 100),
             dailyActivity = DailyActivityRules.sanitize(decoded.dailyActivity),
             annotations = AnnotationRules.sanitize(decoded.annotations),
+            lookupHistory = LookupHistoryRules.sanitize(decoded.lookupHistory),
         )
         if (!state.preferences.readerLayoutChosen) {
             // Older states never exposed the layout choice; their `scroll` value

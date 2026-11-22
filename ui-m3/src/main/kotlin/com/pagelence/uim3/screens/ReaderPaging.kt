@@ -16,15 +16,17 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import com.pagelence.core.reading.MeasuredSentence
 import com.pagelence.core.reading.SentencePage
 import com.pagelence.core.reading.SentencePaginator
+import com.pagelence.uim3.Strings
 import com.pagelence.presentation.pagination.PaginationCache
 import com.pagelence.presentation.pagination.PaginationFingerprint
 import com.pagelence.presentation.pagination.PaginationKey
@@ -45,12 +47,17 @@ private val textPageCache = PaginationCache<List<SentencePage>>(TextPageCacheEnt
 @Composable
 internal fun rememberTextPages(
     state: ReaderUiState,
+    strings: Strings,
     contentWidthPx: Int,
     pageHeightPx: Int,
 ): List<SentencePage> {
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
-    val readingStyle = readingTextStyle(state.preference.fontSize)
+    val readingStyle = readingTextStyle(
+        fontSize = state.preference.fontSize,
+        readingFont = state.preference.readingFont,
+        lineSpacing = state.preference.lineSpacing,
+    )
     // E-15: key on small values plus a text fingerprint instead of the
     // paragraph list; the old key deep-compared the whole unit on every state
     // rebuild. Bookmark/highlight/note changes do not invalidate the cache
@@ -61,6 +68,10 @@ internal fun rememberTextPages(
         contentWidthPx = contentWidthPx,
         pageHeightPx = pageHeightPx,
         fontSize = state.preference.fontSize,
+        readingFont = state.preference.readingFont,
+        lineSpacing = state.preference.lineSpacing,
+        pageMargin = state.preference.pageMargin,
+        showAllTranslations = state.preference.showAllTranslations,
         language = state.language,
         density = density.density,
         fontScale = density.fontScale,
@@ -75,9 +86,11 @@ internal fun rememberTextPages(
                 measureSentences(
                     paragraph = paragraph,
                     measurer = measurer,
+                    strings = strings,
                     readingStyle = readingStyle,
                     contentWidthPx = contentWidthPx,
                     density = density,
+                    showAllTranslations = state.preference.showAllTranslations,
                 )
             }
             SentencePaginator.paginate(measured, usableHeight)
@@ -88,13 +101,15 @@ internal fun rememberTextPages(
 internal fun measureSentences(
     paragraph: ParagraphUi,
     measurer: TextMeasurer,
+    strings: Strings,
     readingStyle: TextStyle,
     contentWidthPx: Int,
     density: Density,
+    showAllTranslations: Boolean,
 ): List<MeasuredSentence> = with(density) {
     val sentenceWidth = contentWidthPx.coerceAtLeast(1)
     paragraph.sentences.mapIndexed { index, sentence ->
-        val measured = measuredSentence(sentence, density)
+        val measured = measuredSentence(sentence, strings, density, showAllTranslations)
         val textHeight = measurer.measure(
             measured.first,
             style = readingStyle,
@@ -118,37 +133,40 @@ internal fun measureSentences(
  */
 internal fun measuredSentence(
     sentence: SentenceUi,
+    strings: Strings,
     density: Density,
+    showAllTranslations: Boolean,
 ): Pair<AnnotatedString, List<AnnotatedString.Range<Placeholder>>> {
-    if (sentence.zh.isNullOrBlank() && sentence.analysis == null) {
-        return AnnotatedString(sentence.text) to emptyList()
-    }
+    val hidesIcons = sentence.zh.isNullOrBlank() && sentence.analysis == null
+    if (hidesIcons) return AnnotatedString(sentence.text) to emptyList()
+    val flow = buildSentenceFlow(
+        strings = strings,
+        sentences = listOf(sentence),
+        showAllTranslations = showAllTranslations,
+        translationStyle = SpanStyle(fontSize = 0.86.em),
+    )
     val ranges = mutableListOf<AnnotatedString.Range<Placeholder>>()
-    val iconSizePx = with(density) { SentenceTranslateIconSize.toPx() }
-    val iconSize = with(density) { iconSizePx.toSp() }
-    val analysisSize = with(density) { SentenceAnalysisIconSize.toPx().toSp() }
-    val text = buildAnnotatedString {
-        append(sentence.text)
-        if (!sentence.zh.isNullOrBlank()) {
-            append(" ")
-            val at = length
-            appendInlineContent(SentenceTranslateInlineId)
+    if (flow.iconStarts.isNotEmpty()) {
+        val sizePx = with(density) { SentenceTranslateIconSize.toPx() }
+        val size = with(density) { sizePx.toSp() }
+        flow.iconStarts.keys.forEach { at ->
             ranges += AnnotatedString.Range(
-                Placeholder(iconSize, iconSize, PlaceholderVerticalAlign.Center),
-                at,
-                at + 1,
-            )
-        }
-        if (sentence.analysis != null) {
-            append(" ")
-            val at = length
-            appendInlineContent(SentenceAnalysisInlineId)
-            ranges += AnnotatedString.Range(
-                Placeholder(analysisSize, analysisSize, PlaceholderVerticalAlign.Center),
+                Placeholder(size, size, PlaceholderVerticalAlign.Center),
                 at,
                 at + 1,
             )
         }
     }
-    return text to ranges
+    if (flow.analysisStarts.isNotEmpty()) {
+        val sizePx = with(density) { SentenceAnalysisIconSize.toPx() }
+        val size = with(density) { sizePx.toSp() }
+        flow.analysisStarts.keys.forEach { at ->
+            ranges += AnnotatedString.Range(
+                Placeholder(size, size, PlaceholderVerticalAlign.Center),
+                at,
+                at + 1,
+            )
+        }
+    }
+    return flow.annotated to ranges
 }

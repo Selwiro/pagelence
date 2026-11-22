@@ -1,5 +1,7 @@
 package com.pagelence.core.progress
 
+import com.pagelence.core.lookup.LookupEntry
+import com.pagelence.core.lookup.LookupHistoryRules
 import com.pagelence.core.prefs.FontSize
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.wordcards.WordCard
@@ -24,6 +26,7 @@ class StateMergeTest {
             activity: Map<String, DailyActivity> = emptyMap(),
             selfLevel: CefrLevel? = null,
             levelUpdatedAt: String? = null,
+            lookups: List<LookupEntry> = emptyList(),
         ): ReadingState = ReadingState(
             deviceId = deviceId,
             updatedAt = updatedAt,
@@ -32,6 +35,18 @@ class StateMergeTest {
             dailyActivity = activity,
             selfLevel = selfLevel,
             levelUpdatedAt = levelUpdatedAt,
+            lookupHistory = lookups,
+        )
+
+        fun lookup(term: String, at: String, sentenceNumber: Int = 1): LookupEntry = LookupEntry(
+            id = LookupHistoryRules.idOf("book", term, term),
+            bookId = "book",
+            unitId = "u1",
+            paragraphId = "p1",
+            sentenceNumber = sentenceNumber,
+            term = term,
+            lemma = term,
+            lookedUpAt = at,
         )
 
         fun book(
@@ -318,5 +333,29 @@ class StateMergeTest {
         assertEquals(1, result.summary.annotationsUpdated)
         assertEquals(0, result.summary.annotationsAdded)
         assertEquals(0, result.summary.annotationsDeleted)
+    }
+
+    @Test
+    fun `lookup history merges by word with the later lookup winning`() {
+        val local = Fixture.state(
+            deviceId = "device-a",
+            lookups = listOf(
+                Fixture.lookup("sea", "2026-11-20T08:00:00Z"),
+                Fixture.lookup("boat", "2026-11-20T09:00:00Z"),
+            ),
+        )
+        val remote = Fixture.state(
+            deviceId = "device-b",
+            lookups = listOf(
+                Fixture.lookup("sea", "2026-11-20T11:00:00Z", sentenceNumber = 7),
+                Fixture.lookup("bird", "2026-11-20T07:00:00Z"),
+            ),
+        )
+
+        val result = StateMerge.merge(local, remote, base = null, now = Fixture.NOW, today = Fixture.TODAY)
+
+        assertEquals(listOf("sea", "boat", "bird"), result.state.lookupHistory.map { it.term })
+        assertEquals(7, result.state.lookupHistory.first().sentenceNumber)
+        assertEquals(2, result.summary.lookupsChanged)
     }
 }

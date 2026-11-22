@@ -1,6 +1,7 @@
 package com.pagelence.core.progress
 
 import com.pagelence.core.content.ContentIndex
+import com.pagelence.core.lookup.LookupEntry
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.wordcards.WordCard
 import kotlinx.serialization.SerialName
@@ -115,6 +116,11 @@ data class ReadingState(
      * Tombstones are kept for merge, exactly like word cards.
      */
     val annotations: List<Annotation> = emptyList(),
+    /**
+     * Recent word lookups (T161). Added on v2 as an optional field, so older
+     * documents decode to an empty list; one row per word per book.
+     */
+    val lookupHistory: List<LookupEntry> = emptyList(),
 ) {
     fun progress(bookId: String): BookProgress =
         books[bookId] ?: BookProgress(bookId = bookId)

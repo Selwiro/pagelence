@@ -1,6 +1,9 @@
 package com.pagelence.data
 
 import com.pagelence.core.content.PagelenceJson
+import com.pagelence.core.lookup.LookupEntry
+import com.pagelence.core.lookup.LookupHistoryRepository
+import com.pagelence.core.lookup.LookupHistoryRules
 import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.progress.Annotation
 import com.pagelence.core.progress.AnnotationRepository
@@ -234,9 +237,11 @@ class ReadingStateStore(
             state.annotations.filterNot { annotation -> deletedBefore(annotation.deletedAt, cutoff) }
         }
         val guides = state.preferences.seenGuideUnits.filter { it.substringBefore("::") in state.books.keys }
+        val lookups = LookupHistoryRules.sanitize(state.lookupHistory)
         if (cards.size == state.wordCards.size &&
             annotations.size == state.annotations.size &&
-            guides.size == state.preferences.seenGuideUnits.size
+            guides.size == state.preferences.seenGuideUnits.size &&
+            lookups == state.lookupHistory
         ) {
             return state
         }
@@ -244,6 +249,7 @@ class ReadingStateStore(
             wordCards = cards,
             annotations = annotations,
             preferences = state.preferences.copy(seenGuideUnits = guides),
+            lookupHistory = lookups,
         )
     }
 
@@ -450,6 +456,26 @@ class StateAnnotationRepository(private val store: ReadingStateStore) : Annotati
             state.copy(annotations = AnnotationRules.remove(state.annotations, id, deletedAt))
         }
         return true
+    }
+}
+
+/** Recent word lookups persisted in [ReadingStateStore], newest first. */
+class StateLookupHistoryRepository(
+    private val store: ReadingStateStore,
+    private val now: () -> String = { Instant.now().toString() },
+) : LookupHistoryRepository {
+    override fun all(): List<LookupEntry> = store.state().lookupHistory
+
+    override fun record(entry: LookupEntry): LookupEntry {
+        val stamped = entry.copy(lookedUpAt = entry.lookedUpAt.ifBlank { now() })
+        store.update { state ->
+            state.copy(lookupHistory = LookupHistoryRules.record(state.lookupHistory, stamped))
+        }
+        return store.state().lookupHistory.firstOrNull { it.id == stamped.id } ?: stamped
+    }
+
+    override fun clear() {
+        store.update { state -> state.copy(lookupHistory = LookupHistoryRules.clear()) }
     }
 }
 

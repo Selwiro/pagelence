@@ -20,6 +20,10 @@ class PreferencesTest {
         assertEquals(GuideMode.BILINGUAL, preferences.guideMode)
         assertEquals(ThemeMode.SYSTEM, preferences.theme)
         assertEquals(FontSize.MEDIUM, preferences.fontSize)
+        assertEquals(ReadingFont.SANS, preferences.readingFont)
+        assertEquals(LineSpacing.NORMAL, preferences.lineSpacing)
+        assertEquals(PageMargin.NORMAL, preferences.pageMargin)
+        assertTrue(!preferences.showAllTranslations)
         assertTrue(preferences.annotateHints)
         assertEquals(emptyList(), preferences.handledOffers)
         assertEquals(1.0f, preferences.speechRate)
@@ -41,6 +45,9 @@ class PreferencesTest {
             put("guideMode", JsonPrimitive("auto"))
             put("theme", JsonPrimitive("sepia"))
             put("fontSize", JsonPrimitive("huge"))
+            put("readingFont", JsonPrimitive("mono"))
+            put("lineSpacing", JsonPrimitive("double"))
+            put("pageMargin", JsonPrimitive("huge"))
         }
         assertEquals(Preferences(), Preferences.restore(raw))
     }
@@ -56,6 +63,10 @@ class PreferencesTest {
             put("guideMode", JsonPrimitive("immersive"))
             put("theme", JsonPrimitive("dark"))
             put("fontSize", JsonPrimitive("large"))
+            put("readingFont", JsonPrimitive("serif"))
+            put("lineSpacing", JsonPrimitive("relaxed"))
+            put("pageMargin", JsonPrimitive("wide"))
+            put("showAllTranslations", JsonPrimitive(true))
             put("annotateHints", JsonPrimitive(false))
             put("speechRate", JsonPrimitive(0.85))
             put(
@@ -77,6 +88,10 @@ class PreferencesTest {
                 guideMode = GuideMode.IMMERSIVE,
                 theme = ThemeMode.DARK,
                 fontSize = FontSize.LARGE,
+                readingFont = ReadingFont.SERIF,
+                lineSpacing = LineSpacing.RELAXED,
+                pageMargin = PageMargin.WIDE,
+                showAllTranslations = true,
                 annotateHints = false,
                 handledOffers = listOf("pilot-ui-en", "7"),
                 speechRate = 0.85f,
@@ -110,11 +125,16 @@ class PreferencesTest {
             guideMode = GuideMode.IMMERSIVE,
             theme = ThemeMode.DARK,
             fontSize = FontSize.LARGE,
+            readingFont = ReadingFont.SERIF,
+            lineSpacing = LineSpacing.COMPACT,
+            pageMargin = PageMargin.NARROW,
+            showAllTranslations = true,
         )
         val json = PagelenceJson.encodeToString(Preferences.serializer(), preferences)
         listOf(
             "\"en\"", "\"original\"", "\"eink\"", "\"mixed\"", "\"immersive\"",
-            "\"dark\"", "\"large\"",
+            "\"dark\"", "\"large\"", "\"serif\"", "\"compact\"", "\"narrow\"",
+            "\"showAllTranslations\":true",
         )
             .forEach { fragment -> assertTrue(json.contains(fragment), "missing $fragment in $json") }
         assertEquals(preferences, Preferences.restore(json))

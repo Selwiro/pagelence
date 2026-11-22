@@ -34,6 +34,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.core.prefs.GuideMode
 import com.pagelence.core.prefs.ReaderLayout
 import com.pagelence.core.prefs.ThemeMode
@@ -65,6 +68,9 @@ fun SettingsScreen(
     onLanguage: (UiLanguage) -> Unit,
     onTheme: (ThemeMode) -> Unit,
     onFontSize: (FontSize) -> Unit,
+    onReadingFont: (ReadingFont) -> Unit,
+    onLineSpacing: (LineSpacing) -> Unit,
+    onPageMargin: (PageMargin) -> Unit,
     onReaderLayout: (ReaderLayout) -> Unit,
     onAnnotateHints: (Boolean) -> Unit,
     onDefinitionMode: (DefinitionMode) -> Unit,
@@ -94,6 +100,38 @@ fun SettingsScreen(
                     ),
                     selected = state.fontSize,
                     onSelect = onFontSize,
+                )
+            }
+            SettingBlock(strings.readingFont) {
+                ChoiceRow(
+                    options = listOf(
+                        ReadingFont.SANS to strings.fontSans,
+                        ReadingFont.SERIF to strings.fontSerif,
+                    ),
+                    selected = state.readingFont,
+                    onSelect = onReadingFont,
+                )
+            }
+            SettingBlock(strings.lineSpacing) {
+                ChoiceRow(
+                    options = listOf(
+                        LineSpacing.COMPACT to strings.lineSpacingCompact,
+                        LineSpacing.NORMAL to strings.lineSpacingNormal,
+                        LineSpacing.RELAXED to strings.lineSpacingRelaxed,
+                    ),
+                    selected = state.lineSpacing,
+                    onSelect = onLineSpacing,
+                )
+            }
+            SettingBlock(strings.pageMargin) {
+                ChoiceRow(
+                    options = listOf(
+                        PageMargin.NARROW to strings.pageMarginNarrow,
+                        PageMargin.NORMAL to strings.pageMarginNormal,
+                        PageMargin.WIDE to strings.pageMarginWide,
+                    ),
+                    selected = state.pageMargin,
+                    onSelect = onPageMargin,
                 )
             }
             SettingBlock(strings.readingLayout) {

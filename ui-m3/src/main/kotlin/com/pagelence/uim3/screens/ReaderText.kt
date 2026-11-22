@@ -49,7 +49,10 @@ import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.AnalysisIcon
 import com.pagelence.uim3.components.TranslateIcon
@@ -63,9 +66,13 @@ internal fun ParagraphBlock(
     strings: Strings,
     paragraph: ParagraphUi,
     fontSize: FontSize,
+    readingFont: ReadingFont,
+    lineSpacing: LineSpacing,
+    showAllTranslations: Boolean,
     annotateHints: Boolean,
     selectedWord: SelectedWordUi?,
     expandedTranslation: ExpandedTranslation?,
+    focus: SentenceFocus?,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
     onTranslate: (String, SentenceUi) -> Unit,
@@ -73,7 +80,7 @@ internal fun ParagraphBlock(
 ) {
     Column {
         val expandedIndex = expandedTranslation
-            ?.takeIf { it.paragraphId == paragraph.id }
+            ?.takeIf { !showAllTranslations && it.paragraphId == paragraph.id }
             ?.let { expanded -> paragraph.sentences.indexOfFirst { it.number == expanded.sentenceNumber } }
             ?: -1
         if (expandedIndex < 0) {
@@ -82,8 +89,12 @@ internal fun ParagraphBlock(
                 paragraphId = paragraph.id,
                 sentences = paragraph.sentences,
                 fontSize = fontSize,
+                readingFont = readingFont,
+                lineSpacing = lineSpacing,
+                showAllTranslations = showAllTranslations,
                 annotateHints = annotateHints,
                 selectedWord = selectedWord,
+                focus = focus,
                 onWordClick = onWordClick,
                 onAnalysis = onAnalysis,
                 onTranslate = onTranslate,
@@ -95,8 +106,12 @@ internal fun ParagraphBlock(
                 paragraphId = paragraph.id,
                 sentences = paragraph.sentences.subList(0, expandedIndex + 1),
                 fontSize = fontSize,
+                readingFont = readingFont,
+                lineSpacing = lineSpacing,
+                showAllTranslations = showAllTranslations,
                 annotateHints = annotateHints,
                 selectedWord = selectedWord,
+                focus = focus,
                 onWordClick = onWordClick,
                 onAnalysis = onAnalysis,
                 onTranslate = onTranslate,
@@ -109,8 +124,12 @@ internal fun ParagraphBlock(
                     paragraphId = paragraph.id,
                     sentences = paragraph.sentences.subList(expandedIndex + 1, paragraph.sentences.size),
                     fontSize = fontSize,
+                    readingFont = readingFont,
+                    lineSpacing = lineSpacing,
+                    showAllTranslations = showAllTranslations,
                     annotateHints = annotateHints,
                     selectedWord = selectedWord,
+                    focus = focus,
                     onWordClick = onWordClick,
                     onAnalysis = onAnalysis,
                     onTranslate = onTranslate,
@@ -156,16 +175,9 @@ internal data class SentenceMarkSpan(
     val note: Boolean,
 )
 
-internal data class ParagraphTextData(
-    val annotated: AnnotatedString,
-    val spans: List<SentenceSpan>,
-    val iconStarts: Map<Int, SentenceUi>,
-    val analysisStarts: Map<Int, SentenceUi>,
-    val selectionRanges: List<IntRange>,
-    val hintRanges: List<IntRange>,
-    val highlightRanges: List<IntRange>,
-    val marks: List<SentenceMarkSpan>,
-)
+internal fun translateId(sentenceNumber: Int): String = "translate-$sentenceNumber"
+
+internal fun analysisId(sentenceNumber: Int): String = "analysis-$sentenceNumber"
 
 /**
  * One paragraph (or a page chunk of it) as a single text flow. Sentences are
@@ -178,8 +190,12 @@ internal fun ParagraphText(
     paragraphId: String,
     sentences: List<SentenceUi>,
     fontSize: FontSize,
+    readingFont: ReadingFont,
+    lineSpacing: LineSpacing,
+    showAllTranslations: Boolean,
     annotateHints: Boolean,
     selectedWord: SelectedWordUi?,
+    focus: SentenceFocus?,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
     onTranslate: (String, SentenceUi) -> Unit,
@@ -191,31 +207,40 @@ internal fun ParagraphText(
     val selectionText = MaterialTheme.colorScheme.onPrimaryContainer
     val hintColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.38f)
     val highlightColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.14f)
+    val focusColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.22f)
     val markColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.78f)
+    val translationColor = MaterialTheme.colorScheme.onSurfaceVariant
     val data = remember(
         sentences,
+        showAllTranslations,
         annotateHints,
         strings.translation,
+        translationColor,
         selectedWord?.paragraphId,
         selectedWord?.sentenceNumber,
         selectedWord?.spelling,
         selectedWord?.start,
         selectedWord?.end,
+        focus,
     ) {
         buildParagraphTextData(
             strings = strings,
+            paragraphId = paragraphId,
             sentences = sentences,
+            showAllTranslations = showAllTranslations,
             annotateHints = annotateHints,
             selectedWord = selectedWord,
+            focus = focus,
             selectionText = selectionText,
+            translationText = translationColor,
         )
     }
     val density = LocalDensity.current
     val iconSizePx = with(density) { SentenceTranslateIconSize.toPx() }
     val iconSize = with(density) { iconSizePx.toSp() }
     val analysisSize = with(density) { SentenceAnalysisIconSize.toPx().toSp() }
-    val inlineContent = buildMap {
-        sentences.filter { !it.zh.isNullOrBlank() }.forEach { sentence ->
+    val inlineContent = buildMap<String, InlineTextContent> {
+        data.iconStarts.values.distinct().forEach { sentence ->
             put(
                 translateId(sentence.number),
                 InlineTextContent(
@@ -242,7 +267,7 @@ internal fun ParagraphText(
                 },
             )
         }
-        sentences.filter { it.analysis != null }.forEach { sentence ->
+        data.analysisStarts.values.distinct().forEach { sentence ->
             put(
                 analysisId(sentence.number),
                 InlineTextContent(
@@ -275,11 +300,20 @@ internal fun ParagraphText(
     Text(
         text = data.annotated,
         inlineContent = inlineContent,
-        style = readingTextStyle(fontSize),
+        style = readingTextStyle(fontSize, readingFont, lineSpacing),
         onTextLayout = { layout = it },
         modifier = modifier
             .drawBehind {
                 val result = layout ?: return@drawBehind
+                data.focusRanges.forEach { range ->
+                    drawSelectionBackground(
+                        result,
+                        range,
+                        focusColor,
+                        cornerPx = 3.dp.toPx(),
+                        horizontalPadPx = 2.dp.toPx(),
+                    )
+                }
                 data.highlightRanges.forEach { range ->
                     drawSelectionBackground(
                         result,
@@ -323,6 +357,7 @@ internal fun ParagraphText(
                     onLongPress = { offset ->
                         val result = layout ?: return@detectTapGestures
                         val index = result.getOffsetForPosition(offset)
+                        if (data.translationRanges.any { index in it }) return@detectTapGestures
                         val span = data.spans.firstOrNull { index >= it.start && index < it.end }
                             ?: return@detectTapGestures
                         onSentenceLongPress(paragraphId, span.sentence)
@@ -330,6 +365,9 @@ internal fun ParagraphText(
                     onTap = { offset ->
                     val result = layout ?: return@detectTapGestures
                     val index = result.getOffsetForPosition(offset)
+                    // Chinese translations are display-only; a tap on them must
+                    // not be mistaken for a word lookup (T159).
+                    if (data.translationRanges.any { index in it }) return@detectTapGestures
                     // 14dp glyphs are hard to hit with a thumb; accept a tap
                     // within a fingertip of the icon without changing layout.
                     val slop = SentenceIconSlop.toPx()
@@ -381,32 +419,71 @@ internal fun ParagraphText(
     )
 }
 
-internal fun translateId(sentenceNumber: Int): String = "translate-$sentenceNumber"
+internal data class ParagraphTextData(
+    val annotated: AnnotatedString,
+    val spans: List<SentenceSpan>,
+    val iconStarts: Map<Int, SentenceUi>,
+    val analysisStarts: Map<Int, SentenceUi>,
+    val selectionRanges: List<IntRange>,
+    val hintRanges: List<IntRange>,
+    val highlightRanges: List<IntRange>,
+    val translationRanges: List<IntRange>,
+    val focusRanges: List<IntRange>,
+    val marks: List<SentenceMarkSpan>,
+)
 
-internal fun analysisId(sentenceNumber: Int): String = "analysis-$sentenceNumber"
+/**
+ * Sentence flow shared by rendering and paged measurement so both always agree
+ * on what is on the page.
+ *
+ * - The per-sentence translate icon only appears when translations are hidden;
+ *   with 全部句译 on, the Chinese follows on its own line instead (T159).
+ * - [translationStyle] is a smaller, muted span; measurement only needs its
+ *   size, rendering also uses its colour.
+ */
+internal data class SentenceFlowData(
+    val annotated: AnnotatedString,
+    val spans: List<SentenceSpan>,
+    val iconStarts: Map<Int, SentenceUi>,
+    val analysisStarts: Map<Int, SentenceUi>,
+    val translationRanges: List<IntRange>,
+)
 
-internal fun buildParagraphTextData(
+internal fun buildSentenceFlow(
     strings: Strings,
     sentences: List<SentenceUi>,
-    annotateHints: Boolean,
-    selectedWord: SelectedWordUi?,
-    selectionText: androidx.compose.ui.graphics.Color,
-): ParagraphTextData {
+    showAllTranslations: Boolean,
+    translationStyle: SpanStyle,
+): SentenceFlowData {
     val spans = mutableListOf<SentenceSpan>()
     val iconStarts = mutableMapOf<Int, SentenceUi>()
     val analysisStarts = mutableMapOf<Int, SentenceUi>()
+    val translationRanges = mutableListOf<IntRange>()
     val builder = AnnotatedString.Builder()
+    var previousTranslated = false
     sentences.forEachIndexed { index, sentence ->
-        if (index > 0) builder.append(" ")
+        // A translation already ends on its own line; start the next English
+        // sentence on a fresh line so the two languages never share one line
+        // and look like a repeated fragment (T159).
+        if (index > 0) builder.append(if (previousTranslated) "\n" else " ")
         val start = builder.length
         builder.append(sentence.text)
         val end = builder.length
         spans += SentenceSpan(sentence, start, end)
         if (!sentence.zh.isNullOrBlank()) {
-            builder.append(" ")
-            val iconAt = builder.length
-            builder.appendInlineContent(translateId(sentence.number), strings.translation)
-            iconStarts[iconAt] = sentence
+            if (showAllTranslations) {
+                builder.append("\n")
+                val zhStart = builder.length
+                builder.pushStyle(translationStyle)
+                builder.append(sentence.zh)
+                builder.pop()
+                if (builder.length > zhStart) translationRanges += zhStart until builder.length
+            } else {
+                builder.append(" ")
+                val iconAt = builder.length
+                builder.appendInlineContent(translateId(sentence.number), strings.translation)
+                iconStarts[iconAt] = sentence
+            }
         }
         if (sentence.analysis != null) {
             builder.append(" ")
@@ -414,7 +491,38 @@ internal fun buildParagraphTextData(
             builder.appendInlineContent(analysisId(sentence.number), strings.analysisParse)
             analysisStarts[analysisAt] = sentence
         }
+        previousTranslated = showAllTranslations && !sentence.zh.isNullOrBlank()
     }
+    return SentenceFlowData(
+        annotated = builder.toAnnotatedString(),
+        spans = spans,
+        iconStarts = iconStarts,
+        analysisStarts = analysisStarts,
+        translationRanges = translationRanges,
+    )
+}
+
+internal fun buildParagraphTextData(
+    strings: Strings,
+    paragraphId: String,
+    sentences: List<SentenceUi>,
+    showAllTranslations: Boolean,
+    annotateHints: Boolean,
+    selectedWord: SelectedWordUi?,
+    focus: SentenceFocus?,
+    selectionText: androidx.compose.ui.graphics.Color,
+    translationText: androidx.compose.ui.graphics.Color,
+): ParagraphTextData {
+    val flow = buildSentenceFlow(
+        strings = strings,
+        sentences = sentences,
+        showAllTranslations = showAllTranslations,
+        translationStyle = SpanStyle(color = translationText, fontSize = 0.86.em),
+    )
+    val spans = flow.spans
+    val iconStarts = flow.iconStarts
+    val analysisStarts = flow.analysisStarts
+    val builder = AnnotatedString.Builder(flow.annotated)
     val selectionRanges = selectedWord?.let { selected ->
         spans.firstOrNull { it.sentence.number == selected.sentenceNumber }?.let { span ->
             val ranges = if (selected.start in 0..selected.end && selected.end < span.sentence.text.length) {
@@ -442,6 +550,11 @@ internal fun buildParagraphTextData(
     } else {
         emptyList()
     }
+    val focusRanges = focus?.let { target ->
+        spans.firstOrNull {
+            paragraphId == target.paragraphId && it.sentence.number == target.sentenceNumber
+        }?.takeIf { it.end > it.start }?.let { listOf(it.start..(it.end - 1)) }
+    }.orEmpty()
     val highlightRanges = spans
         .filter { it.sentence.mark?.highlighted == true && it.end > it.start }
         .map { it.start..(it.end - 1) }
@@ -468,6 +581,8 @@ internal fun buildParagraphTextData(
         selectionRanges = selectionRanges,
         hintRanges = hintRanges,
         highlightRanges = highlightRanges,
+        translationRanges = flow.translationRanges,
+        focusRanges = focusRanges,
         marks = marks,
     )
 }

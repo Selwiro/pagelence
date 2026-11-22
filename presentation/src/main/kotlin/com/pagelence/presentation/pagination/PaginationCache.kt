@@ -1,6 +1,9 @@
 package com.pagelence.presentation.pagination
 
 import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.model.ParagraphUi
 
@@ -20,6 +23,14 @@ data class PaginationKey(
     val contentWidthPx: Int,
     val pageHeightPx: Int,
     val fontSize: FontSize,
+    /** Body face (T158); a serif face has different metrics from sans. */
+    val readingFont: ReadingFont = ReadingFont.SANS,
+    /** Line height multiple (T158). */
+    val lineSpacing: LineSpacing = LineSpacing.NORMAL,
+    /** Page margin (T158); also changes [contentWidthPx], kept explicit. */
+    val pageMargin: PageMargin = PageMargin.NORMAL,
+    /** 全部句译 changes the measured text itself (T159). */
+    val showAllTranslations: Boolean = false,
     val language: UiLanguage,
     /** `Density.density`; measured dp sizes depend on it. */
     val density: Float,
