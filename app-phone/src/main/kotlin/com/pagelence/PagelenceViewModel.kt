@@ -19,6 +19,8 @@ import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
 import com.pagelence.presentation.assessment.AssessmentPresenter
 import com.pagelence.presentation.book.BookDetailPresenter
+import com.pagelence.presentation.dictionary.DictionaryPresenter
+import com.pagelence.presentation.grammar.GrammarPresenter
 import com.pagelence.presentation.store.StorePresenter
 import com.pagelence.presentation.store.formatBytes
 import com.pagelence.presentation.store.storeErrorPriority
@@ -1192,7 +1194,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             val language = uiLanguage(graph.preferences.preferences())
             val all = graph.content.grammarPoints()
             val point = all.firstOrNull { it.id == id } ?: return@launch
-            val ui = toGrammarPointUi(point, all, language)
+            val ui = GrammarPresenter(all, language).point(point)
             withContext(Dispatchers.Main) {
                 _ui.update { it.copy(grammarPoint = ui) }
                 push(Screen.GRAMMAR_POINT)
@@ -1200,37 +1202,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
     }
 
-    private fun toGrammarPointUi(
-        point: GrammarPoint,
-        all: List<GrammarPoint>,
-        language: UiLanguage,
-    ): GrammarPointUi {
-        val index = all.indexOfFirst { it.id == point.id }
-        fun nameOf(id: String): String? = all.firstOrNull { it.id == id }
-            ?.name?.let { textFor(it, language) }
-        return GrammarPointUi(
-            id = point.id,
-            name = point.name.let { textFor(it, language) }.orEmpty(),
-            levelStart = point.levelStart,
-            levelEnd = point.levelEnd,
-            levelLabel = point.levelLabel,
-            explain = point.explain.let { textFor(it, language) }.orEmpty(),
-            form = point.form.let { textFor(it, language) }.orEmpty(),
-            pitfalls = point.pitfalls.mapNotNull { textFor(it, language) },
-            examples = point.examples.map {
-                GrammarExampleUi(
-                    text = it.text,
-                    zh = if (language == UiLanguage.EN) null else it.zh,
-                    fromBook = false,
-                )
-            },
-            related = point.relatedIds.mapNotNull { id ->
-                nameOf(id)?.let { GrammarRelatedUi(id, it) }
-            },
-            previousId = all.getOrNull(index - 1)?.id,
-            nextId = all.getOrNull(index + 1)?.id,
-        )
-    }
 
     fun openGrammarDetail(bookId: String, unitId: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -1262,7 +1233,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private fun buildGrammarTab(strings: Strings, language: UiLanguage): GrammarTabUiState {
         val all = graph.content.grammarPoints()
         return GrammarTabUiState(
-            points = all.map { toGrammarPointUi(it, all, language) },
+            points = GrammarPresenter(all, language).tab().points,
             loading = false,
         )
     }
@@ -2039,77 +2010,19 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
 
     private fun buildDictionaryState(): DictionaryUiState {
-        val strings = stringsFor(uiLanguage(graph.preferences.preferences()))
-        val manifest = graph.fullDictManifest
-            ?: return DictionaryUiState(
-                phase = DictionaryPhase.UNAVAILABLE,
-                status = strings.dictHostingPending,
-            )
-        val rejection = DictRules.validate(manifest, BuildConfig.VERSION_CODE)
-        if (rejection != null) {
-            return DictionaryUiState(
-                phase = DictionaryPhase.UNAVAILABLE,
-                version = manifest.dictVersion,
-                sizeLabel = formatBytes(manifest.bytes),
-                status = when (rejection) {
-                    is DictRejection.Schema, is DictRejection.AppTooOld -> strings.dictNeedsNewerApp
-                    else -> strings.dictHostingPending
-                },
-            )
-        }
-        val installer = graph.fullDictInstaller
-        val downloading = dictionaryDownloadJob?.isActive == true
-        val installed = installer.isInstalled(manifest)
-        val installedVersion = installer.installedVersion()
-        val partial = installer.downloadedBytes()
-        val resumable = installer.canResume(manifest)
-        val base = DictionaryUiState(
-            version = manifest.dictVersion,
-            sizeLabel = formatBytes(manifest.bytes),
-            installedVersion = installedVersion,
-            canDelete = installedVersion != null || partial > 0,
+        val language = uiLanguage(graph.preferences.preferences())
+        return DictionaryPresenter(
+            strings = stringsFor(language),
+            appVersionCode = BuildConfig.VERSION_CODE,
+            hostingEnabled = FullDictSource.enabled,
+        ).state(
+            manifest = graph.fullDictManifest,
+            installer = graph.fullDictInstaller,
+            downloading = dictionaryDownloadJob?.isActive == true,
+            progress = _ui.value.dictionary.progress,
         )
-        if (downloading) {
-            val progress = _ui.value.dictionary.progress.coerceIn(0f, 1f)
-            return base.copy(
-                phase = DictionaryPhase.DOWNLOADING,
-                progress = progress,
-                status = strings.dictDownloading.format((progress * 100).toInt()),
-                canPause = true,
-            )
-        }
-        return when {
-            installed -> base.copy(
-                phase = DictionaryPhase.INSTALLED,
-                status = strings.dictInstalled,
-            )
-
-            // The table may be installed even when this build will not offer a
-            // download (hosting not live); show it, only disable the offer.
-            !FullDictSource.enabled -> base.copy(
-                phase = DictionaryPhase.UNAVAILABLE,
-                status = strings.dictHostingPending,
-            )
-
-            resumable -> base.copy(
-                phase = DictionaryPhase.PAUSED,
-                status = strings.dictPaused.format(formatBytes(partial)),
-                canResume = true,
-            )
-
-            installedVersion != null -> base.copy(
-                phase = DictionaryPhase.UPDATE_AVAILABLE,
-                status = strings.dictUpdateAvailable.format(manifest.dictVersion, installedVersion),
-                canDownload = true,
-            )
-
-            else -> base.copy(
-                phase = DictionaryPhase.NOT_INSTALLED,
-                status = strings.dictNotInstalled,
-                canDownload = true,
-            )
-        }
     }
+
 
     fun openAbout() = push(Screen.ABOUT)
 
