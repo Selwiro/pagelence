@@ -18,6 +18,7 @@ import com.pagelence.presentation.library.LibraryPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
 import com.pagelence.presentation.reader.WordPanelPresenter
 import com.pagelence.presentation.assessment.AssessmentPresenter
+import com.pagelence.presentation.book.BookDetailPresenter
 import com.pagelence.presentation.store.StorePresenter
 import com.pagelence.presentation.store.formatBytes
 import com.pagelence.presentation.store.storeErrorPriority
@@ -682,95 +683,23 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     }
 
     private fun buildBookDetail(bookId: String, language: UiLanguage): BookDetailUi? {
-        val summary = graph.content.library().firstOrNull { it.id == bookId }
-        val entry = graph.builtInCatalog.books().firstOrNull { it.id == bookId }
-        val catalog = CatalogRules.merge(storeSnapshots).firstOrNull { it.book.id == bookId }
-        val installed = graph.sourceManager.installed().firstOrNull { it.bookId == bookId }
-        if (summary == null && entry == null && catalog == null) return null
-        val book = summary?.let { graph.content.book(bookId) }
-        val title = entry?.title ?: book?.title ?: catalog?.book?.title
-            ?: LocalizedText(zh = bookId, en = bookId)
-        val index = graph.content.index(bookId)
         val prefs = graph.preferences.preferences()
-        val chapters = book?.chapters.orEmpty().map { chapter ->
-            BookChapterUi(
-                id = chapter.id,
-                number = chapter.number,
-                title = textFor(chapter.title ?: LocalizedText(), language) ?: "",
-                unitCount = chapter.units.size,
-            )
-        }
-        val monogram = entry?.monogram
-            ?: title.zh.orEmpty().ifBlank { title.en.orEmpty() }.ifBlank { bookId }.take(1)
-        val catalogBook = catalog?.book
-        val strings = stringsFor(language)
-        val savedProgress = graph.progress.progress(bookId)
-        val progress = index?.let { ProgressSemantics.restore(savedProgress, it) } ?: savedProgress
-        return BookDetailUi(
-            bookId = bookId,
-            title = titleFor(title, language),
-            coverTitle = title.en ?: title.zh ?: bookId,
-            monogram = monogram,
-            author = entry?.author ?: book?.author ?: catalogBook?.author,
-            level = summary?.level ?: entry?.level ?: catalogBook?.level ?: installed?.level,
-            wordCount = summary?.words ?: 0,
-            category = (summary?.category ?: entry?.category)?.let { textFor(it, language) },
-            tags = (summary?.tags ?: entry?.tags).orEmpty().mapNotNull { textFor(it, language) },
-            description = (book?.description ?: entry?.summary ?: catalogBook?.description)
-                ?.let { textFor(it, language) },
-            creator = summary?.creator ?: catalogBook?.creatorName,
-            chapters = chapters,
-            unitCount = chapters.sumOf { it.unitCount },
-            available = book != null && summary != null,
-            builtIn = entry != null,
-            downloadable = catalog != null,
-            downloading = _ui.value.store.downloadingId == bookId,
-            updateAvailable = installed != null && catalogBook != null &&
-                installed.sha256 != catalogBook.sha256,
-            sizeLabel = catalogBook?.sizeBytes?.takeIf { it > 0 }?.let { formatBytes(it) },
-            sourceNames = catalog?.sources?.map { sourceLabel(it, strings) }
-                ?: installed?.let { listOf(sourceLabel(it.sourceId, strings)) }
-                ?: emptyList(),
-            sourceIds = catalog?.sources.orEmpty(),
-            publisher = book?.source?.publisher,
-            edition = book?.edition,
-            sourceLicense = licenseLabel(summary?.licenses?.source, language),
-            sourceLicenseNote = summary?.licenses?.source?.note
-                ?.takeIf { language == UiLanguage.ZH },
-            creatorLicense = summary?.licenses?.creator?.let { it.name ?: it.type },
-            onShelf = bookId in prefs.shelfBookIds,
-            readUnits = index?.let { ProgressSemantics.readUnitCount(progress, it) } ?: 0,
-            finished = index != null && index.units.isNotEmpty() &&
-                ProgressSemantics.isComplete(progress, index),
-            finishedOn = formatDate(progress.finishedAt),
-            coverPath = graph.content.coverPath(bookId),
-        )
+        return BookDetailPresenter(
+            content = graph.content,
+            sources = graph.sourceManager,
+            catalog = graph.builtInCatalog,
+            progressRepo = graph.progress,
+            preferences = prefs,
+            snapshots = storeSnapshots,
+            downloadingId = _ui.value.store.downloadingId,
+            strings = stringsFor(language),
+            language = language,
+        ).detail(bookId)
     }
 
-    /** Reader-facing name of one licence side, e.g.「公有领域（CN、US）」. */
-    private fun licenseLabel(license: BookLicense?, language: UiLanguage): String? {
-        if (license == null) return null
-        val label = when (license.type) {
-            "public-domain" -> if (language == UiLanguage.ZH) "公有领域" else "Public domain"
-            "permission" -> if (language == UiLanguage.ZH) "授权使用" else "By permission"
-            "original" -> if (language == UiLanguage.ZH) "原创" else "Original"
-            else -> license.name ?: license.type
-        } ?: return null
-        if (license.publicDomain.isEmpty()) return label
-        val regions = license.publicDomain.joinToString(
-            if (language == UiLanguage.ZH) "、" else ", ",
-        )
-        return if (language == UiLanguage.ZH) "$label（$regions）" else "$label ($regions)"
-    }
 
-    /** Imported one-off packages are not reusable sources; name them for the reader. */
-    private fun sourceLabel(sourceId: String, strings: Strings): String = when (sourceId) {
-        ImportedSource.LOCAL -> strings.storeImportedLocal
-        ImportedSource.ONLINE -> strings.storeImportedOnline
-        else -> graph.sourceManager.sourceName(sourceId)
-    }
 
-    /** Rebuild the open detail page after a download, removal or store refresh. */
+
     private suspend fun refreshBookDetail(bookId: String) {
         val detail = buildBookDetail(bookId, uiLanguage(graph.preferences.preferences()))
             ?: return
