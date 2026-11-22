@@ -24,6 +24,7 @@ android {
 
 dependencies {
     api(project(":core"))
+    api(project(":presentation"))
     implementation(project(":sync"))
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.compose.bom))

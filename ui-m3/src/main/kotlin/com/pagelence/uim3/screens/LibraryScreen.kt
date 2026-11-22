@@ -101,7 +101,7 @@ fun LibraryScreen(
             state.error != null -> EmptyState(
                 icon = Icons.AutoMirrored.Filled.List,
                 title = strings.library,
-                body = state.error,
+                body = state.error.orEmpty(),
                 modifier = Modifier.fillMaxSize().padding(padding),
             )
 

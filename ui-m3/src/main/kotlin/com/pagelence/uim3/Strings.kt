@@ -1,8 +1,5 @@
 package com.pagelence.uim3
 
-/** Interface language. Word meanings are controlled separately by the definition mode. */
-enum class UiLanguage { ZH, EN }
-
 /**
  * All user-facing copy in one place. Screens never build sentences from raw
  * content fields; missing translations fall back to a labelled placeholder.

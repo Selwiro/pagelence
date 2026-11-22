@@ -288,6 +288,8 @@ app-phone (Android application, applicationId com.pagelence)
   MainActivity、AppGraph（手工装配）、PagelenceViewModel（状态/导航/TTS 编排）、AssetManagerReader
     ├── ui-m3 (Android library, Compose Material 3)
     │     页面、组件、主题、UI 模型、双语文案；只接数据与回调
+    ├── presentation (纯 JVM)
+    │    UI 模型、UiLanguage 与 ReaderSession（续读点/读完判定）
     ├── data (纯 JVM)
     │     state.json 读写；进度、卡片、偏好、等级与日活仓库
     └── core (纯 JVM)

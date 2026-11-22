@@ -118,6 +118,7 @@ private fun LevelCard(
     onSetLevel: () -> Unit,
     onOpenAssessment: () -> Unit,
 ) {
+    val level = state.level
     ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(18.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -126,12 +127,12 @@ private fun LevelCard(
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(1f),
                 )
-                if (state.level != null) {
+                if (level != null) {
                     MetaChip(levelSourceLabel(strings, state.levelSource))
                 }
             }
             Spacer(Modifier.height(10.dp))
-            if (state.level == null) {
+            if (level == null) {
                 Text(
                     strings.levelUnset,
                     style = MaterialTheme.typography.headlineMedium,
@@ -144,16 +145,16 @@ private fun LevelCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
-                Text(levelName(strings, state.level), style = MaterialTheme.typography.headlineMedium)
+                Text(levelName(strings, level), style = MaterialTheme.typography.headlineMedium)
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    levelDescription(strings, state.level),
+                    levelDescription(strings, level),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    levelVocabulary(strings, state.level),
+                    levelVocabulary(strings, level),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

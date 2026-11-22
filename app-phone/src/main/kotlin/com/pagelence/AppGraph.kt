@@ -58,6 +58,11 @@ class AppGraph(context: Context) {
 
     val progress: StateProgressRepository by lazy { StateProgressRepository(store) }
 
+    /** Android-free reading-session rules shared with the future e-ink shell. */
+    val readerSession: com.pagelence.presentation.reader.ReaderSession by lazy {
+        com.pagelence.presentation.reader.ReaderSession(progress = progress, profile = profile)
+    }
+
     val preferences: StatePreferencesRepository by lazy { StatePreferencesRepository(store) }
 
     val profile: StateReadingProfileRepository by lazy { StateReadingProfileRepository(store) }

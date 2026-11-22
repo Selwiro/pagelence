@@ -95,6 +95,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":presentation"))
     implementation(project(":data"))
     implementation(project(":sync"))
     implementation(project(":ui-m3"))

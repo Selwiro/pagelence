@@ -1818,33 +1818,20 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private fun persistReaderSavePoint(point: ReaderSavePoint, now: String? = null) {
         // A save from the previous book may still be queued after a switch.
         val bookIndex = index?.takeIf { it.book.id == point.bookId } ?: return
-        val stored = graph.progress.progress(point.bookId)
-        val current = point.paragraphId
-            ?.takeIf { it in bookIndex.paragraphById }
-            ?.let { stored.copy(paragraphId = it) }
-            ?: stored
-        val previous = current.reader?.takeIf { it.unitId == point.unitId }
-        val grammarReached =
-            previous?.grammarReached == true || point.phase == ReaderPhase.GRAMMAR
-        val position = ReaderPosition(
-            unitId = point.unitId,
-            phase = point.phase,
-            textPage = point.textPage.coerceAtLeast(0),
-            textProgress = point.textProgress.coerceIn(0f, 1f),
-            quizAnswers = point.answers,
-            quizSubmitted = point.submitted,
-            grammarReached = grammarReached,
+        graph.readerSession.save(
+            com.pagelence.presentation.reader.ResumePoint(
+                bookId = point.bookId,
+                unitId = point.unitId,
+                phase = point.phase,
+                textPage = point.textPage,
+                textProgress = point.textProgress,
+                paragraphId = point.paragraphId,
+                answers = point.answers,
+                submitted = point.submitted,
+            ),
+            bookIndex,
+            completedAt = now,
         )
-        val wasRead = point.unitId in current.readUnitIds
-        if (grammarReached && !wasRead) {
-            // Finishing the unit changes the read set and possibly finishedAt,
-            // so this one is a full write; everything else is just a page turn.
-            val next = ProgressSemantics.markUnitRead(current, bookIndex, point.unitId, now)
-            graph.progress.save(next.copy(reader = position))
-            graph.profile.recordCompletedUnit(today())
-        } else {
-            graph.progress.savePosition(point.bookId, point.paragraphId, position)
-        }
     }
 
     fun selectOption(questionIndex: Int, optionIndex: Int) {

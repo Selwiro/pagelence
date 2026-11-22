@@ -618,7 +618,8 @@ internal fun QuizPageView(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            if (question.sentenceText != null) {
+            val sentenceText = question.sentenceText
+            if (sentenceText != null) {
                 TextButton(onClick = { showSentence = !showSentence }) {
                     Text(if (showSentence) strings.quizHideSentence else strings.quizSeeSentence)
                 }
@@ -629,7 +630,7 @@ internal fun QuizPageView(
                     ) {
                         Column(Modifier.padding(12.dp)) {
                             Text(
-                                question.sentenceText,
+                                sentenceText,
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontStyle = FontStyle.Italic,
                             )
