@@ -113,9 +113,45 @@ content/dict-manifest.json     # 随 APK，入库
 | B 单测 | `:core` 全绿（含 manifest schema/版本/大小/sha、续传、200 重下、取消保留、删除、崩溃补指纹）；`:data` 20 全绿 |
 | CI | `tools/ci_check.sh` 通过；新增的 `build_full_dictionary.py --check` 在无产物时跳过 |
 
-## 六、遗留
+## 六、托管（GitHub Releases）
 
-- **托管与正式地址**：文件未上传；`FullDictSource.enabled` 默认 false，
-  release 只显示「下载地址尚未上线」。上线步骤见第二节，并把入口默认打开。
+选定方案：词表与 manifest 作为 GitHub Release 资产，**每个 `dictVersion` 一个 tag**，
+`FullDictSource.URL` 指固定地址：
+
+```
+https://github.com/Selwiro/pagelence/releases/download/dict-39cfb96/full-dict.sqlite
+```
+
+已验证（2026-11-22）：该地址 302 到 `release-assets.githubusercontent.com` 的签名 URL，
+签名 URL 支持 `Range`（实测 206、取 100 字节）；签名约 1 小时过期，续传时重新打开稳定
+地址即可拿到新签名。`AndroidDictTransport` 因此**手动跟随跳转**、在每一跳重发 `Range`，
+不依赖 `HttpURLConnection` 的自动重定向行为。
+
+上传（产物在 `dist/dict/`，不入库）：
+
+```sh
+cd work/android
+python3 tools/build_full_dictionary.py --ecdict-csv /tmp/ecdict.csv
+gh release create dict-39cfb96 \
+  dist/dict/full-dict.sqlite dist/dict/dict-manifest.json dist/dict/LICENSE-ECDICT.txt \
+  -R Selwiro/pagelence \
+  --title "完整词表 39cfb96（ECDICT）" \
+  --notes "ECDICT 完整词表，字段与核心表同构；MIT，许可全文与 manifest 一并附上。"
+```
+
+上传后把入口默认打开：在 `gradle.properties` 写 `pagelence.fullDictEnabled=true`
+（或构建时 `-Ppagelence.fullDictEnabled=true`），再发版；`-P...=false` 可临时关闭。
+
+- 不要用 `releases/latest/download/...`：latest 随 App 发版移动，manifest 固定的版本
+  可能对不上；用 tag 固定。
+- 不要用 jsDelivr 之类的仓库文件 CDN：它们不代理 Release 资产，82 MB 也超出其单文件限制。
+- 更新词表：新 tag `dict-<新版本>`，重新生成 manifest、改 `FullDictSource.URL`、发版。
+- 上传失败或资产被删时保持入口关闭即可，已安装用户的本地表不受影响；GitHub Release
+  资产上限 2 GiB，82 MiB 没有触及。
+
+## 七、遗留
+
+- **尚未上传**：文件还没传到 Release，`pagelence.fullDictEnabled` 默认 false，
+  release 只显示「下载地址尚未上线」。
 - 词表更新需要重新生成 manifest 并随 App 发版（§3.3.7 的既定取舍）。
 - 未在真机验证后台被杀后的续传（模拟器只验证主动暂停与失败路径）。

@@ -12,8 +12,14 @@ package com.pagelence
  *   -Ppagelence.fullDictUrl=http://10.0.2.2:9000/full-dict.sqlite`
  */
 object FullDictSource {
-    /** Published artifact path; the manifest in the APK pins its sha256. */
-    const val URL = "https://raw.githubusercontent.com/pagelence/books/main/dict/full-dict.sqlite"
+    /**
+     * Published artifact on GitHub Releases, tag per dictionary version so the
+     * URL never points at a moving file. The manifest compiled into the APK
+     * pins the sha256, and the Release answer 302s to a signed CDN URL that
+     * supports `Range` (verified 2026-11-22).
+     */
+    const val URL =
+        "https://github.com/Selwiro/pagelence/releases/download/dict-39cfb96/full-dict.sqlite"
 
     val url: String get() = BuildConfig.FULL_DICT_URL_OVERRIDE.ifBlank { URL }
 
