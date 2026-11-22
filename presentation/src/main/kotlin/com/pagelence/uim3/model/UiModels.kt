@@ -8,6 +8,7 @@ import com.pagelence.core.prefs.GuideMode
 import com.pagelence.core.prefs.LevelRecommendation
 import com.pagelence.core.prefs.ThemeMode
 import com.pagelence.core.prefs.Preferences
+import com.pagelence.core.progress.AnnotationKind
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.LevelSource
 import com.pagelence.core.progress.ReaderPhase
@@ -295,6 +296,57 @@ data class SentenceUi(
     val annotated: Set<String>,
     /** Long-sentence analysis; null hides the sentence-end 「解析」 marker. */
     val analysis: AnalysisUi? = null,
+    /** Reader bookmark/highlight/note attached to this sentence. */
+    val mark: SentenceMarkUi? = null,
+)
+
+/**
+ * The three sentence-level marks collapsed into one row. [note] is the note
+ * text; the other two are plain booleans so rendering never has to look up the
+ * annotation list again.
+ */
+data class SentenceMarkUi(
+    val bookmarked: Boolean = false,
+    val highlighted: Boolean = false,
+    val note: String? = null,
+) {
+    val hasNote: Boolean get() = !note.isNullOrBlank()
+    val isEmpty: Boolean get() = !bookmarked && !highlighted && !hasNote
+}
+
+/** One row in the book/review annotation lists. */
+data class AnnotationUi(
+    val id: String,
+    val bookId: String,
+    val bookTitle: String,
+    val unitId: String,
+    val unitTitle: String,
+    val chapterTitle: String,
+    /** 1-based position of the unit in the book, for grouping labels. */
+    val unitNumber: Int,
+    val paragraphId: String,
+    val sentenceNumber: Int,
+    val kind: AnnotationKind,
+    val note: String?,
+    /** Current sentence text, or the stored snapshot when the anchor moved. */
+    val quote: String,
+    val createdAt: String,
+    val updatedAt: String,
+    /** `2026-11-22`, formatted for display. */
+    val dateLabel: String?,
+    /** False when the sentence no longer resolves in the installed content. */
+    val anchorValid: Boolean,
+)
+
+/** Review tab filter over the three annotation kinds. */
+enum class AnnotationFilter { ALL, BOOKMARK, HIGHLIGHT, NOTE }
+
+/** A pending "jump to this sentence" request for the reader. */
+data class ReaderJumpUi(
+    val paragraphId: String,
+    val sentenceNumber: Int,
+    /** Changes on every request so the same target can be jumped to twice. */
+    val token: Long,
 )
 
 data class AnalysisUi(
@@ -456,10 +508,14 @@ data class ReaderUiState(
     val speechNotice: String? = null,
     /** Chapters and units of this book, for the in-reader contents sheet. */
     val toc: List<TocChapterUi> = emptyList(),
+    /** Live bookmarks/highlights/notes of this book, for the in-reader list. */
+    val annotations: List<AnnotationUi> = emptyList(),
+    /** Set when a list row asked the reader to show one sentence. */
+    val jumpTarget: ReaderJumpUi? = null,
 )
 
 /** Sub-pages of the 复习 tab. */
-enum class ReviewTab { WORDS, GRAMMAR }
+enum class ReviewTab { WORDS, GRAMMAR, NOTES }
 
 /** One unit row in the reader's contents sheet. */
 data class TocUnitUi(

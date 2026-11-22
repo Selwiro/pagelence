@@ -54,6 +54,21 @@ object PagelenceIcons {
     val ChevronRight: ImageVector by lazy {
         strokeIcon("Pagelence.ChevronRight", "m9 5 7 7-7 7", autoMirror = true)
     }
+
+    /** 书签（阅读器句子标注）。 */
+    val Bookmark: ImageVector by lazy {
+        strokeIcon("Pagelence.Bookmark", "M7 4h10v17l-5-3.5L7 21z")
+    }
+
+    /** 划线（荧光笔）。 */
+    val Highlight: ImageVector by lazy {
+        strokeIcon("Pagelence.Highlight", "M4 20h16", "M15 4l5 5-9.5 9.5H6v-4.5z")
+    }
+
+    /** 笔记（带横线的纸）。 */
+    val Note: ImageVector by lazy {
+        strokeIcon("Pagelence.Note", "M5 4h14v16H5z", "M8 9h8M8 13h8M8 17h5")
+    }
 }
 
 private const val ICON_STROKE_WIDTH = 1.65f

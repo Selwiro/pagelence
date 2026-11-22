@@ -2,6 +2,9 @@ package com.pagelence.data
 
 import com.pagelence.core.content.PagelenceJson
 import com.pagelence.core.prefs.Preferences
+import com.pagelence.core.progress.Annotation
+import com.pagelence.core.progress.AnnotationRepository
+import com.pagelence.core.progress.AnnotationRules
 import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.ProgressRepository
 import com.pagelence.core.progress.ReaderPosition
@@ -223,19 +226,30 @@ class ReadingStateStore(
         val cards = if (cutoff == null) {
             state.wordCards
         } else {
-            state.wordCards.filterNot { card ->
-                val deleted = card.deletedAt?.let { runCatching { Instant.parse(it) }.getOrNull() }
-                deleted != null && deleted.isBefore(cutoff)
-            }
+            state.wordCards.filterNot { card -> deletedBefore(card.deletedAt, cutoff) }
+        }
+        val annotations = if (cutoff == null) {
+            state.annotations
+        } else {
+            state.annotations.filterNot { annotation -> deletedBefore(annotation.deletedAt, cutoff) }
         }
         val guides = state.preferences.seenGuideUnits.filter { it.substringBefore("::") in state.books.keys }
-        if (cards.size == state.wordCards.size && guides.size == state.preferences.seenGuideUnits.size) {
+        if (cards.size == state.wordCards.size &&
+            annotations.size == state.annotations.size &&
+            guides.size == state.preferences.seenGuideUnits.size
+        ) {
             return state
         }
         return state.copy(
             wordCards = cards,
+            annotations = annotations,
             preferences = state.preferences.copy(seenGuideUnits = guides),
         )
+    }
+
+    private fun deletedBefore(deletedAt: String?, cutoff: Instant): Boolean {
+        val deleted = deletedAt?.let { runCatching { Instant.parse(it) }.getOrNull() }
+        return deleted != null && deleted.isBefore(cutoff)
     }
 
     private fun notifyWrite() {
@@ -411,9 +425,36 @@ class StateWordCardRepository(private val store: ReadingStateStore) : WordCardRe
         get(WordCard.idOf(bookId, paragraphId, hintId))?.isDeleted == false
 }
 
+/** Sentence-level marks persisted in [ReadingStateStore], tombstones included. */
+class StateAnnotationRepository(private val store: ReadingStateStore) : AnnotationRepository {
+    override fun list(bookId: String, includeDeleted: Boolean): List<Annotation> =
+        store.state().annotations.filter { it.bookId == bookId && (includeDeleted || !it.isDeleted) }
+
+    override fun all(includeDeleted: Boolean): List<Annotation> =
+        store.state().annotations.filter { includeDeleted || !it.isDeleted }
+
+    override fun get(id: String): Annotation? =
+        store.state().annotations.firstOrNull { it.id == id }
+
+    override fun upsert(annotation: Annotation): Annotation {
+        store.update { state ->
+            state.copy(annotations = AnnotationRules.upsert(state.annotations, annotation))
+        }
+        return get(annotation.id) ?: annotation
+    }
+
+    override fun remove(id: String, deletedAt: String): Boolean {
+        val existing = get(id) ?: return false
+        if (existing.isDeleted) return false
+        store.update { state ->
+            state.copy(annotations = AnnotationRules.remove(state.annotations, id, deletedAt))
+        }
+        return true
+    }
+}
+
 /** Preferences persisted in [ReadingStateStore]. */
-class StatePreferencesRepository(private val store: ReadingStateStore) {
-    fun preferences(): Preferences = store.state().preferences
+class StatePreferencesRepository(private val store: ReadingStateStore) {    fun preferences(): Preferences = store.state().preferences
 
     fun save(preferences: Preferences): Preferences {
         store.update { it.copy(preferences = preferences) }

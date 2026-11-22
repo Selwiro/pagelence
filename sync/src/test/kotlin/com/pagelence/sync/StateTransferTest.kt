@@ -1,5 +1,7 @@
 package com.pagelence.sync
 
+import com.pagelence.core.progress.Annotation
+import com.pagelence.core.progress.AnnotationKind
 import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.ReadingStateCodec
@@ -23,6 +25,19 @@ class StateTransferTest {
         deletedAt = if (deleted) "2026-11-20T09:00:00Z" else null,
     )
 
+    private val note = Annotation(
+        id = "a::p1::2::note",
+        bookId = "a",
+        unitId = "a1",
+        paragraphId = "p1",
+        sentenceNumber = 2,
+        kind = AnnotationKind.NOTE,
+        note = "注意这句",
+        quote = "A sentence.",
+        createdAt = "2026-11-20T09:00:00Z",
+        updatedAt = "2026-11-20T09:00:00Z",
+    )
+
     private fun document() = Fixtures.state(
         deviceId = "device-b",
         updatedAt = "2026-11-20T10:00:00Z",
@@ -31,7 +46,11 @@ class StateTransferTest {
             "b" to BookProgress(bookId = "b", readUnitIds = listOf("b1")),
         ),
         cards = listOf(card("a::p1::h1", deleted = false), card("a::p1::h2", deleted = true)),
-    ).copy(selfLevel = CefrLevel.B1, levelUpdatedAt = "2026-11-20T09:00:00Z")
+    ).copy(
+        selfLevel = CefrLevel.B1,
+        levelUpdatedAt = "2026-11-20T09:00:00Z",
+        annotations = listOf(note),
+    )
 
     @Test
     fun inspectShowsCountsBeforeWritingAnything() {
@@ -102,5 +121,6 @@ class StateTransferTest {
         val decoded = ReadingStateCodec.decode(StateTransfer.export(local))
         assertEquals(document().books, decoded?.state?.books)
         assertEquals(document().wordCards, decoded?.state?.wordCards)
+        assertEquals(listOf(note), decoded?.state?.annotations)
     }
 }

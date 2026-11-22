@@ -12,6 +12,9 @@ data class MergeSummary(
     val cardsUpdated: Int = 0,
     val cardsDeleted: Int = 0,
     val activityDaysChanged: Int = 0,
+    val annotationsAdded: Int = 0,
+    val annotationsUpdated: Int = 0,
+    val annotationsDeleted: Int = 0,
     val preferencesFromRemote: Boolean = false,
     val levelFromRemote: Boolean = false,
 )
@@ -35,6 +38,7 @@ data class MergeResult(
  * | `finishedAt` | earliest non-null finish date; cleared on load when the union is incomplete |
  * | `paragraphId` / `reader` / `lastReadAt` | side with the later `lastReadAt` |
  * | `wordCards` | tombstone wins over any live copy; else later `updatedAt` |
+ * | `annotations` | same rule as `wordCards`: tombstone wins, else later `updatedAt` |
  * | `dailyActivity` | per-day max, union of dates (`DailyActivityRules`) |
  * | level fields | later `levelUpdatedAt`; missing timestamps fall back to the document `updatedAt` |
  * | `preferences` | base-aware last write wins; a blank local document takes the file's copy, see [mergePreferences] |
@@ -58,6 +62,7 @@ object StateMerge {
     ): MergeResult {
         val (books, bookSummary) = mergeBooks(local, remote)
         val cards = mergeCards(local.wordCards, remote.wordCards)
+        val annotationMerge = mergeAnnotations(local.annotations, remote.annotations)
         val activity = DailyActivityRules.mergeDayMax(local.dailyActivity, remote.dailyActivity, today)
         val levelDoc = laterLevel(local, remote)
         val (preferences, preferencesFromRemote) = mergePreferences(local, remote, base)
@@ -75,6 +80,7 @@ object StateMerge {
             levelUpdatedAt = levelDoc.levelUpdatedAt,
             dailyActivity = activity,
             recentAssessmentPapers = mergePapers(local.recentAssessmentPapers, remote.recentAssessmentPapers),
+            annotations = annotationMerge.list,
         )
         val summary = MergeSummary(
             booksAdded = bookSummary.first,
@@ -83,6 +89,9 @@ object StateMerge {
             cardsUpdated = cards.updated,
             cardsDeleted = cards.deleted,
             activityDaysChanged = activity.count { (date, day) -> local.dailyActivity[date] != day },
+            annotationsAdded = annotationMerge.added,
+            annotationsUpdated = annotationMerge.updated,
+            annotationsDeleted = annotationMerge.deleted,
             preferencesFromRemote = preferencesFromRemote,
             levelFromRemote = levelDoc !== local,
         )
@@ -213,6 +222,35 @@ object StateMerge {
         val localAt = instant(local.updatedAt)
         val remoteAt = instant(remote.updatedAt)
         return if (remoteAt != null && (localAt == null || remoteAt.isAfter(localAt))) remote else local
+    }
+
+    private data class AnnotationMerge(
+        val list: List<Annotation>,
+        val added: Int,
+        val updated: Int,
+        val deleted: Int,
+    )
+
+    /** Same shape as [mergeCards], so both tombstone stores behave identically. */
+    private fun mergeAnnotations(
+        local: List<Annotation>,
+        remote: List<Annotation>,
+    ): AnnotationMerge {
+        val localById = local.associateBy { it.id }
+        val merge = AnnotationRules.merge(local, remote)
+        var added = 0
+        var updated = 0
+        var deleted = 0
+        merge.forEach { annotation ->
+            val mine = localById[annotation.id]
+            when {
+                mine == null -> added += 1
+                mine == annotation -> Unit
+                annotation.isDeleted && !mine.isDeleted -> deleted += 1
+                else -> updated += 1
+            }
+        }
+        return AnnotationMerge(merge, added, updated, deleted)
     }
 
     /**

@@ -3,6 +3,9 @@ package com.pagelence.data
 import com.pagelence.core.content.HintExample
 import com.pagelence.core.prefs.Language
 import com.pagelence.core.prefs.Preferences
+import com.pagelence.core.progress.Annotation
+import com.pagelence.core.progress.AnnotationKind
+import com.pagelence.core.progress.AnnotationRules
 import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.DailyActivity
@@ -446,5 +449,36 @@ class ReadingStateStoreJournalTest {
         assertTrue(written.contains("\"schemaVersion\":3"), "the version is not downgraded")
         assertTrue(written.contains("bm1"), "top-level unknown fields survive")
         assertTrue(written.contains("bookmarks"), "nested unknown fields survive")
+    }
+
+    @Test
+    fun `annotations survive a restart and removals keep a tombstone`() {
+        val file = Files.createTempDirectory("pagelence-annotations").resolve("state.json").toFile()
+        val first = StateAnnotationRepository(tempStore(file))
+        val annotation = Annotation(
+            id = AnnotationRules.idOf("book", "p1", 2, AnnotationKind.BOOKMARK),
+            bookId = "book",
+            unitId = "u1",
+            paragraphId = "p1",
+            sentenceNumber = 2,
+            kind = AnnotationKind.BOOKMARK,
+            quote = "A sentence.",
+            createdAt = "2026-11-19T01:00:00Z",
+            updatedAt = "2026-11-19T01:00:00Z",
+        )
+        first.upsert(annotation)
+
+        val reopened = StateAnnotationRepository(tempStore(file))
+        assertEquals(listOf(annotation), reopened.list("book"))
+        assertTrue(reopened.remove(annotation.id, "2026-11-20T01:00:00Z"))
+        assertFalse(reopened.remove(annotation.id, "2026-11-20T01:00:00Z"))
+        assertTrue(reopened.list("book").isEmpty())
+        assertEquals(1, reopened.list("book", includeDeleted = true).size)
+        assertNotNull(reopened.get(annotation.id)?.deletedAt)
+
+        // The tombstone is on disk, not only in memory.
+        val third = StateAnnotationRepository(tempStore(file))
+        assertTrue(third.list("book").isEmpty())
+        assertEquals(1, third.list("book", includeDeleted = true).size)
     }
 }

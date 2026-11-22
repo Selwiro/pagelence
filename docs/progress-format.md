@@ -5,7 +5,8 @@
 
 2026-11-20 在 v2 上追加两个向后兼容的可选字段：单本进度的 `reader`（单元续读点）和
 偏好的 `readerLayoutChosen`（是否明确选过阅读方式）。2026-11-22（T139）再追加单本进度的
-`finishedAt`（读完时间）。旧文档没有这些字段时按默认解码；`readingState` 的版本号不变。
+`finishedAt`（读完时间），T144 追加顶层 `annotations`（书签/划线/笔记）。
+旧文档没有这些字段时按默认解码；`readingState` 的版本号不变。
 
 一份 `state.json` 同时承担：本地保存、导出/导入、WebDAV 同步。三处共用同一个序列化器
 （`ReadingStateCodec`），不另写格式。
@@ -34,6 +35,7 @@
     }
   },
   "wordCards": [ /* 见第五节 */ ],
+  "annotations": [ /* 见第五·一节 */ ],
   "preferences": { /* 见第六节 */ },
   "selfLevel": "B1",
   "levelSource": "self",
@@ -55,6 +57,7 @@
 | `updatedAt` | 是 | ISO-8601 UTC，写状态时更新 |
 | `books` | 是 | 键为 `bookId`，值为单本进度 |
 | `wordCards` | 否 | 生词卡（含墓碑） |
+| `annotations` | 否 | 句子级书签/划线/笔记（含墓碑），见第五·一节 |
 | `preferences` | 否 | 界面与词义偏好 |
 | `selfLevel` | 否 | A1–C2 自评/测评等级；`null` 表示未设置 |
 | `levelSource` | 是 | `self`、`quick`、`full`；未设置时仍写 `self` |
@@ -179,6 +182,29 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
 删除写墓碑而不是物理删除，同步时才不会把卡片又「复活」。列表默认过滤墓碑，
 `includeDeleted = true` 用于导出与合并。
 
+## 五·一、标注（书签 / 划线 / 笔记）
+
+句子级，不做任意字范围选择。三种类型共用一条记录，`kind` 区分；同一句的同一种类型
+只有一条。
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `id` | 是 | `bookId::paragraphId::sentenceNumber::kind`，跨设备稳定 |
+| `bookId` / `unitId` / `paragraphId` | 是 | 定位回原文的坐标；`unitId` 便于按单元分组 |
+| `sentenceNumber` | 是 | 单元内 1-based 句号，与阅读器一致（跨段落连续计数） |
+| `kind` | 是 | `bookmark`、`highlight`、`note` |
+| `note` | 否 | 仅 `note` 使用；读写时 `trim`，全空白视为没有笔记 |
+| `quote` | 否 | 句子原文快照；内容更新导致锚点失效时用它兜底显示 |
+| `createdAt` / `updatedAt` | 是 | ISO-8601 UTC；再添加同一句同一类型时保留 `createdAt` |
+| `deletedAt` | 否 | 墓碑时间；非空即已删除 |
+
+- 长按句子加/取消书签或划线；笔记输入框非空才保存，删除写墓碑。
+- 同一句、同一类型再次添加时沿用原 `id` 并清空 `deletedAt`（复活），`createdAt` 不变。
+- 读取时 `AnnotationRules.sanitize` 丢掉空 id / 空段落或句号 < 1 的记录，并按 `id`
+  去重；合并规则与生词卡一致：**墓碑优先**，否则 `updatedAt` 较晚者胜。
+- `AnnotationRules.anchor` 把记录解析回当前内容；解析失败时保留 `quote`，列表显示
+  「原句有更新」，不崩溃。
+
 ## 六、偏好
 
 与 Web 版存储键一致，未知值回落到默认值（不报错）：
@@ -250,7 +276,7 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
 
 加载时顺手清掉只增不减的数据，避免几年后状态文件与同步包无谓变大：
 
-- `wordCards` 里 `deletedAt` 超过 180 天的墓碑删除（保留期足够所有设备看到删除）。
+- `wordCards` 与 `annotations` 里 `deletedAt` 超过 180 天的墓碑删除（保留期足够所有设备看到删除）。
 - `preferences.seenGuideUnits` 中所属书已不在 `books` 里的条目删除。
 - 只有真的删了东西才写回一次；统计与卡片内容不变。
 
@@ -269,6 +295,7 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
   并集若不完整，App 在下次加载时由 `ProgressSemantics.restore` 把 `finishedAt` 置空。
 - `dailyActivity`：按日 max，见第四节。
 - `wordCards`：按 `id` 合并；任一端是墓碑即取墓碑（不复活），否则 `updatedAt` 较晚者胜。
+- `annotations`：与 `wordCards` 相同的按 `id` 合并规则；同句同类冲突时 `updatedAt` 较晚者胜。
 - 等级：`levelUpdatedAt` 较晚者胜；相同则保留本机。
 - 偏好：整组取文档 `updatedAt` 较晚的一端；本机是空文档（新装/清数据）时取文件里的偏好；
   `deviceId`、`updatedAt` 始终用本机值。
@@ -284,3 +311,5 @@ App 用它决定是否进入读完页，不使用「是否已读完」判断，�
 
 - 新增**可选**字段不升版本；删除字段或改语义必须升 `schemaVersion`。
 - 任何会改变读取含义的迁移都必须先于同步定稿；v2 已满足此条件。
+- T144 的 `annotations` 是 v2 上的可选字段：旧文档解码为空列表，新文档对旧版本是
+  「未知字段」，回退安装时会被原样保留在顶层（数组内字段仍可能被旧版本丢弃）。

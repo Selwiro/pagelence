@@ -35,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -43,6 +44,8 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
@@ -55,6 +58,8 @@ import com.pagelence.uim3.model.ReaderPreviewUi
 import com.pagelence.uim3.model.ReaderUiState
 import com.pagelence.uim3.model.SentenceUi
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 
 @Composable
 internal fun PreviewPageView(
@@ -328,6 +333,7 @@ internal fun TextPageView(
     onNextUnit: () -> Unit,
     expandedTranslation: ExpandedTranslation?,
     onTranslate: (String, SentenceUi) -> Unit,
+    onSentenceLongPress: (String, SentenceUi) -> Unit,
 ) {
     val scroll = rememberScrollState()
     val atEnd by remember { derivedStateOf { scroll.value >= scroll.maxValue - 8 } }
@@ -355,6 +361,7 @@ internal fun TextPageView(
                         onWordClick = onWordClick,
                         onAnalysis = onAnalysis,
                         onTranslate = onTranslate,
+                        onSentenceLongPress = onSentenceLongPress,
                     )
                 }
             }
@@ -418,6 +425,7 @@ internal fun ParagraphChunkView(
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
     onTranslate: (String, SentenceUi) -> Unit,
+    onSentenceLongPress: (String, SentenceUi) -> Unit,
 ) {
     val paragraph = state.paragraphs.firstOrNull { it.id == chunk.paragraphId } ?: return
     if (chunk.sentenceStart == 0) Spacer(Modifier.height(22.dp))
@@ -439,6 +447,7 @@ internal fun ParagraphChunkView(
             onWordClick = onWordClick,
             onAnalysis = onAnalysis,
             onTranslate = onTranslate,
+            onSentenceLongPress = onSentenceLongPress,
         )
     } else {
         ParagraphText(
@@ -451,6 +460,7 @@ internal fun ParagraphChunkView(
             onWordClick = onWordClick,
             onAnalysis = onAnalysis,
             onTranslate = onTranslate,
+            onSentenceLongPress = onSentenceLongPress,
         )
         TranslationExpansion(expandedTranslation?.zh.orEmpty())
         if (expandedIndex + 1 < chunkSentences.size) {
@@ -464,6 +474,7 @@ internal fun ParagraphChunkView(
                 onWordClick = onWordClick,
                 onAnalysis = onAnalysis,
                 onTranslate = onTranslate,
+                onSentenceLongPress = onSentenceLongPress,
             )
         }
     }
@@ -479,12 +490,16 @@ internal fun TextScrollView(
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
     onTranslate: (String, SentenceUi) -> Unit,
+    onSentenceLongPress: (String, SentenceUi) -> Unit,
     onEnterQuiz: () -> Unit,
     onProgress: (Float) -> Unit,
+    scrollToParagraphId: String? = null,
+    onScrollHandled: () -> Unit = {},
 ) {
     val scroll = rememberScrollState()
     var restored by remember { mutableStateOf(false) }
     var hasScrolled by remember { mutableStateOf(false) }
+    val paragraphOffsets = remember { mutableStateMapOf<String, Int>() }
 
     LaunchedEffect(scroll.maxValue, startAtTop) {
         if (!restored && scroll.maxValue > 0) {
@@ -492,6 +507,17 @@ internal fun TextScrollView(
             scroll.scrollTo((scroll.maxValue * target).toInt())
             restored = true
         }
+    }
+    // A list row asked for one sentence: scroll its paragraph to the top. The
+    // offset is published by layout, so this waits for the first real value.
+    LaunchedEffect(scrollToParagraphId) {
+        val paragraphId = scrollToParagraphId ?: return@LaunchedEffect
+        val offset = snapshotFlow { paragraphOffsets[paragraphId] }
+            .filterNotNull()
+            .first()
+        restored = true
+        scroll.scrollTo(offset.coerceAtLeast(0))
+        onScrollHandled()
     }
     LaunchedEffect(scroll) {
         snapshotFlow { scroll.isScrollInProgress }
@@ -516,17 +542,24 @@ internal fun TextScrollView(
                 .padding(horizontal = 22.dp, vertical = 10.dp),
         ) {
             state.paragraphs.forEach { paragraph ->
-            ParagraphBlock(
-                strings = strings,
-                paragraph = paragraph,
-                fontSize = state.preference.fontSize,
-                annotateHints = state.preference.annotateHints,
-                selectedWord = state.selectedWord,
-                expandedTranslation = expandedTranslation,
-                onWordClick = onWordClick,
-                onAnalysis = onAnalysis,
-                onTranslate = onTranslate,
-            )
+            Box(
+                modifier = Modifier.onGloballyPositioned { coordinates ->
+                    paragraphOffsets[paragraph.id] = coordinates.positionInParent().y.toInt()
+                },
+            ) {
+                ParagraphBlock(
+                    strings = strings,
+                    paragraph = paragraph,
+                    fontSize = state.preference.fontSize,
+                    annotateHints = state.preference.annotateHints,
+                    selectedWord = state.selectedWord,
+                    expandedTranslation = expandedTranslation,
+                    onWordClick = onWordClick,
+                    onAnalysis = onAnalysis,
+                    onTranslate = onTranslate,
+                    onSentenceLongPress = onSentenceLongPress,
+                )
+            }
             Spacer(Modifier.height(22.dp))
         }
         Spacer(Modifier.height(8.dp))

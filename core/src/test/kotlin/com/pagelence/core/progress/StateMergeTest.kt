@@ -275,4 +275,48 @@ class StateMergeTest {
         val result = StateMerge.merge(local, remote, base = null, Fixture.NOW, Fixture.TODAY)
         assertEquals(local.updatedAt, result.state.updatedAt)
     }
+
+    @Test
+    fun annotationsMergeByTombstoneThenUpdatedAt() {
+        val localNote = Annotation(
+            id = "book::p1::1::note",
+            bookId = "book",
+            unitId = "u1",
+            paragraphId = "p1",
+            sentenceNumber = 1,
+            kind = AnnotationKind.NOTE,
+            note = "旧",
+            quote = "Old.",
+            createdAt = "2026-11-20T09:00:00Z",
+            updatedAt = "2026-11-20T09:00:00Z",
+        )
+        val remoteNote = localNote.copy(note = "新", updatedAt = "2026-11-21T09:00:00Z")
+        val localBookmark = Annotation(
+            id = "book::p1::2::bookmark",
+            bookId = "book",
+            unitId = "u1",
+            paragraphId = "p1",
+            sentenceNumber = 2,
+            kind = AnnotationKind.BOOKMARK,
+            quote = "Second.",
+            createdAt = "2026-11-20T09:00:00Z",
+            updatedAt = "2026-11-20T09:00:00Z",
+            deletedAt = "2026-11-21T09:00:00Z",
+        )
+        val remoteBookmark = localBookmark.copy(deletedAt = null, updatedAt = "2026-11-22T09:00:00Z")
+        val result = StateMerge.merge(
+            Fixture.state().copy(annotations = listOf(localNote, localBookmark)),
+            Fixture.state(deviceId = "device-b").copy(annotations = listOf(remoteNote, remoteBookmark)),
+            base = null,
+            Fixture.NOW,
+            Fixture.TODAY,
+        )
+        val merged = result.state.annotations.associateBy { it.id }
+        assertEquals("新", merged.getValue(localNote.id).note)
+        // The tombstone wins even though the other side edited it later.
+        assertEquals("2026-11-21T09:00:00Z", merged.getValue(localBookmark.id).deletedAt)
+        assertEquals(1, result.summary.annotationsUpdated)
+        assertEquals(0, result.summary.annotationsAdded)
+        assertEquals(0, result.summary.annotationsDeleted)
+    }
 }

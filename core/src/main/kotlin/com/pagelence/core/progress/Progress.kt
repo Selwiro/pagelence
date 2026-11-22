@@ -109,6 +109,12 @@ data class ReadingState(
     val dailyActivity: Map<String, DailyActivity> = emptyMap(),
     /** Question ids of the last two placement tests, oldest paper first. */
     val recentAssessmentPapers: List<List<String>> = emptyList(),
+    /**
+     * Sentence-level bookmarks, highlights and notes. Added on v2 as an optional
+     * field (T144), so documents written before it decode to an empty list.
+     * Tombstones are kept for merge, exactly like word cards.
+     */
+    val annotations: List<Annotation> = emptyList(),
 ) {
     fun progress(bookId: String): BookProgress =
         books[bookId] ?: BookProgress(bookId = bookId)

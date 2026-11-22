@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.PageTopBar
+import com.pagelence.uim3.model.AnnotationFilter
+import com.pagelence.uim3.model.AnnotationUi
 import com.pagelence.uim3.model.GrammarTabUiState
 import com.pagelence.uim3.model.ReviewTab
 import com.pagelence.uim3.model.WordCardUi
@@ -26,7 +28,11 @@ fun ReviewScreen(
     tab: ReviewTab,
     cards: List<WordCardUi>,
     grammar: GrammarTabUiState,
+    annotations: List<AnnotationUi>,
+    annotationFilter: AnnotationFilter,
     onSelectTab: (ReviewTab) -> Unit,
+    onSelectAnnotationFilter: (AnnotationFilter) -> Unit,
+    onOpenAnnotation: (AnnotationUi) -> Unit,
     onOpenPoint: (String) -> Unit,
     onDeleteCard: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -52,6 +58,7 @@ fun ReviewScreen(
                                 when (entry) {
                                     ReviewTab.WORDS -> strings.reviewWords
                                     ReviewTab.GRAMMAR -> strings.reviewGrammar
+                                    ReviewTab.NOTES -> strings.reviewNotes
                                 },
                                 style = MaterialTheme.typography.labelLarge,
                             )
@@ -70,6 +77,14 @@ fun ReviewScreen(
                     strings = strings,
                     state = grammar,
                     onOpenPoint = onOpenPoint,
+                )
+
+                ReviewTab.NOTES -> AnnotationsContent(
+                    strings = strings,
+                    annotations = annotations,
+                    filter = annotationFilter,
+                    onSelectFilter = onSelectAnnotationFilter,
+                    onOpen = onOpenAnnotation,
                 )
             }
         }

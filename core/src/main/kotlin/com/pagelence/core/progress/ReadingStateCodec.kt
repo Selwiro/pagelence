@@ -19,10 +19,11 @@ import kotlinx.serialization.json.jsonObject
  * version mismatch never clears books, cards or preferences.
  *
  * Keeping unknown fields is what makes a downgrade non-destructive: a reader
- * who installs a newer build (say, v3 with bookmarks), then rolls back to this
- * build, can still turn pages without the next write silently deleting the
- * fields this build cannot see. Unknown fields inside arrays (a new field on a
- * word card, for example) are still dropped; document that when v3 lands.
+ * who installs a newer build (say, v3 with a new top-level list), then rolls back
+ * to this build, can still turn pages without the next write silently deleting
+ * the fields this build cannot see. Unknown fields inside arrays (a new field on
+ * a word card or an annotation, for example) are still dropped; document that
+ * when v3 lands.
  */
 object ReadingStateCodec {
     data class Decoded(
@@ -92,6 +93,7 @@ object ReadingStateCodec {
             schemaVersion = if (isFuture) version else STATE_SCHEMA_VERSION,
             levelScore = decoded.levelScore?.coerceIn(0, 100),
             dailyActivity = DailyActivityRules.sanitize(decoded.dailyActivity),
+            annotations = AnnotationRules.sanitize(decoded.annotations),
         )
         if (!state.preferences.readerLayoutChosen) {
             // Older states never exposed the layout choice; their `scroll` value

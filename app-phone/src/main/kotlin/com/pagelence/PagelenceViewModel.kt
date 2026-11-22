@@ -14,6 +14,7 @@ import com.pagelence.core.content.Analysis
 import com.pagelence.core.content.ContentIndex
 import com.pagelence.core.content.BookSummary
 import com.pagelence.core.content.ContentOutline
+import com.pagelence.presentation.annotations.AnnotationPresenter
 import com.pagelence.presentation.library.LibraryPresenter
 import com.pagelence.presentation.reader.PreviewPresenter
 import com.pagelence.presentation.reader.ReaderPresenter
@@ -57,6 +58,8 @@ import com.pagelence.core.prefs.ThemeMode
 import com.pagelence.core.prefs.Language
 import com.pagelence.core.prefs.ReaderLayout
 import com.pagelence.core.prefs.Preferences
+import com.pagelence.core.progress.AnnotationKind
+import com.pagelence.core.progress.AnnotationRules
 import com.pagelence.core.progress.BookProgress
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.core.progress.LevelSource
@@ -90,6 +93,8 @@ import com.pagelence.sync.WebDavUrl
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.SyncCopy
 import com.pagelence.uim3.UiLanguage
+import com.pagelence.uim3.model.AnnotationFilter
+import com.pagelence.uim3.model.AnnotationUi
 import com.pagelence.uim3.model.AssessmentQuestionUi
 import com.pagelence.uim3.model.AssessmentResultUi
 import com.pagelence.uim3.model.AssessmentSkillUi
@@ -117,6 +122,7 @@ import com.pagelence.uim3.model.ProfileUiState
 import com.pagelence.uim3.model.QuizQuestionUi
 import com.pagelence.uim3.model.PreviewWordUi
 import com.pagelence.uim3.model.ReaderPreviewUi
+import com.pagelence.uim3.model.ReaderJumpUi
 import com.pagelence.uim3.model.ReaderUiState
 import com.pagelence.uim3.model.ReviewTab
 import com.pagelence.uim3.model.SelectedWordUi
@@ -201,6 +207,9 @@ data class AppUiState(
     val library: LibraryUiState = LibraryUiState(),
     val reader: ReaderUiState? = null,
     val cards: List<WordCardUi> = emptyList(),
+    /** Cross-book bookmarks/highlights/notes for 复习 → 笔记. */
+    val annotations: List<AnnotationUi> = emptyList(),
+    val annotationFilter: AnnotationFilter = AnnotationFilter.ALL,
     val settings: SettingsUiState = SettingsUiState(
         language = UiLanguage.ZH,
         theme = ThemeMode.SYSTEM,
@@ -255,6 +264,8 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private var assessmentResult: AssessmentResult? = null
     private var pendingPanel: WordPanelUi? = null
     private var wordSelection: WordSelectionState = WordSelectionState.Hidden
+    /** Bumped for every annotation jump, so the reader can re-open the same row. */
+    private var annotationJumpToken = 0L
 
     private var syncConfig: SyncConfig? = null
     private var syncDraft: SyncConfig = SyncConfig(SyncProvider.CUSTOM, "", "", false)
@@ -341,6 +352,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             // One broken book must not take the shelf, the profile or the store
             // down with it; each section degrades to its empty state.
             val profile = runCatching { buildProfile() }.getOrDefault(ProfileUiState())
+            val annotations = runCatching { buildAnnotations(language) }.getOrDefault(emptyList())
             val grammarTab = runCatching { buildGrammarTab(strings, language) }
                 .getOrDefault(GrammarTabUiState(loading = false))
             val store = runCatching { buildStoreState(strings, language) }
@@ -357,6 +369,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                     tab = MainTab.SHELF,
                     library = library.getOrDefault(LibraryUiState(loading = false)),
                     profile = profile,
+                    annotations = annotations,
                     grammarTab = grammarTab,
                     store = store,
                     settings = settingsOf(prefs, language),
@@ -383,6 +396,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             val library = runCatching { buildLibrary(strings, language, skipped) }
                 .getOrDefault(LibraryUiState(loading = false))
             val profile = runCatching { buildProfile() }.getOrDefault(ProfileUiState())
+            val annotations = runCatching { buildAnnotations(language) }.getOrDefault(emptyList())
             val grammarTab = runCatching { buildGrammarTab(strings, language) }
                 .getOrDefault(GrammarTabUiState(loading = false))
             _ui.update {
@@ -487,7 +501,12 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         openBookAt(reader.bookId, unitId, push = false)
     }
 
-    private fun openBookAt(bookId: String, unitId: String?, push: Boolean = true) {
+    private fun openBookAt(
+        bookId: String,
+        unitId: String?,
+        push: Boolean = true,
+        jump: ReaderJumpUi? = null,
+    ) {
         clearPendingReaderSave()
         viewModelScope.launch(Dispatchers.IO) {
             graph.speech.stop()
@@ -520,7 +539,13 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             pendingPanel = null
             wordSelection = WordSelectionState.clear()
             graph.profile.recordReadingDay(today())
-            val reader = buildReader(bookIndex, unit, progress)
+            val reader = buildReader(
+                bookIndex = bookIndex,
+                unit = unit,
+                progress = progress,
+                startAtText = jump != null,
+                jump = jump,
+            )
             val profile = buildProfile()
             withContext(Dispatchers.Main) {
                 if (push) currentStack().add(Screen.READER)
@@ -627,9 +652,18 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     private fun refreshCards() {
         viewModelScope.launch(Dispatchers.IO) {
             val cards = currentCards()
-            withContext(Dispatchers.Main) { _ui.update { it.copy(cards = cards) } }
+            val annotations = buildAnnotations(uiLanguage(graph.preferences.preferences()))
+            withContext(Dispatchers.Main) {
+                _ui.update { it.copy(cards = cards, annotations = annotations) }
+            }
         }
     }
+
+    private fun buildAnnotations(language: UiLanguage): List<AnnotationUi> =
+        annotationPresenter(language).all(graph.annotations.all())
+
+    private fun annotationPresenter(language: UiLanguage): AnnotationPresenter =
+        AnnotationPresenter(content = graph.content, language = language)
 
     /** Level picked in onboarding or "我的"; the reading modes are confirmed first. */
     // --- book detail ------------------------------------------------------
@@ -1863,6 +1897,169 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         language = uiLanguage(graph.preferences.preferences()),
     ).cards()
 
+    // --- bookmarks, highlights and notes ---------------------------------
+
+    fun selectAnnotationFilter(filter: AnnotationFilter) {
+        _ui.update { it.copy(annotationFilter = filter) }
+    }
+
+    /**
+     * Jump from a list row to the sentence. Same book + same unit reuses the open
+     * reader; another unit of the same book swaps the unit without pushing a
+     * second reader; another book opens it normally (the review tab is a valid
+     * place to start reading from). A book that is no longer installed sends the
+     * reader to the store instead of showing a misleading "content damaged".
+     */
+    fun openAnnotation(annotation: AnnotationUi) {
+        if (runCatching { graph.content.index(annotation.bookId) }.getOrNull() == null) {
+            selectTab(MainTab.STORE)
+            return
+        }
+        val reader = _ui.value.reader
+        val jump = ReaderJumpUi(
+            paragraphId = annotation.paragraphId,
+            sentenceNumber = annotation.sentenceNumber,
+            token = ++annotationJumpToken,
+        )
+        when {
+            reader != null && reader.bookId == annotation.bookId && reader.unitId == annotation.unitId ->
+                _ui.update { state ->
+                    state.reader?.let { state.copy(reader = it.copy(jumpTarget = jump)) } ?: state
+                }
+
+            reader != null && reader.bookId == annotation.bookId ->
+                openBookAt(annotation.bookId, annotation.unitId, push = false, jump = jump)
+
+            else -> openBookAt(annotation.bookId, annotation.unitId, push = true, jump = jump)
+        }
+    }
+
+    /** The reader scrolled/landed on the requested sentence; do not repeat it. */
+    fun annotationJumpHandled() {
+        _ui.update { state ->
+            state.reader?.let { state.copy(reader = it.copy(jumpTarget = null)) } ?: state
+        }
+    }
+
+    fun toggleBookmark(paragraphId: String, sentenceNumber: Int) =
+        toggleAnnotation(AnnotationKind.BOOKMARK, paragraphId, sentenceNumber)
+
+    fun toggleHighlight(paragraphId: String, sentenceNumber: Int) =
+        toggleAnnotation(AnnotationKind.HIGHLIGHT, paragraphId, sentenceNumber)
+
+    private fun toggleAnnotation(
+        kind: AnnotationKind,
+        paragraphId: String,
+        sentenceNumber: Int,
+    ) {
+        val reader = _ui.value.reader ?: return
+        val bookIndex = index?.takeIf { it.book.id == reader.bookId } ?: return
+        val unit = bookIndex.unit(reader.unitId) ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            val id = AnnotationRules.idOf(reader.bookId, paragraphId, sentenceNumber, kind)
+            val existing = graph.annotations.get(id)
+            val now = Instant.now().toString()
+            if (existing != null && !existing.isDeleted) {
+                graph.annotations.remove(id, now)
+            } else {
+                val quote = AnnotationRules.sentenceText(bookIndex, unit.id, sentenceNumber)
+                    ?: existing?.quote.orEmpty()
+                graph.annotations.upsert(
+                    AnnotationRules.create(
+                        bookId = reader.bookId,
+                        unitId = unit.id,
+                        paragraphId = paragraphId,
+                        sentenceNumber = sentenceNumber,
+                        kind = kind,
+                        quote = quote,
+                        now = now,
+                        previous = existing,
+                    ),
+                )
+            }
+            afterAnnotationChanged()
+        }
+    }
+
+    fun saveNote(paragraphId: String, sentenceNumber: Int, note: String) {
+        val text = AnnotationRules.normalizeNote(note) ?: return
+        val reader = _ui.value.reader ?: return
+        val bookIndex = index?.takeIf { it.book.id == reader.bookId } ?: return
+        val unit = bookIndex.unit(reader.unitId) ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            val id = AnnotationRules.idOf(reader.bookId, paragraphId, sentenceNumber, AnnotationKind.NOTE)
+            val existing = graph.annotations.get(id)
+            val quote = AnnotationRules.sentenceText(bookIndex, unit.id, sentenceNumber)
+                ?: existing?.quote.orEmpty()
+            graph.annotations.upsert(
+                AnnotationRules.create(
+                    bookId = reader.bookId,
+                    unitId = unit.id,
+                    paragraphId = paragraphId,
+                    sentenceNumber = sentenceNumber,
+                    kind = AnnotationKind.NOTE,
+                    quote = quote,
+                    now = Instant.now().toString(),
+                    note = text,
+                    previous = existing,
+                ),
+            )
+            afterAnnotationChanged()
+        }
+    }
+
+    fun deleteNote(paragraphId: String, sentenceNumber: Int) {
+        val reader = _ui.value.reader ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            graph.annotations.remove(
+                AnnotationRules.idOf(
+                    reader.bookId,
+                    paragraphId,
+                    sentenceNumber,
+                    AnnotationKind.NOTE,
+                ),
+                Instant.now().toString(),
+            )
+            afterAnnotationChanged()
+        }
+    }
+
+    /**
+     * Rebuild the live rows and per-sentence marks after a local edit. Marks are
+     * drawn outside the text flow, so the page the reader is on does not move.
+     */
+    private fun afterAnnotationChanged() {
+        val language = uiLanguage(graph.preferences.preferences())
+        val presenter = annotationPresenter(language)
+        val all = presenter.all(graph.annotations.all())
+        val reader = _ui.value.reader
+        val bookIndex = reader?.let { current -> index?.takeIf { it.book.id == current.bookId } }
+        if (reader == null || bookIndex == null) {
+            _ui.update { it.copy(annotations = all) }
+            return
+        }
+        val stored = graph.annotations.list(reader.bookId)
+        val marks = presenter.marks(stored, reader.bookId, reader.unitId)
+        val paragraphs = reader.paragraphs.map { paragraph ->
+            paragraph.copy(
+                sentences = paragraph.sentences.map { sentence ->
+                    sentence.copy(
+                        mark = marks[AnnotationRules.sentenceKey(paragraph.id, sentence.number)],
+                    )
+                },
+            )
+        }
+        _ui.update { state ->
+            state.copy(
+                annotations = all,
+                reader = state.reader?.copy(
+                    annotations = presenter.book(stored, reader.bookId),
+                    paragraphs = paragraphs,
+                ),
+            )
+        }
+    }
+
 
     // --- settings --------------------------------------------------------
 
@@ -2303,6 +2500,8 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 val changes = (summary?.booksAdded ?: 0) + (summary?.booksUpdated ?: 0) +
                     (summary?.cardsAdded ?: 0) + (summary?.cardsUpdated ?: 0) +
                     (summary?.cardsDeleted ?: 0) + (summary?.activityDaysChanged ?: 0) +
+                    (summary?.annotationsAdded ?: 0) + (summary?.annotationsUpdated ?: 0) +
+                    (summary?.annotationsDeleted ?: 0) +
                     (if (summary?.preferencesFromRemote == true) 1 else 0) +
                     (if (summary?.levelFromRemote == true) 1 else 0)
                 if (changes == 0) copy.importNothing else copy.importDone
@@ -2503,6 +2702,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             language = language,
             preferences = prefs,
             bookLevel = bookLevel(bookId),
+            annotations = graph.annotations,
         )
     }
 
@@ -2513,6 +2713,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         startAtText: Boolean = false,
         startAtGuide: Boolean = false,
         startAtGrammar: Boolean = false,
+        jump: ReaderJumpUi? = null,
     ): ReaderUiState = readerPresenter(bookIndex.book.id).unit(
         bookIndex = bookIndex,
         unit = unit,
@@ -2523,7 +2724,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         startAtText = startAtText,
         startAtGuide = startAtGuide,
         startAtGrammar = startAtGrammar,
-    )
+    ).copy(jumpTarget = jump)
 
 
     private fun bookLevel(bookId: String): String? {

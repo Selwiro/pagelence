@@ -18,6 +18,7 @@ import com.pagelence.core.source.SourceLimits
 import com.pagelence.core.source.SourceManager
 import com.pagelence.core.source.SourceStore
 import com.pagelence.data.ReadingStateStore
+import com.pagelence.data.StateAnnotationRepository
 import com.pagelence.data.StatePreferencesRepository
 import com.pagelence.data.StateProgressRepository
 import com.pagelence.data.StateReadingProfileRepository
@@ -42,6 +43,9 @@ class AppGraph(context: Context) {
     }
 
     val cards: StateWordCardRepository by lazy { StateWordCardRepository(store) }
+
+    /** Sentence-level bookmarks/highlights/notes, tombstones included. */
+    val annotations: StateAnnotationRepository by lazy { StateAnnotationRepository(store) }
 
     /** WebDAV settings and the Keystore-encrypted application password. */
     val syncCredentials: SyncCredentialStore by lazy { SyncCredentialStore(appContext) }

@@ -430,6 +430,29 @@ interface Strings {
     val studyDone: String
     val studyProgress: String
     val studyCards: String
+    val annotations: String
+    val annotationTitle: String
+    val annotationBookmark: String
+    val annotationHighlight: String
+    val annotationNote: String
+    val annotationAddBookmark: String
+    val annotationRemoveBookmark: String
+    val annotationAddHighlight: String
+    val annotationRemoveHighlight: String
+    val annotationAddNote: String
+    val annotationEditNote: String
+    val annotationDeleteNote: String
+    val annotationNoteHint: String
+    val annotationSave: String
+    val annotationCancel: String
+    val annotationEmptyTitle: String
+    val annotationEmptyBody: String
+    val annotationEmptyHint: String
+    val annotationEmptyFilter: String
+    val annotationCount: String
+    val annotationAnchorMoved: String
+    val annotationFilterAll: String
+    val reviewNotes: String
 }
 
 fun stringsFor(language: UiLanguage): Strings = when (language) {

@@ -47,6 +47,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.pagelence.uim3.Strings
+import com.pagelence.uim3.components.PagelenceIcons
 import com.pagelence.uim3.model.ReaderUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,6 +59,8 @@ internal fun ReaderTopBar(
     onOpenCards: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenToc: () -> Unit,
+    onOpenAnnotations: () -> Unit,
+    annotationCount: Int,
 ) {
     TopAppBar(
         title = {
@@ -84,7 +87,14 @@ internal fun ReaderTopBar(
                     contentDescription = strings.toc,
                 )
             }
-            MoreMenu(state.cardsCount, strings, onOpenCards, onOpenSettings)
+            MoreMenu(
+                cardsCount = state.cardsCount,
+                annotationCount = annotationCount,
+                strings = strings,
+                onOpenCards = onOpenCards,
+                onOpenSettings = onOpenSettings,
+                onOpenAnnotations = onOpenAnnotations,
+            )
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surface,
@@ -96,9 +106,11 @@ internal fun ReaderTopBar(
 @Composable
 internal fun MoreMenu(
     cardsCount: Int,
+    annotationCount: Int,
     strings: Strings,
     onOpenCards: () -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenAnnotations: () -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box {
@@ -112,6 +124,22 @@ internal fun MoreMenu(
                 onClick = {
                     expanded = false
                     onOpenCards()
+                },
+            )
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        if (annotationCount > 0) {
+                            "${strings.annotations} ($annotationCount)"
+                        } else {
+                            strings.annotations
+                        },
+                    )
+                },
+                leadingIcon = { Icon(PagelenceIcons.Bookmark, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    onOpenAnnotations()
                 },
             )
             DropdownMenuItem(

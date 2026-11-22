@@ -56,7 +56,9 @@ import com.pagelence.core.prefs.ReaderLayout
 import com.pagelence.core.progress.ReaderPhase
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.GrammarCard
+import com.pagelence.uim3.model.AnnotationUi
 import com.pagelence.uim3.model.ReaderUiState
+import com.pagelence.uim3.model.SentenceMarkUi
 import com.pagelence.presentation.reader.ReaderFlow
 import com.pagelence.presentation.reader.ReaderPage
 import com.pagelence.uim3.model.SentenceUi
@@ -86,6 +88,12 @@ fun ReaderScreen(
     onStopSpeaking: () -> Unit,
     onPageChanged: (ReaderPhase, Int, Float, String?) -> Unit,
     onTextProgress: (Float) -> Unit,
+    onToggleBookmark: (paragraphId: String, sentenceNumber: Int) -> Unit,
+    onToggleHighlight: (paragraphId: String, sentenceNumber: Int) -> Unit,
+    onSaveNote: (paragraphId: String, sentenceNumber: Int, note: String) -> Unit,
+    onDeleteNote: (paragraphId: String, sentenceNumber: Int) -> Unit,
+    onOpenAnnotation: (AnnotationUi) -> Unit,
+    onJumpHandled: () -> Unit,
     onGuideStarted: () -> Unit,
     onStartPreview: () -> Unit,
     onPreviewAnswer: (Boolean) -> Unit,
@@ -115,6 +123,18 @@ fun ReaderScreen(
     var returnToTextAfterPreview by remember { mutableStateOf(false) }
     var forceTextTop by remember { mutableStateOf(false) }
     var textSession by remember { mutableIntStateOf(0) }
+    var actionTarget by remember { mutableStateOf<SentenceActionTarget?>(null) }
+    var noteTarget by remember { mutableStateOf<SentenceActionTarget?>(null) }
+    var showAnnotations by rememberSaveable { mutableStateOf(false) }
+    var pendingScrollParagraph by remember { mutableStateOf<String?>(null) }
+
+    fun markOf(target: SentenceActionTarget?): SentenceMarkUi? = target?.let { wanted ->
+        state.paragraphs
+            .firstOrNull { it.id == wanted.paragraphId }
+            ?.sentences
+            ?.firstOrNull { it.number == wanted.sentenceNumber }
+            ?.mark
+    }
 
     LaunchedEffect(state.unitId) { textScrollProgress = state.resumeTextProgress }
 
@@ -138,6 +158,8 @@ fun ReaderScreen(
                     onOpenCards = onOpenCards,
                     onOpenSettings = onOpenSettings,
                     onOpenToc = { showToc = true },
+                    onOpenAnnotations = { showAnnotations = true },
+                    annotationCount = state.annotations.size,
                 )
                 if (preview == null) {
                     ReaderProgressBar(
@@ -357,6 +379,45 @@ fun ReaderScreen(
                         }
                     }
 
+                    // A list row asked to show one sentence. Paged layout lands on
+                    // the page that contains it; scrolling mode first switches to
+                    // the text page, then the scroll view aligns the paragraph.
+                    LaunchedEffect(state.jumpTarget?.token, pages) {
+                        val target = state.jumpTarget ?: return@LaunchedEffect
+                        if (paged) {
+                            val paragraphIndex = state.paragraphs.indexOfFirst {
+                                it.id == target.paragraphId
+                            }
+                            val sentenceIndex = state.paragraphs.getOrNull(paragraphIndex)
+                                ?.sentences
+                                ?.indexOfFirst { it.number == target.sentenceNumber }
+                                ?: -1
+                            val pageIndex = if (paragraphIndex >= 0 && sentenceIndex >= 0) {
+                                textPages.indexOfFirst { page ->
+                                    page.chunks.any { chunk ->
+                                        chunk.paragraphId == target.paragraphId &&
+                                            sentenceIndex >= chunk.sentenceStart &&
+                                            sentenceIndex < chunk.sentenceEndExclusive
+                                    }
+                                }
+                            } else {
+                                -1
+                            }
+                            if (pageIndex >= 0) {
+                                pagerState.scrollToPage(textStart + pageIndex)
+                                lastReportedPage = textStart + pageIndex
+                            }
+                            onJumpHandled()
+                        } else if (state.paragraphs.any { it.id == target.paragraphId }) {
+                            pagerState.scrollToPage(textStart)
+                            pendingScrollParagraph = target.paragraphId
+                        } else {
+                            // The paragraph moved or disappeared; the list already
+                            // showed the stored quote, so there is nothing to scroll to.
+                            onJumpHandled()
+                        }
+                    }
+
                     LaunchedEffect(pages.size) {
                         if (pagerState.currentPage > pages.lastIndex) {
                             pagerState.scrollToPage(pages.lastIndex)
@@ -481,6 +542,13 @@ fun ReaderScreen(
                                             sentence = sentence,
                                         )
                                     },
+                                    onSentenceLongPress = { paragraphId, sentence ->
+                                        actionTarget = SentenceActionTarget(
+                                            paragraphId,
+                                            sentence.number,
+                                            sentence.text,
+                                        )
+                                    },
                                 )
 
                                 ReaderPage.TextScroll -> key(textSession) {
@@ -503,6 +571,18 @@ fun ReaderScreen(
                                                 paragraphId = paragraphId,
                                                 sentence = sentence,
                                             )
+                                        },
+                                        onSentenceLongPress = { paragraphId, sentence ->
+                                            actionTarget = SentenceActionTarget(
+                                                paragraphId,
+                                                sentence.number,
+                                                sentence.text,
+                                            )
+                                        },
+                                        scrollToParagraphId = pendingScrollParagraph,
+                                        onScrollHandled = {
+                                            pendingScrollParagraph = null
+                                            onJumpHandled()
                                         },
                                         onEnterQuiz = {
                                             if (state.quiz.isEmpty() && state.grammar == null) {
@@ -618,6 +698,49 @@ fun ReaderScreen(
                 },
             )
         }
+    }
+
+    if (showAnnotations) {
+        AnnotationSheet(
+            strings = strings,
+            bookTitle = state.bookTitle,
+            annotations = state.annotations,
+            onOpen = { annotation ->
+                showAnnotations = false
+                onOpenAnnotation(annotation)
+            },
+            onDismiss = { showAnnotations = false },
+        )
+    }
+
+    val activeTarget = actionTarget
+    if (activeTarget != null) {
+        SentenceActionSheet(
+            strings = strings,
+            target = activeTarget,
+            mark = markOf(activeTarget),
+            onToggleBookmark = { onToggleBookmark(activeTarget.paragraphId, activeTarget.sentenceNumber) },
+            onToggleHighlight = { onToggleHighlight(activeTarget.paragraphId, activeTarget.sentenceNumber) },
+            onEditNote = { noteTarget = activeTarget },
+            onDeleteNote = {
+                onDeleteNote(activeTarget.paragraphId, activeTarget.sentenceNumber)
+            },
+            onDismiss = { actionTarget = null },
+        )
+    }
+
+    val editingTarget = noteTarget
+    if (editingTarget != null) {
+        NoteEditorDialog(
+            strings = strings,
+            initial = markOf(editingTarget)?.note.orEmpty(),
+            onSave = { note ->
+                onSaveNote(editingTarget.paragraphId, editingTarget.sentenceNumber, note)
+                noteTarget = null
+                actionTarget = null
+            },
+            onDismiss = { noteTarget = null },
+        )
     }
 
     state.wordPanel?.let { panel ->

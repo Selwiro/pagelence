@@ -48,6 +48,37 @@ class ReadingStateCodecTest {
     """.trimIndent()
 
     @Test
+    fun `annotations are optional in v2 and survive a round trip`() {
+        val annotation = Annotation(
+            id = "book::u1-p1::2::note",
+            bookId = "book",
+            unitId = "u1",
+            paragraphId = "u1-p1",
+            sentenceNumber = 2,
+            kind = AnnotationKind.NOTE,
+            note = " 时态变了 ",
+            quote = "He was walking.",
+            createdAt = "2026-11-22T09:00:00Z",
+            updatedAt = "2026-11-22T09:30:00Z",
+        )
+        val state = ReadingState(
+            deviceId = "device-test",
+            updatedAt = "2026-11-22T10:00:00Z",
+            annotations = listOf(annotation),
+        )
+        val decoded = assertNotNull(ReadingStateCodec.decode(ReadingStateCodec.encode(state)))
+        assertEquals(listOf(annotation.copy(note = "时态变了")), decoded.state.annotations)
+
+        // A document written before T144 has no field at all.
+        val old = assertNotNull(
+            ReadingStateCodec.decode(
+                """{"schemaVersion":2,"deviceId":"device-legacy","updatedAt":"2026-11-18T10:00:00Z"}""",
+            ),
+        )
+        assertTrue(old.state.annotations.isEmpty())
+    }
+
+    @Test
     fun `recent assessment papers survive a round trip`() {
         val state = ReadingState(
             deviceId = "device-test",

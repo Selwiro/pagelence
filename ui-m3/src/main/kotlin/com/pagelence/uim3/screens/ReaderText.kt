@@ -69,6 +69,7 @@ internal fun ParagraphBlock(
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
     onTranslate: (String, SentenceUi) -> Unit,
+    onSentenceLongPress: (String, SentenceUi) -> Unit,
 ) {
     Column {
         val expandedIndex = expandedTranslation
@@ -86,6 +87,7 @@ internal fun ParagraphBlock(
                 onWordClick = onWordClick,
                 onAnalysis = onAnalysis,
                 onTranslate = onTranslate,
+                onSentenceLongPress = onSentenceLongPress,
             )
         } else {
             ParagraphText(
@@ -98,6 +100,7 @@ internal fun ParagraphBlock(
                 onWordClick = onWordClick,
                 onAnalysis = onAnalysis,
                 onTranslate = onTranslate,
+                onSentenceLongPress = onSentenceLongPress,
             )
             TranslationExpansion(expandedTranslation?.zh.orEmpty())
             if (expandedIndex + 1 < paragraph.sentences.size) {
@@ -111,6 +114,7 @@ internal fun ParagraphBlock(
                     onWordClick = onWordClick,
                     onAnalysis = onAnalysis,
                     onTranslate = onTranslate,
+                    onSentenceLongPress = onSentenceLongPress,
                 )
             }
         }
@@ -146,6 +150,12 @@ internal data class SentenceSpan(
     val end: Int,
 )
 
+internal data class SentenceMarkSpan(
+    val range: IntRange,
+    val bookmark: Boolean,
+    val note: Boolean,
+)
+
 internal data class ParagraphTextData(
     val annotated: AnnotatedString,
     val spans: List<SentenceSpan>,
@@ -153,6 +163,8 @@ internal data class ParagraphTextData(
     val analysisStarts: Map<Int, SentenceUi>,
     val selectionRanges: List<IntRange>,
     val hintRanges: List<IntRange>,
+    val highlightRanges: List<IntRange>,
+    val marks: List<SentenceMarkSpan>,
 )
 
 /**
@@ -171,12 +183,15 @@ internal fun ParagraphText(
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     onAnalysis: (SentenceUi) -> Unit,
     onTranslate: (String, SentenceUi) -> Unit,
+    onSentenceLongPress: (String, SentenceUi) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val accent = MaterialTheme.colorScheme.primary
     val selectionColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.66f)
     val selectionText = MaterialTheme.colorScheme.onPrimaryContainer
     val hintColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.38f)
+    val highlightColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.14f)
+    val markColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.78f)
     val data = remember(
         sentences,
         annotateHints,
@@ -265,6 +280,15 @@ internal fun ParagraphText(
         modifier = modifier
             .drawBehind {
                 val result = layout ?: return@drawBehind
+                data.highlightRanges.forEach { range ->
+                    drawSelectionBackground(
+                        result,
+                        range,
+                        highlightColor,
+                        cornerPx = 3.dp.toPx(),
+                        horizontalPadPx = 2.dp.toPx(),
+                    )
+                }
                 data.selectionRanges.forEach { range ->
                     drawSelectionBackground(
                         result,
@@ -284,9 +308,26 @@ internal fun ParagraphText(
                         gap = 3.dp.toPx(),
                     )
                 }
+                data.marks.forEach { mark ->
+                    drawSentenceMarks(
+                        layout = result,
+                        range = mark.range,
+                        bookmark = mark.bookmark,
+                        note = mark.note,
+                        color = markColor,
+                    )
+                }
             }
             .pointerInput(data.annotated, data.spans, data.iconStarts, data.analysisStarts) {
-                detectTapGestures { offset ->
+                detectTapGestures(
+                    onLongPress = { offset ->
+                        val result = layout ?: return@detectTapGestures
+                        val index = result.getOffsetForPosition(offset)
+                        val span = data.spans.firstOrNull { index >= it.start && index < it.end }
+                            ?: return@detectTapGestures
+                        onSentenceLongPress(paragraphId, span.sentence)
+                    },
+                    onTap = { offset ->
                     val result = layout ?: return@detectTapGestures
                     val index = result.getOffsetForPosition(offset)
                     // 14dp glyphs are hard to hit with a thumb; accept a tap
@@ -334,7 +375,8 @@ internal fun ParagraphText(
                             hit.end,
                         )
                     }
-                }
+                    },
+                )
             },
     )
 }
@@ -400,6 +442,24 @@ internal fun buildParagraphTextData(
     } else {
         emptyList()
     }
+    val highlightRanges = spans
+        .filter { it.sentence.mark?.highlighted == true && it.end > it.start }
+        .map { it.start..(it.end - 1) }
+    val marks = spans.mapNotNull { span ->
+        val mark = span.sentence.mark ?: return@mapNotNull null
+        if (mark.isEmpty || span.end <= span.start) return@mapNotNull null
+        // Sentence-end inline icons (translation, analysis) sit right after the
+        // text. Anchor the marker after the last of them, otherwise it would be
+        // painted on top of the icon.
+        val inlineEnd = (iconStarts.entries + analysisStarts.entries)
+            .filter { it.value.number == span.sentence.number }
+            .maxOfOrNull { it.key }
+        SentenceMarkSpan(
+            range = span.start..maxOf(span.end - 1, inlineEnd ?: (span.end - 1)),
+            bookmark = mark.bookmarked,
+            note = mark.hasNote,
+        )
+    }
     return ParagraphTextData(
         annotated = builder.toAnnotatedString(),
         spans = spans,
@@ -407,6 +467,8 @@ internal fun buildParagraphTextData(
         analysisStarts = analysisStarts,
         selectionRanges = selectionRanges,
         hintRanges = hintRanges,
+        highlightRanges = highlightRanges,
+        marks = marks,
     )
 }
 
@@ -476,8 +538,75 @@ internal fun DrawScope.drawHintUnderline(
     }
 }
 
-internal inline fun forEachRangeLine(
+/**
+ * Sentence-end markers drawn after the text, not as inline content: adding or
+ * removing a bookmark must never re-flow the page the reader is on.
+ */
+internal fun DrawScope.drawSentenceMarks(
     layout: TextLayoutResult,
+    range: IntRange,
+    bookmark: Boolean,
+    note: Boolean,
+    color: androidx.compose.ui.graphics.Color,
+) {
+    val textLength = layout.layoutInput.text.length
+    if (textLength == 0 || range.isEmpty()) return
+    val last = range.last.coerceIn(0, textLength - 1)
+    val line = layout.getLineForOffset(last)
+    val box = layout.getBoundingBox(last)
+    val bookmarkWidth = 4.5.dp.toPx()
+    val noteWidth = 6.dp.toPx()
+    val markerHeight = 9.dp.toPx()
+    val gap = 2.5.dp.toPx()
+    val totalWidth = (if (bookmark) bookmarkWidth + gap else 0f) +
+        (if (note) noteWidth else 0f)
+    val top = layout.getLineTop(line) + 1.dp.toPx()
+    val right = size.width - 1.dp.toPx()
+    var x = box.right + gap
+    // Near the right edge, draw the marker just before the last glyph instead
+    // of clipping it out of the column.
+    if (x + totalWidth > right) {
+        x = (box.left - totalWidth - gap).coerceAtLeast(0f)
+    }
+    if (bookmark) {
+        val path = Path().apply {
+            moveTo(x, top)
+            lineTo(x + bookmarkWidth, top)
+            lineTo(x + bookmarkWidth, top + markerHeight)
+            lineTo(x + bookmarkWidth / 2f, top + markerHeight - bookmarkWidth * 0.6f)
+            lineTo(x, top + markerHeight)
+            close()
+        }
+        drawPath(path = path, color = color)
+        x += bookmarkWidth + gap
+    }
+    if (note) {
+        // A tiny outlined page with two ruled lines, so a note is recognisable
+        // at 6dp without moving the text or adding an inline placeholder.
+        val noteTop = top + 1.dp.toPx()
+        val noteHeight = markerHeight - 2.dp.toPx()
+        drawRoundRect(
+            color = color,
+            topLeft = Offset(x, noteTop),
+            size = Size(noteWidth, noteHeight),
+            cornerRadius = CornerRadius(1.dp.toPx()),
+            style = Stroke(width = 0.9.dp.toPx()),
+        )
+        val lineX = x + 1.4.dp.toPx()
+        val lineRight = x + noteWidth - 1.4.dp.toPx()
+        listOf(0.32f, 0.64f).forEach { fraction ->
+            val y = noteTop + noteHeight * fraction
+            drawLine(
+                color = color,
+                start = Offset(lineX, y),
+                end = Offset(lineRight, y),
+                strokeWidth = 0.8.dp.toPx(),
+            )
+        }
+    }
+}
+
+internal inline fun forEachRangeLine(    layout: TextLayoutResult,
     range: IntRange,
     block: (line: Int, from: Int, to: Int, left: Float, right: Float) -> Unit,
 ) {

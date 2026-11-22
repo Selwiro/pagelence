@@ -10,9 +10,13 @@ import com.pagelence.core.content.LocalizedText
 import com.pagelence.core.content.Sentence
 import com.pagelence.core.content.StudyUnit
 import com.pagelence.core.prefs.Preferences
+import com.pagelence.core.progress.AnnotationRepository
+import com.pagelence.core.progress.AnnotationRules
 import com.pagelence.core.progress.BookProgress
+import com.pagelence.core.progress.InMemoryAnnotationRepository
 import com.pagelence.core.progress.ReaderPhase
 import com.pagelence.core.wordcards.WordCardRepository
+import com.pagelence.presentation.annotations.AnnotationPresenter
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.model.AnalysisPartUi
@@ -41,6 +45,7 @@ class ReaderPresenter(
     private val language: UiLanguage,
     private val preferences: Preferences,
     private val bookLevel: String?,
+    private val annotations: AnnotationRepository = InMemoryAnnotationRepository(),
 ) {
 /**
  * A hint worth saving after a quiz: it occurs in a sentence a question points
@@ -71,6 +76,9 @@ data class QuizWordCandidate(
         val prefs = preferences
         val book = bookIndex.book
         val chapter = bookIndex.chapterByUnitId[unit.id]
+        val storedAnnotations = annotations.list(book.id)
+        val annotationPresenter = AnnotationPresenter(content, language)
+        val marks = annotationPresenter.marks(storedAnnotations, book.id, unit.id)
         var number = 0
         val sentenceByNumber = mutableMapOf<Int, Sentence>()
         val paragraphs = unit.paragraphs.map { paragraph ->
@@ -94,6 +102,7 @@ data class QuizWordCandidate(
                             zh = if (language == UiLanguage.EN) null else sentence.zh,
                             annotated = annotated,
                             analysis = sentence.analysis?.let { toAnalysisUi(it, language) },
+                            mark = marks[AnnotationRules.sentenceKey(paragraph.id, number)],
                         ),
                     )
                 }
@@ -178,6 +187,7 @@ data class QuizWordCandidate(
             selectedWord = null,
             cardsCount = cards.list(book.id).size,
             speechNotice = null,
+            annotations = annotationPresenter.book(storedAnnotations, book.id),
             toc = book.chapters.map { chapter ->
                 TocChapterUi(
                     id = chapter.id,
