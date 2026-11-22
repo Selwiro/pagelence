@@ -23,6 +23,9 @@ import com.pagelence.presentation.book.BookDetailPresenter
 import com.pagelence.presentation.dictionary.DictionaryPresenter
 import com.pagelence.presentation.grammar.GrammarPresenter
 import com.pagelence.presentation.store.StorePresenter
+import com.pagelence.presentation.shell.FinishedPresenter
+import com.pagelence.presentation.shell.SettingsPresenter
+import com.pagelence.presentation.shell.WordCardPresenter
 import com.pagelence.presentation.sync.SyncPresenter
 import com.pagelence.presentation.store.formatBytes
 import com.pagelence.presentation.store.storeErrorPriority
@@ -1757,28 +1760,14 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         refreshLibrary()
     }
 
-    private fun buildFinishedBook(bookId: String): FinishedBookUi? {
-        val bookIndex = graph.content.index(bookId) ?: return null
-        val saved = graph.progress.progress(bookId)
-        val progress = ProgressSemantics.restore(saved, bookIndex)
-        if (progress != saved) graph.progress.save(progress)
-        val language = uiLanguage(graph.preferences.preferences())
-        val book = bookIndex.book
-        return FinishedBookUi(
-            bookId = book.id,
-            title = titleFor(book.title, language),
-            coverTitle = book.title.en ?: book.title.zh ?: book.id,
-            monogram = (book.title.zh ?: book.title.en ?: book.id).take(1),
-            author = book.author,
-            unitCount = bookIndex.units.size,
-            wordCount = bookIndex.stats().words,
-            cardCount = graph.cards.list(book.id).size,
-            finishedOn = formatDate(progress.finishedAt),
-            coverPath = graph.content.coverPath(book.id),
-        )
-    }
+    private fun buildFinishedBook(bookId: String): FinishedBookUi? = FinishedPresenter(
+        content = graph.content,
+        progress = graph.progress,
+        cards = graph.cards,
+        language = uiLanguage(graph.preferences.preferences()),
+    ).finished(bookId)
 
-    /** Re-open the ending page from a book's detail page. */
+
     fun openFinishedSummary() {
         val detail = _ui.value.bookDetail ?: return
         viewModelScope.launch(Dispatchers.IO) { showFinished(detail.bookId, fromReader = false) }
@@ -1868,17 +1857,12 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         }
     }
 
-    private fun currentCards(): List<WordCardUi> {
-        val language = uiLanguage(graph.preferences.preferences())
-        val titles = graph.content.library().associate { summary ->
-            summary.id to (summary.title?.let { title -> titleFor(title, language) } ?: summary.id)
-        }
-        // Cards of a book that is no longer shipped stay in state.json but are not
-        // listed; that keeps an upgrade from showing cards the app cannot open.
-        return graph.cards.all().mapNotNull { card ->
-            titles[card.bookId]?.let { title -> toCardUi(card, title) }
-        }
-    }
+    private fun currentCards(): List<WordCardUi> = WordCardPresenter(
+        content = graph.content,
+        cards = graph.cards,
+        language = uiLanguage(graph.preferences.preferences()),
+    ).cards()
+
 
     // --- settings --------------------------------------------------------
 
@@ -2706,29 +2690,10 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
 
 
-    private fun toCardUi(card: WordCard, bookTitle: String): WordCardUi = WordCardUi(
-        id = card.id,
-        term = card.term,
-        lemma = card.lemma,
-        ipa = card.ipa,
-        zh = card.zh,
-        en = card.en,
-        exampleEn = card.example?.en,
-        exampleZh = card.example?.zh,
-        bookId = card.bookId,
-        bookTitle = bookTitle,
-    )
 
-    private fun settingsOf(prefs: Preferences, language: UiLanguage) = SettingsUiState(
-        language = language,
-        theme = prefs.theme,
-        fontSize = prefs.fontSize,
-        readerLayout = prefs.readerLayout,
-        annotateHints = prefs.annotateHints,
-        definitionMode = prefs.definitionMode,
-        guideMode = prefs.guideMode,
-        speechRate = prefs.speechRate,
-    )
+    private fun settingsOf(prefs: Preferences, language: UiLanguage): SettingsUiState =
+        SettingsPresenter(prefs).state()
+
 
     private fun uiLanguage(prefs: Preferences): UiLanguage =
         if (prefs.language == Language.EN) UiLanguage.EN else UiLanguage.ZH
