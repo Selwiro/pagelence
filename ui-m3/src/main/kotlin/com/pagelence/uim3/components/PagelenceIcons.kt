@@ -69,6 +69,21 @@ object PagelenceIcons {
     val Note: ImageVector by lazy {
         strokeIcon("Pagelence.Note", "M5 4h14v16H5z", "M8 9h8M8 13h8M8 17h5")
     }
+
+    /** 目录（三行递减的列表）。 */
+    val Contents: ImageVector by lazy {
+        strokeIcon("Pagelence.Contents", "M4 6h16", "M4 12h16", "M4 18h10")
+    }
+
+    /** 阅读设置（两根滑杆）。 */
+    val Tune: ImageVector by lazy {
+        strokeIcon("Pagelence.Tune", "M4 7h9", "M19 7h1", "M4 17h5", "M13 17h7", "M15 4v6", "M9 14v6")
+    }
+
+    /** 生词卡（叠放的两张卡片）。 */
+    val Cards: ImageVector by lazy {
+        strokeIcon("Pagelence.Cards", "M8 4h12v13H8z", "M4 8v12h12")
+    }
 }
 
 private const val ICON_STROKE_WIDTH = 1.65f

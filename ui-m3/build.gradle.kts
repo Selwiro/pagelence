@@ -27,6 +27,8 @@ dependencies {
     api(project(":presentation"))
     implementation(project(":sync"))
     implementation(libs.androidx.core.ktx)
+    // BackHandler: the reader's bottom menu closes before leaving the reader (T167).
+    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.foundation)

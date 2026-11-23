@@ -22,14 +22,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,10 +31,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,22 +43,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pagelence.uim3.Strings
-import com.pagelence.uim3.components.PagelenceIcons
 import com.pagelence.uim3.components.TranslateIcon
 import com.pagelence.uim3.model.ReaderUiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ReaderTopBar(
     strings: Strings,
     state: ReaderUiState,
     onBack: () -> Unit,
-    onOpenCards: () -> Unit,
-    onOpenSettings: () -> Unit,
     onOpenSearch: () -> Unit,
-    onOpenToc: () -> Unit,
-    onOpenAnnotations: () -> Unit,
-    annotationCount: Int,
     onToggleTranslations: () -> Unit,
 ) {
     // The bar is a plain row: the old single-line TopAppBar clipped English
@@ -130,81 +113,11 @@ internal fun ReaderTopBar(
                     },
                 )
             }
-            IconButton(onClick = onOpenToc) {
-                Icon(
-                    Icons.AutoMirrored.Filled.List,
-                    contentDescription = strings.toc,
-                )
+            // Contents, bookmarks and settings moved to the bottom dock (T167);
+            // the top-right slot is now search.
+            IconButton(onClick = onOpenSearch) {
+                Icon(Icons.Filled.Search, contentDescription = strings.inBookSearch)
             }
-            MoreMenu(
-                cardsCount = state.cardsCount,
-                annotationCount = annotationCount,
-                strings = strings,
-                onOpenCards = onOpenCards,
-                onOpenSettings = onOpenSettings,
-                onOpenAnnotations = onOpenAnnotations,
-                onOpenSearch = onOpenSearch,
-            )
-        }
-    }
-}
-
-@Composable
-internal fun MoreMenu(
-    cardsCount: Int,
-    annotationCount: Int,
-    strings: Strings,
-    onOpenCards: () -> Unit,
-    onOpenSettings: () -> Unit,
-    onOpenAnnotations: () -> Unit,
-    onOpenSearch: () -> Unit,
-) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Box {
-        IconButton(onClick = { expanded = true }) {
-            Icon(Icons.Filled.MoreVert, contentDescription = strings.more)
-        }
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(
-                text = { Text("${strings.wordCards} ($cardsCount)") },
-                leadingIcon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = null) },
-                onClick = {
-                    expanded = false
-                    onOpenCards()
-                },
-            )
-            DropdownMenuItem(
-                text = {
-                    Text(
-                        if (annotationCount > 0) {
-                            "${strings.annotations} ($annotationCount)"
-                        } else {
-                            strings.annotations
-                        },
-                    )
-                },
-                leadingIcon = { Icon(PagelenceIcons.Bookmark, contentDescription = null) },
-                onClick = {
-                    expanded = false
-                    onOpenAnnotations()
-                },
-            )
-            DropdownMenuItem(
-                text = { Text(strings.inBookSearch) },
-                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-                onClick = {
-                    expanded = false
-                    onOpenSearch()
-                },
-            )
-            DropdownMenuItem(
-                text = { Text(strings.settings) },
-                leadingIcon = { Icon(Icons.Filled.Settings, contentDescription = null) },
-                onClick = {
-                    expanded = false
-                    onOpenSettings()
-                },
-            )
         }
     }
 }

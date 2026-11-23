@@ -489,6 +489,10 @@ interface Strings {
     val readingLayout: String
     val layoutPaged: String
     val layoutScroll: String
+    /** Title of the in-reader settings panel (T167). */
+    val readerSettings: String
+    /** Opens the full settings page from that panel. */
+    val readerSettingsMore: String
     val preview: String
     val previewTitle: String
     val previewPrompt: String

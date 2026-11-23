@@ -4,7 +4,9 @@ package com.pagelence.uim3.screens
 // 页面编排与回调转发留在这里；顶栏、分页、正文、词条、目录分别在同目录的
 // ReaderChrome / ReaderPaging / ReaderText / ReaderWordPanel / ReaderSheets。
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -48,13 +50,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.dp
+import com.pagelence.core.prefs.DefinitionMode
+import com.pagelence.core.prefs.FontSize
+import com.pagelence.core.prefs.GuideMode
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
 import com.pagelence.core.prefs.ReaderLayout
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.core.progress.ReaderPhase
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.GrammarCard
@@ -80,6 +89,13 @@ fun ReaderScreen(
     onOpenCards: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenSearch: () -> Unit,
+    onFontSize: (FontSize) -> Unit,
+    onPageMargin: (PageMargin) -> Unit,
+    onLineSpacing: (LineSpacing) -> Unit,
+    onReadingFont: (ReadingFont) -> Unit,
+    onReaderLayout: (ReaderLayout) -> Unit,
+    onDefinitionMode: (DefinitionMode) -> Unit,
+    onGuideMode: (GuideMode) -> Unit,
     onWordClick: (paragraphId: String, sentenceNumber: Int, spelling: String, start: Int, end: Int) -> Unit,
     onToggleAllTranslations: () -> Unit,
     onOpenGrammarPoint: (String) -> Unit,
@@ -114,12 +130,21 @@ fun ReaderScreen(
     val guideText = guideText(state)
     val hasGuide = guideText != null
     val paged = state.preference.readerLayout != ReaderLayout.SCROLL
+    // Pagination reacts to these four preferences. In paged mode the pager is
+    // rebuilt when they change so the current reading position can be restored
+    // by fraction instead of a stale page index (T167 slider adjustments).
+    val layoutSignature = with(state.preference) {
+        "$fontSize|$readingFont|$lineSpacing|$pageMargin"
+    }
     val preview = state.preview
     var analysisSentence by remember { mutableStateOf<SentenceUi?>(null) }
     val openAnalysis: (SentenceUi) -> Unit = { analysisSentence = it }
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var showToc by rememberSaveable { mutableStateOf(false) }
+    // On-demand chrome (T167): the bottom menu and its inline settings panel.
+    var dockVisible by rememberSaveable { mutableStateOf(false) }
+    var dockSettingsOpen by rememberSaveable { mutableStateOf(false) }
     var progressSegments by remember { mutableStateOf<List<ProgressSegment>>(emptyList()) }
     var progressTargets by remember { mutableStateOf<Map<ProgressKind, Int>>(emptyMap()) }
     var pagerStateRef by remember { mutableStateOf<androidx.compose.foundation.pager.PagerState?>(null) }
@@ -127,6 +152,9 @@ fun ReaderScreen(
     // Brief highlight after a list/search jump so the target sentence is findable.
     var focusSentence by remember(state.unitId) { mutableStateOf<SentenceFocus?>(null) }
     var textScrollProgress by remember(state.unitId) { mutableStateOf(state.resumeTextProgress) }
+    // Where the reader is inside the text, as a fraction of the text pages. It
+    // survives a re-pagination so a font or margin change keeps the place.
+    var pagedAnchor by remember(state.unitId) { mutableStateOf<Float?>(null) }
     var returnToTextAfterPreview by remember { mutableStateOf(false) }
     var forceTextTop by remember { mutableStateOf(false) }
     var textSession by remember { mutableIntStateOf(0) }
@@ -145,6 +173,13 @@ fun ReaderScreen(
 
     LaunchedEffect(state.unitId) { textScrollProgress = state.resumeTextProgress }
 
+    // Back closes the menu first, like every reading app; only then can it
+    // leave the reader.
+    BackHandler(enabled = dockVisible) {
+        dockVisible = false
+        dockSettingsOpen = false
+    }
+
     LaunchedEffect(state.speechNotice) {
         val notice = state.speechNotice ?: return@LaunchedEffect
         snackbar.showSnackbar(notice)
@@ -162,12 +197,7 @@ fun ReaderScreen(
                     onBack = {
                         if (preview != null) onClosePreview() else onBack()
                     },
-                    onOpenCards = onOpenCards,
-                    onOpenSettings = onOpenSettings,
                     onOpenSearch = onOpenSearch,
-                    onOpenToc = { showToc = true },
-                    onOpenAnnotations = { showAnnotations = true },
-                    annotationCount = state.annotations.size,
                     onToggleTranslations = onToggleAllTranslations,
                 )
                 if (preview == null) {
@@ -202,393 +232,374 @@ fun ReaderScreen(
                 modifier = Modifier.fillMaxSize().padding(padding).navigationBarsPadding(),
             )
         } else {
-            BoxWithConstraints(Modifier.fillMaxSize().padding(padding).navigationBarsPadding()) {
-                val density = LocalDensity.current
-                // The text column is min(screen, 760dp) minus the reader's
-                // chosen page margins (T158); page-turn zones shrink with the
-                // margin so they never cover a word.
-                val pagePadding = state.preference.pageMargin.horizontalPadding()
-                val textWidth = minOf(maxWidth, 760.dp) - pagePadding * 2
-                val pageTurnZone = minOf(pagePadding, PageTurnZoneWidth)
-                val contentWidthPx = with(density) { textWidth.roundToPx().coerceAtLeast(1) }
-                val pageHeightPx = with(density) { (maxHeight - 4.dp).roundToPx().coerceAtLeast(1) }
-                val textPages = if (paged) {
-                    rememberTextPages(
-                        state = state,
-                        strings = strings,
-                        contentWidthPx = contentWidthPx,
-                        pageHeightPx = pageHeightPx,
-                    )
-                } else {
-                    emptyList()
-                }
-                val pages = remember(
-                    state.quizSubmitted,
-                    state.quiz.size,
-                    state.grammar,
-                    state.hasPreviousUnit,
-                    state.hasNextUnit,
-                    textPages,
-                    hasGuide,
-                    paged,
-                ) {
-                    ReaderFlow.pages(state, textPages, hasGuide, paged)
-                }
-
-                if (pages.isEmpty()) {
-                    Text(strings.emptyLibrary, modifier = Modifier.padding(24.dp))
-                    return@BoxWithConstraints
-                }
-
-                // Page indices include the two cross-unit bridge pages, so the
-                // guide, text and quiz offsets are looked up instead of assumed.
-                val guideIndex = pages.indexOf(ReaderPage.Guide)
-                val textStart = pages.indexOfFirst {
-                    it is ReaderPage.Text || it == ReaderPage.TextScroll
-                }
-                val quizStart = pages.indexOfFirst { it is ReaderPage.Quiz }
-                val grammarIndex = pages.indexOf(ReaderPage.Grammar)
-                val initialPage = when (state.resumePhase) {
-                    ReaderPhase.GUIDE -> if (hasGuide) guideIndex else textStart
-                    ReaderPhase.TEXT -> if (paged) {
-                        textStart + state.resumeTextPage.coerceIn(0, maxOf(0, textPages.lastIndex))
+            Box(Modifier.fillMaxSize().padding(padding).navigationBarsPadding()) {
+                BoxWithConstraints(Modifier.fillMaxSize()) {
+                    val density = LocalDensity.current
+                    // The text column is min(screen, 760dp) minus the reader's
+                    // chosen page margins (T158); page-turn zones shrink with the
+                    // margin so they never cover a word.
+                    val pagePadding = state.preference.pageMargin.horizontalPadding()
+                    val textWidth = minOf(maxWidth, 760.dp) - pagePadding * 2
+                    val pageTurnZone = minOf(pagePadding, PageTurnZoneWidth)
+                    val contentWidthPx = with(density) { textWidth.roundToPx().coerceAtLeast(1) }
+                    val pageHeightPx = with(density) { (maxHeight - 4.dp).roundToPx().coerceAtLeast(1) }
+                    val textPages = if (paged) {
+                        rememberTextPages(
+                            state = state,
+                            strings = strings,
+                            contentWidthPx = contentWidthPx,
+                            pageHeightPx = pageHeightPx,
+                        )
                     } else {
-                        textStart
+                        emptyList()
                     }
-                    ReaderPhase.QUIZ -> quizStart
-                    ReaderPhase.GRAMMAR -> grammarIndex.takeIf { it >= 0 } ?: quizStart
-                }.coerceIn(0, pages.lastIndex)
+                    val pages = remember(
+                        state.quizSubmitted,
+                        state.quiz.size,
+                        state.grammar,
+                        state.hasPreviousUnit,
+                        state.hasNextUnit,
+                        textPages,
+                        hasGuide,
+                        paged,
+                    ) {
+                        ReaderFlow.pages(state, textPages, hasGuide, paged)
+                    }
 
-                key(state.unitId, paged) {
-                    val pagerState = rememberPagerState(initialPage = initialPage, pageCount = { pages.size })
-                    SideEffect {
-                        pagerStateRef = pagerState
-                        progressTargets = buildMap {
-                            if (hasGuide) put(ProgressKind.GUIDE, guideIndex)
-                            val textTarget = if (paged) {
-                                textStart + state.resumeTextPage.coerceIn(
-                                    0,
-                                    maxOf(0, textPages.lastIndex),
-                                )
-                            } else {
-                                textStart
+                    if (pages.isEmpty()) {
+                        Text(strings.emptyLibrary, modifier = Modifier.padding(24.dp))
+                        return@BoxWithConstraints
+                    }
+
+                    // Page indices include the two cross-unit bridge pages, so the
+                    // guide, text and quiz offsets are looked up instead of assumed.
+                    val guideIndex = pages.indexOf(ReaderPage.Guide)
+                    val textStart = pages.indexOfFirst {
+                        it is ReaderPage.Text || it == ReaderPage.TextScroll
+                    }
+                    val quizStart = pages.indexOfFirst { it is ReaderPage.Quiz }
+                    val grammarIndex = pages.indexOf(ReaderPage.Grammar)
+                    val initialPage = when (state.resumePhase) {
+                        ReaderPhase.GUIDE -> if (hasGuide) guideIndex else textStart
+                        ReaderPhase.TEXT -> if (paged) {
+                            textStart + anchoredPage(pagedAnchor, state.resumeTextPage, textPages.size)
+                        } else {
+                            textStart
+                        }
+                        ReaderPhase.QUIZ -> quizStart
+                        ReaderPhase.GRAMMAR -> grammarIndex.takeIf { it >= 0 } ?: quizStart
+                    }.coerceIn(0, pages.lastIndex)
+
+                    key(state.unitId, paged, if (paged) layoutSignature else "") {
+                        val pagerState = rememberPagerState(initialPage = initialPage, pageCount = { pages.size })
+                        SideEffect {
+                            pagerStateRef = pagerState
+                            progressTargets = buildMap {
+                                if (hasGuide) put(ProgressKind.GUIDE, guideIndex)
+                                val textTarget = if (paged) {
+                                    textStart + anchoredPage(pagedAnchor, state.resumeTextPage, textPages.size)
+                                } else {
+                                    textStart
+                                }
+                                put(ProgressKind.TEXT, textTarget)
+                                if (state.quiz.isNotEmpty()) put(ProgressKind.QUIZ, quizStart)
+                                if (grammarIndex >= 0) put(ProgressKind.GRAMMAR, grammarIndex)
                             }
-                            put(ProgressKind.TEXT, textTarget)
-                            if (state.quiz.isNotEmpty()) put(ProgressKind.QUIZ, quizStart)
-                            if (grammarIndex >= 0) put(ProgressKind.GRAMMAR, grammarIndex)
                         }
-                    }
-                    var lastReportedPage by remember { mutableIntStateOf(-1) }
-                    var initialApplied by remember { mutableStateOf(false) }
-                    var wasSubmitted by remember { mutableStateOf(state.quizSubmitted) }
+                        var lastReportedPage by remember { mutableIntStateOf(-1) }
+                        var initialApplied by remember { mutableStateOf(false) }
+                        var wasSubmitted by remember { mutableStateOf(state.quizSubmitted) }
 
-                    fun goTo(page: Int) {
-                        scope.launch {
-                            pagerState.animateScrollToPage(page.coerceIn(0, pages.lastIndex))
+                        fun goTo(page: Int) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(page.coerceIn(0, pages.lastIndex))
+                            }
                         }
-                    }
 
-                    fun positionOf(page: ReaderPage): PagePosition = when (page) {
-                        ReaderPage.Guide -> PagePosition(ReaderPhase.GUIDE, 0, 0f)
-                        is ReaderPage.Text -> {
-                            val index = textPages.indexOf(page.page)
-                            PagePosition(
-                                ReaderPhase.TEXT,
-                                index.coerceAtLeast(0),
-                                if (textPages.isEmpty()) 0f else (index + 1f) / textPages.size,
-                            )
-                        }
-                        ReaderPage.TextScroll -> PagePosition(ReaderPhase.TEXT, 0, textScrollProgress)
-                        is ReaderPage.Quiz -> PagePosition(
-                            ReaderPhase.QUIZ,
-                            state.resumeTextPage.coerceIn(0, maxOf(0, textPages.lastIndex)),
-                            1f,
-                        )
-                        ReaderPage.Grammar -> PagePosition(
-                            ReaderPhase.GRAMMAR,
-                            state.resumeTextPage.coerceIn(0, maxOf(0, textPages.lastIndex)),
-                            1f,
-                        )
-                        // Bridge pages never report a position; they only load
-                        // the adjacent unit once the pager settles on them.
-                        ReaderPage.PreviousUnit -> PagePosition(ReaderPhase.GUIDE, 0, 0f)
-                        ReaderPage.NextUnit -> PagePosition(ReaderPhase.GRAMMAR, 0, 1f)
-                    }
-
-                    fun segmentsFor(page: ReaderPage): List<ProgressSegment> {
-                        val textProgress = when (page) {
-                            ReaderPage.Guide -> 0f
+                        fun positionOf(page: ReaderPage): PagePosition = when (page) {
+                            ReaderPage.Guide -> PagePosition(ReaderPhase.GUIDE, 0, 0f)
                             is ReaderPage.Text -> {
                                 val index = textPages.indexOf(page.page)
-                                if (textPages.isEmpty()) 0f else (index + 1f) / textPages.size
-                            }
-                            ReaderPage.TextScroll -> textScrollProgress
-                            else -> 1f
-                        }
-                        val answered = state.quiz.count { it.selected != null }
-                        val quizProgress = when {
-                            state.quiz.isEmpty() -> null
-                            state.quizSubmitted -> 1f
-                            else -> answered.toFloat() / state.quiz.size
-                        }
-                        return buildList {
-                            if (hasGuide) {
-                                add(
-                                    ProgressSegment(
-                                        ProgressKind.GUIDE,
-                                        strings.progressGuide,
-                                        if (page == ReaderPage.Guide) 0f else 1f,
-                                        active = page == ReaderPage.Guide,
-                                    ),
+                                PagePosition(
+                                    ReaderPhase.TEXT,
+                                    index.coerceAtLeast(0),
+                                    if (textPages.isEmpty()) 0f else (index + 1f) / textPages.size,
                                 )
                             }
-                            add(
-                                ProgressSegment(
-                                    ProgressKind.TEXT,
-                                    strings.progressText,
-                                    textProgress.coerceIn(0f, 1f),
-                                    active = page is ReaderPage.Text || page == ReaderPage.TextScroll,
-                                ),
+                            ReaderPage.TextScroll -> PagePosition(ReaderPhase.TEXT, 0, textScrollProgress)
+                            is ReaderPage.Quiz -> PagePosition(
+                                ReaderPhase.QUIZ,
+                                state.resumeTextPage.coerceIn(0, maxOf(0, textPages.lastIndex)),
+                                1f,
                             )
-                            quizProgress?.let {
+                            ReaderPage.Grammar -> PagePosition(
+                                ReaderPhase.GRAMMAR,
+                                state.resumeTextPage.coerceIn(0, maxOf(0, textPages.lastIndex)),
+                                1f,
+                            )
+                            // Bridge pages never report a position; they only load
+                            // the adjacent unit once the pager settles on them.
+                            ReaderPage.PreviousUnit -> PagePosition(ReaderPhase.GUIDE, 0, 0f)
+                            ReaderPage.NextUnit -> PagePosition(ReaderPhase.GRAMMAR, 0, 1f)
+                        }
+
+                        fun segmentsFor(page: ReaderPage): List<ProgressSegment> {
+                            val textProgress = when (page) {
+                                ReaderPage.Guide -> 0f
+                                is ReaderPage.Text -> {
+                                    val index = textPages.indexOf(page.page)
+                                    if (textPages.isEmpty()) 0f else (index + 1f) / textPages.size
+                                }
+                                ReaderPage.TextScroll -> textScrollProgress
+                                else -> 1f
+                            }
+                            val answered = state.quiz.count { it.selected != null }
+                            val quizProgress = when {
+                                state.quiz.isEmpty() -> null
+                                state.quizSubmitted -> 1f
+                                else -> answered.toFloat() / state.quiz.size
+                            }
+                            return buildList {
+                                if (hasGuide) {
+                                    add(
+                                        ProgressSegment(
+                                            ProgressKind.GUIDE,
+                                            strings.progressGuide,
+                                            if (page == ReaderPage.Guide) 0f else 1f,
+                                            active = page == ReaderPage.Guide,
+                                        ),
+                                    )
+                                }
                                 add(
                                     ProgressSegment(
-                                        ProgressKind.QUIZ,
-                                        strings.progressQuiz,
-                                        it.coerceIn(0f, 1f),
-                                        active = page is ReaderPage.Quiz,
+                                        ProgressKind.TEXT,
+                                        strings.progressText,
+                                        textProgress.coerceIn(0f, 1f),
+                                        active = page is ReaderPage.Text || page == ReaderPage.TextScroll,
                                     ),
                                 )
-                            }
-                            if (state.grammar != null) {
-                                add(
-                                    ProgressSegment(
-                                        ProgressKind.GRAMMAR,
-                                        strings.progressGrammar,
-                                        if (page == ReaderPage.Grammar) 1f else 0f,
-                                        active = page == ReaderPage.Grammar,
-                                    ),
-                                )
+                                quizProgress?.let {
+                                    add(
+                                        ProgressSegment(
+                                            ProgressKind.QUIZ,
+                                            strings.progressQuiz,
+                                            it.coerceIn(0f, 1f),
+                                            active = page is ReaderPage.Quiz,
+                                        ),
+                                    )
+                                }
+                                if (state.grammar != null) {
+                                    add(
+                                        ProgressSegment(
+                                            ProgressKind.GRAMMAR,
+                                            strings.progressGrammar,
+                                            if (page == ReaderPage.Grammar) 1f else 0f,
+                                            active = page == ReaderPage.Grammar,
+                                        ),
+                                    )
+                                }
                             }
                         }
-                    }
 
-                    fun updateProgress(page: ReaderPage) {
-                        progressSegments = segmentsFor(page)
-                    }
-
-                    LaunchedEffect(returnToTextAfterPreview) {
-                        if (returnToTextAfterPreview && pages.isNotEmpty()) {
-                            pagerState.scrollToPage(textStart)
-                            returnToTextAfterPreview = false
+                        fun updateProgress(page: ReaderPage) {
+                            progressSegments = segmentsFor(page)
                         }
-                    }
 
-                    LaunchedEffect(pages.size, initialPage) {
-                        if (!initialApplied && pages.isNotEmpty()) {
-                            pagerState.scrollToPage(initialPage)
-                            lastReportedPage = initialPage
-                            initialApplied = true
-                            updateProgress(pages[initialPage])
-                        }
-                    }
-
-                    // A list row asked to show one sentence. Paged layout lands on
-                    // the page that contains it; scrolling mode first switches to
-                    // the text page, then the scroll view aligns the paragraph.
-                    LaunchedEffect(state.jumpTarget?.token, pages) {
-                        val target = state.jumpTarget ?: return@LaunchedEffect
-                        if (paged) {
-                            val paragraphIndex = state.paragraphs.indexOfFirst {
-                                it.id == target.paragraphId
+                        LaunchedEffect(returnToTextAfterPreview) {
+                            if (returnToTextAfterPreview && pages.isNotEmpty()) {
+                                pagerState.scrollToPage(textStart)
+                                returnToTextAfterPreview = false
                             }
-                            val sentenceIndex = state.paragraphs.getOrNull(paragraphIndex)
-                                ?.sentences
-                                ?.indexOfFirst { it.number == target.sentenceNumber }
-                                ?: -1
-                            val pageIndex = if (paragraphIndex >= 0 && sentenceIndex >= 0) {
-                                textPages.indexOfFirst { page ->
-                                    page.chunks.any { chunk ->
-                                        chunk.paragraphId == target.paragraphId &&
-                                            sentenceIndex >= chunk.sentenceStart &&
-                                            sentenceIndex < chunk.sentenceEndExclusive
+                        }
+
+                        LaunchedEffect(pages.size, initialPage) {
+                            if (!initialApplied && pages.isNotEmpty()) {
+                                pagerState.scrollToPage(initialPage)
+                                lastReportedPage = initialPage
+                                initialApplied = true
+                                updateProgress(pages[initialPage])
+                            }
+                        }
+
+                        // A list row asked to show one sentence. Paged layout lands on
+                        // the page that contains it; scrolling mode first switches to
+                        // the text page, then the scroll view aligns the paragraph.
+                        LaunchedEffect(state.jumpTarget?.token, pages) {
+                            val target = state.jumpTarget ?: return@LaunchedEffect
+                            if (paged) {
+                                val paragraphIndex = state.paragraphs.indexOfFirst {
+                                    it.id == target.paragraphId
+                                }
+                                val sentenceIndex = state.paragraphs.getOrNull(paragraphIndex)
+                                    ?.sentences
+                                    ?.indexOfFirst { it.number == target.sentenceNumber }
+                                    ?: -1
+                                val pageIndex = if (paragraphIndex >= 0 && sentenceIndex >= 0) {
+                                    textPages.indexOfFirst { page ->
+                                        page.chunks.any { chunk ->
+                                            chunk.paragraphId == target.paragraphId &&
+                                                sentenceIndex >= chunk.sentenceStart &&
+                                                sentenceIndex < chunk.sentenceEndExclusive
+                                        }
                                     }
+                                } else {
+                                    -1
                                 }
-                            } else {
-                                -1
-                            }
-                            if (pageIndex >= 0) {
-                                pagerState.scrollToPage(textStart + pageIndex)
-                                lastReportedPage = textStart + pageIndex
+                                if (pageIndex >= 0) {
+                                    pagerState.scrollToPage(textStart + pageIndex)
+                                    lastReportedPage = textStart + pageIndex
+                                    focusSentence = SentenceFocus(target.paragraphId, target.sentenceNumber)
+                                }
+                                onJumpHandled()
+                            } else if (state.paragraphs.any { it.id == target.paragraphId }) {
+                                pagerState.scrollToPage(textStart)
+                                pendingScrollParagraph = target.paragraphId
                                 focusSentence = SentenceFocus(target.paragraphId, target.sentenceNumber)
+                            } else {
+                                // The paragraph moved or disappeared; the list already
+                                // showed the stored quote, so there is nothing to scroll to.
+                                onJumpHandled()
                             }
-                            onJumpHandled()
-                        } else if (state.paragraphs.any { it.id == target.paragraphId }) {
-                            pagerState.scrollToPage(textStart)
-                            pendingScrollParagraph = target.paragraphId
-                            focusSentence = SentenceFocus(target.paragraphId, target.sentenceNumber)
-                        } else {
-                            // The paragraph moved or disappeared; the list already
-                            // showed the stored quote, so there is nothing to scroll to.
-                            onJumpHandled()
                         }
-                    }
 
-                    LaunchedEffect(focusSentence) {
-                        if (focusSentence == null) return@LaunchedEffect
-                        delay(2600)
-                        focusSentence = null
-                    }
-
-                    LaunchedEffect(pages.size) {
-                        if (pagerState.currentPage > pages.lastIndex) {
-                            pagerState.scrollToPage(pages.lastIndex)
+                        LaunchedEffect(focusSentence) {
+                            if (focusSentence == null) return@LaunchedEffect
+                            delay(2600)
+                            focusSentence = null
                         }
-                    }
 
-                    // A bridge page only exists to carry the swipe past the unit
-                    // edge. Load the adjacent unit once the pager has settled so
-                    // a small drag that springs back never switches units.
-                    var boundaryNavigating by remember { mutableStateOf(false) }
-                    LaunchedEffect(pagerState, pages) {
-                        snapshotFlow { pagerState.settledPage }.collect { settled ->
-                            when (pages.getOrNull(settled)) {
-                                ReaderPage.PreviousUnit -> if (!boundaryNavigating) {
-                                    boundaryNavigating = true
-                                    onPreviousUnit()
+                        LaunchedEffect(pages.size) {
+                            if (pagerState.currentPage > pages.lastIndex) {
+                                pagerState.scrollToPage(pages.lastIndex)
+                            }
+                        }
+
+                        // A bridge page only exists to carry the swipe past the unit
+                        // edge. Load the adjacent unit once the pager has settled so
+                        // a small drag that springs back never switches units.
+                        var boundaryNavigating by remember { mutableStateOf(false) }
+                        LaunchedEffect(pagerState, pages) {
+                            snapshotFlow { pagerState.settledPage }.collect { settled ->
+                                when (pages.getOrNull(settled)) {
+                                    ReaderPage.PreviousUnit -> if (!boundaryNavigating) {
+                                        boundaryNavigating = true
+                                        onPreviousUnit()
+                                    }
+                                    ReaderPage.NextUnit -> if (!boundaryNavigating) {
+                                        boundaryNavigating = true
+                                        onNextUnit()
+                                    }
+                                    else -> boundaryNavigating = false
                                 }
-                                ReaderPage.NextUnit -> if (!boundaryNavigating) {
-                                    boundaryNavigating = true
+                            }
+                        }
+
+                        LaunchedEffect(pagerState.currentPage, pages.size) {
+                            val page = pages.getOrNull(pagerState.currentPage) ?: return@LaunchedEffect
+                            if (page == ReaderPage.PreviousUnit || page == ReaderPage.NextUnit) {
+                                return@LaunchedEffect
+                            }
+                            val position = positionOf(page)
+                            if (page is ReaderPage.Text) {
+                                val index = textPages.indexOf(page.page)
+                                if (index >= 0 && textPages.isNotEmpty()) {
+                                    pagedAnchor = (index + 0.5f) / textPages.size
+                                }
+                            }
+                            updateProgress(page)
+                            if (pagerState.currentPage != lastReportedPage) {
+                                lastReportedPage = pagerState.currentPage
+                                expandedTranslation = null
+                                if (page != ReaderPage.Guide) onGuideStarted()
+                                onStopSpeaking()
+                                val anchorParagraphId = when (page) {
+                                    is ReaderPage.Text -> page.page.anchorParagraphId
+                                    ReaderPage.TextScroll -> state.paragraphs.firstOrNull()?.id
+                                    else -> null
+                                }
+                                onPageChanged(
+                                    position.phase,
+                                    position.textPage,
+                                    position.textProgress,
+                                    anchorParagraphId,
+                                )
+                            }
+                        }
+
+                        LaunchedEffect(state.quiz, state.quizSubmitted, textScrollProgress, pagerState.currentPage) {
+                            pages.getOrNull(pagerState.currentPage)
+                                ?.takeUnless { it == ReaderPage.PreviousUnit || it == ReaderPage.NextUnit }
+                                ?.let(::updateProgress)
+                        }
+
+                        LaunchedEffect(state.quizSubmitted) {
+                            val grammarIndex = pages.indexOf(ReaderPage.Grammar)
+                            val firstQuizIndex = pages.indexOfFirst { it is ReaderPage.Quiz }
+                            if (state.quizSubmitted && !wasSubmitted) {
+                                // No summary page: the last answer goes straight to
+                                // this unit's grammar, or to the next unit's guide.
+                                if (grammarIndex >= 0) {
+                                    pagerState.animateScrollToPage(grammarIndex)
+                                } else {
                                     onNextUnit()
                                 }
-                                else -> boundaryNavigating = false
+                            } else if (!state.quizSubmitted && wasSubmitted && firstQuizIndex >= 0) {
+                                pagerState.animateScrollToPage(firstQuizIndex)
                             }
+                            wasSubmitted = state.quizSubmitted
                         }
-                    }
 
-                    LaunchedEffect(pagerState.currentPage, pages.size) {
-                        val page = pages.getOrNull(pagerState.currentPage) ?: return@LaunchedEffect
-                        if (page == ReaderPage.PreviousUnit || page == ReaderPage.NextUnit) {
-                            return@LaunchedEffect
-                        }
-                        val position = positionOf(page)
-                        updateProgress(page)
-                        if (pagerState.currentPage != lastReportedPage) {
-                            lastReportedPage = pagerState.currentPage
-                            expandedTranslation = null
-                            if (page != ReaderPage.Guide) onGuideStarted()
-                            onStopSpeaking()
-                            val anchorParagraphId = when (page) {
-                                is ReaderPage.Text -> page.page.anchorParagraphId
-                                ReaderPage.TextScroll -> state.paragraphs.firstOrNull()?.id
-                                else -> null
-                            }
-                            onPageChanged(
-                                position.phase,
-                                position.textPage,
-                                position.textProgress,
-                                anchorParagraphId,
-                            )
-                        }
-                    }
+                        // A tap that no word, icon or button consumed lands here and
+                        // opens the bottom menu; the scrim closes it again.
+                        Box(
+                            Modifier
+                                .fillMaxSize()
+                                .pointerInput(Unit) {
+                                    detectTapGestures(onTap = { dockVisible = true })
+                                },
+                        ) {
+                            HorizontalPager(
+                                state = pagerState,
+                                userScrollEnabled = paged,
+                                modifier = Modifier.fillMaxSize(),
+                            ) { index ->
+                                when (val page = pages[index]) {
+                                    ReaderPage.PreviousUnit -> UnitBridgePage(
+                                        label = strings.previousUnitGrammar,
+                                    )
 
-                    LaunchedEffect(state.quiz, state.quizSubmitted, textScrollProgress, pagerState.currentPage) {
-                        pages.getOrNull(pagerState.currentPage)
-                            ?.takeUnless { it == ReaderPage.PreviousUnit || it == ReaderPage.NextUnit }
-                            ?.let(::updateProgress)
-                    }
+                                    ReaderPage.NextUnit -> UnitBridgePage(
+                                        label = strings.nextUnitGuide,
+                                    )
 
-                    LaunchedEffect(state.quizSubmitted) {
-                        val grammarIndex = pages.indexOf(ReaderPage.Grammar)
-                        val firstQuizIndex = pages.indexOfFirst { it is ReaderPage.Quiz }
-                        if (state.quizSubmitted && !wasSubmitted) {
-                            // No summary page: the last answer goes straight to
-                            // this unit's grammar, or to the next unit's guide.
-                            if (grammarIndex >= 0) {
-                                pagerState.animateScrollToPage(grammarIndex)
-                            } else {
-                                onNextUnit()
-                            }
-                        } else if (!state.quizSubmitted && wasSubmitted && firstQuizIndex >= 0) {
-                            pagerState.animateScrollToPage(firstQuizIndex)
-                        }
-                        wasSubmitted = state.quizSubmitted
-                    }
-
-                    Box(Modifier.fillMaxSize()) {
-                        HorizontalPager(
-                            state = pagerState,
-                            userScrollEnabled = paged,
-                            modifier = Modifier.fillMaxSize(),
-                        ) { index ->
-                            when (val page = pages[index]) {
-                                ReaderPage.PreviousUnit -> UnitBridgePage(
-                                    label = strings.previousUnitGrammar,
-                                )
-
-                                ReaderPage.NextUnit -> UnitBridgePage(
-                                    label = strings.nextUnitGuide,
-                                )
-
-                                ReaderPage.Guide -> GuidePageView(
-                                    strings = strings,
-                                    state = state,
-                                    copy = guideText ?: GuideCopy(null, null),
-                                    onStart = {
-                                        onGuideStarted()
-                                        forceTextTop = true
-                                        textScrollProgress = 0f
-                                        onPageChanged(ReaderPhase.TEXT, 0, 0f, state.paragraphs.firstOrNull()?.id)
-                                        textSession += 1
-                                        goTo(textStart)
-                                    },
-                                    onPreview = onStartPreview,
-                                )
-
-                                is ReaderPage.Text -> TextPageView(
-                                    strings = strings,
-                                    state = state,
-                                    page = page.page,
-                                    pageIndex = textPages.indexOf(page.page) + 1,
-                                    pageCount = textPages.size,
-                                    hasNextPage = index < pages.lastIndex,
-                                    onWordClick = onWordClick,
-                                    onAnalysis = openAnalysis,
-                                    onNextPage = { goTo(index + 1) },
-                                    onNextUnit = onNextUnit,
-                                    expandedTranslation = expandedTranslation,
-                                    focus = focusSentence,
-                                    onTranslate = { paragraphId, sentence ->
-                                        expandedTranslation = toggleTranslation(
-                                            current = expandedTranslation,
-                                            paragraphId = paragraphId,
-                                            sentence = sentence,
-                                        )
-                                    },
-                                    onSentenceLongPress = { paragraphId, sentence ->
-                                        actionTarget = SentenceActionTarget(
-                                            paragraphId,
-                                            sentence.number,
-                                            sentence.text,
-                                        )
-                                    },
-                                )
-
-                                ReaderPage.TextScroll -> key(textSession) {
-                                    TextScrollView(
+                                    ReaderPage.Guide -> GuidePageView(
                                         strings = strings,
                                         state = state,
-                                        startAtTop = forceTextTop,
-                                        expandedTranslation = expandedTranslation,
-                                        focus = focusSentence,
-                                        enterLabel = when {
-                                            state.quiz.isNotEmpty() -> strings.enterQuiz
-                                            state.grammar != null -> strings.continueReading
-                                            state.hasNextUnit -> strings.nextUnit
-                                            else -> strings.finishBook
+                                        copy = guideText ?: GuideCopy(null, null),
+                                        onStart = {
+                                            onGuideStarted()
+                                            forceTextTop = true
+                                            textScrollProgress = 0f
+                                            onPageChanged(ReaderPhase.TEXT, 0, 0f, state.paragraphs.firstOrNull()?.id)
+                                            textSession += 1
+                                            goTo(textStart)
                                         },
+                                        onPreview = onStartPreview,
+                                    )
+
+                                    is ReaderPage.Text -> TextPageView(
+                                        strings = strings,
+                                        state = state,
+                                        page = page.page,
+                                        pageIndex = textPages.indexOf(page.page) + 1,
+                                        pageCount = textPages.size,
+                                        hasNextPage = index < pages.lastIndex,
                                         onWordClick = onWordClick,
                                         onAnalysis = openAnalysis,
+                                        onNextPage = { goTo(index + 1) },
+                                        onNextUnit = onNextUnit,
+                                        expandedTranslation = expandedTranslation,
+                                        focus = focusSentence,
                                         onTranslate = { paragraphId, sentence ->
                                             expandedTranslation = toggleTranslation(
                                                 current = expandedTranslation,
@@ -603,92 +614,164 @@ fun ReaderScreen(
                                                 sentence.text,
                                             )
                                         },
-                                        scrollToParagraphId = pendingScrollParagraph,
-                                        onScrollHandled = {
-                                            pendingScrollParagraph = null
-                                            onJumpHandled()
-                                        },
-                                        onEnterQuiz = {
-                                            if (state.quiz.isEmpty() && state.grammar == null) {
-                                                onNextUnit()
+                                    )
+
+                                    ReaderPage.TextScroll -> key(textSession) {
+                                        TextScrollView(
+                                            strings = strings,
+                                            state = state,
+                                            startAtTop = forceTextTop,
+                                            expandedTranslation = expandedTranslation,
+                                            focus = focusSentence,
+                                            enterLabel = when {
+                                                state.quiz.isNotEmpty() -> strings.enterQuiz
+                                                state.grammar != null -> strings.continueReading
+                                                state.hasNextUnit -> strings.nextUnit
+                                                else -> strings.finishBook
+                                            },
+                                            onWordClick = onWordClick,
+                                            onAnalysis = openAnalysis,
+                                            onTranslate = { paragraphId, sentence ->
+                                                expandedTranslation = toggleTranslation(
+                                                    current = expandedTranslation,
+                                                    paragraphId = paragraphId,
+                                                    sentence = sentence,
+                                                )
+                                            },
+                                            onSentenceLongPress = { paragraphId, sentence ->
+                                                actionTarget = SentenceActionTarget(
+                                                    paragraphId,
+                                                    sentence.number,
+                                                    sentence.text,
+                                                )
+                                            },
+                                            scrollToParagraphId = pendingScrollParagraph,
+                                            onScrollHandled = {
+                                                pendingScrollParagraph = null
+                                                onJumpHandled()
+                                            },
+                                            onEnterQuiz = {
+                                                if (state.quiz.isEmpty() && state.grammar == null) {
+                                                    onNextUnit()
+                                                } else {
+                                                    goTo(quizStart)
+                                                }
+                                            },
+                                            onProgress = {
+                                                textScrollProgress = it
+                                                onTextProgress(it)
+                                            },
+                                        )
+                                    }
+
+                                    is ReaderPage.Quiz -> QuizPageView(
+                                        strings = strings,
+                                        question = state.quiz[page.index],
+                                        index = page.index,
+                                        total = state.quiz.size,
+                                        allAnswered = state.quiz.all { it.selected != null },
+                                        unansweredCount = state.quiz.count { it.selected == null },
+                                        onSelect = { option -> onSelectOption(page.index, option) },
+                                        onNext = {
+                                            if (page.index == state.quiz.lastIndex) {
+                                                onSubmitQuiz()
                                             } else {
-                                                goTo(quizStart)
+                                                goTo(index + 1)
                                             }
                                         },
-                                        onProgress = {
-                                            textScrollProgress = it
-                                            onTextProgress(it)
-                                        },
+                                    )
+
+                                    ReaderPage.Grammar -> Column(
+                                        Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+                                            .padding(horizontal = 20.dp, vertical = 10.dp),
+                                    ) {
+                                        state.grammar?.let {
+                                            GrammarCard(strings, it, onOpenPoint = onOpenGrammarPoint)
+                                        }
+                                        Spacer(Modifier.height(18.dp))
+                                        Button(
+                                            onClick = onNextUnit,
+                                            modifier = Modifier.fillMaxWidth(),
+                                        ) {
+                                            Text(if (state.hasNextUnit) strings.nextUnit else strings.finishBook)
+                                        }
+                                        Spacer(Modifier.height(24.dp))
+                                    }
+                                }
+                            }
+
+                            if (paged) {
+                                val currentPage = pages.getOrNull(pagerState.currentPage)
+                                if (pagerState.currentPage > 0) {
+                                    Box(
+                                        modifier = Modifier
+                                            .align(Alignment.CenterStart)
+                                            .fillMaxHeight()
+                                            .width(pageTurnZone)
+                                            .semantics { contentDescription = strings.previousPage }
+                                            .clickable(
+                                                onClickLabel = strings.previousPage,
+                                                onClick = { goTo(pagerState.currentPage - 1) },
+                                            ),
                                     )
                                 }
-
-                                is ReaderPage.Quiz -> QuizPageView(
-                                    strings = strings,
-                                    question = state.quiz[page.index],
-                                    index = page.index,
-                                    total = state.quiz.size,
-                                    allAnswered = state.quiz.all { it.selected != null },
-                                    unansweredCount = state.quiz.count { it.selected == null },
-                                    onSelect = { option -> onSelectOption(page.index, option) },
-                                    onNext = {
-                                        if (page.index == state.quiz.lastIndex) {
-                                            onSubmitQuiz()
-                                        } else {
-                                            goTo(index + 1)
-                                        }
-                                    },
-                                )
-
-                                ReaderPage.Grammar -> Column(
-                                    Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-                                        .padding(horizontal = 20.dp, vertical = 10.dp),
-                                ) {
-                                    state.grammar?.let {
-                                        GrammarCard(strings, it, onOpenPoint = onOpenGrammarPoint)
-                                    }
-                                    Spacer(Modifier.height(18.dp))
-                                    Button(
-                                        onClick = onNextUnit,
-                                        modifier = Modifier.fillMaxWidth(),
-                                    ) {
-                                        Text(if (state.hasNextUnit) strings.nextUnit else strings.finishBook)
-                                    }
-                                    Spacer(Modifier.height(24.dp))
+                                if (pagerState.currentPage < pages.lastIndex) {
+                                    Box(
+                                        modifier = Modifier
+                                            .align(Alignment.CenterEnd)
+                                            .fillMaxHeight()
+                                            .width(pageTurnZone)
+                                            .semantics { contentDescription = strings.nextPage }
+                                            .clickable(
+                                                onClickLabel = strings.nextPage,
+                                                onClick = { goTo(pagerState.currentPage + 1) },
+                                            ),
+                                    )
                                 }
-                            }
-                        }
-
-                        if (paged) {
-                            val currentPage = pages.getOrNull(pagerState.currentPage)
-                            if (pagerState.currentPage > 0) {
-                                Box(
-                                    modifier = Modifier
-                                        .align(Alignment.CenterStart)
-                                        .fillMaxHeight()
-                                        .width(pageTurnZone)
-                                        .semantics { contentDescription = strings.previousPage }
-                                        .clickable(
-                                            onClickLabel = strings.previousPage,
-                                            onClick = { goTo(pagerState.currentPage - 1) },
-                                        ),
-                                )
-                            }
-                            if (pagerState.currentPage < pages.lastIndex) {
-                                Box(
-                                    modifier = Modifier
-                                        .align(Alignment.CenterEnd)
-                                        .fillMaxHeight()
-                                        .width(pageTurnZone)
-                                        .semantics { contentDescription = strings.nextPage }
-                                        .clickable(
-                                            onClickLabel = strings.nextPage,
-                                            onClick = { goTo(pagerState.currentPage + 1) },
-                                        ),
-                                )
                             }
                         }
                     }
                 }
+                ReaderDockOverlay(
+                    strings = strings,
+                    visible = dockVisible,
+                    settingsOpen = dockSettingsOpen,
+                    preference = state.preference,
+                    annotationCount = state.annotations.size,
+                    cardsCount = state.cardsCount,
+                    onDismiss = {
+                        dockVisible = false
+                        dockSettingsOpen = false
+                    },
+                    onOpenToc = {
+                        dockVisible = false
+                        dockSettingsOpen = false
+                        showToc = true
+                    },
+                    onOpenAnnotations = {
+                        dockVisible = false
+                        dockSettingsOpen = false
+                        showAnnotations = true
+                    },
+                    onToggleSettings = { dockSettingsOpen = !dockSettingsOpen },
+                    onOpenCards = {
+                        dockVisible = false
+                        dockSettingsOpen = false
+                        onOpenCards()
+                    },
+                    onOpenSettings = {
+                        dockVisible = false
+                        dockSettingsOpen = false
+                        onOpenSettings()
+                    },
+                    onFontSize = onFontSize,
+                    onPageMargin = onPageMargin,
+                    onLineSpacing = onLineSpacing,
+                    onReadingFont = onReadingFont,
+                    onReaderLayout = onReaderLayout,
+                    onDefinitionMode = onDefinitionMode,
+                    onGuideMode = onGuideMode,
+                )
             }
         }
     }
@@ -786,4 +869,13 @@ fun ReaderScreen(
             AnalysisSheet(strings, analysis, onClose = { analysisSentence = null })
         }
     }
+}
+
+/** Page index from the anchored fraction, falling back to the stored index. */
+private fun anchoredPage(anchor: Float?, storedPage: Int, pageCount: Int): Int {
+    if (pageCount <= 0) return 0
+    if (anchor != null) {
+        return (anchor * pageCount).toInt().coerceIn(0, pageCount - 1)
+    }
+    return storedPage.coerceIn(0, pageCount - 1)
 }
