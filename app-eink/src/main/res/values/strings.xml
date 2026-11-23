@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">页有所成 墨屏</string>
+    <!-- 与普通版同名：两个壳是同一款产品的两个发行物，不在启动器上区分。 -->
+    <string name="app_name">页有所成</string>
 </resources>

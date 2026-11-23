@@ -41,6 +41,7 @@
 | 动效 | 无 | 全部 `indication = null` |
 | 阴影/圆角 | 无 | 分层用 1px 描边与留白 |
 | 触控 | 按钮与可点行 ≥48dp | `InkButton` / `InkTextButton` |
+| 图标 | 白底黑线、**线宽固定 2px**；五档 mipmap 都按目标尺寸直接描边，不从大图缩小 | `tools/build_eink_icon.py` |
 | 翻页 | 不滚动；正文左右留白各 22dp、整页高的翻页带 | `EinkReaderScreen` |
 | 输入 | 方向键/翻页键/音量键/回车/返回，见下表 | `:presentation` `EinkKeyMap` |
 | 刷新 | 换单元必全刷；每 12 页或 90 秒全刷一次（设置里三档） | `:presentation` `EinkRefreshRules` |
@@ -149,6 +150,16 @@
 4. 若广播无效（不闪、日志无驱动响应），先确认系统版本与型号；墨案部分新机型
    把刷新策略收在系统层，可改用「长按桌面图标 → 单独设置本应用的刷新模式/全刷频率」，
    或用 Shizuku 写固件 e-ink 表（InkPalm+ 的做法，属社区方案，不进本仓库）。
+
+### 图标与应用名
+
+- **应用名**：`app-eink/src/main/res/values/strings.xml` 里 `app_name` 与普通版相同（`页有所成`），
+  启动器上两个发行物同名，只靠图标区分——这是 2026-11-23 的明确要求。
+- **图标**：`tools/build_eink_icon.py` 按 48/72/96/144/192 五档直接绘制（形状取自
+  [management/brand/pagelence-eink.svg](../../management/brand/pagelence-eink.svg)，坐标 128 格），
+  每档线宽都是 **2 像素**、不做超采样、不从 1024 主图缩小——缩小时 2px 线会掉成 1px 的灰边。
+- 改图标后跑 `python3 tools/build_eink_icon.py`，再 `./gradlew :app-eink:assembleDebug` 即可；
+  验证线宽：取任意一档 PNG，横向扫描黑色连续段，众数应为 2。
 
 ## 八、跑起来
 
