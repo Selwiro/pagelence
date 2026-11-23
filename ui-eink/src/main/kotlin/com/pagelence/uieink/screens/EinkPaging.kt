@@ -38,6 +38,7 @@ internal fun rememberEinkTextPages(
     state: ReaderUiState,
     contentWidthPx: Int,
     pageHeightPx: Int,
+    showAllTranslations: Boolean,
 ): List<SentencePage> {
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
@@ -51,7 +52,7 @@ internal fun rememberEinkTextPages(
         readingFont = ReadingFont.SERIF,
         lineSpacing = LineSpacing.NORMAL,
         pageMargin = PageMargin.NORMAL,
-        showAllTranslations = false,
+        showAllTranslations = showAllTranslations,
         language = state.language,
         density = density.density,
         fontScale = density.fontScale,
@@ -63,7 +64,7 @@ internal fun rememberEinkTextPages(
             val usableHeight = with(density) { (pageHeightPx - 44.dp.toPx()).toInt() }
                 .coerceAtLeast(200)
             val measured = state.paragraphs.flatMap { paragraph ->
-                measureParagraph(paragraph, measurer, readingStyle, contentWidthPx, density)
+                measureParagraph(paragraph, measurer, readingStyle, contentWidthPx, density, showAllTranslations)
             }
             SentencePaginator.paginate(measured, usableHeight)
         }
@@ -76,18 +77,31 @@ private fun measureParagraph(
     style: TextStyle,
     contentWidthPx: Int,
     density: Density,
+    showAllTranslations: Boolean,
 ): List<MeasuredSentence> = with(density) {
     val width = contentWidthPx.coerceAtLeast(1)
     paragraph.sentences.mapIndexed { index, sentence ->
-        val height = measurer.measure(
+        val textHeight = measurer.measure(
             sentence.text,
             style = style,
             constraints = Constraints(maxWidth = width),
         ).size.height
+        // 全部句译显示时，每句下面多一段中文；分页必须把它算进去，否则
+        // 页脚会压住最后一句的译文。
+        val zh = sentence.zh
+        val translationHeight = if (showAllTranslations && !zh.isNullOrBlank()) {
+            measurer.measure(
+                zh,
+                style = style.copy(fontSize = style.fontSize * 0.9f, lineHeight = style.lineHeight * 0.9f),
+                constraints = Constraints(maxWidth = width),
+            ).size.height + 4.dp.toPx()
+        } else {
+            0f
+        }
         MeasuredSentence(
             paragraphId = paragraph.id,
             sentenceIndex = index,
-            heightPx = (height + 4.dp.toPx()).toInt(),
+            heightPx = (textHeight + translationHeight + 4.dp.toPx()).toInt(),
             leadingHeightPx = if (index == 0) 22.dp.toPx().toInt() else 0,
         )
     }

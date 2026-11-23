@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,6 +24,7 @@ import com.pagelence.uieink.components.InkDivider
 import com.pagelence.uieink.components.InkNotice
 import com.pagelence.uieink.components.InkSectionLabel
 import com.pagelence.uieink.components.InkText
+import com.pagelence.uieink.components.InkTextButton
 import com.pagelence.uieink.components.InkTopBar
 import com.pagelence.uieink.theme.LocalInkColors
 import com.pagelence.uieink.theme.LocalInkTypography
@@ -37,6 +39,7 @@ fun EinkShelfScreen(
     library: LibraryUiState,
     onOpenBook: (String) -> Unit,
     onRetry: () -> Unit,
+    onOpenDetail: (String) -> Unit = {},
     modifier: Modifier = Modifier,
     notice: String? = null,
     builtIn: List<BuiltInBookUi> = emptyList(),
@@ -84,6 +87,7 @@ fun EinkShelfScreen(
                                 book = book,
                                 actionLabel = if (book.readUnits > 0) strings.continueReading else strings.startReading,
                                 onOpen = { onOpenBook(book.id) },
+                                onDetail = { onOpenDetail(book.id) },
                             )
                             InkDivider()
                         }
@@ -95,6 +99,7 @@ fun EinkShelfScreen(
                                 strings = strings,
                                 book = book,
                                 onOpen = { onOpenBook(book.id) },
+                                onDetail = { onOpenDetail(book.id) },
                             )
                             InkDivider()
                         }
@@ -107,6 +112,7 @@ fun EinkShelfScreen(
                                 book = book,
                                 actionLabel = strings.readAgain,
                                 onOpen = { onOpenBook(book.id) },
+                                onDetail = { onOpenDetail(book.id) },
                             )
                             InkDivider()
                         }
@@ -124,6 +130,7 @@ private fun ShelfRow(
     book: BookUi,
     actionLabel: String,
     onOpen: () -> Unit,
+    onDetail: () -> Unit,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
@@ -158,7 +165,11 @@ private fun ShelfRow(
             )
         }
         Spacer(Modifier.height(10.dp))
-        InkButton(label = actionLabel, onClick = onOpen, primary = !book.finished)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            InkButton(label = actionLabel, onClick = onOpen, primary = !book.finished)
+            Spacer(Modifier.width(8.dp))
+            InkTextButton(strings.details, onClick = onDetail)
+        }
     }
 }
 
@@ -167,6 +178,7 @@ private fun BuiltInRow(
     strings: Strings,
     book: BuiltInBookUi,
     onOpen: () -> Unit,
+    onDetail: () -> Unit,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
@@ -184,6 +196,10 @@ private fun BuiltInRow(
             color = colors.inkSecondary,
         )
         Spacer(Modifier.height(10.dp))
-        InkButton(label = strings.startReading, onClick = onOpen, primary = true)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            InkButton(label = strings.startReading, onClick = onOpen, primary = true)
+            Spacer(Modifier.width(8.dp))
+            InkTextButton(strings.details, onClick = onDetail)
+        }
     }
 }

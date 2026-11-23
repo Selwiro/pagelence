@@ -392,6 +392,8 @@ object ZhStrings : Strings {
     override val bookDifficulty: String get() = "难度"
     override val bookWordsLabel: String get() = "词汇量"
     override val bookInfoTitle: String get() = "详细信息"
+    override val details: String get() = "详情"
+    override val markSentences: String get() = "标记句子"
     override val bookInfo: String get() = "图书信息"
     override val bookAuthor: String get() = "作者"
     override val bookWordCount: String get() = "单词量"

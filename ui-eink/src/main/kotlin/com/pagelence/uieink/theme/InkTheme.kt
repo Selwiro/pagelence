@@ -29,8 +29,10 @@ data class InkColors(
     val inkMuted: Color = Color(0xFF6B6B6B),
     /** 1px 描边；比正文浅但比留白重，墨水屏上仍可辨。 */
     val rule: Color = Color(0xFF9C9C9C),
-    /** 区块底色；只用在中性提示条上。 */
+    /** 区块底色；只用在中性提示条与选中词上。 */
     val fill: Color = Color(0xFFECECEC),
+    /** 划线标记的底色；比 [fill] 深一点，和「选中词」区分开。 */
+    val markFill: Color = Color(0xFFD6D6D6),
 ) {
     companion object {
         val Light = InkColors()

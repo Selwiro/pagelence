@@ -49,6 +49,7 @@ fun EinkStoreScreen(
     store: StoreUiState,
     onRefresh: () -> Unit,
     onOpenBook: (String) -> Unit,
+    onOpenDetail: (String) -> Unit,
     onDownload: (bookId: String, sourceId: String?) -> Unit,
     onRemoveDownloaded: (String) -> Unit,
     onImportLocal: () -> Unit,
@@ -74,14 +75,14 @@ fun EinkStoreScreen(
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
             InkSectionLabel(strings.builtIn)
             store.builtIn.forEach { book ->
-                BuiltInRow(strings, book, onOpenBook)
+                BuiltInRow(strings, book, onOpenBook, onOpenDetail)
                 InkDivider()
             }
 
             if (store.books.isNotEmpty()) {
                 InkSectionLabel(strings.store)
                 store.books.forEach { book ->
-                    RemoteBookRow(strings, store, book, onDownload, onOpenBook)
+                    RemoteBookRow(strings, store, book, onDownload, onOpenBook, onOpenDetail)
                     InkDivider()
                 }
             }
@@ -139,6 +140,7 @@ private fun BuiltInRow(
     strings: Strings,
     book: BuiltInBookUi,
     onOpenBook: (String) -> Unit,
+    onOpenDetail: (String) -> Unit,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
@@ -153,7 +155,10 @@ private fun BuiltInRow(
         InkText(meta, style = typography.caption, color = colors.inkMuted)
         Spacer(Modifier.height(8.dp))
         if (book.available) {
-            InkButton(strings.readNow, onClick = { onOpenBook(book.id) }, primary = true)
+            Row {
+                InkButton(strings.readNow, onClick = { onOpenBook(book.id) }, primary = true)
+                InkTextButton(strings.details, onClick = { onOpenDetail(book.id) })
+            }
         } else {
             InkText(book.description.orEmpty(), style = typography.bodySmall, color = colors.inkMuted)
         }
@@ -167,6 +172,7 @@ private fun RemoteBookRow(
     book: StoreBookUi,
     onDownload: (String, String?) -> Unit,
     onOpenBook: (String) -> Unit,
+    onOpenDetail: (String) -> Unit,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
@@ -192,6 +198,7 @@ private fun RemoteBookRow(
                     primary = true,
                 )
             }
+            InkTextButton(strings.details, onClick = { onOpenDetail(book.id) })
         }
     }
 }

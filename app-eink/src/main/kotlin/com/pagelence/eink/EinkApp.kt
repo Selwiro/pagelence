@@ -41,11 +41,13 @@ import com.pagelence.uieink.components.InkText
 import com.pagelence.uieink.components.InkTextButton
 import com.pagelence.uieink.components.InkTopBar
 import com.pagelence.uieink.screens.EinkAboutScreen
+import com.pagelence.uieink.screens.EinkBookDetailScreen
 import com.pagelence.uieink.screens.EinkGrammarPointScreen
 import com.pagelence.uieink.screens.EinkProfileScreen
 import com.pagelence.uieink.screens.EinkReaderScreen
 import com.pagelence.uieink.screens.EinkReviewData
 import com.pagelence.uieink.screens.EinkReviewScreen
+import com.pagelence.uieink.screens.EinkSearchScreen
 import com.pagelence.uieink.screens.EinkSettingsScreen
 import com.pagelence.uieink.screens.EinkShelfScreen
 import com.pagelence.uieink.screens.EinkStoreScreen
@@ -118,6 +120,7 @@ fun EinkApp(
                             library = state.library,
                             onOpenBook = viewModel::openBook,
                             onRetry = viewModel::refreshLibrary,
+                            onOpenDetail = viewModel::openBookDetail,
                             builtIn = state.store.builtIn,
                         )
                     }
@@ -126,6 +129,7 @@ fun EinkApp(
                         store = state.store,
                         onRefresh = viewModel::refreshStore,
                         onOpenBook = viewModel::openBook,
+                        onOpenDetail = viewModel::openBookDetail,
                         onDownload = viewModel::downloadBook,
                         onRemoveDownloaded = viewModel::removeDownloadedBook,
                         onImportLocal = { importBookLauncher.launch(arrayOf("application/json", "application/octet-stream", "*/*")) },
@@ -186,6 +190,37 @@ fun EinkApp(
                         appVersion = appVersion,
                         onBack = viewModel::back,
                     )
+                    Screen.SEARCH -> {
+                        val search = state.search
+                        if (search == null) {
+                            Loading(strings)
+                        } else {
+                            EinkSearchScreen(
+                                strings = strings,
+                                search = search,
+                                onQuery = viewModel::updateSearchQuery,
+                                onOpenHit = viewModel::openSearchHit,
+                                onBack = viewModel::back,
+                            )
+                        }
+                    }
+                    Screen.BOOK_DETAIL -> {
+                        val detail = state.bookDetail
+                        if (detail == null) {
+                            Loading(strings)
+                        } else {
+                            EinkBookDetailScreen(
+                                strings = strings,
+                                detail = detail,
+                                onBack = viewModel::back,
+                                onToggleShelf = { viewModel.toggleShelf(detail.bookId) },
+                                onStartReading = viewModel::startBookFromDetail,
+                                onOpenChapter = { chapter ->
+                                    viewModel.openChapterFromDetail(detail.bookId, chapter.id)
+                                },
+                            )
+                        }
+                    }
                     Screen.GRAMMAR_POINT -> {
                         val point = state.grammarPoint
                         if (point == null) {
@@ -226,6 +261,13 @@ fun EinkApp(
                                 onPreviousUnit = viewModel::previousUnit,
                                 onFullRefresh = onFullRefresh,
                                 onWordClick = viewModel::onWordClick,
+                                onOpenSearch = viewModel::openBookSearch,
+                                onToggleAllTranslations = viewModel::toggleAllTranslations,
+                                onToggleBookmark = viewModel::toggleBookmark,
+                                onToggleHighlight = viewModel::toggleHighlight,
+                                onSaveNote = viewModel::saveNote,
+                                onDeleteNote = viewModel::deleteNote,
+                                onJumpHandled = viewModel::annotationJumpHandled,
                                 refreshSettings = refreshSettings,
                             )
                         }

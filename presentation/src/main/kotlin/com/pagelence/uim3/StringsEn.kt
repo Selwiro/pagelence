@@ -398,6 +398,8 @@ object EnStrings : Strings {
     override val bookDifficulty: String get() = "Level"
     override val bookWordsLabel: String get() = "Words"
     override val bookInfoTitle: String get() = "Details"
+    override val details: String get() = "Details"
+    override val markSentences: String get() = "Mark sentence"
     override val bookInfo: String get() = "Book information"
     override val bookAuthor: String get() = "Author"
     override val bookWordCount: String get() = "Word count"

@@ -407,6 +407,10 @@ interface Strings {
     val bookDifficulty: String
     val bookWordsLabel: String
     val bookInfoTitle: String
+    /** 墨水屏书籍详情入口按钮。 */
+    val details: String
+    /** 墨屏阅读页的「标记句子」模式开关。 */
+    val markSentences: String
     val bookInfo: String
     val bookAuthor: String
     val bookWordCount: String

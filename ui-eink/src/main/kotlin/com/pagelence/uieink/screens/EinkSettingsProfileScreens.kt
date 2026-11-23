@@ -1,5 +1,9 @@
 package com.pagelence.uieink.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -7,10 +11,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.GuideMode
@@ -22,6 +28,7 @@ import com.pagelence.uim3.AboutCopy
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.model.DictionaryUiState
+import com.pagelence.uim3.model.HeatmapCellUi
 import com.pagelence.uim3.model.ProfileUiState
 import com.pagelence.uim3.model.SettingsUiState
 import com.pagelence.uieink.components.InkButton
@@ -33,6 +40,7 @@ import com.pagelence.uieink.components.InkSelectRow
 import com.pagelence.uieink.components.InkText
 import com.pagelence.uieink.components.InkTextButton
 import com.pagelence.uieink.components.InkTopBar
+import com.pagelence.uieink.theme.InkColors
 import com.pagelence.uieink.theme.LocalInkColors
 import com.pagelence.uieink.theme.LocalInkTypography
 
@@ -262,6 +270,9 @@ fun EinkProfileScreen(
             InkKeyValueRow(strings.booksFinishedShort, profile.finishedBooks.toString())
             InkKeyValueRow(strings.readingDaysShort, profile.readingDays.toString())
             InkKeyValueRow(strings.dailyGoal, strings.goalMinutesOption.format(profile.dailyGoalMinutes))
+            if (!profile.heatmap.isEmpty) {
+                HeatmapGrid(profile.heatmap.weeks)
+            }
             InkDivider()
 
             InkSectionLabel("${strings.achievements}  ${profile.achievements.unlocked} / ${profile.achievements.total}")
@@ -280,4 +291,55 @@ fun EinkProfileScreen(
             Spacer(Modifier.height(24.dp))
         }
     }
+}
+
+/**
+ * 365 天阅读热力图：每周一列、周一在上，格子按 0–4 级灰阶填充。
+ *
+ * 手机宽度放不下 53 列 × 14dp，所以按可用宽度反算格边（通常 6–7dp）；
+ * 墨屏不画颜色图例，只保留灰阶梯度——宋体正文旁边一块色卡反而更乱。
+ */
+@Composable
+private fun HeatmapGrid(weeks: List<List<HeatmapCellUi?>>) {
+    if (weeks.isEmpty()) return
+    val colors = LocalInkColors.current
+    BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)) {
+        val columns = weeks.size
+        val gap = 2f
+        val available = (maxWidth.value - gap * (columns - 1)).coerceAtLeast(4f)
+        val cell = (available / columns).coerceAtLeast(4f).dp
+        Column {
+            for (row in 0..6) {
+                Row {
+                    weeks.forEach { week ->
+                        val cellUi = week.getOrNull(row)
+                        Box(
+                            Modifier
+                                .padding(end = gap.dp)
+                                .size(cell)
+                                .background(
+                                    if (cellUi == null) Color.Transparent else heatColor(cellUi.level, colors),
+                                )
+                                .then(
+                                    if (cellUi != null && cellUi.level == 0) {
+                                        Modifier.border(0.5.dp, colors.rule)
+                                    } else {
+                                        Modifier
+                                    },
+                                ),
+                        )
+                    }
+                }
+                Spacer(Modifier.height(gap.dp))
+            }
+        }
+    }
+}
+
+private fun heatColor(level: Int, colors: InkColors): Color = when (level) {
+    0 -> colors.paper
+    1 -> Color(0xFFE2E2E2)
+    2 -> Color(0xFFBCBCBC)
+    3 -> Color(0xFF8E8E8E)
+    else -> Color(0xFF5E5E5E)
 }

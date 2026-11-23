@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -66,6 +67,7 @@ import com.pagelence.uieink.components.InkChoiceRow
 import com.pagelence.uieink.components.InkDivider
 import com.pagelence.uieink.components.InkPageFooter
 import com.pagelence.uieink.components.InkText
+import com.pagelence.uieink.components.InkTextButton
 import com.pagelence.uieink.components.InkTopBar
 import com.pagelence.uieink.theme.LocalInkColors
 import com.pagelence.uieink.theme.LocalInkTypography
@@ -90,6 +92,13 @@ fun EinkReaderScreen(
     onPreviousUnit: () -> Unit,
     onFullRefresh: () -> Unit,
     onWordClick: (paragraphId: String, sentenceNumber: Int, spelling: String, start: Int, end: Int) -> Unit,
+    onOpenSearch: () -> Unit,
+    onToggleAllTranslations: () -> Unit,
+    onToggleBookmark: (paragraphId: String, sentenceNumber: Int) -> Unit,
+    onToggleHighlight: (paragraphId: String, sentenceNumber: Int) -> Unit,
+    onSaveNote: (paragraphId: String, sentenceNumber: Int, note: String) -> Unit,
+    onDeleteNote: (paragraphId: String, sentenceNumber: Int) -> Unit,
+    onJumpHandled: () -> Unit,
     modifier: Modifier = Modifier,
     refreshSettings: EinkRefreshSettings = EinkRefreshSettings.Default,
 ) {
@@ -102,6 +111,9 @@ fun EinkReaderScreen(
     var refreshState by remember(state.unitId) {
         mutableStateOf(EinkRefreshState.opened(SystemClock.elapsedRealtime()))
     }
+    // 标记模式：开着时点句子进标注页，关着时点词查词。
+    var markMode by remember(state.unitId) { mutableStateOf(false) }
+    var actionTarget by remember(state.unitId) { mutableStateOf<Pair<String, Int>?>(null) }
 
     Column(modifier.fillMaxSize().background(colors.paper)) {
         InkTopBar(
@@ -110,11 +122,25 @@ fun EinkReaderScreen(
             backLabel = strings.back,
             onBack = onBack,
         )
-        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+        ReaderToolbar(
+            strings = strings,
+            markMode = markMode,
+            showAllTranslations = state.preference.showAllTranslations,
+            onSearch = onOpenSearch,
+            onToggleMarkMode = { markMode = !markMode; actionTarget = null },
+            onToggleTranslations = onToggleAllTranslations,
+        )
+        Box(Modifier.weight(1f).fillMaxWidth()) {
+        BoxWithConstraints(Modifier.fillMaxSize()) {
             val density = LocalDensity.current
             val horizontalPadding = with(density) { 22.dp.roundToPx() }
             val contentWidthPx = (constraints.maxWidth - horizontalPadding * 2).coerceAtLeast(1)
-            val textPages = rememberEinkTextPages(state, contentWidthPx, constraints.maxHeight)
+            val textPages = rememberEinkTextPages(
+                state = state,
+                contentWidthPx = contentWidthPx,
+                pageHeightPx = constraints.maxHeight,
+                showAllTranslations = state.preference.showAllTranslations,
+            )
             val pages = remember(
                 state.unitId,
                 textPages,
@@ -150,6 +176,17 @@ fun EinkReaderScreen(
                 )
                 refreshState = decision.state
                 if (decision.fullRefresh) onFullRefresh()
+            }
+            // 搜索 / 笔记列表要求定位到某一句：找到它所在的正文页并翻过去。
+            LaunchedEffect(state.jumpTarget, pages.size) {
+                val target = state.jumpTarget ?: return@LaunchedEffect
+                val textPages = pages.withIndex().filter { it.value is ReaderPage.Text }
+                val hit = textPages.firstOrNull { (_, page) ->
+                    val text = page as ReaderPage.Text
+                    text.page.chunks.any { it.paragraphId == target.paragraphId }
+                }
+                if (hit != null) cursor = hit.index
+                onJumpHandled()
             }
             LaunchedEffect(Unit) { focusRequester.requestFocus() }
 
@@ -211,6 +248,10 @@ fun EinkReaderScreen(
                                 onPrevious = turnPrevious,
                                 onNext = turnNext,
                                 onWordClick = onWordClick,
+                                markMode = markMode,
+                                onSentenceTap = { paragraphId, sentenceNumber ->
+                                    actionTarget = paragraphId to sentenceNumber
+                                },
                             )
                             is ReaderPage.TextScroll -> TextPageView(
                                 strings = strings,
@@ -219,6 +260,10 @@ fun EinkReaderScreen(
                                 onPrevious = turnPrevious,
                                 onNext = turnNext,
                                 onWordClick = onWordClick,
+                                markMode = markMode,
+                                onSentenceTap = { paragraphId, sentenceNumber ->
+                                    actionTarget = paragraphId to sentenceNumber
+                                },
                             )
                             is ReaderPage.Quiz -> QuizPageView(
                                 strings = strings,
@@ -244,8 +289,29 @@ fun EinkReaderScreen(
                 InkPageFooter(
                     left = "${state.unitPosition} / ${state.unitCount}",
                     center = pageLabel(strings, pages.getOrNull(cursor), cursor, pages, state),
-                    right = "←  →",
+                    right = if (markMode) strings.markSentences else "←  →",
                 )
+            }
+        }
+            actionTarget?.let { (paragraphId, sentenceNumber) ->
+                val sentence = state.paragraphs
+                    .firstOrNull { it.id == paragraphId }
+                    ?.sentences
+                    ?.firstOrNull { it.number == sentenceNumber }
+                if (sentence != null) {
+                    Box(Modifier.fillMaxSize().background(colors.paper)) {
+                        EinkSentenceActionsPage(
+                            strings = strings,
+                            quote = sentence.text,
+                            mark = sentence.mark,
+                            onToggleBookmark = { onToggleBookmark(paragraphId, sentenceNumber) },
+                            onToggleHighlight = { onToggleHighlight(paragraphId, sentenceNumber) },
+                            onSaveNote = { note -> onSaveNote(paragraphId, sentenceNumber, note) },
+                            onDeleteNote = { onDeleteNote(paragraphId, sentenceNumber) },
+                            onClose = { actionTarget = null },
+                        )
+                    }
+                }
             }
         }
     }
@@ -306,6 +372,8 @@ private fun TextPageView(
     onPrevious: () -> Unit,
     onNext: () -> Unit,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
+    markMode: Boolean,
+    onSentenceTap: (String, Int) -> Unit,
 ) {
     val typography = LocalInkTypography.current
     val colors = LocalInkColors.current
@@ -339,6 +407,9 @@ private fun TextPageView(
                         paragraphId = paragraph.id,
                         selected = state.selectedWord,
                         onWordClick = onWordClick,
+                        markMode = markMode,
+                        onSentenceTap = onSentenceTap,
+                        showTranslation = state.preference.showAllTranslations,
                     )
                 }
             }
@@ -351,10 +422,12 @@ private fun TextPageView(
 }
 
 /**
- * 一句正文：整句可点，点哪查哪。选中词用灰底高亮，与普通版同口径。
+ * 一句正文：整句可点。
  *
- * 墨屏不做逐词点击区域（那需要每个词一个可点节点、内存与刷新都更贵），
- * 而是按文字布局把点按位置换算成字符偏移，再扩成完整单词。
+ * - 普通模式：点哪查哪，选中词灰底高亮。
+ * - 标记模式：点句子打开标注页（书签 / 划线 / 笔记）。
+ * - 划线：整句浅灰底；书签：句首「▍」；笔记：句末「✎」。
+ * - 「全部句译」打开时，句下跟一行中文。
  */
 @Composable
 private fun InkSentence(
@@ -362,40 +435,86 @@ private fun InkSentence(
     paragraphId: String,
     selected: SelectedWordUi?,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
+    markMode: Boolean,
+    onSentenceTap: (String, Int) -> Unit,
+    showTranslation: Boolean,
 ) {
     val typography = LocalInkTypography.current
     val colors = LocalInkColors.current
     var layout by remember(sentence.text) { mutableStateOf<TextLayoutResult?>(null) }
+    val mark = sentence.mark
     val highlight = selected
         ?.takeIf { it.paragraphId == paragraphId && it.sentenceNumber == sentence.number }
-    val text = remember(sentence.text, highlight?.start, highlight?.end) {
+    val prefix = if (mark?.bookmarked == true) "▍ " else ""
+    val suffix = if (mark?.hasNote == true) "  ✎" else ""
+    val text = remember(sentence.text, prefix, suffix, highlight?.start, highlight?.end, mark?.highlighted) {
         buildAnnotatedString {
+            append(prefix)
+            val start = length
             append(sentence.text)
+            append(suffix)
+            if (mark?.highlighted == true) {
+                addStyle(SpanStyle(background = colors.markFill), start, start + sentence.text.length)
+            }
             if (highlight != null && highlight.start in 0..highlight.end && highlight.end < sentence.text.length) {
                 addStyle(
                     SpanStyle(background = colors.fill, fontWeight = FontWeight.SemiBold),
-                    highlight.start,
-                    highlight.end + 1,
+                    start + highlight.start,
+                    start + highlight.end + 1,
                 )
             }
         }
     }
-    BasicText(
-        text = text,
-        modifier = Modifier
-            .fillMaxWidth()
-            .pointerInput(sentence.text) {
-                detectTapGestures { offset ->
-                    val result = layout ?: return@detectTapGestures
-                    val index = result.getOffsetForPosition(offset)
-                    WordBoundary.wordAt(sentence.text, index)?.let { hit ->
-                        onWordClick(paragraphId, sentence.number, hit.text, hit.start, hit.end)
+    Column {
+        BasicText(
+            text = text,
+            modifier = Modifier
+                .fillMaxWidth()
+                .pointerInput(sentence.text, markMode) {
+                    detectTapGestures { offset ->
+                        if (markMode) {
+                            onSentenceTap(paragraphId, sentence.number)
+                            return@detectTapGestures
+                        }
+                        val result = layout ?: return@detectTapGestures
+                        val index = result.getOffsetForPosition(offset)
+                        WordBoundary.wordAt(sentence.text, index)?.let { hit ->
+                            onWordClick(paragraphId, sentence.number, hit.text, hit.start, hit.end)
+                        }
                     }
-                }
-            },
-        style = typography.body.merge(TextStyle(color = colors.ink)),
-        onTextLayout = { layout = it },
-    )
+                },
+            style = typography.body.merge(TextStyle(color = colors.ink)),
+            onTextLayout = { layout = it },
+        )
+        val zh = sentence.zh
+        if (showTranslation && !zh.isNullOrBlank()) {
+            InkText(zh, style = typography.bodySmall, color = colors.inkSecondary)
+        }
+    }
+}
+
+/** 阅读页工具条：搜索、标记模式、全部句译。 */
+@Composable
+private fun ReaderToolbar(
+    strings: Strings,
+    markMode: Boolean,
+    showAllTranslations: Boolean,
+    onSearch: () -> Unit,
+    onToggleMarkMode: () -> Unit,
+    onToggleTranslations: () -> Unit,
+) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp)) {
+        InkTextButton(strings.inBookSearch, onClick = onSearch)
+        InkTextButton(
+            label = (if (markMode) "■ " else "□ ") + strings.markSentences,
+            onClick = onToggleMarkMode,
+        )
+        InkTextButton(
+            label = if (showAllTranslations) strings.hideAllTranslations else strings.showAllTranslations,
+            onClick = onToggleTranslations,
+        )
+    }
+    InkDivider()
 }
 
 @Composable
