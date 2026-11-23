@@ -74,6 +74,13 @@ fun EinkApp(
     val strings = stringsFor(state.settings.language)
     val context = LocalContext.current
     var refreshSettings by remember { mutableStateOf(EinkDeviceSettings.refresh(context)) }
+    var forceMoaanRefresh by remember { mutableStateOf(EinkDeviceSettings.forceMoaanBroadcast(context)) }
+    val refreshBackend = remember(forceMoaanRefresh) {
+        when (EinkRefreshers.create(context, forceMoaanRefresh).backend) {
+            RefreshBackend.MOAAN_BROADCAST -> strings.refreshBackendMoaan
+            RefreshBackend.NONE -> strings.refreshBackendNone
+        }
+    }
 
     // 书城：导入本地书籍包；同步：导出/导入整份进度。两条都用 SAF，不申请存储权限。
     val importBookLauncher = rememberLauncherForActivityResult(
@@ -170,6 +177,8 @@ fun EinkApp(
                         settings = state.settings,
                         dictionary = state.dictionary,
                         refresh = refreshSettings,
+                        refreshBackend = refreshBackend,
+                        forceMoaanRefresh = forceMoaanRefresh,
                         appVersion = appVersion,
                         onBack = viewModel::backFromSettings,
                         onLanguage = viewModel::setLanguage,
@@ -178,6 +187,11 @@ fun EinkApp(
                             refreshSettings = settings
                             EinkDeviceSettings.saveRefresh(context, settings)
                         },
+                        onToggleForceMoaan = { force ->
+                            forceMoaanRefresh = force
+                            EinkDeviceSettings.saveForceMoaanBroadcast(context, force)
+                        },
+                        onTestFullRefresh = onFullRefresh,
                         onDefinitionMode = viewModel::setDefinitionMode,
                         onGuideMode = viewModel::setGuideMode,
                         onOpenAbout = viewModel::openAbout,

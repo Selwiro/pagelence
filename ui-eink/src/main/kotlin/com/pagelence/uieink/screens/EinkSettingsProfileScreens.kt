@@ -56,11 +56,15 @@ fun EinkSettingsScreen(
     settings: SettingsUiState,
     dictionary: DictionaryUiState,
     refresh: EinkRefreshSettings,
+    refreshBackend: String,
+    forceMoaanRefresh: Boolean,
     appVersion: String,
     onBack: () -> Unit,
     onLanguage: (UiLanguage) -> Unit,
     onDailyGoal: (Int) -> Unit,
     onRefresh: (EinkRefreshSettings) -> Unit,
+    onToggleForceMoaan: (Boolean) -> Unit,
+    onTestFullRefresh: () -> Unit,
     onDefinitionMode: (DefinitionMode) -> Unit,
     onGuideMode: (GuideMode) -> Unit,
     onOpenAbout: () -> Unit,
@@ -105,6 +109,15 @@ fun EinkSettingsScreen(
             InkSelectRow(strings.refreshLight, refresh == EinkRefreshPresets.Light, { onRefresh(EinkRefreshPresets.Light) })
             InkSelectRow(strings.refreshStandard, refresh == EinkRefreshPresets.Standard, { onRefresh(EinkRefreshPresets.Standard) })
             InkSelectRow(strings.refreshStrong, refresh == EinkRefreshPresets.Strong, { onRefresh(EinkRefreshPresets.Strong) })
+            InkKeyValueRow(strings.refreshBackend, refreshBackend, emphasis = true)
+            InkSelectRow(
+                label = strings.forceMoaanRefresh,
+                selected = forceMoaanRefresh,
+                onClick = { onToggleForceMoaan(!forceMoaanRefresh) },
+            )
+            Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp)) {
+                InkButton(strings.testFullRefresh, onClick = onTestFullRefresh)
+            }
             InkDivider()
 
             InkSectionLabel(strings.definitionMode)
@@ -124,7 +137,12 @@ fun EinkSettingsScreen(
                 InkText(it, style = typography.caption, color = colors.inkSecondary, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
             }
             dictionary.sizeLabel?.let {
-                InkKeyValueRow(strings.dictSizeLabel, it)
+                InkText(
+                    strings.dictSizeLabel.format(it),
+                    style = typography.caption,
+                    color = colors.inkSecondary,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
+                )
             }
             Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp)) {
                 if (dictionary.canDownload || dictionary.canResume || dictionary.canRetry) {

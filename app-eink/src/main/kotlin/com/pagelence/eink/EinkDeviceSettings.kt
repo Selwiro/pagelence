@@ -13,11 +13,24 @@ import com.pagelence.presentation.eink.EinkRefreshSettings
 object EinkDeviceSettings {
     private const val FILE = "eink-settings"
     private const val KEY_REFRESH = "refreshStrength"
+    private const val KEY_FORCE_MOAAN = "forceMoaanBroadcast"
 
     fun refresh(context: Context): EinkRefreshSettings {
         val prefs = context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
         val index = prefs.getInt(KEY_REFRESH, 1)
         return EinkRefreshPresets.all.getOrNull(index) ?: EinkRefreshSettings.Default
+    }
+
+    /** 设置页的「强制发送墨案全刷广播」开关；默认关，按机型自动判断。 */
+    fun forceMoaanBroadcast(context: Context): Boolean =
+        context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
+            .getBoolean(KEY_FORCE_MOAAN, false)
+
+    fun saveForceMoaanBroadcast(context: Context, force: Boolean) {
+        context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean(KEY_FORCE_MOAAN, force)
+            .apply()
     }
 
     fun saveRefresh(context: Context, settings: EinkRefreshSettings) {

@@ -187,6 +187,12 @@ interface Strings {
     val refreshLight: String
     val refreshStandard: String
     val refreshStrong: String
+    /** 墨屏设置里的全刷后端与测试入口。 */
+    val refreshBackend: String
+    val refreshBackendMoaan: String
+    val refreshBackendNone: String
+    val forceMoaanRefresh: String
+    val testFullRefresh: String
     val showAllTranslations: String
     val hideAllTranslations: String
     val inBookSearch: String

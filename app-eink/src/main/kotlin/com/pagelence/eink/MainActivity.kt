@@ -9,17 +9,16 @@ import androidx.core.view.WindowCompat
 import com.pagelence.PagelenceViewModel
 
 /**
- * 墨水屏入口。Activity 只做三件事：装配 ViewModel、接生命周期落盘、提供全刷接入口。
+ * 墨水屏入口。Activity 只做四件事：装配 ViewModel、接生命周期落盘、提供全刷
+ * 接入口、把状态栏/导航栏刷成白底深色图标。
  *
- * 全刷目前走 [NoopEinkRefresher]：真实设备需要接厂商 SDK（ONYX/Boox 等）的
- * `refreshScreen`，接入点就是 [refresher]，见 docs/app-eink.md「剩下的部分」。
+ * 全刷走后端探测：墨案系设备发 `android.eink.force.refresh`，其余机型退化为
+ * 应用层重绘（[NoopEinkRefresher]），绝不因为缺少厂商通道而崩溃。
  */
 class MainActivity : ComponentActivity() {
     private val viewModel: PagelenceViewModel by viewModels {
         PagelenceViewModel.factory((application as EinkApplication).graph)
     }
-
-    private val refresher: EinkRefresher = NoopEinkRefresher
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +34,17 @@ class MainActivity : ComponentActivity() {
             EinkApp(
                 viewModel = viewModel,
                 appVersion = BuildConfig.VERSION_NAME,
-                onFullRefresh = refresher::fullRefresh,
+                onFullRefresh = ::fullRefresh,
             )
         }
+    }
+
+    /** 每次按当前偏好选后端：用户可能在设置页切换过「强制广播」。 */
+    private fun fullRefresh() {
+        EinkRefreshers.create(
+            context = this,
+            forceMoaanBroadcast = EinkDeviceSettings.forceMoaanBroadcast(this),
+        ).fullRefresh()
     }
 
     override fun onStart() {
