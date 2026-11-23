@@ -197,6 +197,9 @@ enum class Screen {
     ASSESSMENT,
     READER,
     SETTINGS,
+    SETTINGS_TYPOGRAPHY,
+    SETTINGS_DICTIONARY,
+    ACHIEVEMENTS,
     SYNC,
     ABOUT,
     ABOUT_PRIVACY,
@@ -2434,6 +2437,55 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
     }
 
     fun backFromSettings() = back()
+
+    /** 设置 → 排版：four reading-surface choices with a live preview (T168). */
+    fun openTypography() = push(Screen.SETTINGS_TYPOGRAPHY)
+
+    /** 设置 → 完整词表：the download block moved off the settings home. */
+    fun openDictionarySettings() {
+        refreshDictionary()
+        push(Screen.SETTINGS_DICTIONARY)
+    }
+
+    /** 我的 → 成就：the full wall behind the folded card. */
+    fun openAchievements() = push(Screen.ACHIEVEMENTS)
+
+    /** 读完页的「查看全部」直达成就页，而不是停在「我的」首屏。 */
+    fun openAchievementsFromFinished() {
+        val stack = currentStack()
+        if (stack.lastOrNull() == Screen.BOOK_FINISHED) stack.removeAt(stack.lastIndex)
+        if (_ui.value.tab == MainTab.PROFILE) {
+            while (stack.size > 1) stack.removeAt(stack.lastIndex)
+            _ui.update {
+                it.copy(screen = Screen.PROFILE, finishedBook = null, readerExitConfirm = false)
+            }
+        } else {
+            _ui.update { it.copy(finishedBook = null, readerExitConfirm = false) }
+            selectTab(MainTab.PROFILE)
+        }
+        push(Screen.ACHIEVEMENTS)
+    }
+
+    /**
+     * 恢复默认设置：only reading, typography, goal and appearance. Progress,
+     * cards, notes, the full dictionary, sync and the interface language stay.
+     */
+    fun restoreDefaultSettings() {
+        val prefs = graph.preferences.preferences().copy(
+            fontSize = FontSize.MEDIUM,
+            readingFont = ReadingFont.SANS,
+            lineSpacing = LineSpacing.NORMAL,
+            pageMargin = PageMargin.NORMAL,
+            readerLayout = ReaderLayout.PAGED,
+            readerLayoutChosen = true,
+            definitionMode = DefinitionMode.ZH,
+            guideMode = GuideMode.BILINGUAL,
+            annotateHints = true,
+            theme = ThemeMode.SYSTEM,
+            dailyGoalMinutes = com.pagelence.core.prefs.DailyGoal.DEFAULT_MINUTES,
+        )
+        savePreferences(prefs)
+    }
 
     // --- optional full dictionary ---------------------------------------
 

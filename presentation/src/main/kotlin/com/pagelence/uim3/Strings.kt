@@ -162,6 +162,21 @@ interface Strings {
     val lastRead: String
     val sectionReading: String
     val sectionAppearance: String
+    // T168: settings page groups and sub-pages.
+    val sectionGoalRecord: String
+    val sectionData: String
+    val typography: String
+    val typographySummary: String
+    val typographyPreview: String
+    val typographyHint: String
+    val typographySample: String
+    val typographySampleZh: String
+    val dictionaryNotInstalled: String
+    val dictionaryInstalled: String
+    val syncOff: String
+    val syncOn: String
+    val restoreDefaults: String
+    val restoreDefaultsBody: String
     val theme: String
     val themeSystem: String
     val themeLight: String
@@ -465,6 +480,26 @@ interface Strings {
     val achievementProgress: String
     val achievementProgressHours: String
     val achievementSeeAll: String
+    val readingRecord: String
+    val heatmapRange: String
+    val unitsTotal: String
+    val unitBook: String
+    val unitBooks: String
+    val unitUnit: String
+    val unitUnits: String
+    val unitDay: String
+    val unitDays: String
+    val statFinished: String
+    val statReading: String
+    val joinDot: String
+    val todayOverGoal: String
+    val todayGoalSuffix: String
+    val heatmapCellHint: String
+    val achievementsRecent: String
+    val achievementCount: String
+    val studySettings: String
+    val assessmentMinutes: String
+    val levelValueWithSource: String
     val finishedNotes: String
     val achFirstBook: String
     val achFirstBookHint: String

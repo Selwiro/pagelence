@@ -1,62 +1,80 @@
 package com.pagelence.uim3.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.pagelence.uim3.model.AchievementUi
-import com.pagelence.uim3.model.AchievementWallUi
-import com.pagelence.uim3.model.HeatmapUi
+import androidx.compose.ui.unit.sp
+import com.pagelence.core.prefs.DailyGoal
 import com.pagelence.core.progress.CefrLevel
 import com.pagelence.uim3.Strings
+import com.pagelence.uim3.components.AchievementTrack
+import com.pagelence.uim3.components.ChoiceSheet
 import com.pagelence.uim3.components.LevelOptionRow
 import com.pagelence.uim3.components.MetaChip
+import com.pagelence.uim3.components.MetricItem
+import com.pagelence.uim3.components.MetricRow
 import com.pagelence.uim3.components.PageTopBar
-import com.pagelence.uim3.levelDescription
+import com.pagelence.uim3.components.PagelenceIcons
+import com.pagelence.uim3.components.SettingDivider
+import com.pagelence.uim3.components.SettingGroup
+import com.pagelence.uim3.components.SettingRow
+import com.pagelence.uim3.components.SheetOption
 import com.pagelence.uim3.levelName
 import com.pagelence.uim3.levelOptions
 import com.pagelence.uim3.levelSourceLabel
-import com.pagelence.uim3.levelVocabulary
+import com.pagelence.uim3.model.AchievementWallUi
+import com.pagelence.uim3.model.HeatmapCellUi
 import com.pagelence.uim3.model.ProfileUiState
 
-/** "我的": self-assessed level, aggregate stats and the learning heat map. */
+/**
+ * 「我的」(T168): one page, one lead. Today is the only emphasized card; the
+ * lifetime numbers live inside the record card together with the heat map;
+ * achievements fold into a single card with a ten-slot track; the level moves
+ * to a low-frequency "learning setup" group at the bottom.
+ */
 @Composable
 fun ProfileScreen(
     strings: Strings,
@@ -65,9 +83,12 @@ fun ProfileScreen(
     onOpenSettings: () -> Unit,
     onSelectLevel: (CefrLevel) -> Unit,
     onOpenAssessment: () -> Unit,
+    onOpenAchievements: () -> Unit,
+    onDailyGoal: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var showLevelDialog by rememberSaveable { mutableStateOf(false) }
+    var showGoalSheet by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier,
@@ -87,20 +108,23 @@ fun ProfileScreen(
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(padding),
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            item(key = "level") {
-                LevelCard(
+            item(key = "today") {
+                TodayCard(strings, state) { showGoalSheet = true }
+            }
+            item(key = "record") { RecordCard(strings, state) }
+            item(key = "achievements") {
+                AchievementCard(strings, state.achievements, onOpenAchievements)
+            }
+            item(key = "study") {
+                StudySettings(
                     strings = strings,
                     state = state,
-                    onSetLevel = { showLevelDialog = true },
+                    onOpenLevel = { showLevelDialog = true },
                     onOpenAssessment = onOpenAssessment,
                 )
             }
-            item(key = "today") { TodayCard(strings, state) }
-            item(key = "stats") { StatsRow(strings, state) }
-            item(key = "achievements") { AchievementCard(strings, state.achievements) }
-            item(key = "heatmap") { HeatmapCard(strings, state.heatmap) }
         }
     }
 
@@ -115,271 +139,299 @@ fun ProfileScreen(
             },
         )
     }
-}
 
-@Composable
-private fun LevelCard(
-    strings: Strings,
-    state: ProfileUiState,
-    onSetLevel: () -> Unit,
-    onOpenAssessment: () -> Unit,
-) {
-    val level = state.level
-    ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(18.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    strings.myLevel,
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.weight(1f),
-                )
-                if (level != null) {
-                    MetaChip(levelSourceLabel(strings, state.levelSource))
-                }
-            }
-            Spacer(Modifier.height(10.dp))
-            if (level == null) {
-                Text(
-                    strings.levelUnset,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    strings.levelAffectsHint,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            } else {
-                Text(levelName(strings, level), style = MaterialTheme.typography.headlineMedium)
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    levelDescription(strings, level),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    levelVocabulary(strings, level),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Spacer(Modifier.height(6.dp))
-                Text(
-                    strings.levelAffectsHint,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Spacer(Modifier.height(12.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedButton(onClick = onSetLevel) {
-                    Text(if (state.level == null) strings.setLevel else strings.changeLevel)
-                }
-                OutlinedButton(onClick = onOpenAssessment) {
-                    Text(strings.assessment)
-                }
-            }
-        }
-    }
-}
-
-
-/**
- * 成就墙: the derived catalogue, unlocked first. Tapping a cell explains how the
- * item is counted — the copy deliberately repeats the rule, because a badge the
- * reader cannot verify reads as decoration.
- */
-@Composable
-private fun AchievementCard(strings: Strings, wall: AchievementWallUi) {
-    var selectedId by rememberSaveable { mutableStateOf<String?>(null) }
-    val selected = wall.items.firstOrNull { it.id == selectedId }
-
-    ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(18.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    strings.achievements,
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.weight(1f),
-                )
-                Text(
-                    strings.achievementWallSummary.format(wall.unlocked, wall.total),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Spacer(Modifier.height(10.dp))
-            if (wall.isEmpty) {
-                Text(
-                    strings.achievementWallEmpty,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            } else {
-                if (wall.unlocked == 0) {
-                    Text(
-                        strings.achievementWallEmpty,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                    Spacer(Modifier.height(10.dp))
-                }
-                wall.items.chunked(2).forEach { row ->
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        row.forEach { item ->
-                            AchievementCell(
-                                strings = strings,
-                                item = item,
-                                modifier = Modifier.weight(1f),
-                                onClick = { selectedId = item.id },
-                            )
-                        }
-                        if (row.size == 1) Spacer(Modifier.weight(1f))
-                    }
-                    Spacer(Modifier.height(8.dp))
-                }
-                Text(
-                    strings.achievementWallHint,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        }
-    }
-
-    if (selected != null) {
-        AchievementDialog(strings, selected) { selectedId = null }
-    }
-}
-
-@Composable
-private fun AchievementCell(
-    strings: Strings,
-    item: AchievementUi,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-) {
-    Surface(
-        modifier = modifier.clickable(onClick = onClick),
-        shape = MaterialTheme.shapes.medium,
-        color = if (item.unlocked) {
-            MaterialTheme.colorScheme.primaryContainer
-        } else {
-            MaterialTheme.colorScheme.surfaceContainer
-        },
-    ) {
-        Column(Modifier.padding(12.dp).fillMaxWidth()) {
-            Text(
-                item.title,
-                style = MaterialTheme.typography.titleSmall,
-                maxLines = 2,
-            )
-            Spacer(Modifier.height(4.dp))
-            if (item.unlocked) {
-                Text(
-                    item.unlockedOn?.let { strings.achievementUnlockedOn.format(it) }
-                        ?: strings.achievementUnlocked,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            } else {
-                LinearProgressIndicator(
-                    progress = { item.fraction },
-                    modifier = Modifier.fillMaxWidth().height(4.dp),
-                )
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    item.progressLabel ?: strings.achievementLocked,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun AchievementDialog(strings: Strings, item: AchievementUi, onDismiss: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(item.title) },
-        text = {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(item.description, style = MaterialTheme.typography.bodyMedium)
-                Text(
-                    if (item.unlocked) {
-                        item.unlockedOn?.let { strings.achievementUnlockedOn.format(it) }
-                            ?: strings.achievementUnlocked
-                    } else {
-                        item.progressLabel?.let { "${strings.achievementLocked} · $it" }
-                            ?: strings.achievementLocked
-                    },
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                if (!item.unlocked) {
-                    LinearProgressIndicator(
-                        progress = { item.fraction },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) { Text(strings.close) }
-        },
-    )
-}
-
-/** 今日: reading time against the daily goal, plus the streak it feeds*/
-/**
- * 今日: reading time against the daily goal, plus the streak it feeds.
- *
- * The goal is a nudge, so a missed day never shows as a failure: today's copy is
- * "还差 N 分钟" or "今日已达标", and the chip switches from "连续 N 天" to
- * "今天重新开始" while the best run stays visible underneath.
- */
-@Composable
-private fun TodayCard(strings: Strings, state: ProfileUiState) {
-    val minutes = state.todaySeconds / 60
-    val remainingMinutes = ((state.secondsToGoal + 59) / 60).coerceAtLeast(1)
-    val details = buildList {
-        add(
-            if (state.metToday) strings.todayGoalMet
-            else strings.todayGoalRemaining.format(remainingMinutes),
+    if (showGoalSheet) {
+        ChoiceSheet(
+            title = strings.dailyGoal,
+            options = DailyGoal.OPTIONS.map { minutes ->
+                SheetOption(minutes, strings.goalMinutesOption.format(minutes))
+            },
+            selected = DailyGoal.sanitize(state.dailyGoalMinutes),
+            onDismiss = { showGoalSheet = false },
+            onSelect = onDailyGoal,
+            footer = strings.dailyGoalHint,
         )
-        if (state.todayUnits > 0) add(strings.todayUnitsText(state.todayUnits))
-        if (state.longestStreak > 0) add(strings.streakLongestText(state.longestStreak))
-    }.joinToString(" · ")
+    }
+}
 
-    ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+/**
+ * 今日: the goal with one status line. Exceeding the goal is spelled out instead
+ * of showing "15 / 10" next to a full bar, and the unit count only appears when
+ * it is non-zero.
+ */
+@Composable
+private fun TodayCard(strings: Strings, state: ProfileUiState, onEditGoal: () -> Unit) {
+    val minutes = state.todaySeconds / 60
+    val overMinutes = ((state.todaySeconds - state.dailyGoalMinutes * 60) / 60).coerceAtLeast(0)
+    val remainingMinutes = ((state.secondsToGoal + 59) / 60).coerceAtLeast(1)
+    val status = when {
+        state.metToday && overMinutes > 0 -> strings.todayOverGoal.format(overMinutes)
+        state.metToday -> strings.todayGoalMet
+        else -> strings.todayGoalRemaining.format(remainingMinutes)
+    }
+    val detail = if (state.todayUnits > 0) {
+        strings.joinDot.format(status, strings.todayUnitsText(state.todayUnits))
+    } else {
+        status
+    }
+
+    Surface(
+        onClick = onEditGoal,
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
         Column(Modifier.padding(18.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     strings.todayLabel,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.weight(1f),
                 )
                 MetaChip(streakLabel(strings, state))
             }
+            Spacer(Modifier.height(14.dp))
+            Text(
+                buildAnnotatedString {
+                    withStyle(SpanStyle(fontSize = 38.sp, fontWeight = FontWeight.SemiBold)) {
+                        append(minutes.toString())
+                    }
+                    withStyle(SpanStyle(fontSize = 17.sp)) {
+                        append(strings.todayGoalSuffix.format(state.dailyGoalMinutes))
+                    }
+                },
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+            )
+            Spacer(Modifier.height(12.dp))
+            GoalBar(fraction = state.goalFraction)
             Spacer(Modifier.height(10.dp))
             Text(
-                strings.todayProgress.format(minutes, state.dailyGoalMinutes),
-                style = MaterialTheme.typography.headlineSmall,
-            )
-            Spacer(Modifier.height(10.dp))
-            LinearProgressIndicator(
-                progress = { state.goalFraction },
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Spacer(Modifier.height(10.dp))
-            Text(
-                details,
+                detail,
                 style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
+            )
+        }
+    }
+}
+
+@Composable
+private fun GoalBar(fraction: Float) {
+    val track = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.16f)
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .height(6.dp)
+            .clip(CircleShape)
+            .background(track),
+    ) {
+        Box(
+            Modifier
+                .fillMaxWidth(fraction.coerceIn(0f, 1f))
+                .fillMaxHeight()
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary),
+        )
+    }
+}
+
+/**
+ * 阅读记录: lifetime numbers are this card's masthead, the heat map is its body.
+ * Keeping them in one container removes the bare number strip that used to sit
+ * between the today card and the map.
+ */
+@Composable
+private fun RecordCard(strings: Strings, state: ProfileUiState) {
+    val weeks = state.heatmap.weeks.takeLast(HeatmapWeeks)
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainer,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(18.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    strings.readingRecord,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.weight(1f),
+                )
+                Text(
+                    strings.heatmapRange.format(HeatmapWeeks),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Spacer(Modifier.height(14.dp))
+            MetricRow(
+                listOf(
+                    MetricItem(
+                        value = state.finishedBooks.toString(),
+                        unit = if (state.finishedBooks == 1) strings.unitBook else strings.unitBooks,
+                        label = strings.statFinished,
+                    ),
+                    MetricItem(
+                        value = state.totalReadUnits.toString(),
+                        unit = if (state.totalReadUnits == 1) strings.unitUnit else strings.unitUnits,
+                        label = strings.unitsTotal.format(state.totalUnits),
+                    ),
+                    MetricItem(
+                        value = state.readingDays.toString(),
+                        unit = if (state.readingDays == 1) strings.unitDay else strings.unitDays,
+                        label = strings.statReading,
+                    ),
+                ),
+            )
+            Spacer(Modifier.height(14.dp))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Spacer(Modifier.height(14.dp))
+            if (weeks.isEmpty() || state.heatmap.isEmpty) {
+                Text(
+                    strings.heatmapEmpty,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            } else {
+                HeatmapGrid(weeks)
+            }
+            Spacer(Modifier.height(12.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    strings.heatmapCellHint,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.weight(1f),
+                )
+                Text(
+                    strings.heatmapLess,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.width(4.dp))
+                repeat(5) { level -> HeatmapCellBox(level, 9.dp) }
+                Spacer(Modifier.width(4.dp))
+                Text(
+                    strings.heatmapMore,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
+/** 26 weeks (half a year) fit a phone width without horizontal scrolling. */
+private const val HeatmapWeeks = 26
+
+@Composable
+private fun HeatmapGrid(weeks: List<List<HeatmapCellUi?>>) {
+    val gap = 2.dp
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val cell = ((maxWidth - gap * (weeks.size - 1)) / weeks.size).coerceIn(4.dp, 12.dp)
+        Row(horizontalArrangement = Arrangement.spacedBy(gap)) {
+            weeks.forEach { week ->
+                Column(verticalArrangement = Arrangement.spacedBy(gap)) {
+                    repeat(7) { day ->
+                        val level = week.getOrNull(day)?.level
+                        if (level == null) {
+                            Box(Modifier.size(cell))
+                        } else {
+                            HeatmapCellBox(level, cell)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun HeatmapCellBox(level: Int, size: Dp) {
+    val color = if (level == 0) {
+        MaterialTheme.colorScheme.surfaceContainerHighest
+    } else {
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.18f + 0.2f * (level - 1))
+    }
+    Surface(
+        modifier = Modifier.size(size),
+        shape = RoundedCornerShape(2.5.dp),
+        color = color,
+    ) {}
+}
+
+/**
+ * 成就, folded: a header with the count, the ten-slot track and one line —
+ * the latest unlock, or the rule while nothing is unlocked yet. The whole card
+ * opens the full wall.
+ */
+@Composable
+private fun AchievementCard(
+    strings: Strings,
+    wall: AchievementWallUi,
+    onOpen: () -> Unit,
+) {
+    val latest = wall.items.firstOrNull { it.unlocked && it.unlockedOn != null }
+    val line = if (wall.unlocked == 0 || latest == null) {
+        strings.achievementWallEmpty
+    } else {
+        strings.achievementsRecent.format(latest.title)
+    }
+    Surface(
+        onClick = onOpen,
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainer,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    strings.achievements,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.weight(1f),
+                )
+                Text(
+                    strings.achievementCount.format(wall.unlocked, wall.total),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Icon(
+                    imageVector = PagelenceIcons.ChevronRight,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.padding(start = 8.dp).size(18.dp),
+                )
+            }
+            if (wall.total > 0) {
+                Spacer(Modifier.height(12.dp))
+                AchievementTrack(unlocked = wall.unlocked, total = wall.total)
+            }
+            Spacer(Modifier.height(10.dp))
+            Text(
+                line,
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+    }
+}
+
+@Composable
+private fun StudySettings(
+    strings: Strings,
+    state: ProfileUiState,
+    onOpenLevel: () -> Unit,
+    onOpenAssessment: () -> Unit,
+) {
+    val levelValue = state.level
+        ?.let { strings.levelValueWithSource.format(levelName(strings, it), levelSourceLabel(strings, state.levelSource)) }
+        ?: strings.levelUnset
+    SettingGroup(title = strings.studySettings) {
+        SettingRow(label = strings.myLevel, value = levelValue, onClick = onOpenLevel)
+        SettingDivider()
+        SettingRow(
+            label = strings.assessment,
+            value = strings.assessmentMinutes,
+            onClick = onOpenAssessment,
+        )
     }
 }
 
@@ -387,125 +439,6 @@ private fun streakLabel(strings: Strings, state: ProfileUiState): String = when 
     state.currentStreak > 0 -> strings.streakCurrent.format(state.currentStreak)
     state.longestStreak > 0 -> strings.streakRestart
     else -> strings.streakStart
-}
-
-/**
- * 365-day heat map from `dailyActivity`. Only the gray level carries meaning, so
- * an e-ink screen reads the same as a phone; the grid scrolls horizontally and
- * opens on the newest weeks.
- */
-@Composable
-private fun HeatmapCard(strings: Strings, heatmap: HeatmapUi) {
-    val scroll = rememberScrollState()
-    LaunchedEffect(heatmap.weeks.size) {
-        scroll.scrollTo(Int.MAX_VALUE)
-    }
-    ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(18.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(strings.heatmap, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-                Text(
-                    strings.heatmapSummary.format(heatmap.activeDays, heatmap.totalUnits),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Spacer(Modifier.height(10.dp))
-            if (heatmap.isEmpty) {
-                Text(
-                    strings.heatmapEmpty,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            } else {
-                Row(Modifier.fillMaxWidth().horizontalScroll(scroll)) {
-                    heatmap.weeks.forEach { week ->
-                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                            week.forEach { cell -> HeatmapCellBox(cell?.level ?: 0) }
-                        }
-                        Spacer(Modifier.width(2.dp))
-                    }
-                }
-                Spacer(Modifier.height(8.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    Text(
-                        strings.heatmapLess,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                    repeat(5) { level -> HeatmapCellBox(level) }
-                    Text(
-                        strings.heatmapMore,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-            Spacer(Modifier.height(8.dp))
-            Text(
-                strings.heatmapHint,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-    }
-}
-
-@Composable
-private fun HeatmapCellBox(level: Int) {
-    val color = if (level == 0) {
-        MaterialTheme.colorScheme.surfaceContainerHighest
-    } else {
-        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f + 0.18f * (level - 1))
-    }
-    Surface(
-        modifier = Modifier.size(10.dp),
-        shape = MaterialTheme.shapes.extraSmall,
-        color = color,
-    ) {}
-}
-
-@Composable
-private fun StatsRow(strings: Strings, state: ProfileUiState) {
-    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        StatCard(
-            value = state.finishedBooks.toString(),
-            label = strings.finishedBooksLabel(state.finishedBooks),
-            modifier = Modifier.weight(1f),
-        )
-        StatCard(
-            value = "${state.totalReadUnits}/${state.totalUnits}",
-            label = strings.unitsReadShort,
-            modifier = Modifier.weight(1f),
-        )
-        StatCard(
-            value = state.readingDays.toString(),
-            label = strings.readingDaysLabel(state.readingDays),
-            modifier = Modifier.weight(1f),
-        )
-    }
-}
-
-@Composable
-private fun StatCard(value: String, label: String, modifier: Modifier = Modifier) {
-    Surface(
-        modifier = modifier,
-        shape = MaterialTheme.shapes.medium,
-        color = MaterialTheme.colorScheme.surfaceContainer,
-    ) {
-        Column(Modifier.padding(12.dp)) {
-            Text(value, style = MaterialTheme.typography.titleLarge)
-            Spacer(Modifier.height(4.dp))
-            Text(
-                label,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-    }
 }
 
 @Composable

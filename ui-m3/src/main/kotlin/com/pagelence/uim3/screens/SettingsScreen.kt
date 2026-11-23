@@ -1,27 +1,15 @@
 package com.pagelence.uim3.screens
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -29,49 +17,49 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pagelence.core.prefs.DailyGoal
 import com.pagelence.core.prefs.DefinitionMode
 import com.pagelence.core.prefs.FontSize
-import com.pagelence.core.prefs.LineSpacing
-import com.pagelence.core.prefs.PageMargin
-import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.core.prefs.GuideMode
 import com.pagelence.core.prefs.ReaderLayout
+import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.core.prefs.ThemeMode
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.UiLanguage
+import com.pagelence.uim3.components.ChoiceSheet
 import com.pagelence.uim3.components.PageTopBar
-import com.pagelence.uim3.components.ChoiceRow
-import com.pagelence.uim3.components.PagelenceIcons
-import com.pagelence.uim3.components.SectionLabel
+import com.pagelence.uim3.components.SettingDivider
+import com.pagelence.uim3.components.SettingGroup
+import com.pagelence.uim3.components.SettingRow
+import com.pagelence.uim3.components.SheetOption
+import com.pagelence.uim3.components.SwitchRow
 import com.pagelence.uim3.model.DictionaryPhase
 import com.pagelence.uim3.model.DictionaryUiState
 import com.pagelence.uim3.model.SettingsUiState
 
-/** 设置：阅读、外观、语言与词典、关于。偏好只写 `state.json`，不动进度。 */
+/**
+ * 设置 (T168): five groups, twelve rows, one screen. Every choice is a row that
+ * states its current value and opens a single-choice sheet; only the toggle is
+ * a toggle. Typography and the full dictionary live on sub-pages so a page a
+ * reader visits rarely does not weigh as much as the one they read in.
+ */
 @Composable
 fun SettingsScreen(
     strings: Strings,
     state: SettingsUiState,
     dictionary: DictionaryUiState,
     appVersion: String,
+    syncConfigured: Boolean,
     onBack: () -> Unit,
+    onOpenTypography: () -> Unit,
+    onOpenDictionary: () -> Unit,
     onOpenSync: () -> Unit,
     onOpenAbout: () -> Unit,
-    onDictionaryDownload: () -> Unit,
-    onDictionaryPause: () -> Unit,
-    onDictionaryDelete: () -> Unit,
-    onDictionaryMeteredConfirm: () -> Unit,
-    onDictionaryMeteredDismiss: () -> Unit,
+    onRestoreDefaults: () -> Unit,
     onLanguage: (UiLanguage) -> Unit,
     onTheme: (ThemeMode) -> Unit,
-    onFontSize: (FontSize) -> Unit,
-    onReadingFont: (ReadingFont) -> Unit,
-    onLineSpacing: (LineSpacing) -> Unit,
-    onPageMargin: (PageMargin) -> Unit,
     onReaderLayout: (ReaderLayout) -> Unit,
     onAnnotateHints: (Boolean) -> Unit,
     onDefinitionMode: (DefinitionMode) -> Unit,
@@ -79,7 +67,9 @@ fun SettingsScreen(
     onDailyGoal: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var confirmDictionaryDelete by remember { mutableStateOf(false) }
+    var sheet by remember { mutableStateOf<SettingsSheet?>(null) }
+    var confirmRestore by remember { mutableStateOf(false) }
+
     Scaffold(
         modifier = modifier,
         topBar = { PageTopBar(title = strings.settings, onBack = onBack) },
@@ -89,310 +79,236 @@ fun SettingsScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = 16.dp),
         ) {
-            SectionLabel(strings.sectionReading)
-            SettingBlock(strings.fontSize) {
-                ChoiceRow(
-                    options = listOf(
-                        FontSize.SMALL to strings.fontSmall,
-                        FontSize.MEDIUM to strings.fontMedium,
-                        FontSize.LARGE to strings.fontLarge,
-                        FontSize.XLARGE to strings.fontXLarge,
+            SettingGroup(title = strings.sectionReading) {
+                SettingRow(
+                    label = strings.typography,
+                    value = strings.typographySummary.format(
+                        fontSizeLabel(strings, state),
+                        readingFontLabel(strings, state),
                     ),
-                    selected = state.fontSize,
-                    onSelect = onFontSize,
+                    onClick = onOpenTypography,
                 )
-            }
-            SettingBlock(strings.readingFont) {
-                ChoiceRow(
-                    options = listOf(
-                        ReadingFont.SANS to strings.fontSans,
-                        ReadingFont.SERIF to strings.fontSerif,
-                    ),
-                    selected = state.readingFont,
-                    onSelect = onReadingFont,
+                SettingDivider()
+                SettingRow(
+                    label = strings.readingLayout,
+                    value = if (state.readerLayout == ReaderLayout.PAGED) {
+                        strings.layoutPaged
+                    } else {
+                        strings.layoutScroll
+                    },
+                    onClick = { sheet = SettingsSheet.LAYOUT },
                 )
-            }
-            SettingBlock(strings.lineSpacing) {
-                ChoiceRow(
-                    options = listOf(
-                        LineSpacing.COMPACT to strings.lineSpacingCompact,
-                        LineSpacing.NORMAL to strings.lineSpacingNormal,
-                        LineSpacing.RELAXED to strings.lineSpacingRelaxed,
-                    ),
-                    selected = state.lineSpacing,
-                    onSelect = onLineSpacing,
+                SettingDivider()
+                SettingRow(
+                    label = strings.definitionMode,
+                    value = definitionLabel(strings, state),
+                    onClick = { sheet = SettingsSheet.DEFINITION },
                 )
-            }
-            SettingBlock(strings.pageMargin) {
-                ChoiceRow(
-                    options = listOf(
-                        PageMargin.NARROW to strings.pageMarginNarrow,
-                        PageMargin.NORMAL to strings.pageMarginNormal,
-                        PageMargin.WIDE to strings.pageMarginWide,
-                    ),
-                    selected = state.pageMargin,
-                    onSelect = onPageMargin,
+                SettingDivider()
+                SettingRow(
+                    label = strings.guideMode,
+                    value = guideLabel(strings, state),
+                    onClick = { sheet = SettingsSheet.GUIDE },
                 )
-            }
-            SettingBlock(strings.readingLayout) {
-                ChoiceRow(
-                    options = listOf(
-                        ReaderLayout.PAGED to strings.layoutPaged,
-                        ReaderLayout.SCROLL to strings.layoutScroll,
-                    ),
-                    selected = state.readerLayout,
-                    onSelect = onReaderLayout,
-                )
-            }
-            SettingBlock(strings.definitionMode) {
-                ChoiceRow(
-                    options = listOf(
-                        DefinitionMode.ZH to strings.definitionModeZh,
-                        DefinitionMode.MIXED to strings.definitionModeMixed,
-                        DefinitionMode.EN to strings.definitionModeEn,
-                    ),
-                    selected = state.definitionMode,
-                    onSelect = onDefinitionMode,
-                )
-            }
-            SettingBlock(strings.guideMode) {
-                ChoiceRow(
-                    options = listOf(
-                        GuideMode.BILINGUAL to strings.guideModeBilingual,
-                        GuideMode.EN to strings.guideModeEn,
-                        GuideMode.IMMERSIVE to strings.guideModeImmersive,
-                    ),
-                    selected = state.guideMode,
-                    onSelect = onGuideMode,
-                )
-            }
-            SettingBlock(strings.dailyGoal) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    ChoiceRow(
-                        options = DailyGoal.OPTIONS.map { it to strings.goalMinutesOption.format(it) },
-                        selected = DailyGoal.sanitize(state.dailyGoalMinutes),
-                        onSelect = onDailyGoal,
-                    )
-                    Text(
-                        strings.dailyGoalHint,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(strings.annotateHints, style = MaterialTheme.typography.titleMedium)
-                    Text(
-                        strings.annotateHintsHint,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                Switch(checked = state.annotateHints, onCheckedChange = onAnnotateHints)
-            }
-
-            Spacer(Modifier.height(8.dp))
-            HorizontalDivider()
-            SectionLabel(strings.sectionDictionary)
-            SettingBlock(strings.fullDictionary) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    val meta = listOfNotNull(
-                        dictionary.version?.let { strings.dictVersionLabel.format(it) },
-                        dictionary.sizeLabel?.let { strings.dictSizeLabel.format(it) },
-                    ).joinToString(" · ")
-                    if (meta.isNotEmpty()) {
-                        Text(
-                            meta,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    dictionary.status?.let {
-                        Text(it, style = MaterialTheme.typography.bodyMedium)
-                    }
-                    if (dictionary.phase == DictionaryPhase.DOWNLOADING) {
-                        LinearProgressIndicator(
-                            progress = { dictionary.progress },
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        when {
-                            dictionary.canDownload -> Button(onClick = onDictionaryDownload) {
-                                Text(strings.dictDownload)
-                            }
-
-                            dictionary.canResume -> Button(onClick = onDictionaryDownload) {
-                                Text(strings.dictResume)
-                            }
-
-                            dictionary.canRetry -> Button(onClick = onDictionaryDownload) {
-                                Text(strings.dictRetry)
-                            }
-                        }
-                        if (dictionary.canPause) {
-                            OutlinedButton(onClick = onDictionaryPause) {
-                                Text(strings.dictPause)
-                            }
-                        }
-                        if (dictionary.canDelete) {
-                            TextButton(onClick = { confirmDictionaryDelete = true }) {
-                                Text(strings.dictDelete)
-                            }
-                        }
-                    }
-                    Text(
-                        strings.dictLicenseNote,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-
-            Spacer(Modifier.height(8.dp))
-            HorizontalDivider()
-            SectionLabel(strings.sectionAppearance)
-            SettingBlock(strings.theme) {
-                ChoiceRow(
-                    options = listOf(
-                        ThemeMode.SYSTEM to strings.themeSystem,
-                        ThemeMode.LIGHT to strings.themeLight,
-                        ThemeMode.DARK to strings.themeDark,
-                    ),
-                    selected = state.theme,
-                    onSelect = onTheme,
-                )
-            }
-            SettingBlock(strings.language) {
-                ChoiceRow(
-                    options = listOf(
-                        UiLanguage.ZH to strings.languageZh,
-                        UiLanguage.EN to strings.languageEn,
-                    ),
-                    selected = state.language,
-                    onSelect = onLanguage,
+                SettingDivider()
+                SwitchRow(
+                    label = strings.annotateHints,
+                    checked = state.annotateHints,
+                    onCheckedChange = onAnnotateHints,
                 )
             }
 
-            Spacer(Modifier.height(8.dp))
-            HorizontalDivider()
-            Surface(
-                onClick = onOpenSync,
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
-                shape = MaterialTheme.shapes.medium,
-                color = MaterialTheme.colorScheme.surfaceContainer,
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(14.dp),
-                ) {
-                    Icon(
-                        imageVector = PagelenceIcons.Globe,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(22.dp),
-                    )
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(strings.syncCopy.title, style = MaterialTheme.typography.titleMedium)
-                        Text(
-                            strings.syncCopy.subtitle,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    Icon(
-                        imageVector = PagelenceIcons.ChevronRight,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(20.dp),
-                    )
-                }
+            SettingGroup(title = strings.sectionGoalRecord) {
+                SettingRow(
+                    label = strings.dailyGoal,
+                    value = strings.goalMinutesOption.format(DailyGoal.sanitize(state.dailyGoalMinutes)),
+                    onClick = { sheet = SettingsSheet.GOAL },
+                )
             }
 
-            Surface(
-                onClick = onOpenAbout,
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 28.dp),
-                shape = MaterialTheme.shapes.medium,
-                color = MaterialTheme.colorScheme.surfaceContainer,
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(14.dp),
-                ) {
-                    Icon(
-                        imageVector = PagelenceIcons.Info,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(22.dp),
-                    )
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(strings.about, style = MaterialTheme.typography.titleMedium)
-                        Text(
-                            strings.aboutCopy.settingsSubtitle.format(appVersion),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    Icon(
-                        imageVector = PagelenceIcons.ChevronRight,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(20.dp),
-                    )
-                }
+            SettingGroup(title = strings.sectionAppearance) {
+                SettingRow(
+                    label = strings.theme,
+                    value = themeLabel(strings, state),
+                    onClick = { sheet = SettingsSheet.THEME },
+                )
+                SettingDivider()
+                SettingRow(
+                    label = strings.language,
+                    value = if (state.language == UiLanguage.EN) strings.languageEn else strings.languageZh,
+                    onClick = { sheet = SettingsSheet.LANGUAGE },
+                )
             }
+
+            SettingGroup(title = strings.sectionData) {
+                SettingRow(
+                    label = strings.fullDictionary,
+                    value = dictionarySummary(strings, dictionary),
+                    onClick = onOpenDictionary,
+                )
+                SettingDivider()
+                SettingRow(
+                    label = strings.syncCopy.title,
+                    value = if (syncConfigured) strings.syncOn else strings.syncOff,
+                    onClick = onOpenSync,
+                )
+            }
+
+            SettingGroup(title = strings.about) {
+                SettingRow(
+                    label = strings.about,
+                    value = appVersion,
+                    onClick = onOpenAbout,
+                )
+                SettingDivider()
+                SettingRow(
+                    label = strings.restoreDefaults,
+                    onClick = { confirmRestore = true },
+                    showChevron = false,
+                    destructive = true,
+                )
+            }
+            Spacer(Modifier.height(28.dp))
         }
     }
 
-    if (dictionary.confirmMetered) {
-        AlertDialog(
-            onDismissRequest = onDictionaryMeteredDismiss,
-            title = { Text(strings.dictMeteredTitle) },
-            text = {
-                Text(strings.dictMeteredBody.format(dictionary.sizeLabel ?: "—"))
-            },
-            confirmButton = {
-                TextButton(onClick = onDictionaryMeteredConfirm) { Text(strings.dictContinue) }
-            },
-            dismissButton = {
-                TextButton(onClick = onDictionaryMeteredDismiss) { Text(strings.close) }
-            },
+    when (sheet) {
+        SettingsSheet.LAYOUT -> ChoiceSheet(
+            title = strings.readingLayout,
+            options = listOf(
+                SheetOption(ReaderLayout.PAGED, strings.layoutPaged),
+                SheetOption(ReaderLayout.SCROLL, strings.layoutScroll),
+            ),
+            selected = state.readerLayout,
+            onDismiss = { sheet = null },
+            onSelect = onReaderLayout,
         )
+
+        SettingsSheet.DEFINITION -> ChoiceSheet(
+            title = strings.definitionMode,
+            options = listOf(
+                SheetOption(DefinitionMode.ZH, strings.definitionModeZh),
+                SheetOption(DefinitionMode.MIXED, strings.definitionModeMixed),
+                SheetOption(DefinitionMode.EN, strings.definitionModeEn),
+            ),
+            selected = state.definitionMode,
+            onDismiss = { sheet = null },
+            onSelect = onDefinitionMode,
+        )
+
+        SettingsSheet.GUIDE -> ChoiceSheet(
+            title = strings.guideMode,
+            options = listOf(
+                SheetOption(GuideMode.BILINGUAL, strings.guideModeBilingual),
+                SheetOption(GuideMode.EN, strings.guideModeEn),
+                SheetOption(GuideMode.IMMERSIVE, strings.guideModeImmersive),
+            ),
+            selected = state.guideMode,
+            onDismiss = { sheet = null },
+            onSelect = onGuideMode,
+        )
+
+        SettingsSheet.GOAL -> ChoiceSheet(
+            title = strings.dailyGoal,
+            options = DailyGoal.OPTIONS.map { minutes ->
+                SheetOption(minutes, strings.goalMinutesOption.format(minutes))
+            },
+            selected = DailyGoal.sanitize(state.dailyGoalMinutes),
+            onDismiss = { sheet = null },
+            onSelect = onDailyGoal,
+            footer = strings.dailyGoalHint,
+        )
+
+        SettingsSheet.THEME -> ChoiceSheet(
+            title = strings.theme,
+            options = listOf(
+                SheetOption(ThemeMode.SYSTEM, strings.themeSystem),
+                SheetOption(ThemeMode.LIGHT, strings.themeLight),
+                SheetOption(ThemeMode.DARK, strings.themeDark),
+            ),
+            selected = state.theme,
+            onDismiss = { sheet = null },
+            onSelect = onTheme,
+        )
+
+        SettingsSheet.LANGUAGE -> ChoiceSheet(
+            title = strings.language,
+            options = listOf(
+                SheetOption(UiLanguage.ZH, strings.languageZh),
+                SheetOption(UiLanguage.EN, strings.languageEn),
+            ),
+            selected = state.language,
+            onDismiss = { sheet = null },
+            onSelect = onLanguage,
+        )
+
+        null -> Unit
     }
 
-    if (confirmDictionaryDelete) {
+    if (confirmRestore) {
         AlertDialog(
-            onDismissRequest = { confirmDictionaryDelete = false },
-            title = { Text(strings.dictDelete) },
-            text = { Text(strings.dictDeleteConfirm) },
+            onDismissRequest = { confirmRestore = false },
+            title = { Text(strings.restoreDefaults) },
+            text = { Text(strings.restoreDefaultsBody) },
             confirmButton = {
                 TextButton(
                     onClick = {
-                        confirmDictionaryDelete = false
-                        onDictionaryDelete()
+                        confirmRestore = false
+                        onRestoreDefaults()
                     },
-                ) { Text(strings.dictDelete) }
+                ) { Text(strings.restoreDefaults) }
             },
             dismissButton = {
-                TextButton(onClick = { confirmDictionaryDelete = false }) { Text(strings.close) }
+                TextButton(onClick = { confirmRestore = false }) { Text(strings.close) }
             },
         )
     }
 }
 
-@Composable
-private fun SettingBlock(title: String, content: @Composable () -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
-        Text(title, style = MaterialTheme.typography.titleMedium)
-        Spacer(Modifier.height(8.dp))
-        content()
+private enum class SettingsSheet { LAYOUT, DEFINITION, GUIDE, GOAL, THEME, LANGUAGE }
+
+private fun fontSizeLabel(strings: Strings, state: SettingsUiState): String =
+    when (state.fontSize) {
+        FontSize.SMALL -> strings.fontSmall
+        FontSize.MEDIUM -> strings.fontMedium
+        FontSize.LARGE -> strings.fontLarge
+        FontSize.XLARGE -> strings.fontXLarge
+    }
+
+private fun readingFontLabel(strings: Strings, state: SettingsUiState): String =
+    when (state.readingFont) {
+        ReadingFont.SANS -> strings.fontSans
+        ReadingFont.SERIF -> strings.fontSerif
+    }
+
+private fun definitionLabel(strings: Strings, state: SettingsUiState): String =
+    when (state.definitionMode) {
+        DefinitionMode.ZH -> strings.definitionModeZh
+        DefinitionMode.MIXED -> strings.definitionModeMixed
+        DefinitionMode.EN -> strings.definitionModeEn
+    }
+
+private fun guideLabel(strings: Strings, state: SettingsUiState): String =
+    when (state.guideMode) {
+        GuideMode.BILINGUAL -> strings.guideModeBilingual
+        GuideMode.EN -> strings.guideModeEn
+        GuideMode.IMMERSIVE -> strings.guideModeImmersive
+    }
+
+private fun themeLabel(strings: Strings, state: SettingsUiState): String =
+    when (state.theme) {
+        ThemeMode.SYSTEM -> strings.themeSystem
+        ThemeMode.LIGHT -> strings.themeLight
+        ThemeMode.DARK -> strings.themeDark
+    }
+
+private fun dictionarySummary(strings: Strings, dictionary: DictionaryUiState): String {
+    val size = dictionary.sizeLabel ?: dictionary.installedVersion ?: dictionary.version ?: "—"
+    return if (dictionary.phase == DictionaryPhase.INSTALLED) {
+        strings.dictionaryInstalled.format(size)
+    } else {
+        strings.dictionaryNotInstalled.format(size)
     }
 }

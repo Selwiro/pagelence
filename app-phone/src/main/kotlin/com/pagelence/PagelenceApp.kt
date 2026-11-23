@@ -33,10 +33,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.screens.AboutArticleScreen
 import com.pagelence.uim3.screens.AboutScreen
+import com.pagelence.uim3.screens.AchievementsScreen
 import com.pagelence.uim3.screens.AssessmentScreen
 import com.pagelence.uim3.screens.BookInfoScreen
 import com.pagelence.uim3.screens.BookOverviewScreen
 import com.pagelence.uim3.screens.BookSearchScreen
+import com.pagelence.uim3.screens.DictionaryScreen
 import com.pagelence.uim3.screens.FinishedBookScreen
 import com.pagelence.uim3.screens.GrammarDetailScreen
 import com.pagelence.uim3.screens.GrammarPointScreen
@@ -49,6 +51,7 @@ import com.pagelence.uim3.screens.ReaderScreen
 import com.pagelence.uim3.screens.SettingsScreen
 import com.pagelence.uim3.screens.StoreScreen
 import com.pagelence.uim3.screens.SyncScreen
+import com.pagelence.uim3.screens.TypographyScreen
 import com.pagelence.uim3.stringsFor
 import com.pagelence.uim3.theme.PagelenceTheme
 import com.pagelence.uim3.theme.isDark
@@ -218,25 +221,47 @@ private fun AppContent(
             state = state.settings,
             dictionary = state.dictionary,
             appVersion = appVersion,
+            syncConfigured = state.sync.configured,
             onBack = viewModel::backFromSettings,
+            onOpenTypography = viewModel::openTypography,
+            onOpenDictionary = viewModel::openDictionarySettings,
             onOpenSync = viewModel::openSync,
             onOpenAbout = viewModel::openAbout,
-            onDictionaryDownload = viewModel::downloadDictionary,
-            onDictionaryPause = viewModel::pauseDictionaryDownload,
-            onDictionaryDelete = viewModel::deleteFullDictionary,
-            onDictionaryMeteredConfirm = viewModel::confirmMeteredDictionaryDownload,
-            onDictionaryMeteredDismiss = viewModel::dismissMeteredDictionaryDownload,
+            onRestoreDefaults = viewModel::restoreDefaultSettings,
             onLanguage = viewModel::setLanguage,
             onTheme = viewModel::setTheme,
-            onFontSize = viewModel::setFontSize,
-            onReadingFont = viewModel::setReadingFont,
-            onLineSpacing = viewModel::setLineSpacing,
-            onPageMargin = viewModel::setPageMargin,
             onReaderLayout = viewModel::setReaderLayout,
             onAnnotateHints = viewModel::setAnnotateHints,
             onDefinitionMode = viewModel::setDefinitionMode,
             onGuideMode = viewModel::setGuideMode,
             onDailyGoal = viewModel::setDailyGoal,
+        )
+
+        Screen.SETTINGS_TYPOGRAPHY -> TypographyScreen(
+            strings = strings,
+            state = state.settings,
+            onBack = viewModel::back,
+            onFontSize = viewModel::setFontSize,
+            onReadingFont = viewModel::setReadingFont,
+            onLineSpacing = viewModel::setLineSpacing,
+            onPageMargin = viewModel::setPageMargin,
+        )
+
+        Screen.SETTINGS_DICTIONARY -> DictionaryScreen(
+            strings = strings,
+            dictionary = state.dictionary,
+            onBack = viewModel::back,
+            onDownload = viewModel::downloadDictionary,
+            onPause = viewModel::pauseDictionaryDownload,
+            onDelete = viewModel::deleteFullDictionary,
+            onMeteredConfirm = viewModel::confirmMeteredDictionaryDownload,
+            onMeteredDismiss = viewModel::dismissMeteredDictionaryDownload,
+        )
+
+        Screen.ACHIEVEMENTS -> AchievementsScreen(
+            strings = strings,
+            wall = state.profile.achievements,
+            onBack = viewModel::back,
         )
 
         Screen.SYNC -> SyncScreen(
@@ -317,7 +342,7 @@ private fun AppContent(
                     onReread = { viewModel.rereadBook(finished.bookId) },
                     onBackToShelf = viewModel::backToShelf,
                     onBrowseStore = viewModel::openStoreFromFinished,
-                    onSeeAllAchievements = viewModel::openProfileFromFinished,
+                    onSeeAllAchievements = viewModel::openAchievementsFromFinished,
                 )
             }
         }
@@ -515,6 +540,8 @@ private fun MainTabsShell(
                     onOpenSettings = viewModel::openSettings,
                     onSelectLevel = viewModel::selectLevel,
                     onOpenAssessment = viewModel::openAssessment,
+                    onOpenAchievements = viewModel::openAchievements,
+                    onDailyGoal = viewModel::setDailyGoal,
                 )
 
                 else -> Unit
