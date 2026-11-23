@@ -419,6 +419,7 @@ private fun BuiltInBookCard(
                         MetaChip(
                             if (book.available) strings.storeBadgeBuiltIn else strings.storeComingSoon,
                         )
+                        if (book.finished) MetaChip(strings.shelfFinished)
                     }
                 }
             }
@@ -441,7 +442,9 @@ private fun BuiltInBookCard(
                     modifier = Modifier.weight(1f),
                 )
                 if (book.available) {
-                    Button(onClick = onRead) { Text(strings.readNow) }
+                    Button(onClick = onRead) {
+                        Text(if (book.finished) strings.readAgain else strings.readNow)
+                    }
                 }
             }
         }
@@ -488,6 +491,7 @@ private fun BookCard(
                         book.level?.let { MetaChip(it) }
                         MetaChip(strings.sourcesText(book.sourceNames.size))
                         if (book.installed) MetaChip(strings.storeInstalled)
+                        if (book.finished) MetaChip(strings.shelfFinished)
                     }
                 }
             }
@@ -516,7 +520,9 @@ private fun BookCard(
                         Text(strings.storeDownloading, style = MaterialTheme.typography.labelLarge)
                     }
                     book.installed && !book.updateAvailable -> {
-                        Button(onClick = onRead) { Text(strings.readNow) }
+                        Button(onClick = onRead) {
+                            Text(if (book.finished) strings.readAgain else strings.readNow)
+                        }
                     }
                     else -> {
                         Button(onClick = onDownload) {

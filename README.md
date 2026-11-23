@@ -287,7 +287,7 @@ adb install -r app-eink/build/outputs/apk/debug/app-eink-debug.apk
 adb shell am start -n com.pagelence/.MainActivity
 ```
 
-**注意：** debug 包使用调试签名，与其他签名的 APK 不能互相覆盖安装。卸载应用或清除应用数据会一并删除本地进度与生词卡；当前尚未提供导出，换机前请留意。
+**注意：** debug 包使用调试签名，与其他签名的 APK 不能互相覆盖安装。卸载应用或清除应用数据会一并删除本地进度与生词卡；换机或卸载前请先在「设置 → 同步与备份」导出 JSON（T069 / T141）。
 
 ### 发布包（release）
 
@@ -324,7 +324,7 @@ adb shell am start -n com.pagelence/.MainActivity
 ## 已知限制
 
 - **内容：** 两本内置书都已完整——杜立德 103 个单元、爱丽丝 104 个单元；长难句解析是可选字段，两本书都只产出候选报告。
-- **近期功能：** 分页、导读独立页、系统 TTS、四栏导航、复习栏（单词/语法）、单元目录、我的页测评与书城书源已实现并验收；本地文件导入仍是占位。
+- **近期功能：** 分页、导读独立页、四栏导航、复习栏（单词/语法/笔记/查词）、单元目录、我的页测评与书城书源已实现并验收；系统 TTS 代码保留但入口暂时隐藏（F-3 待定）；本地书籍包导入、进度导出/导入与 WebDAV 同步均已实现（T087 / T069 / T141）。
 - **朗读：** 2026-11-19 起阅读页与词条暂时不显示朗读入口，TTS 代码与偏好保留；恢复入口时再补真机发音矩阵。
 - **点词粒度：** 按单词取词；跨词短语依赖内容里的提示标注。
 - **句译展开：** 同一时间只展开一句，翻页或切换单元后自动收起。
@@ -333,7 +333,7 @@ adb shell am start -n com.pagelence/.MainActivity
 - **屏幕适配：** 以竖屏手机为主；宽度 360/572/906/1280dp 做了分页走查，平板双栏与真实 10/13 寸设备仍未验证。
 - **墨水屏版：** 已可安装（`:app-eink`，`applicationId com.pagelence.eink`）：书架、书籍详情、阅读（点词词条与生词卡、标记句子、全部句译、书内搜索、导读/正文/测验/语法）、复习四子页、我的（含 365 天热力图）、设置、书城、同步与备份；白底黑字、无黑底、无动效、方向键翻页。全刷已按墨案广播接入（`android.eink.force.refresh`，见 [墨水屏壳说明](docs/app-eink.md#七墨案全刷)），待真机验收；逐句「译/析」图标未做。
 - **语法库规模：** 共享库现有 256 个 CEFR-J 语法点（A1.1–B2.2），复习·语法页按级别列出并可查看详情；《怪医杜立德》103 个单元用到 55 个，复现按复习处理。
-- **APK 签名：** 发布签名已就绪（[说明](docs/release-signing.md)），但 debug 与 release 签名不同，两者不能互相覆盖安装，切换时要先卸载。密钥库仅存本机，尚未备份与纳入 CI。
+- **APK 签名：** 发布签名已就绪（[说明](docs/release-signing.md)），但 debug 与 release 签名不同，两者不能互相覆盖安装，切换时要先卸载。密钥库与口令已按[发布签名](docs/release-signing.md)异地备份（2026-11-22），尚未纳入 CI。
 - **版本号：** `versionCode` / `versionName` 只有 `version.properties` 一处来源，发版前用 `python3 tools/bump_version.py patch|minor|major` 递增；`build.gradle.kts` 不再写死版本。
 - **系统备份：** 云备份与换机迁移只带 `state.json`、同步基线与书城设置（`res/xml/backup_rules.xml`、`data_extraction_rules.xml`）；内容包、完整词表、下载书与缓存不进备份。
 - **构建门禁：** `tools/ci_check.sh` 现在会编译 App、跑 `:sync:test` 与 `lintDebug`；缺 wordfreq / ECDICT 时默认失败，CI 用 `PAGELENCE_ALLOW_MISSING=1` 跳过并打印跳过项。

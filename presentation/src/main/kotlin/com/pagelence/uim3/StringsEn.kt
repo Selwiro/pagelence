@@ -636,8 +636,8 @@ private val EnAboutCopy: AboutCopy = AboutCopy(
             paragraphs = listOf(
                 "The app contacts a book source only when you tap Refresh or Download, over HTTPS. The request " +
                     "includes that source's address; reading progress and word cards are never uploaded.",
-                "The default source stays hidden and is not requested until its hosting is live. Check for " +
-                    "updates does not use the network at present.",
+                "The default source stays hidden and is not requested until its hosting is live. The " +
+                    "update button opens the release page in your browser; the app itself does not query a server.",
             ),
         ),
         AboutSection(

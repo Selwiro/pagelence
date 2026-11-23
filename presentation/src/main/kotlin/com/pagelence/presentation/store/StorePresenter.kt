@@ -36,6 +36,7 @@ class StorePresenter(
         notice: String? = null,
         downloadingId: String? = null,
         importing: Boolean = false,
+        finishedIds: Set<String> = emptySet(),
     ): StoreUiState {
         val settings = sources.settings()
         val installed = sources.installed()
@@ -57,6 +58,7 @@ class StorePresenter(
                 installed = book.id in installedIds,
                 updateAvailable = installedHashes[book.id]?.let { it != book.sha256 } == true,
                 downloading = downloadingId == book.id,
+                finished = book.id in finishedIds,
             )
         }
         val customSources = settings.customSources.map {
@@ -72,7 +74,7 @@ class StorePresenter(
             refreshing = refreshing,
             allowLocalHttp = settings.allowLocalHttp,
             books = books,
-            builtIn = builtIn(),
+            builtIn = builtIn(finishedIds),
             sources = customSources,
             installed = installed.map {
                 InstalledBookUi(
@@ -99,7 +101,7 @@ class StorePresenter(
      * manifest actually ships it; the rest stay visible as "in production"
      * instead of pretending to be downloadable.
      */
-    fun builtIn(): List<BuiltInBookUi> {
+    fun builtIn(finishedIds: Set<String> = emptySet()): List<BuiltInBookUi> {
         val shipped = content.library().associateBy { it.id }
         return catalog.books().map { entry ->
             val summary = shipped[entry.id]
@@ -123,6 +125,7 @@ class StorePresenter(
                 order = entry.order,
                 status = entry.status,
                 coverPath = content.coverPath(entry.id),
+                finished = entry.id in finishedIds,
             )
         }
     }

@@ -67,6 +67,8 @@ data class StoreBookUi(
     val installed: Boolean,
     val updateAvailable: Boolean,
     val downloading: Boolean = false,
+    /** The reader finished this book; the card offers a re-read. */
+    val finished: Boolean = false,
 )
 
 /** One chapter row on the book detail page. */
@@ -160,6 +162,8 @@ data class BuiltInBookUi(
     val status: String = "available",
     /** Package `cover.jpg`; null falls back to the typographic cover. */
     val coverPath: String? = null,
+    /** The reader finished this book; the card offers a re-read. */
+    val finished: Boolean = false,
 )
 
 data class StoreSourceUi(

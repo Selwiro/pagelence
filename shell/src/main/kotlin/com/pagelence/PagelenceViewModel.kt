@@ -1280,6 +1280,7 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         notice = notice,
         downloadingId = downloadingId,
         importing = importing,
+        finishedIds = _ui.value.library.finished.mapTo(mutableSetOf()) { it.id },
     )
 
     // --- assessment ------------------------------------------------------
@@ -2122,6 +2123,25 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
         } else {
             _ui.update { it.copy(finishedBook = null, readerExitConfirm = false) }
             selectTab(MainTab.SHELF)
+        }
+    }
+
+    /** Leave the ending page for the achievements wall in "我的". */
+    fun openProfileFromFinished() {
+        val stack = currentStack()
+        if (stack.lastOrNull() == Screen.BOOK_FINISHED) stack.removeAt(stack.lastIndex)
+        if (_ui.value.tab == MainTab.PROFILE) {
+            while (stack.size > 1) stack.removeAt(stack.lastIndex)
+            _ui.update {
+                it.copy(
+                    screen = Screen.PROFILE,
+                    finishedBook = null,
+                    readerExitConfirm = false,
+                )
+            }
+        } else {
+            _ui.update { it.copy(finishedBook = null, readerExitConfirm = false) }
+            selectTab(MainTab.PROFILE)
         }
     }
 

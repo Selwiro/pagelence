@@ -580,9 +580,13 @@ def validate_library(report: Report) -> dict:
         for removed in ("summary", "function", "detail", "outline", "cefrjIds", "level"):
             if removed in point:
                 report.error(where, f"{removed} was removed in schema 2")
+    # relatedIds may point forwards in the file; check them only after every
+    # point is loaded, otherwise a legal link to a later point is reported as
+    # unknown (115 such false positives before P2-9).
+    for pid, point in points.items():
         for related in point.get("relatedIds") or []:
             if related not in points and related not in known:
-                report.warn(where, f"unknown relatedId {related}")
+                report.warn(f"grammar/{pid}", f"unknown relatedId {related}")
     if not points:
         report.error("grammar", "library has no points")
     if known:

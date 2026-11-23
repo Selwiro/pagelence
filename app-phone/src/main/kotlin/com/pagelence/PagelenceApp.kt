@@ -310,6 +310,7 @@ private fun AppContent(
                     onReread = { viewModel.rereadBook(finished.bookId) },
                     onBackToShelf = viewModel::backToShelf,
                     onBrowseStore = viewModel::openStoreFromFinished,
+                    onSeeAllAchievements = viewModel::openProfileFromFinished,
                 )
             }
         }
@@ -447,7 +448,11 @@ private fun MainTabsShell(
                 Screen.LIBRARY -> LibraryScreen(
                     strings = strings,
                     state = state.library,
-                    onOpenBook = viewModel::openBook,
+                    onOpenBook = { bookId ->
+                        val finished = state.store.builtIn.any { it.id == bookId && it.finished } ||
+                            state.store.books.any { it.id == bookId && it.finished }
+                        if (finished) viewModel.rereadBook(bookId) else viewModel.openBook(bookId)
+                    },
                     onOpenBookDetail = viewModel::openBookDetail,
                     onReread = viewModel::rereadBook,
                     onOpenSettings = viewModel::openSettings,
@@ -457,7 +462,11 @@ private fun MainTabsShell(
                 Screen.STORE -> StoreScreen(
                     strings = strings,
                     state = state.store,
-                    onOpenBook = viewModel::openBook,
+                    onOpenBook = { bookId ->
+                        val finished = state.store.builtIn.any { it.id == bookId && it.finished } ||
+                            state.store.books.any { it.id == bookId && it.finished }
+                        if (finished) viewModel.rereadBook(bookId) else viewModel.openBook(bookId)
+                    },
                     onOpenDetail = viewModel::openBookDetail,
                     onRefresh = viewModel::refreshStore,
                     onToggleLocalHttp = viewModel::setAllowLocalHttp,

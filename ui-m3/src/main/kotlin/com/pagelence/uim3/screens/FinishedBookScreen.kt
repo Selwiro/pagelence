@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -42,6 +43,7 @@ fun FinishedBookScreen(
     onReread: () -> Unit,
     onBackToShelf: () -> Unit,
     onBrowseStore: () -> Unit,
+    onSeeAllAchievements: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val words = wordCountText(state.wordCount, strings.uiLanguage)
@@ -54,6 +56,7 @@ fun FinishedBookScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
+                .navigationBarsPadding()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 28.dp, vertical = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -174,11 +177,12 @@ fun FinishedBookScreen(
                         )
                     }
                 }
-                Text(
-                    strings.achievementSeeAll,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+                TextButton(onClick = onSeeAllAchievements) {
+                    Text(
+                        strings.achievementSeeAll,
+                        style = MaterialTheme.typography.labelSmall,
+                    )
+                }
             }
 
             Spacer(Modifier.height(34.dp))
@@ -198,7 +202,7 @@ fun FinishedBookScreen(
             TextButton(onClick = onBrowseStore) {
                 Text(strings.browseStore)
             }
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(24.dp))
         }
     }
 }

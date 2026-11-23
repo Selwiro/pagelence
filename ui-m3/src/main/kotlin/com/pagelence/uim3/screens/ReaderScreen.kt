@@ -49,7 +49,9 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.dp
 import com.pagelence.core.prefs.ReaderLayout
@@ -664,6 +666,7 @@ fun ReaderScreen(
                                         .align(Alignment.CenterStart)
                                         .fillMaxHeight()
                                         .width(pageTurnZone)
+                                        .semantics { contentDescription = strings.previousPage }
                                         .clickable(
                                             onClickLabel = strings.previousPage,
                                             onClick = { goTo(pagerState.currentPage - 1) },
@@ -676,6 +679,7 @@ fun ReaderScreen(
                                         .align(Alignment.CenterEnd)
                                         .fillMaxHeight()
                                         .width(pageTurnZone)
+                                        .semantics { contentDescription = strings.nextPage }
                                         .clickable(
                                             onClickLabel = strings.nextPage,
                                             onClick = { goTo(pagerState.currentPage + 1) },

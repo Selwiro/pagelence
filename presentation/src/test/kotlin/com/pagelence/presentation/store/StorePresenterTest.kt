@@ -58,4 +58,12 @@ class StorePresenterTest {
         assertTrue(state.builtIn.isNotEmpty())
         assertEquals(false, state.refreshing)
     }
+
+    @Test
+    fun `a finished book is marked in the store shelf`() {
+        val books = presenter().builtIn(finishedIds = setOf("doctor-dolittle-1920"))
+
+        assertTrue(books.first { it.id == "doctor-dolittle-1920" }.finished)
+        assertTrue(books.none { it.id == "alice-1866" && it.finished })
+    }
 }

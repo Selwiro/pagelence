@@ -20,12 +20,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -67,10 +72,21 @@ fun SyncScreen(
     var password by rememberSaveable { mutableStateOf("") }
     var confirmDisable by rememberSaveable { mutableStateOf(false) }
     var confirmOverwrite by rememberSaveable { mutableStateOf(false) }
+    val snackbar = remember { SnackbarHostState() }
+
+    LaunchedEffect(state.notice, state.noticeIsError) {
+        val notice = state.notice ?: return@LaunchedEffect
+        snackbar.showSnackbar(
+            message = notice,
+            duration = if (state.noticeIsError) SnackbarDuration.Long else SnackbarDuration.Short,
+        )
+        onDismissNotice()
+    }
 
     Scaffold(
         modifier = modifier,
         topBar = { PageTopBar(title = copy.title, onBack = onBack) },
+        snackbarHost = { SnackbarHost(snackbar) },
     ) { padding ->
         Column(
             modifier = Modifier
@@ -88,27 +104,6 @@ fun SyncScreen(
 
             Spacer(Modifier.height(14.dp))
             StatusCard(strings = strings, state = state)
-            state.notice?.let { notice ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = notice,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = if (state.noticeIsError) {
-                            MaterialTheme.colorScheme.error
-                        } else {
-                            MaterialTheme.colorScheme.primary
-                        },
-                        modifier = Modifier.weight(1f),
-                    )
-                    TextButton(onClick = onDismissNotice) { Text(strings.close) }
-                }
-            }
-
             Spacer(Modifier.height(8.dp))
             SectionLabel(copy.sectionProvider)
             Row(

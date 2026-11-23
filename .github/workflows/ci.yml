@@ -1,6 +1,6 @@
 name: ci
 
-# 最小门禁：内容产物校验、单测（core/data/sync）、App 编译与 lint。
+# 最小门禁：内容产物校验、单测（core/data/sync/presentation）、两个 App 编译与 lint。
 # 外部数据（wordfreq、ECDICT CSV、词级来源）不在仓库里，CI 用
 # PAGELENCE_ALLOW_MISSING=1 跳过并打印跳过项；发版前在本机跑严格模式补齐。
 on:

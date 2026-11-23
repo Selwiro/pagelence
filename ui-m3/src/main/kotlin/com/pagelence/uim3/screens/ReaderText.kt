@@ -479,14 +479,17 @@ internal fun buildSentenceFlow(
                 builder.pop()
                 if (builder.length > zhStart) translationRanges += zhStart until builder.length
             } else {
-                builder.append(" ")
+                // A non-breaking space glues the icon to the last word: at the
+                // right margin the word and its icon wrap together instead of
+                // leaving the icon alone on a line (P2-1).
+                builder.append("\u00A0")
                 val iconAt = builder.length
                 builder.appendInlineContent(translateId(sentence.number), strings.translation)
                 iconStarts[iconAt] = sentence
             }
         }
         if (sentence.analysis != null) {
-            builder.append(" ")
+            builder.append("\u00A0")
             val analysisAt = builder.length
             builder.appendInlineContent(analysisId(sentence.number), strings.analysisParse)
             analysisStarts[analysisAt] = sentence
