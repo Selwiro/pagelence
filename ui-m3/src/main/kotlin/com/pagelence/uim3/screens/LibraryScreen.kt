@@ -271,7 +271,7 @@ private fun BookHeader(strings: Strings, book: BookUi, progress: Float) {
             ReadingProgressBar(progress)
             Spacer(Modifier.height(6.dp))
             Text(
-                strings.readUnits.format(book.readUnits, book.unitCount),
+                strings.readUnitsText(book.readUnits, book.unitCount),
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

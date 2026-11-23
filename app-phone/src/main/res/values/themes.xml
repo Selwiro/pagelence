@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The starting window is painted before Compose runs, so its background must
+  match the app's surface. Dark users get the night variant below; readers who
+  pick Dark on a light system are covered by applyApplicationNightMode()
+  (API 31+), which mirrors the preference into the application night mode.
+-->
+<resources>
+    <style name="Theme.Pagelence" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+</resources>

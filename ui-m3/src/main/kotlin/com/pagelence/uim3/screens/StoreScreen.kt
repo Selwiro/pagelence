@@ -246,7 +246,7 @@ fun StoreScreen(
                             Column(Modifier.weight(1f)) {
                                 Text(installed.title, style = MaterialTheme.typography.titleSmall)
                                 Text(
-                                    "${strings.unitCount.format(installed.units)} · ${installed.sourceName}",
+                                    "${strings.unitCountText(installed.units)} · ${installed.sourceName}",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
@@ -435,7 +435,7 @@ private fun BuiltInBookCard(
             Spacer(Modifier.height(10.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    if (book.available) strings.unitCount.format(book.unitCount) else strings.storeComingSoonHint,
+                    if (book.available) strings.unitCountText(book.unitCount) else strings.storeComingSoonHint,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.weight(1f),
@@ -486,7 +486,7 @@ private fun BookCard(
                     Spacer(Modifier.height(6.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         book.level?.let { MetaChip(it) }
-                        MetaChip(strings.storeSourcesCount.format(book.sourceNames.size))
+                        MetaChip(strings.sourcesText(book.sourceNames.size))
                         if (book.installed) MetaChip(strings.storeInstalled)
                     }
                 }

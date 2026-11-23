@@ -24,11 +24,14 @@ class ReaderPresenterTest {
     private val index = assertNotNull(content.index(bookId))
     private val firstUnit = index.units.first()
 
-    private fun presenter(preferences: Preferences = Preferences()) = ReaderPresenter(
+    private fun presenter(
+        preferences: Preferences = Preferences(),
+        language: UiLanguage = UiLanguage.ZH,
+    ) = ReaderPresenter(
         content = content,
         cards = InMemoryWordCardRepository(),
-        strings = stringsFor(UiLanguage.ZH),
-        language = UiLanguage.ZH,
+        strings = stringsFor(language),
+        language = language,
         preferences = preferences,
         bookLevel = "A2",
     )
@@ -102,6 +105,25 @@ class ReaderPresenterTest {
         assertEquals(
             if (hasIntroduction) ReaderPhase.GUIDE else ReaderPhase.TEXT,
             state.resumePhase,
+        )
+    }
+
+    @Test
+    fun `an English interface keeps the Chinese reading aids`() {
+        val state = presenter(language = UiLanguage.EN).unit(
+            bookIndex = index,
+            unit = firstUnit,
+            progress = BookProgress(bookId = bookId),
+            quizAnswers = emptyMap(),
+            quizSubmitted = false,
+            quizCollected = 0,
+        )
+
+        val sentences = state.paragraphs.flatMap { it.sentences }
+        assertTrue(sentences.any { !it.zh.isNullOrBlank() }, "sentence translations must stay available")
+        assertTrue(
+            firstUnit.introduction?.zh.isNullOrBlank() != true && !state.introductionZh.isNullOrBlank(),
+            "the Chinese guide must stay available to the guide-mode selector",
         )
     }
 }

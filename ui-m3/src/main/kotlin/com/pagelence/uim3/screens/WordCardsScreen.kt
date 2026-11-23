@@ -148,7 +148,7 @@ private fun ReviewHeader(
                 },
             )
             Text(
-                strings.studyCards.format(review.rows.size),
+                strings.cardsText(review.rows.size),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

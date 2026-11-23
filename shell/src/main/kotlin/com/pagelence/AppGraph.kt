@@ -39,6 +39,9 @@ import java.io.File
 class AppGraph(context: Context, val config: ShellConfig = ShellConfig("0.0.0", 0)) {
     private val appContext = context.applicationContext
 
+    /** Application context for shell-owned platform hooks (night mode, TTS…). */
+    val context: Context get() = appContext
+
     val store: ReadingStateStore by lazy {
         ReadingStateStore(File(appContext.filesDir, "state.json"))
     }

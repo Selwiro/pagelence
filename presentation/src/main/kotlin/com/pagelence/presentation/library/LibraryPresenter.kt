@@ -130,7 +130,7 @@ class LibraryPresenter(
         val subtitle = buildList {
             author?.let(::add)
             outline.edition?.let(::add)
-            add(strings.unitCount.format(outline.units.size))
+            add(strings.unitCountText(outline.units.size))
         }.joinToString(" · ")
         return BookUi(
             id = summary.id,

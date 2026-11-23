@@ -1511,7 +1511,6 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
             val result = WordPanelPresenter(
                 content = graph.content,
                 strings = stringsFor(language),
-                language = language,
             ).open(
                 index = bookIndex,
                 bookId = reader.bookId,
@@ -2623,7 +2622,17 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
 
     private fun savePreferences(prefs: Preferences) {
         viewModelScope.launch(Dispatchers.IO) {
+            val previousLanguage = _ui.value.settings.language
+            val previousTheme = _ui.value.settings.theme
             graph.preferences.save(prefs)
+            // A cold start paints the Android starting window from the manifest
+            // theme before Compose reads the preference; mirror a changed
+            // theme at the platform level so later launches open with a
+            // matching background. Runs after the save so a configuration
+            // change cannot recreate the activity with the old value.
+            if (prefs.theme != previousTheme) {
+                runCatching { applyApplicationNightMode(graph.context, prefs.theme) }
+            }
             val language = uiLanguage(prefs)
             val reader = _ui.value.reader
             val refreshed = if (reader != null && reader.language != language) {
@@ -2643,6 +2652,13 @@ class PagelenceViewModel(private val graph: AppGraph) : ViewModel() {
                 it.copy(settings = settingsOf(prefs, language), reader = refreshed)
             }
             refreshLibrary()
+            // Screens built earlier keep their formatted copy; a language
+            // change must rebuild the two whose rows are not recomputed on
+            // every visit (store titles/blurbs and the dictionary status).
+            if (language != previousLanguage) {
+                refreshStore()
+                refreshDictionary()
+            }
         }
     }
 

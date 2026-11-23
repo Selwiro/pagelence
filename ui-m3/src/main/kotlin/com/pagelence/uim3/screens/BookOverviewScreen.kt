@@ -326,7 +326,7 @@ fun BookOverviewScreen(
                     )
                     if (state.chapters.isNotEmpty()) {
                         Text(
-                            strings.unitCount.format(state.unitCount),
+                            strings.unitCountText(state.unitCount),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -347,7 +347,7 @@ fun BookOverviewScreen(
                 items(state.chapters, key = { it.id }) { chapter ->
                     ChapterRow(
                         chapter = chapter,
-                        unitLabel = strings.bookChapterUnits.format(chapter.unitCount),
+                        unitLabel = strings.chapterUnitsText(chapter.unitCount),
                         enabled = state.available,
                         onClick = { onOpenChapter(chapter) },
                     )

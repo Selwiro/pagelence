@@ -553,6 +553,37 @@ object EnStrings : Strings {
     override val studyDone: String get() = "Round complete"
     override val reviewEmptyOftenWrongTitle: String get() = "Nothing often missed"
     override val reviewEmptyOftenWrongBody: String get() = "Words you mark Forgot appear here."
+
+    override fun unitCountText(count: Int): String =
+        if (count == 1) "1 unit" else "$count units"
+
+    override fun chapterUnitsText(count: Int): String =
+        if (count == 1) "1 unit" else "$count units"
+
+    override fun readUnitsText(read: Int, total: Int): String =
+        if (total == 1) "$read of 1 unit read" else "$read of $total units read"
+
+    override fun cardsText(count: Int): String =
+        if (count == 1) "1 card" else "$count cards"
+
+    override fun marksText(count: Int): String =
+        if (count == 1) "1 mark" else "$count marks"
+
+    override fun grammarPointsText(count: Int): String =
+        if (count == 1) "1 grammar point" else "$count grammar points"
+
+    override fun todayUnitsText(count: Int): String =
+        if (count == 1) "1 unit finished today" else "$count units finished today"
+
+    override fun sourcesText(count: Int): String =
+        if (count == 1) "1 source" else "$count sources"
+
+    override fun finishedBooksLabel(count: Int): String = if (count == 1) "Book" else "Books"
+
+    override fun readingDaysLabel(count: Int): String = if (count == 1) "Day" else "Days"
+
+    override fun streakLongestText(count: Int): String =
+        if (count == 1) "Best 1 day" else "Best $count days"
 }
 
 private val EnAboutCopy: AboutCopy = AboutCopy(

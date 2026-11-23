@@ -32,7 +32,7 @@ class GrammarPresenter(
             examples = point.examples.map {
                 GrammarExampleUi(
                     text = it.text,
-                    zh = if (language == UiLanguage.EN) null else it.zh,
+                    zh = it.zh,
                     fromBook = false,
                 )
             },

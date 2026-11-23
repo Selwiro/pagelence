@@ -349,8 +349,8 @@ private fun TodayCard(strings: Strings, state: ProfileUiState) {
             if (state.metToday) strings.todayGoalMet
             else strings.todayGoalRemaining.format(remainingMinutes),
         )
-        if (state.todayUnits > 0) add(strings.todayUnitsLine.format(state.todayUnits))
-        if (state.longestStreak > 0) add(strings.streakLongest.format(state.longestStreak))
+        if (state.todayUnits > 0) add(strings.todayUnitsText(state.todayUnits))
+        if (state.longestStreak > 0) add(strings.streakLongestText(state.longestStreak))
     }.joinToString(" · ")
 
     ElevatedCard(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
@@ -473,7 +473,7 @@ private fun StatsRow(strings: Strings, state: ProfileUiState) {
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         StatCard(
             value = state.finishedBooks.toString(),
-            label = strings.booksFinishedShort,
+            label = strings.finishedBooksLabel(state.finishedBooks),
             modifier = Modifier.weight(1f),
         )
         StatCard(
@@ -483,7 +483,7 @@ private fun StatsRow(strings: Strings, state: ProfileUiState) {
         )
         StatCard(
             value = state.readingDays.toString(),
-            label = strings.readingDaysShort,
+            label = strings.readingDaysLabel(state.readingDays),
             modifier = Modifier.weight(1f),
         )
     }

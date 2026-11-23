@@ -99,7 +99,7 @@ data class QuizWordCandidate(
                         SentenceUi(
                             number = number,
                             text = sentence.text,
-                            zh = if (language == UiLanguage.EN) null else sentence.zh,
+                            zh = sentence.zh,
                             annotated = annotated,
                             analysis = sentence.analysis?.let { toAnalysisUi(it, language) },
                             mark = marks[AnnotationRules.sentenceKey(paragraph.id, number)],
@@ -127,7 +127,7 @@ data class QuizWordCandidate(
                 revealed = quizSubmitted,
                 sentenceNumber = item.sentence,
                 sentenceText = sentence?.text,
-                sentenceZh = if (language == UiLanguage.EN) null else sentence?.zh,
+                sentenceZh = sentence?.zh,
             )
         }
         val collectible = quizCandidates(unit).count { candidate ->
@@ -152,7 +152,7 @@ data class QuizWordCandidate(
             unitNumber = unit.number,
             unitPosition = bookIndex.units.indexOfFirst { it.id == unit.id } + 1,
             unitCount = bookIndex.units.size,
-            introductionZh = if (language == UiLanguage.EN) null else unit.introduction?.zh,
+            introductionZh = unit.introduction?.zh,
             introductionEn = unit.introduction?.en,
             showGuideInitially = (showGuide || startAtGuide) && !startAtText,
             paragraphs = paragraphs,

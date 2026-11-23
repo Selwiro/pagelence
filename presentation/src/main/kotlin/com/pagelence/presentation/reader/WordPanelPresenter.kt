@@ -8,7 +8,6 @@ import com.pagelence.core.content.Paragraph
 import com.pagelence.core.lexicon.WordLookup
 import com.pagelence.core.reading.SelectedTerm
 import com.pagelence.uim3.Strings
-import com.pagelence.uim3.UiLanguage
 import com.pagelence.uim3.model.SelectedWordUi
 import com.pagelence.uim3.model.SenseUi
 import com.pagelence.uim3.model.WordPanelUi
@@ -31,7 +30,6 @@ data class WordPanelResult(
 class WordPanelPresenter(
     private val content: ContentRepository,
     private val strings: Strings,
-    private val language: UiLanguage,
 ) {
     fun open(
         index: ContentIndex,
@@ -64,7 +62,7 @@ class WordPanelPresenter(
             hint = hint,
             lookup = lookup,
             sentenceNumber = sentenceNumber,
-            sentenceZh = if (language == UiLanguage.EN) null else sentence.zh,
+            sentenceZh = sentence.zh,
         )
         return WordPanelResult(
             panel = panel,

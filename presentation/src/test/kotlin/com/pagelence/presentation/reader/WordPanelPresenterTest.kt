@@ -19,7 +19,6 @@ class WordPanelPresenterTest {
     private val presenter = WordPanelPresenter(
         content = content,
         strings = stringsFor(UiLanguage.ZH),
-        language = UiLanguage.ZH,
     )
 
     @Test

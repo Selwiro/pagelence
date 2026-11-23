@@ -567,6 +567,21 @@ interface Strings {
     val studyDone: String
     val reviewEmptyOftenWrongTitle: String
     val reviewEmptyOftenWrongBody: String
+
+    // Count phrases that take a singular form in English ("1 unit" vs "2
+    // units"). Defaults keep the existing templates, which is right for
+    // Chinese; EnStrings overrides them with the singular branch.
+    fun unitCountText(count: Int): String = unitCount.format(count)
+    fun chapterUnitsText(count: Int): String = bookChapterUnits.format(count)
+    fun readUnitsText(read: Int, total: Int): String = readUnits.format(read, total)
+    fun cardsText(count: Int): String = studyCards.format(count)
+    fun marksText(count: Int): String = annotationCount.format(count)
+    fun grammarPointsText(count: Int): String = grammarPointsCount.format(count)
+    fun todayUnitsText(count: Int): String = todayUnitsLine.format(count)
+    fun sourcesText(count: Int): String = storeSourcesCount.format(count)
+    fun finishedBooksLabel(count: Int): String = booksFinishedShort
+    fun readingDaysLabel(count: Int): String = readingDaysShort
+    fun streakLongestText(count: Int): String = streakLongest.format(count)
 }
 
 fun stringsFor(language: UiLanguage): Strings = when (language) {

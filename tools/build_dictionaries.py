@@ -46,6 +46,7 @@ BOOKS = CONTENT / "books"
 LEVELS = CONTENT / "third-party" / "word-levels.json"
 OUTPUT = CONTENT / "third-party" / "dictionaries" / "ecdict.json"
 EXTRA = ANDROID / "content-src" / "extra.json"
+OVERRIDES = ANDROID / "content-src" / "core-overrides.json"
 
 WORD = re.compile(r"[A-Za-z][A-Za-z'’\-]*")
 # A core headword or inflected form: one token, letters with apostrophe, hyphen
@@ -147,6 +148,18 @@ def split_lines(value: str) -> list[str]:
     ]
 
 
+# Mid-line corpus/domain tags (`art. [计] 累加器…`). A bracketed regional or
+# encyclopaedic note (`亚琛[德国城市]`) is longer and stays.
+DOMAIN_TAG = re.compile(
+    r"[\[【]\s*(?:计|网络|医|化|经|军|植|动|法|数|物理|电子|计算机|生物|地质|冶|机|电|"
+    r"通信|体育|音乐|美术|心理|哲|宗|农|林|水产|航海|航空|石油|建|纺|食|药|病|解剖|统计|"
+    r"天|气象|环保|能源|汽车|铁路|戏曲|逻辑|修辞|矿|印|服装|烹饪|圣经|中医|西医|兽医|"
+    r"昆虫|细菌|病毒|免疫|遗传|生态|地理|历史|考古|军事|经济|会计|金融|贸易|管理|营销|"
+    r"法律|政治|外交|新闻|出版|广播|电视|电影|摄影|绘画|雕塑|建筑|舞蹈|戏剧|棋|牌|游戏|"
+    r"编程|软件|硬件|数据库|电工|机械|土木|水利|测绘|化工|材料|天然气|纺织|轻工|食品|"
+    r"酿造|烟草|医药|护理|生理|病理|药理|教育|宗教|神话)\s*[\]】]\s*",
+)
+
 NOTE_BODY = (
     r"(?:[a-z'’\-]+的(?:现在时|过去式|过去分词|现在分词|第三人称单数|名词复数|复数|比较级|最高级)(?:和(?:过去式|过去分词|现在分词|名词复数|复数))?"
     r"|[a-z'’\-]+复数|名词复数|动词复数|形容词复数|复数形式)"
@@ -157,7 +170,8 @@ NOTE_PAREN = re.compile(r"[（(][^）)]*" + NOTE_BODY + r"[^）)]*[）)]", re.IG
 
 def clean_definition(value: str) -> str:
     """Drop a form note that is the whole line, or only its parenthesis."""
-    text = NOTE_PAREN.sub(" ", value)
+    text = DOMAIN_TAG.sub(" ", value)
+    text = NOTE_PAREN.sub(" ", text)
     text = re.sub(r"\s+", " ", text).strip(" ,，;；")
     if not text or NOTE_LINE.match(value):
         return ""
@@ -185,6 +199,41 @@ def load_extra() -> dict[str, dict]:
         return {}
     data = json.loads(EXTRA.read_text(encoding="utf-8"))
     return data.get("entries") or {}
+
+
+def load_overrides() -> dict[str, dict]:
+    if not OVERRIDES.is_file():
+        return {}
+    data = json.loads(OVERRIDES.read_text(encoding="utf-8"))
+    return data.get("entries") or {}
+
+
+def apply_overrides(entries: dict[str, dict]) -> None:
+    """Replace the first senses of the curated high-frequency words.
+
+    ECDICT orders homographs by its own editorial history, so `may` starts with
+    the month and `can` with a tin. Those are the words a reader is most likely
+    to tap, and the first sense is what the word card stores; the overrides are
+    deliberately short and grammar-shaped.
+    """
+    for term, source in load_overrides().items():
+        key = normalize(term)
+        entry = entries.get(key)
+        if entry is None:
+            raise SystemExit(f"core-overrides.json: {term} is not in ECDICT")
+        for field in ("senses", "en"):
+            value = source.get(field)
+            if value is None:
+                continue
+            cleaned = []
+            for pair in value:
+                if not isinstance(pair, list) or len(pair) != 2:
+                    raise SystemExit(f"core-overrides.json: {term}.{field} must be [[pos, text], …]")
+                pos, definition = str(pair[0]).strip(), str(pair[1]).strip()
+                if not definition:
+                    raise SystemExit(f"core-overrides.json: {term}.{field} has an empty definition")
+                cleaned.append([pos, definition])
+            entry[field] = cleaned
 
 
 def is_core(term: str, row: dict[str, str], levels: set[str], core_rank: int) -> bool:
@@ -292,6 +341,8 @@ def build(csv_path: Path, core_rank: int) -> tuple[dict, dict]:
         if tag:
             entry["tag"] = tag
         entries[term] = entry
+
+    apply_overrides(entries)
 
     # A book-only name can have a pronunciation but no lexical definition
     # (`Alice`); keep the phonetic so tapping the name still shows it.

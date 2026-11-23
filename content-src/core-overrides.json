@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-23",
+  "note": "高频功能词的首义修正。ECDICT 的英文 definition 常混入韦氏 1913 或同形词（may=五月、can=罐头、me=缅因州、it=IT），中文也常把领域义排在最前；这些词按语法用途改写，词卡与查词面板直接受益。只覆盖既有词条，不新增。",
+  "entries": {
+    "the": {
+      "senses": [["art.", "定冠词：这，那（特指已知的人或物）"]],
+      "en": [["art.", "Used before a noun that is already known or has been mentioned."]]
+    },
+    "a": {
+      "senses": [["art.", "不定冠词：一个，一件"]],
+      "en": [["art.", "Used before a singular noun that is not specific."]]
+    },
+    "an": {
+      "senses": [["art.", "不定冠词：一个（用于元音音素前）"]],
+      "en": [["art.", "Used before a vowel sound."]]
+    },
+    "be": {
+      "senses": [["v.", "是；存在；成为"]],
+      "en": [["v.", "To exist, or to have a quality."]]
+    },
+    "am": {
+      "senses": [["v.", "be 的第一人称单数现在式"]],
+      "en": [["v.", "First-person singular present of be."]]
+    },
+    "is": {
+      "senses": [["v.", "be 的第三人称单数现在式"]],
+      "en": [["v.", "Third-person singular present of be."]]
+    },
+    "are": {
+      "senses": [["v.", "be 的现在式复数与第二人称"]],
+      "en": [["v.", "Present plural and second-person of be."]]
+    },
+    "was": {
+      "senses": [["v.", "be 的第一、第三人称单数过去式"]],
+      "en": [["v.", "Past singular of be."]]
+    },
+    "were": {
+      "senses": [["v.", "be 的过去式复数与第二人称"]],
+      "en": [["v.", "Past plural and second-person of be."]]
+    },
+    "been": {
+      "senses": [["v.", "be 的过去分词"]],
+      "en": [["v.", "Past participle of be."]]
+    },
+    "being": {
+      "senses": [["v.", "be 的现在分词"], ["n.", "存在；生命"]],
+      "en": [["v.", "Present participle of be."], ["n.", "The state or fact of existing."]]
+    },
+    "do": {
+      "senses": [["v.", "做；进行"], ["aux.", "助动词，构成疑问与否定"]],
+      "en": [["v.", "To perform an action."], ["aux.", "Used to form questions and negatives."]]
+    },
+    "does": {
+      "senses": [["v.", "do 的第三人称单数现在式"]],
+      "en": [["v.", "Third-person singular present of do."]]
+    },
+    "did": {
+      "senses": [["v.", "do 的过去式"]],
+      "en": [["v.", "Past of do."]]
+    },
+    "done": {
+      "senses": [["v.", "do 的过去分词"], ["adj.", "完成的"]],
+      "en": [["v.", "Past participle of do."], ["adj.", "Finished."]]
+    },
+    "doing": {
+      "senses": [["v.", "do 的现在分词"], ["n.", "行为；活动"]],
+      "en": [["v.", "Present participle of do."], ["n.", "An action or activity."]]
+    },
+    "have": {
+      "senses": [["v.", "有；拥有"], ["aux.", "助动词，构成完成时"]],
+      "en": [["v.", "To possess."], ["aux.", "Used to form perfect tenses."]]
+    },
+    "has": {
+      "senses": [["v.", "have 的第三人称单数现在式"]],
+      "en": [["v.", "Third-person singular present of have."]]
+    },
+    "had": {
+      "senses": [["v.", "have 的过去式与过去分词"]],
+      "en": [["v.", "Past and past participle of have."]]
+    },
+    "having": {
+      "senses": [["v.", "have 的现在分词"]],
+      "en": [["v.", "Present participle of have."]]
+    },
+    "will": {
+      "senses": [["modal.", "将；会；愿意"], ["n.", "意志；遗嘱"]],
+      "en": [["modal.", "Used to talk about the future or willingness."], ["n.", "The power to decide; a legal testament."]]
+    },
+    "would": {
+      "senses": [["modal.", "将会；愿意（过去将来或委婉）"]],
+      "en": [["modal.", "Past of will; used for polite requests and hypotheticals."]]
+    },
+    "shall": {
+      "senses": [["modal.", "将；应该（多与 I、we 连用）"]],
+      "en": [["modal.", "Future or obligation, mainly with I and we."]]
+    },
+    "should": {
+      "senses": [["modal.", "应该"]],
+      "en": [["modal.", "Used to say what is right or expected."]]
+    },
+    "can": {
+      "senses": [["modal.", "能；可以"], ["n.", "罐头；罐"]],
+      "en": [["modal.", "To be able to or allowed to."], ["n.", "A sealed metal container."]]
+    },
+    "could": {
+      "senses": [["modal.", "能；可以（can 的过去式，也用于委婉）"]],
+      "en": [["modal.", "Past of can; polite or tentative possibility."]]
+    },
+    "may": {
+      "senses": [["modal.", "可能；可以"], ["n.", "五月（May）"]],
+      "en": [["modal.", "To be possible or permitted."], ["n.", "The fifth month of the year."]]
+    },
+    "might": {
+      "senses": [["modal.", "可能（比 may 更不确定）"], ["n.", "力量（旧）"]],
+      "en": [["modal.", "A more tentative possibility."], ["n.", "Physical strength (dated)."]]
+    },
+    "must": {
+      "senses": [["modal.", "必须；一定"]],
+      "en": [["modal.", "Used to say something is necessary or certain."]]
+    },
+    "i": {
+      "senses": [["pron.", "我"]],
+      "en": [["pron.", "The speaker."]]
+    },
+    "me": {
+      "senses": [["pron.", "我（宾格）"]],
+      "en": [["pron.", "Objective case of I."]]
+    },
+    "my": {
+      "senses": [["pron.", "我的"]],
+      "en": [["pron.", "Possessive of I."]]
+    },
+    "mine": {
+      "senses": [["pron.", "我的（东西）"]],
+      "en": [["pron.", "Possessive pronoun of I."]]
+    },
+    "you": {
+      "senses": [["pron.", "你；你们"]],
+      "en": [["pron.", "The person or people spoken to."]]
+    },
+    "your": {
+      "senses": [["pron.", "你的；你们的"]],
+      "en": [["pron.", "Possessive of you."]]
+    },
+    "he": {
+      "senses": [["pron.", "他"]],
+      "en": [["pron.", "A male person."]]
+    },
+    "him": {
+      "senses": [["pron.", "他（宾格）"]],
+      "en": [["pron.", "Objective case of he."]]
+    },
+    "his": {
+      "senses": [["pron.", "他的"]],
+      "en": [["pron.", "Possessive of he."]]
+    },
+    "she": {
+      "senses": [["pron.", "她"]],
+      "en": [["pron.", "A female person."]]
+    },
+    "her": {
+      "senses": [["pron.", "她的；她（宾格）"]],
+      "en": [["pron.", "Possessive and objective of she."]]
+    },
+    "it": {
+      "senses": [["pron.", "它；这"]],
+      "en": [["pron.", "A thing, animal or situation."]]
+    },
+    "its": {
+      "senses": [["pron.", "它的"]],
+      "en": [["pron.", "Possessive of it."]]
+    },
+    "we": {
+      "senses": [["pron.", "我们"]],
+      "en": [["pron.", "The speaker and others."]]
+    },
+    "us": {
+      "senses": [["pron.", "我们（宾格）"]],
+      "en": [["pron.", "Objective case of we."]]
+    },
+    "our": {
+      "senses": [["pron.", "我们的"]],
+      "en": [["pron.", "Possessive of we."]]
+    },
+    "they": {
+      "senses": [["pron.", "他们；她们；它们"]],
+      "en": [["pron.", "Those people or things."]]
+    },
+    "them": {
+      "senses": [["pron.", "他们；她们；它们（宾格）"]],
+      "en": [["pron.", "Objective case of they."]]
+    },
+    "their": {
+      "senses": [["pron.", "他们的；她们的；它们的"]],
+      "en": [["pron.", "Possessive of they."]]
+    },
+    "of": {
+      "senses": [["prep.", "……的；属于"]],
+      "en": [["prep.", "Belonging to or connected with."]]
+    },
+    "to": {
+      "senses": [["prep.", "到；向；朝；对"]],
+      "en": [["prep.", "In the direction of; toward."]]
+    },
+    "in": {
+      "senses": [["prep.", "在……里；在……期间"]],
+      "en": [["prep.", "Inside; during."]]
+    },
+    "on": {
+      "senses": [["prep.", "在……上；关于"]],
+      "en": [["prep.", "On a surface; about."]]
+    },
+    "at": {
+      "senses": [["prep.", "在（某处、某时）；对着"]],
+      "en": [["prep.", "At a place, time or target."]]
+    },
+    "for": {
+      "senses": [["prep.", "为了；给；因为"]],
+      "en": [["prep.", "Intended for; because of."]]
+    },
+    "with": {
+      "senses": [["prep.", "和……一起；带有"]],
+      "en": [["prep.", "Together with; having."]]
+    },
+    "from": {
+      "senses": [["prep.", "从；来自"]],
+      "en": [["prep.", "From a place, time or source."]]
+    },
+    "by": {
+      "senses": [["prep.", "由；通过；在……旁边"]],
+      "en": [["prep.", "By means of; beside."]]
+    },
+    "as": {
+      "senses": [["conj.", "当……时；因为"], ["prep.", "作为；像"]],
+      "en": [["conj.", "While; because."], ["prep.", "In the role of; like."]]
+    },
+    "and": {
+      "senses": [["conj.", "和；并且"]],
+      "en": [["conj.", "Used to join words or clauses."]]
+    },
+    "or": {
+      "senses": [["conj.", "或者；否则"]],
+      "en": [["conj.", "Used to link alternatives."]]
+    },
+    "but": {
+      "senses": [["conj.", "但是"], ["prep.", "除了"]],
+      "en": [["conj.", "Used to introduce a contrast."], ["prep.", "Except."]]
+    },
+    "if": {
+      "senses": [["conj.", "如果；是否"]],
+      "en": [["conj.", "Used to introduce a condition."]]
+    },
+    "so": {
+      "senses": [["adv.", "如此；这么"], ["conj.", "所以"]],
+      "en": [["adv.", "To that degree."], ["conj.", "Therefore."]]
+    },
+    "not": {
+      "senses": [["adv.", "不；没有"]],
+      "en": [["adv.", "Used to make a negative."]]
+    },
+    "no": {
+      "senses": [["det.", "没有；不是"], ["adv.", "不（用于拒绝）"]],
+      "en": [["det.", "Not any."], ["adv.", "Used to refuse or deny."]]
+    },
+    "this": {
+      "senses": [["pron.", "这；这个"]],
+      "en": [["pron.", "The thing here or just mentioned."]]
+    },
+    "that": {
+      "senses": [["pron.", "那；那个"], ["conj.", "引导从句"]],
+      "en": [["pron.", "The thing there or just mentioned."], ["conj.", "Used to introduce a clause."]]
+    },
+    "these": {
+      "senses": [["pron.", "这些"]],
+      "en": [["pron.", "Plural of this."]]
+    },
+    "those": {
+      "senses": [["pron.", "那些"]],
+      "en": [["pron.", "Plural of that."]]
+    },
+    "what": {
+      "senses": [["pron.", "什么"]],
+      "en": [["pron.", "Asking about a thing."]]
+    },
+    "which": {
+      "senses": [["pron.", "哪一个；……的那个"]],
+      "en": [["pron.", "Asking about a choice; the one that."]]
+    },
+    "who": {
+      "senses": [["pron.", "谁"]],
+      "en": [["pron.", "Asking about a person."]]
+    },
+    "whom": {
+      "senses": [["pron.", "谁（宾格）"]],
+      "en": [["pron.", "Objective case of who."]]
+    },
+    "whose": {
+      "senses": [["pron.", "谁的"]],
+      "en": [["pron.", "Possessive of who."]]
+    },
+    "when": {
+      "senses": [["adv.", "什么时候"], ["conj.", "当……时"]],
+      "en": [["adv.", "At what time."], ["conj.", "At the time that."]]
+    },
+    "where": {
+      "senses": [["adv.", "在哪里"]],
+      "en": [["adv.", "In or to what place."]]
+    },
+    "why": {
+      "senses": [["adv.", "为什么"]],
+      "en": [["adv.", "For what reason."]]
+    },
+    "how": {
+      "senses": [["adv.", "如何；怎样"]],
+      "en": [["adv.", "In what way."]]
+    },
+    "there": {
+      "senses": [["adv.", "在那里；存在句的引导词"]],
+      "en": [["adv.", "In that place; used in there is/are."]]
+    },
+    "here": {
+      "senses": [["adv.", "在这里"]],
+      "en": [["adv.", "In this place."]]
+    }
+  }
+}

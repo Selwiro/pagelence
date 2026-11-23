@@ -4,10 +4,15 @@ package com.pagelence.uim3.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -31,8 +36,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,12 +44,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.PagelenceIcons
 import com.pagelence.uim3.components.TranslateIcon
@@ -66,25 +71,49 @@ internal fun ReaderTopBar(
     annotationCount: Int,
     onToggleTranslations: () -> Unit,
 ) {
-    TopAppBar(
-        title = {
-            Column {
-                Text(state.bookTitle, maxLines = 1, overflow = TextOverflow.Ellipsis)
+    // The bar is a plain row: the old single-line TopAppBar clipped English
+    // book names and wrapped the four tabs at a 2.0 font scale. The title may
+    // use two lines; the bar grows to fit. Bar text is capped at its 1× size so
+    // a 2.0 system scale enlarges the page, not the chrome.
+    val fontScale = LocalDensity.current.fontScale
+    val barScale = if (fontScale > 1f) 1f / fontScale else 1f
+    val titleStyle = MaterialTheme.typography.titleLarge.let {
+        if (barScale == 1f) it else it.copy(fontSize = (it.fontSize.value * barScale).sp)
+    }
+    val subtitleStyle = MaterialTheme.typography.bodyMedium.let {
+        if (barScale == 1f) it else it.copy(fontSize = (it.fontSize.value * barScale).sp)
+    }
+    Surface(color = MaterialTheme.colorScheme.surface) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .windowInsetsPadding(WindowInsets.statusBars)
+                .heightIn(min = 64.dp)
+                .padding(horizontal = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            IconButton(onClick = onBack) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = strings.back)
+            }
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 8.dp, vertical = 6.dp),
+            ) {
+                Text(
+                    state.bookTitle,
+                    style = titleStyle,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
                 Text(
                     "${state.chapterTitle} · ${state.unitPosition}/${state.unitCount}",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = subtitleStyle,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
             }
-        },
-        navigationIcon = {
-            IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = strings.back)
-            }
-        },
-        actions = {
             // One tap turns every book translation on or off (T159).
             IconButton(onClick = onToggleTranslations) {
                 Icon(
@@ -116,12 +145,8 @@ internal fun ReaderTopBar(
                 onOpenAnnotations = onOpenAnnotations,
                 onOpenSearch = onOpenSearch,
             )
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
-        ),
-    )
+        }
+    }
 }
 
 @Composable
@@ -220,12 +245,19 @@ internal fun ReaderProgressBar(
                             onClickLabel = segment.label,
                             onClick = { onSegmentClick(segment.kind) },
                         )
-                        .padding(horizontal = 6.dp, vertical = 7.dp),
+                        .padding(horizontal = 4.dp, vertical = 7.dp),
                 ) {
                     Text(
                         segment.label,
                         style = MaterialTheme.typography.labelMedium,
+                        autoSize = TextAutoSize.StepBased(
+                            minFontSize = 7.sp,
+                            maxFontSize = MaterialTheme.typography.labelMedium.fontSize,
+                        ),
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        softWrap = false,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(),
                         color = if (segment.active) {
                             MaterialTheme.colorScheme.primary

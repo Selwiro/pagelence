@@ -59,7 +59,7 @@ fun GrammarTabContent(
             Column {
                 Text(strings.grammarAll, style = MaterialTheme.typography.titleLarge)
                 Text(
-                    strings.grammarPointsCount.format(state.points.size),
+                    strings.grammarPointsText(state.points.size),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

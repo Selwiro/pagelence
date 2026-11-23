@@ -258,7 +258,7 @@ internal fun AnnotationSheet(
                     if (annotations.isEmpty()) {
                         strings.annotationEmptyTitle
                     } else {
-                        "$bookTitle · ${strings.annotationCount.format(annotations.size)}"
+                        "$bookTitle · ${strings.marksText(annotations.size)}"
                     },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
