@@ -11,10 +11,13 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -36,21 +39,33 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.setProgress
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -366,8 +381,11 @@ private fun ReaderSettingsPanel(
 }
 
 /**
- * Slider over a fixed list of presets. Material 3 snaps the thumb to the tick
- * marks, so a drag only writes a preference when it crosses a stop.
+ * Compact slider over a fixed list of presets: a hairline track, small stop
+ * dots and a 16dp knob. The Material 3 slider's thick dark bar and tall thumb
+ * read as a progress bar in a settings panel this dense, so the reader panel
+ * draws its own. Dragging snaps to the nearest preset and only reports a
+ * change when the stop actually moves.
  */
 @Composable
 private fun <T> StepSlider(
@@ -377,7 +395,7 @@ private fun <T> StepSlider(
     onSelect: (T) -> Unit,
 ) {
     val index = options.indexOfFirst { it.first == selected }.coerceAtLeast(0)
-    Column(Modifier.fillMaxWidth()) {
+    Column(Modifier.fillMaxWidth().padding(top = 2.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -393,15 +411,109 @@ private fun <T> StepSlider(
                 color = MaterialTheme.colorScheme.primary,
             )
         }
-        Slider(
-            value = index.toFloat(),
-            onValueChange = { raw ->
-                val next = raw.roundToInt().coerceIn(0, options.lastIndex)
-                if (next != index) onSelect(options[next].first)
+        PresetSlider(
+            label = label,
+            index = index,
+            steps = options.lastIndex,
+            onPick = { next -> onSelect(options[next].first) },
+        )
+    }
+}
+
+private val SliderHeight = 30.dp
+private val SliderThumbRadius = 7.5.dp
+
+@Composable
+private fun PresetSlider(
+    label: String,
+    index: Int,
+    steps: Int,
+    onPick: (Int) -> Unit,
+) {
+    if (steps <= 0) return
+    val colors = MaterialTheme.colorScheme
+    val density = LocalDensity.current
+    val insetPx = with(density) { SliderThumbRadius.toPx() }
+    var widthPx by remember { mutableIntStateOf(0) }
+
+    fun pick(x: Float) {
+        val usable = (widthPx - insetPx * 2).coerceAtLeast(1f)
+        val fraction = ((x - insetPx) / usable).coerceIn(0f, 1f)
+        val next = (fraction * steps).roundToInt().coerceIn(0, steps)
+        if (next != index) onPick(next)
+    }
+
+    Canvas(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(SliderHeight)
+            .onSizeChanged { widthPx = it.width }
+            .pointerInput(steps) { detectTapGestures { pick(it.x) } }
+            .pointerInput(steps) {
+                detectDragGestures(
+                    onDragStart = { pick(it.x) },
+                    onDrag = { change, _ -> pick(change.position.x) },
+                )
+            }
+            .semantics {
+                contentDescription = label
+                progressBarRangeInfo = ProgressBarRangeInfo(
+                    current = index.toFloat(),
+                    range = 0f..steps.toFloat(),
+                    steps = steps - 1,
+                )
+                setProgress { target ->
+                    val next = target.roundToInt().coerceIn(0, steps)
+                    if (next != index) onPick(next)
+                    true
+                }
             },
-            valueRange = 0f..options.lastIndex.toFloat(),
-            steps = (options.size - 2).coerceAtLeast(0),
-            modifier = Modifier.fillMaxWidth(),
+    ) {
+        val cy = size.height / 2f
+        val left = insetPx
+        val right = size.width - insetPx
+        val span = (right - left).coerceAtLeast(1f)
+        val knobX = left + span * (index.toFloat() / steps)
+        val trackWidth = 3.dp.toPx()
+
+        drawLine(
+            color = colors.outlineVariant,
+            start = Offset(left, cy),
+            end = Offset(right, cy),
+            strokeWidth = trackWidth,
+            cap = StrokeCap.Round,
+        )
+        if (index > 0) {
+            drawLine(
+                color = colors.primary,
+                start = Offset(left, cy),
+                end = Offset(knobX, cy),
+                strokeWidth = trackWidth,
+                cap = StrokeCap.Round,
+            )
+        }
+        // Stop marks only ahead of the knob: a pale dot on the dark active
+        // track reads as a gap in the line rather than a tick.
+        for (stop in (index + 1) until steps) {
+            val x = left + span * stop / steps
+            drawCircle(
+                color = colors.outline.copy(alpha = 0.5f),
+                radius = 2.dp.toPx(),
+                center = Offset(x, cy),
+            )
+        }
+        // Knob: a filled surface disc with a primary ring, so it reads against
+        // both the dark active track and the light inactive one.
+        drawCircle(
+            color = colors.surface,
+            radius = SliderThumbRadius.toPx(),
+            center = Offset(knobX, cy),
+        )
+        drawCircle(
+            color = colors.primary,
+            radius = (SliderThumbRadius - 1.25.dp).toPx(),
+            center = Offset(knobX, cy),
+            style = Stroke(width = 2.5.dp.toPx()),
         )
     }
 }
