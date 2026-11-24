@@ -182,10 +182,12 @@ interface Strings {
     val themeLight: String
     val themeDark: String
     val fontSize: String
+    val fontXSmall: String
     val fontSmall: String
     val fontMedium: String
     val fontLarge: String
     val fontXLarge: String
+    val fontXXLarge: String
     val readingFont: String
     val fontSans: String
     val fontSerif: String

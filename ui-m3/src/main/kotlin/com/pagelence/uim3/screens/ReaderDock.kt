@@ -11,14 +11,12 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
-import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -36,6 +34,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -43,29 +44,19 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.progressBarRangeInfo
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.setProgress
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -79,9 +70,11 @@ import com.pagelence.core.prefs.Preferences
 import com.pagelence.core.prefs.ReaderLayout
 import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.uim3.Strings
-import com.pagelence.uim3.components.ChoiceRow
+import com.pagelence.uim3.components.ChoiceSheet
 import com.pagelence.uim3.components.PagelenceIcons
-import kotlin.math.roundToInt
+import com.pagelence.uim3.components.PresetSlider
+import com.pagelence.uim3.components.SheetOption
+import com.pagelence.uim3.components.fontSizeOptions
 
 /**
  * The panel above the icons takes at most this share of the screen and scrolls
@@ -284,109 +277,125 @@ private fun ReaderSettingsPanel(
     onDefinitionMode: (DefinitionMode) -> Unit,
     onGuideMode: (GuideMode) -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(max = maxHeight)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 18.dp, vertical = 4.dp),
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                strings.readerSettings,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.weight(1f),
+    var sheet by remember { mutableStateOf<DockSheet?>(null) }
+    Box {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = maxHeight)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 18.dp, vertical = 4.dp),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    strings.readerSettings,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.weight(1f),
+                )
+                Text(
+                    strings.readerSettingsMore,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .clickable(role = Role.Button, onClick = onOpenSettings)
+                        .padding(horizontal = 8.dp, vertical = 6.dp),
+                )
+            }
+            StepSlider(
+                label = strings.fontSize,
+                options = fontSizeOptions(strings),
+                selected = preference.fontSize,
+                onSelect = onFontSize,
             )
-            Text(
-                strings.readerSettingsMore,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .clickable(role = Role.Button, onClick = onOpenSettings)
-                    .padding(horizontal = 8.dp, vertical = 6.dp),
+            StepSlider(
+                label = strings.pageMargin,
+                options = listOf(
+                    PageMargin.NARROW to strings.pageMarginNarrow,
+                    PageMargin.NORMAL to strings.pageMarginNormal,
+                    PageMargin.WIDE to strings.pageMarginWide,
+                ),
+                selected = preference.pageMargin,
+                onSelect = onPageMargin,
             )
+            StepSlider(
+                label = strings.lineSpacing,
+                options = listOf(
+                    LineSpacing.COMPACT to strings.lineSpacingCompact,
+                    LineSpacing.NORMAL to strings.lineSpacingNormal,
+                    LineSpacing.RELAXED to strings.lineSpacingRelaxed,
+                ),
+                selected = preference.lineSpacing,
+                onSelect = onLineSpacing,
+            )
+            // Typography choices are used while reading, so their options stay
+            // on one line; meaning language and guide mode are occasional, so a
+            // compact row opens a picker sheet instead.
+            InlineChoiceRow(
+                label = strings.readingFont,
+                options = listOf(
+                    ReadingFont.SANS to strings.fontSans,
+                    ReadingFont.SERIF to strings.fontSerif,
+                ),
+                selected = preference.readingFont,
+                onSelect = onReadingFont,
+            )
+            InlineChoiceRow(
+                label = strings.readingLayout,
+                options = listOf(
+                    ReaderLayout.PAGED to strings.layoutPaged,
+                    ReaderLayout.SCROLL to strings.layoutScroll,
+                ),
+                selected = preference.readerLayout,
+                onSelect = onReaderLayout,
+            )
+            PickerRow(
+                label = strings.definitionMode,
+                value = definitionModeLabel(strings, preference.definitionMode),
+                onClick = { sheet = DockSheet.DEFINITION },
+            )
+            PickerRow(
+                label = strings.guideMode,
+                value = guideModeLabel(strings, preference.guideMode),
+                onClick = { sheet = DockSheet.GUIDE },
+            )
+            Spacer(Modifier.height(6.dp))
         }
-        StepSlider(
-            label = strings.fontSize,
-            options = listOf(
-                FontSize.SMALL to strings.fontSmall,
-                FontSize.MEDIUM to strings.fontMedium,
-                FontSize.LARGE to strings.fontLarge,
-                FontSize.XLARGE to strings.fontXLarge,
-            ),
-            selected = preference.fontSize,
-            onSelect = onFontSize,
-        )
-        StepSlider(
-            label = strings.pageMargin,
-            options = listOf(
-                PageMargin.NARROW to strings.pageMarginNarrow,
-                PageMargin.NORMAL to strings.pageMarginNormal,
-                PageMargin.WIDE to strings.pageMarginWide,
-            ),
-            selected = preference.pageMargin,
-            onSelect = onPageMargin,
-        )
-        StepSlider(
-            label = strings.lineSpacing,
-            options = listOf(
-                LineSpacing.COMPACT to strings.lineSpacingCompact,
-                LineSpacing.NORMAL to strings.lineSpacingNormal,
-                LineSpacing.RELAXED to strings.lineSpacingRelaxed,
-            ),
-            selected = preference.lineSpacing,
-            onSelect = onLineSpacing,
-        )
-        ChoiceLine(
-            label = strings.readingFont,
-            options = listOf(
-                ReadingFont.SANS to strings.fontSans,
-                ReadingFont.SERIF to strings.fontSerif,
-            ),
-            selected = preference.readingFont,
-            onSelect = onReadingFont,
-        )
-        ChoiceLine(
-            label = strings.readingLayout,
-            options = listOf(
-                ReaderLayout.PAGED to strings.layoutPaged,
-                ReaderLayout.SCROLL to strings.layoutScroll,
-            ),
-            selected = preference.readerLayout,
-            onSelect = onReaderLayout,
-        )
-        ChoiceLine(
-            label = strings.definitionMode,
-            options = listOf(
-                DefinitionMode.ZH to strings.definitionModeZh,
-                DefinitionMode.MIXED to strings.definitionModeMixed,
-                DefinitionMode.EN to strings.definitionModeEn,
-            ),
-            selected = preference.definitionMode,
-            onSelect = onDefinitionMode,
-        )
-        ChoiceLine(
-            label = strings.guideMode,
-            options = listOf(
-                GuideMode.BILINGUAL to strings.guideModeBilingual,
-                GuideMode.EN to strings.guideModeEn,
-                GuideMode.IMMERSIVE to strings.guideModeImmersive,
-            ),
-            selected = preference.guideMode,
-            onSelect = onGuideMode,
-        )
-        Spacer(Modifier.height(6.dp))
+
+        when (sheet) {
+            DockSheet.DEFINITION -> ChoiceSheet(
+                title = strings.definitionMode,
+                options = listOf(
+                    SheetOption(DefinitionMode.ZH, strings.definitionModeZh),
+                    SheetOption(DefinitionMode.MIXED, strings.definitionModeMixed),
+                    SheetOption(DefinitionMode.EN, strings.definitionModeEn),
+                ),
+                selected = preference.definitionMode,
+                onDismiss = { sheet = null },
+                onSelect = onDefinitionMode,
+            )
+
+            DockSheet.GUIDE -> ChoiceSheet(
+                title = strings.guideMode,
+                options = listOf(
+                    SheetOption(GuideMode.BILINGUAL, strings.guideModeBilingual),
+                    SheetOption(GuideMode.EN, strings.guideModeEn),
+                    SheetOption(GuideMode.IMMERSIVE, strings.guideModeImmersive),
+                ),
+                selected = preference.guideMode,
+                onDismiss = { sheet = null },
+                onSelect = onGuideMode,
+            )
+
+            null -> Unit
+        }
     }
 }
 
-/**
- * Compact slider over a fixed list of presets: a hairline track, small stop
- * dots and a 16dp knob. The Material 3 slider's thick dark bar and tall thumb
- * read as a progress bar in a settings panel this dense, so the reader panel
- * draws its own. Dragging snaps to the nearest preset and only reports a
- * change when the stop actually moves.
- */
+/** The optional picker that sits above the panel. */
+private enum class DockSheet { DEFINITION, GUIDE }
+
+/** A slider row over a fixed list of presets. */
 @Composable
 private fun <T> StepSlider(
     label: String,
@@ -395,151 +404,102 @@ private fun <T> StepSlider(
     onSelect: (T) -> Unit,
 ) {
     val index = options.indexOfFirst { it.first == selected }.coerceAtLeast(0)
-    Column(Modifier.fillMaxWidth().padding(top = 2.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                label,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.weight(1f),
-            )
-            Text(
-                options[index].second,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-            )
-        }
-        PresetSlider(
-            label = label,
-            index = index,
-            steps = options.lastIndex,
-            onPick = { next -> onSelect(options[next].first) },
-        )
-    }
+    PresetSlider(
+        label = label,
+        valueLabel = options[index].second,
+        index = index,
+        steps = options.lastIndex,
+        onSelect = { next -> onSelect(options[next].first) },
+    )
 }
 
-private val SliderHeight = 30.dp
-private val SliderThumbRadius = 7.5.dp
-
+/** Label and chips on one line; used for the choices touched while reading. */
 @Composable
-private fun PresetSlider(
-    label: String,
-    index: Int,
-    steps: Int,
-    onPick: (Int) -> Unit,
-) {
-    if (steps <= 0) return
-    val colors = MaterialTheme.colorScheme
-    val density = LocalDensity.current
-    val insetPx = with(density) { SliderThumbRadius.toPx() }
-    var widthPx by remember { mutableIntStateOf(0) }
-
-    fun pick(x: Float) {
-        val usable = (widthPx - insetPx * 2).coerceAtLeast(1f)
-        val fraction = ((x - insetPx) / usable).coerceIn(0f, 1f)
-        val next = (fraction * steps).roundToInt().coerceIn(0, steps)
-        if (next != index) onPick(next)
-    }
-
-    Canvas(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(SliderHeight)
-            .onSizeChanged { widthPx = it.width }
-            .pointerInput(steps) { detectTapGestures { pick(it.x) } }
-            .pointerInput(steps) {
-                detectDragGestures(
-                    onDragStart = { pick(it.x) },
-                    onDrag = { change, _ -> pick(change.position.x) },
-                )
-            }
-            .semantics {
-                contentDescription = label
-                progressBarRangeInfo = ProgressBarRangeInfo(
-                    current = index.toFloat(),
-                    range = 0f..steps.toFloat(),
-                    steps = steps - 1,
-                )
-                setProgress { target ->
-                    val next = target.roundToInt().coerceIn(0, steps)
-                    if (next != index) onPick(next)
-                    true
-                }
-            },
-    ) {
-        val cy = size.height / 2f
-        val left = insetPx
-        val right = size.width - insetPx
-        val span = (right - left).coerceAtLeast(1f)
-        val knobX = left + span * (index.toFloat() / steps)
-        val trackWidth = 3.dp.toPx()
-
-        drawLine(
-            color = colors.outlineVariant,
-            start = Offset(left, cy),
-            end = Offset(right, cy),
-            strokeWidth = trackWidth,
-            cap = StrokeCap.Round,
-        )
-        if (index > 0) {
-            drawLine(
-                color = colors.primary,
-                start = Offset(left, cy),
-                end = Offset(knobX, cy),
-                strokeWidth = trackWidth,
-                cap = StrokeCap.Round,
-            )
-        }
-        // Stop marks only ahead of the knob: a pale dot on the dark active
-        // track reads as a gap in the line rather than a tick.
-        for (stop in (index + 1) until steps) {
-            val x = left + span * stop / steps
-            drawCircle(
-                color = colors.outline.copy(alpha = 0.5f),
-                radius = 2.dp.toPx(),
-                center = Offset(x, cy),
-            )
-        }
-        // Knob: a filled surface disc with a primary ring, so it reads against
-        // both the dark active track and the light inactive one.
-        drawCircle(
-            color = colors.surface,
-            radius = SliderThumbRadius.toPx(),
-            center = Offset(knobX, cy),
-        )
-        drawCircle(
-            color = colors.primary,
-            radius = (SliderThumbRadius - 1.25.dp).toPx(),
-            center = Offset(knobX, cy),
-            style = Stroke(width = 2.5.dp.toPx()),
-        )
-    }
-}
-
-/** A labelled row of single-choice chips. The label sits above the chips so
- * "Meaning language" and "双语带读" both fit without squeezing the chips. */
-@Composable
-private fun <T> ChoiceLine(
+private fun <T> InlineChoiceRow(
     label: String,
     options: List<Pair<T, String>>,
     selected: T,
     onSelect: (T) -> Unit,
 ) {
-    Column(Modifier.fillMaxWidth().padding(top = 3.dp)) {
+    Row(
+        modifier = Modifier.fillMaxWidth().heightIn(min = 40.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
         Text(
             label,
             style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier.weight(1f),
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            options.forEach { (value, text) ->
+                val active = value == selected
+                FilterChip(
+                    selected = active,
+                    onClick = { if (!active) onSelect(value) },
+                    label = {
+                        Text(text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    },
+                    leadingIcon = if (active) {
+                        {
+                            Icon(
+                                Icons.Filled.Check,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+                    } else {
+                        null
+                    },
+                )
+            }
+        }
+    }
+}
+
+/** One-line value row that opens a picker sheet; used for occasional settings. */
+@Composable
+private fun PickerRow(
+    label: String,
+    value: String,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 40.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .clickable(role = Role.Button, onClick = onClick),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            label,
+            style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier.weight(1f),
+        )
+        Text(
+            value,
+            style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        Spacer(Modifier.height(2.dp))
-        ChoiceRow(
-            options = options,
-            selected = selected,
-            onSelect = onSelect,
+        Icon(
+            PagelenceIcons.ChevronRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(18.dp),
         )
     }
+}
+
+private fun definitionModeLabel(strings: Strings, mode: DefinitionMode): String = when (mode) {
+    DefinitionMode.ZH -> strings.definitionModeZh
+    DefinitionMode.MIXED -> strings.definitionModeMixed
+    DefinitionMode.EN -> strings.definitionModeEn
+}
+
+private fun guideModeLabel(strings: Strings, mode: GuideMode): String = when (mode) {
+    GuideMode.BILINGUAL -> strings.guideModeBilingual
+    GuideMode.EN -> strings.guideModeEn
+    GuideMode.IMMERSIVE -> strings.guideModeImmersive
 }
 
 /**

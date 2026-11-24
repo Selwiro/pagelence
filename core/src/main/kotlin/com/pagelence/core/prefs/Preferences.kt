@@ -61,10 +61,12 @@ enum class ThemeMode {
 
 @Serializable
 enum class FontSize {
+    @SerialName("xsmall") XSMALL,
     @SerialName("small") SMALL,
     @SerialName("medium") MEDIUM,
     @SerialName("large") LARGE,
     @SerialName("xlarge") XLARGE,
+    @SerialName("xxlarge") XXLARGE,
 }
 
 /** Body face for the reading surface. UI chrome always follows the theme font. */
@@ -191,9 +193,11 @@ data class Preferences(
                     else -> ThemeMode.SYSTEM
                 },
                 fontSize = when (raw.text("fontSize")) {
+                    "xsmall" -> FontSize.XSMALL
                     "small" -> FontSize.SMALL
                     "large" -> FontSize.LARGE
                     "xlarge" -> FontSize.XLARGE
+                    "xxlarge" -> FontSize.XXLARGE
                     "medium" -> FontSize.MEDIUM
                     else -> FontSize.MEDIUM
                 },

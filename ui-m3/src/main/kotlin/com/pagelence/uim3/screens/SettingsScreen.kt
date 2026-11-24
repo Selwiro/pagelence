@@ -35,6 +35,7 @@ import com.pagelence.uim3.components.SettingGroup
 import com.pagelence.uim3.components.SettingRow
 import com.pagelence.uim3.components.SheetOption
 import com.pagelence.uim3.components.SwitchRow
+import com.pagelence.uim3.components.fontSizeLabel
 import com.pagelence.uim3.model.DictionaryPhase
 import com.pagelence.uim3.model.DictionaryUiState
 import com.pagelence.uim3.model.SettingsUiState
@@ -85,7 +86,7 @@ fun SettingsScreen(
                 SettingRow(
                     label = strings.typography,
                     value = strings.typographySummary.format(
-                        fontSizeLabel(strings, state),
+                        fontSizeLabel(strings, state.fontSize),
                         readingFontLabel(strings, state),
                     ),
                     onClick = onOpenTypography,
@@ -268,14 +269,6 @@ fun SettingsScreen(
 }
 
 private enum class SettingsSheet { LAYOUT, DEFINITION, GUIDE, GOAL, THEME, LANGUAGE }
-
-private fun fontSizeLabel(strings: Strings, state: SettingsUiState): String =
-    when (state.fontSize) {
-        FontSize.SMALL -> strings.fontSmall
-        FontSize.MEDIUM -> strings.fontMedium
-        FontSize.LARGE -> strings.fontLarge
-        FontSize.XLARGE -> strings.fontXLarge
-    }
 
 private fun readingFontLabel(strings: Strings, state: SettingsUiState): String =
     when (state.readingFont) {

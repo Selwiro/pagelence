@@ -22,6 +22,8 @@ import com.pagelence.core.prefs.PageMargin
 import com.pagelence.core.prefs.ReadingFont
 import com.pagelence.uim3.Strings
 import com.pagelence.uim3.components.PageTopBar
+import com.pagelence.uim3.components.PresetSlider
+import com.pagelence.uim3.components.fontSizeOptions
 import com.pagelence.uim3.components.SegmentedRow
 import com.pagelence.uim3.model.SettingsUiState
 import com.pagelence.uim3.theme.readingTextStyle
@@ -56,16 +58,18 @@ fun TypographyScreen(
             Spacer(Modifier.height(4.dp))
             PreviewCard(strings, state)
             Spacer(Modifier.height(16.dp))
-            SegmentedRow(
+            // Six sizes do not fit six equal segments, so the size row uses
+            // the same compact slider as the in-reader panel (T167).
+            val fontOptions = fontSizeOptions(strings)
+            val fontIndex = fontOptions.indexOfFirst { it.first == state.fontSize }
+                .coerceAtLeast(0)
+            PresetSlider(
                 label = strings.fontSize,
-                options = listOf(
-                    FontSize.SMALL to strings.fontSmall,
-                    FontSize.MEDIUM to strings.fontMedium,
-                    FontSize.LARGE to strings.fontLarge,
-                    FontSize.XLARGE to strings.fontXLarge,
-                ),
-                selected = state.fontSize,
-                onSelect = onFontSize,
+                valueLabel = fontOptions[fontIndex].second,
+                index = fontIndex,
+                steps = fontOptions.lastIndex,
+                onSelect = { onFontSize(fontOptions[it].first) },
+                modifier = Modifier.padding(vertical = 8.dp),
             )
             SegmentedRow(
                 label = strings.readingFont,

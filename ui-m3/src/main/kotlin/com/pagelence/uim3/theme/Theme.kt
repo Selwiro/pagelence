@@ -115,10 +115,12 @@ fun readingTextStyle(
     lineSpacing: LineSpacing = LineSpacing.NORMAL,
 ): TextStyle {
     val size = when (fontSize) {
+        FontSize.XSMALL -> 15.sp
         FontSize.SMALL -> 17.sp
         FontSize.MEDIUM -> 19.sp
         FontSize.LARGE -> 22.sp
         FontSize.XLARGE -> 25.sp
+        FontSize.XXLARGE -> 28.sp
     }
     val family = when (readingFont) {
         ReadingFont.SANS -> FontFamily.SansSerif
