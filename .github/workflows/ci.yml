@@ -33,7 +33,10 @@ jobs:
           echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
           SDKMANAGER="$(ls -d "$SDK_ROOT"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | tail -1)"
           yes | "$SDKMANAGER" --licenses > /dev/null || true
-          "$SDKMANAGER" --install "platforms;android-37" "build-tools;36.0.0" "platform-tools" > /dev/null
+          # API 37 目前只在 runner 预装镜像里（稳定频道拿不到），不强行安装；
+          # build-tools 36 与 platform-tools 同理缺什么由 Gradle 报错。
+          ls "$SDK_ROOT/platforms" | tail -5
+          ls "$SDK_ROOT/build-tools" | tail -5
 
       - uses: gradle/actions/setup-gradle@v4
 
