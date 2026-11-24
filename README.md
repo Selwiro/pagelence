@@ -292,9 +292,14 @@ adb shell am start -n com.pagelence/.MainActivity
 ### 发布包（release）
 
 ```sh
-./gradlew :app-phone:assembleRelease
-# 产物：app-phone/build/outputs/apk/release/app-phone-release.apk（v2 + v3 签名）
+./gradlew :app-phone:assembleRelease :app-eink:assembleRelease
+# 产物（两个都用本机发布签名，v2 + v3）：
+#   app-phone/build/outputs/apk/release/app-phone-release.apk   → com.pagelence
+#   app-eink/build/outputs/apk/release/app-eink-release.apk     → com.pagelence.eink
 ```
+
+发版时两个 APK 一起上传到同一个 GitHub Release，文件名分别带 `pagelence-` 与
+`pagelence-eink-` 前缀；官网下载页同时给出两个链接与各自的 SHA-256。
 
 - 签名读取本机 `keystore.properties`（已 `.gitignore` 排除），密钥库在 `~/.pagelence/pagelence-release.jks`。文件缺失时 release 仍能构建，只是产物不带签名——debug 构建不受影响。
 - **密钥库与口令必须异地备份**：丢失后无法为已安装的用户发布覆盖升级，只能卸载重装，而重装会清掉本地进度与生词卡。
