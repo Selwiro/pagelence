@@ -164,6 +164,7 @@ object ZhStrings : Strings {
     override val typographySummary: String get() = "%1\$s · %2\$s"
     override val typographyPreview: String get() = "实时预览"
     override val typographyHint: String get() = "这四项只影响正文与句译的排版，不改变进度、标注与测验。"
+    override val einkTypographyHint: String get() = "字号、行距与页边距只影响正文与句译的排版，不改变进度、标注与测验。"
     override val typographySample: String get() =
         "Every morning the doctor opened the windows, fed the animals, and read for a while before breakfast."
     override val typographySampleZh: String get() = "每天早晨，医生打开窗户，喂完动物，读一会儿书再吃早饭。"

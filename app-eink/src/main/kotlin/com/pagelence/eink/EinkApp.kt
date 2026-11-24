@@ -41,7 +41,9 @@ import com.pagelence.uieink.components.InkText
 import com.pagelence.uieink.components.InkTextButton
 import com.pagelence.uieink.components.InkTopBar
 import com.pagelence.uieink.screens.EinkAboutScreen
+import com.pagelence.uieink.screens.EinkAchievementsScreen
 import com.pagelence.uieink.screens.EinkBookDetailScreen
+import com.pagelence.uieink.screens.EinkDictionaryScreen
 import com.pagelence.uieink.screens.EinkGrammarPointScreen
 import com.pagelence.uieink.screens.EinkProfileScreen
 import com.pagelence.uieink.screens.EinkReaderScreen
@@ -50,8 +52,10 @@ import com.pagelence.uieink.screens.EinkReviewScreen
 import com.pagelence.uieink.screens.EinkSearchScreen
 import com.pagelence.uieink.screens.EinkSettingsScreen
 import com.pagelence.uieink.screens.EinkShelfScreen
+import com.pagelence.uieink.screens.levelName
 import com.pagelence.uieink.screens.EinkStoreScreen
 import com.pagelence.uieink.screens.EinkSyncScreen
+import com.pagelence.uieink.screens.EinkTypographyScreen
 import com.pagelence.uieink.screens.EinkWordPanelScreen
 import com.pagelence.uieink.theme.InkTheme
 import com.pagelence.uieink.theme.LocalInkColors
@@ -171,6 +175,9 @@ fun EinkApp(
                         strings = strings,
                         profile = state.profile,
                         onOpenSettings = viewModel::openSettings,
+                        onOpenAchievements = viewModel::openAchievements,
+                        onSelectLevel = viewModel::selectLevel,
+                        onDailyGoal = viewModel::setDailyGoal,
                     )
                     Screen.SETTINGS -> EinkSettingsScreen(
                         strings = strings,
@@ -196,8 +203,28 @@ fun EinkApp(
                         onGuideMode = viewModel::setGuideMode,
                         onOpenAbout = viewModel::openAbout,
                         onOpenSync = viewModel::openSync,
-                        onDownloadDictionary = viewModel::downloadDictionary,
-                        onDeleteDictionary = viewModel::deleteFullDictionary,
+                        onOpenTypography = viewModel::openTypography,
+                        onOpenDictionary = viewModel::openDictionarySettings,
+                    )
+                    Screen.SETTINGS_TYPOGRAPHY -> EinkTypographyScreen(
+                        strings = strings,
+                        settings = state.settings,
+                        onBack = viewModel::back,
+                        onFontSize = viewModel::setFontSize,
+                        onLineSpacing = viewModel::setLineSpacing,
+                        onPageMargin = viewModel::setPageMargin,
+                    )
+                    Screen.SETTINGS_DICTIONARY -> EinkDictionaryScreen(
+                        strings = strings,
+                        dictionary = state.dictionary,
+                        onBack = viewModel::back,
+                        onDownload = viewModel::downloadDictionary,
+                        onDelete = viewModel::deleteFullDictionary,
+                    )
+                    Screen.ACHIEVEMENTS -> EinkAchievementsScreen(
+                        strings = strings,
+                        wall = state.profile.achievements,
+                        onBack = viewModel::back,
                     )
                     Screen.ABOUT -> EinkAboutScreen(
                         strings = strings,
@@ -282,6 +309,13 @@ fun EinkApp(
                                 onSaveNote = viewModel::saveNote,
                                 onDeleteNote = viewModel::deleteNote,
                                 onJumpHandled = viewModel::annotationJumpHandled,
+                                onOpenSettings = viewModel::openSettings,
+                                onOpenUnit = { unitId -> viewModel.openUnit(reader.bookId, unitId) },
+                                onOpenCards = viewModel::openCards,
+                                onOpenAnnotation = viewModel::openAnnotation,
+                                onFontSize = viewModel::setFontSize,
+                                onLineSpacing = viewModel::setLineSpacing,
+                                onPageMargin = viewModel::setPageMargin,
                                 refreshSettings = refreshSettings,
                             )
                         }
@@ -296,6 +330,7 @@ fun EinkApp(
                                 finished = finished,
                                 onReread = { viewModel.rereadBook(finished.bookId) },
                                 onBackToShelf = viewModel::backToShelf,
+                                onOpenAchievements = viewModel::openAchievementsFromFinished,
                             )
                         }
                     }
@@ -328,10 +363,12 @@ fun EinkApp(
                         )
                     }
                 }
-                state.levelPrompt?.let {
+                state.levelPrompt?.let { prompt ->
                     Overlay {
                         InkConfirmPage(
-                            title = strings.levelPromptTitle,
+                            title = strings.levelPromptTitle.format(
+                                levelName(strings, prompt.level),
+                            ),
                             body = strings.levelPromptBody,
                             confirmLabel = strings.levelPromptAccept,
                             onConfirm = viewModel::acceptLevelPrompt,
@@ -416,6 +453,7 @@ private fun FinishedPage(
     finished: FinishedBookUi,
     onReread: () -> Unit,
     onBackToShelf: () -> Unit,
+    onOpenAchievements: () -> Unit,
 ) {
     val typography = LocalInkTypography.current
     val colors = LocalInkColors.current
@@ -437,6 +475,8 @@ private fun FinishedPage(
         InkButton(strings.readAgain, onClick = onReread, primary = true)
         Spacer(Modifier.height(10.dp))
         InkButton(strings.backToShelf, onClick = onBackToShelf)
+        Spacer(Modifier.height(10.dp))
+        InkButton(strings.achievementSeeAll, onClick = onOpenAchievements)
     }
 }
 

@@ -1,6 +1,7 @@
 package com.pagelence.uieink.screens
 
 import android.os.SystemClock
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -45,8 +46,12 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.pagelence.core.prefs.FontSize
 import com.pagelence.core.prefs.GuideMode
+import com.pagelence.core.prefs.LineSpacing
+import com.pagelence.core.prefs.PageMargin
 import com.pagelence.core.progress.ReaderPhase
 import com.pagelence.core.reading.SentencePage
 import com.pagelence.presentation.eink.EinkAction
@@ -58,6 +63,7 @@ import com.pagelence.presentation.reader.ReaderFlow
 import com.pagelence.presentation.reader.ReaderPage
 import com.pagelence.presentation.text.WordBoundary
 import com.pagelence.uim3.Strings
+import com.pagelence.uim3.model.AnnotationUi
 import com.pagelence.uim3.model.GrammarUi
 import com.pagelence.uim3.model.ReaderUiState
 import com.pagelence.uim3.model.SelectedWordUi
@@ -71,6 +77,9 @@ import com.pagelence.uieink.components.InkTextButton
 import com.pagelence.uieink.components.InkTopBar
 import com.pagelence.uieink.theme.LocalInkColors
 import com.pagelence.uieink.theme.LocalInkTypography
+import com.pagelence.uieink.theme.einkPageMargin
+import com.pagelence.uieink.theme.einkReadingStyle
+import kotlin.math.roundToInt
 
 /**
  * 墨水屏阅读页：导读 → 正文（翻页）→ 测验 → 语法，与普通版共用 [ReaderFlow]
@@ -99,6 +108,13 @@ fun EinkReaderScreen(
     onSaveNote: (paragraphId: String, sentenceNumber: Int, note: String) -> Unit,
     onDeleteNote: (paragraphId: String, sentenceNumber: Int) -> Unit,
     onJumpHandled: () -> Unit,
+    onOpenSettings: () -> Unit,
+    onOpenUnit: (String) -> Unit,
+    onOpenCards: () -> Unit,
+    onOpenAnnotation: (AnnotationUi) -> Unit,
+    onFontSize: (FontSize) -> Unit,
+    onLineSpacing: (LineSpacing) -> Unit,
+    onPageMargin: (PageMargin) -> Unit,
     modifier: Modifier = Modifier,
     refreshSettings: EinkRefreshSettings = EinkRefreshSettings.Default,
 ) {
@@ -114,205 +130,335 @@ fun EinkReaderScreen(
     // 标记模式：开着时点句子进标注页，关着时点词查词。
     var markMode by remember(state.unitId) { mutableStateOf(false) }
     var actionTarget by remember(state.unitId) { mutableStateOf<Pair<String, Int>?>(null) }
+    // 底部菜单与两个整页列表（T169）。都按单元重置，不跨单元残留。
+    var dockVisible by remember(state.unitId) { mutableStateOf(false) }
+    var settingsOpen by remember(state.unitId) { mutableStateOf(false) }
+    var showToc by remember(state.unitId) { mutableStateOf(false) }
+    var showAnnotations by remember(state.unitId) { mutableStateOf(false) }
 
-    Column(modifier.fillMaxSize().background(colors.paper)) {
-        InkTopBar(
-            title = state.bookTitle,
-            subtitle = "${state.chapterTitle} · ${state.unitTitle}",
-            backLabel = strings.back,
-            onBack = onBack,
-        )
-        ReaderToolbar(
-            strings = strings,
-            markMode = markMode,
-            showAllTranslations = state.preference.showAllTranslations,
-            onSearch = onOpenSearch,
-            onToggleMarkMode = { markMode = !markMode; actionTarget = null },
-            onToggleTranslations = onToggleAllTranslations,
-        )
-        Box(Modifier.weight(1f).fillMaxWidth()) {
-        BoxWithConstraints(Modifier.fillMaxSize()) {
-            val density = LocalDensity.current
-            val horizontalPadding = with(density) { 22.dp.roundToPx() }
-            val contentWidthPx = (constraints.maxWidth - horizontalPadding * 2).coerceAtLeast(1)
-            val textPages = rememberEinkTextPages(
-                state = state,
-                contentWidthPx = contentWidthPx,
-                pageHeightPx = constraints.maxHeight,
-                showAllTranslations = state.preference.showAllTranslations,
-            )
-            val pages = remember(
-                state.unitId,
-                textPages,
-                guide != null,
-                state.quiz.size,
-                state.grammar,
-                state.hasPreviousUnit,
-                state.hasNextUnit,
-            ) {
-                ReaderFlow.pages(state, textPages, guide != null, paged = true)
-            }
-            var cursor by remember(state.unitId, pages.size) {
-                mutableIntStateOf(initialCursor(state, pages))
-            }
-            LaunchedEffect(state.unitId) {
-                val decision = EinkRefreshRules.onUnitChange(
-                    refreshState,
-                    refreshSettings,
-                    SystemClock.elapsedRealtime(),
-                )
-                refreshState = decision.state
-                if (decision.fullRefresh) onFullRefresh()
-            }
-            LaunchedEffect(cursor, pages.size, state.unitId) {
-                val page = pages.getOrNull(cursor) ?: return@LaunchedEffect
-                reportOf(page, pages)?.let { (phase, textPage, anchor) ->
-                    onPageChanged(phase, textPage, 0f, anchor)
-                }
-                val decision = EinkRefreshRules.onPageTurn(
-                    refreshState,
-                    refreshSettings,
-                    SystemClock.elapsedRealtime(),
-                )
-                refreshState = decision.state
-                if (decision.fullRefresh) onFullRefresh()
-            }
-            // 搜索 / 笔记列表要求定位到某一句：找到它所在的正文页并翻过去。
-            LaunchedEffect(state.jumpTarget, pages.size) {
-                val target = state.jumpTarget ?: return@LaunchedEffect
-                val textPages = pages.withIndex().filter { it.value is ReaderPage.Text }
-                val hit = textPages.firstOrNull { (_, page) ->
-                    val text = page as ReaderPage.Text
-                    text.page.chunks.any { it.paragraphId == target.paragraphId }
-                }
-                if (hit != null) cursor = hit.index
-                onJumpHandled()
-            }
-            LaunchedEffect(Unit) { focusRequester.requestFocus() }
+    // 返回键先关覆盖层，再退出阅读；与普通版一致的分层顺序。
+    BackHandler(enabled = dockVisible || settingsOpen || showToc || showAnnotations || actionTarget != null) {
+        when {
+            actionTarget != null -> actionTarget = null
+            showAnnotations -> showAnnotations = false
+            showToc -> showToc = false
+            settingsOpen -> settingsOpen = false
+            dockVisible -> dockVisible = false
+        }
+    }
 
-            val turnNext: () -> Unit = {
-                if (cursor < pages.lastIndex) cursor += 1 else onNextUnit()
-            }
-            val turnPrevious: () -> Unit = {
-                when {
-                    cursor > 0 -> cursor -= 1
-                    state.hasPreviousUnit -> onPreviousUnit()
-                    else -> onBack()
-                }
-            }
-            Column(Modifier.fillMaxSize()) {
-                Box(
-                    Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .padding(start = 22.dp, end = 22.dp, top = 10.dp, bottom = 4.dp)
-                        .focusRequester(focusRequester)
-                        .focusable()
-                        .onPreviewKeyEvent { event ->
-                            if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
-                            when (EinkKeyMap.action(event.key.nativeKeyCode)) {
-                                EinkAction.NEXT_PAGE -> { turnNext(); true }
-                                EinkAction.PREVIOUS_PAGE -> { turnPrevious(); true }
-                                EinkAction.BACK -> { onBack(); true }
-                                EinkAction.CONFIRM, EinkAction.NONE -> false
-                            }
-                        },
-                ) {
-                    val page = pages.getOrNull(cursor)
-                    if (page == null) {
-                        InkText(
-                            strings.loading,
-                            style = typography.ui,
-                            color = colors.inkMuted,
-                            modifier = Modifier.padding(16.dp),
-                        )
+    Box(modifier.fillMaxSize().background(colors.paper)) {
+        Column(Modifier.fillMaxSize()) {
+            InkTopBar(
+                title = state.bookTitle,
+                subtitle = "${state.chapterTitle} · ${state.unitTitle}",
+                backLabel = strings.back,
+                onBack = {
+                    if (dockVisible || settingsOpen) {
+                        dockVisible = false
+                        settingsOpen = false
                     } else {
-                        when (page) {
-                            is ReaderPage.PreviousUnit -> BridgePage(
-                                label = strings.grammarPrevious,
-                                onOpen = onPreviousUnit,
-                            )
-                            is ReaderPage.Guide -> GuidePage(
-                                strings = strings,
-                                state = state,
-                                guide = guide,
-                                onStart = {
-                                    val first = pages.indexOfFirst { it is ReaderPage.Text }
-                                    if (first >= 0) cursor = first
+                        onBack()
+                    }
+                },
+            )
+            ReaderToolbar(
+                strings = strings,
+                markMode = markMode,
+                showAllTranslations = state.preference.showAllTranslations,
+                onSearch = {
+                    dockVisible = false
+                    onOpenSearch()
+                },
+                onToggleMarkMode = { markMode = !markMode; actionTarget = null },
+                onToggleTranslations = onToggleAllTranslations,
+            )
+            Box(Modifier.weight(1f).fillMaxWidth()) {
+                BoxWithConstraints(Modifier.fillMaxSize()) {
+                    val density = LocalDensity.current
+                    // 左右留白跟「页边距」设置走；默认仍是 22dp。
+                    val margin = einkPageMargin(state.preference)
+                    val horizontalPadding = with(density) { margin.roundToPx() }
+                    val contentWidthPx = (constraints.maxWidth - horizontalPadding * 2).coerceAtLeast(1)
+                    val textPages = rememberEinkTextPages(
+                        state = state,
+                        contentWidthPx = contentWidthPx,
+                        pageHeightPx = constraints.maxHeight,
+                        showAllTranslations = state.preference.showAllTranslations,
+                    )
+                    val pages = remember(
+                        state.unitId,
+                        textPages,
+                        guide != null,
+                        state.quiz.size,
+                        state.grammar,
+                        state.hasPreviousUnit,
+                        state.hasNextUnit,
+                    ) {
+                        ReaderFlow.pages(state, textPages, guide != null, paged = true)
+                    }
+                    var cursor by remember(state.unitId) { mutableIntStateOf(initialCursor(state, pages)) }
+                    // 改字号/行距/页边距会重新分页：记住正文页比例，重排后回到相近位置。
+                    var textProgress by remember(state.unitId) { mutableStateOf(0f) }
+                    var previousPageCount by remember(state.unitId) { mutableIntStateOf(pages.size) }
+                    LaunchedEffect(pages.size, state.unitId) {
+                        if (pages.size != previousPageCount) {
+                            val textPages = pages.withIndex().filter { it.value is ReaderPage.Text }
+                            if (textPages.isNotEmpty()) {
+                                val target = (textProgress * (textPages.size - 1)).roundToInt()
+                                cursor = textPages[target.coerceIn(textPages.indices)].index
+                            }
+                            previousPageCount = pages.size
+                        }
+                    }
+                    LaunchedEffect(state.unitId) {
+                        val decision = EinkRefreshRules.onUnitChange(
+                            refreshState,
+                            refreshSettings,
+                            SystemClock.elapsedRealtime(),
+                        )
+                        refreshState = decision.state
+                        if (decision.fullRefresh) onFullRefresh()
+                    }
+                    LaunchedEffect(cursor, pages.size, state.unitId) {
+                        val page = pages.getOrNull(cursor) ?: return@LaunchedEffect
+                        reportOf(page, pages)?.let { (phase, textPage, anchor) ->
+                            onPageChanged(phase, textPage, 0f, anchor)
+                        }
+                        if (page is ReaderPage.Text) {
+                            val index = pages.take(cursor).count { it is ReaderPage.Text }
+                            val total = pages.count { it is ReaderPage.Text }
+                            textProgress = if (total > 1) index.toFloat() / (total - 1) else 0f
+                        }
+                        val decision = EinkRefreshRules.onPageTurn(
+                            refreshState,
+                            refreshSettings,
+                            SystemClock.elapsedRealtime(),
+                        )
+                        refreshState = decision.state
+                        if (decision.fullRefresh) onFullRefresh()
+                    }
+                    // 搜索 / 笔记列表要求定位到某一句：找到它所在的正文页并翻过去。
+                    LaunchedEffect(state.jumpTarget, pages.size) {
+                        val target = state.jumpTarget ?: return@LaunchedEffect
+                        val textPages = pages.withIndex().filter { it.value is ReaderPage.Text }
+                        val hit = textPages.firstOrNull { (_, page) ->
+                            val text = page as ReaderPage.Text
+                            text.page.chunks.any { it.paragraphId == target.paragraphId }
+                        }
+                        if (hit != null) cursor = hit.index
+                        onJumpHandled()
+                    }
+                    LaunchedEffect(Unit) { focusRequester.requestFocus() }
+
+                    val turnNext: () -> Unit = {
+                        if (cursor < pages.lastIndex) cursor += 1 else onNextUnit()
+                    }
+                    val turnPrevious: () -> Unit = {
+                        when {
+                            cursor > 0 -> cursor -= 1
+                            state.hasPreviousUnit -> onPreviousUnit()
+                            else -> onBack()
+                        }
+                    }
+                    val toggleDock: () -> Unit = {
+                        dockVisible = !dockVisible
+                        if (!dockVisible) settingsOpen = false
+                    }
+                    Column(Modifier.fillMaxSize()) {
+                        Box(
+                            Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                                .padding(top = 10.dp, bottom = 4.dp)
+                                .focusRequester(focusRequester)
+                                .focusable()
+                                .onPreviewKeyEvent { event ->
+                                    if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+                                    when (EinkKeyMap.action(event.key.nativeKeyCode)) {
+                                        EinkAction.NEXT_PAGE -> { turnNext(); true }
+                                        EinkAction.PREVIOUS_PAGE -> { turnPrevious(); true }
+                                        EinkAction.BACK -> {
+                                            if (dockVisible || settingsOpen) {
+                                                dockVisible = false
+                                                settingsOpen = false
+                                            } else {
+                                                onBack()
+                                            }
+                                            true
+                                        }
+                                        EinkAction.CONFIRM, EinkAction.NONE -> false
+                                    }
                                 },
-                            )
-                            is ReaderPage.Text -> TextPageView(
+                        ) {
+                            val page = pages.getOrNull(cursor)
+                            if (page == null) {
+                                InkText(
+                                    strings.loading,
+                                    style = typography.ui,
+                                    color = colors.inkMuted,
+                                    modifier = Modifier.padding(16.dp),
+                                )
+                            } else {
+                                when (page) {
+                                    is ReaderPage.PreviousUnit -> BridgePage(
+                                        label = strings.grammarPrevious,
+                                        onOpen = onPreviousUnit,
+                                    )
+                                    is ReaderPage.Guide -> GuidePage(
+                                        strings = strings,
+                                        state = state,
+                                        guide = guide,
+                                        onBlankTap = toggleDock,
+                                        onStart = {
+                                            val first = pages.indexOfFirst { it is ReaderPage.Text }
+                                            if (first >= 0) cursor = first
+                                        },
+                                    )
+                                    is ReaderPage.Text -> TextPageView(
+                                        strings = strings,
+                                        state = state,
+                                        page = page.page,
+                                        margin = margin,
+                                        onPrevious = turnPrevious,
+                                        onNext = turnNext,
+                                        onWordClick = { paragraphId, sentenceNumber, spelling, start, end ->
+                                            dockVisible = false
+                                            actionTarget = null
+                                            onWordClick(paragraphId, sentenceNumber, spelling, start, end)
+                                        },
+                                        markMode = markMode,
+                                        onSentenceTap = { paragraphId, sentenceNumber ->
+                                            actionTarget = paragraphId to sentenceNumber
+                                        },
+                                        onBlankTap = toggleDock,
+                                    )
+                                    is ReaderPage.TextScroll -> TextPageView(
+                                        strings = strings,
+                                        state = state,
+                                        page = textPages.firstOrNull(),
+                                        margin = margin,
+                                        onPrevious = turnPrevious,
+                                        onNext = turnNext,
+                                        onWordClick = { paragraphId, sentenceNumber, spelling, start, end ->
+                                            dockVisible = false
+                                            onWordClick(paragraphId, sentenceNumber, spelling, start, end)
+                                        },
+                                        markMode = markMode,
+                                        onSentenceTap = { paragraphId, sentenceNumber ->
+                                            actionTarget = paragraphId to sentenceNumber
+                                        },
+                                        onBlankTap = toggleDock,
+                                    )
+                                    is ReaderPage.Quiz -> QuizPageView(
+                                        strings = strings,
+                                        state = state,
+                                        index = page.index,
+                                        onSelect = onSelectOption,
+                                        onSubmit = onSubmitQuiz,
+                                        onNextUnit = onNextUnit,
+                                        onBlankTap = toggleDock,
+                                    )
+                                    is ReaderPage.Grammar -> GrammarPageView(
+                                        strings = strings,
+                                        grammar = state.grammar,
+                                        hasNextUnit = state.hasNextUnit,
+                                        onNextUnit = onNextUnit,
+                                        onBlankTap = toggleDock,
+                                    )
+                                    is ReaderPage.NextUnit -> BridgePage(
+                                        label = strings.nextUnitGuide,
+                                        onOpen = onNextUnit,
+                                    )
+                                }
+                            }
+                        }
+                        InkPageFooter(
+                            left = "${state.unitPosition} / ${state.unitCount}",
+                            center = pageLabel(strings, pages.getOrNull(cursor), cursor, pages, state),
+                            right = if (markMode) strings.markSentences else "←  →",
+                        )
+                    }
+                }
+                actionTarget?.let { (paragraphId, sentenceNumber) ->
+                    val sentence = state.paragraphs
+                        .firstOrNull { it.id == paragraphId }
+                        ?.sentences
+                        ?.firstOrNull { it.number == sentenceNumber }
+                    if (sentence != null) {
+                        Box(Modifier.fillMaxSize().background(colors.paper)) {
+                            EinkSentenceActionsPage(
                                 strings = strings,
-                                state = state,
-                                page = page.page,
-                                onPrevious = turnPrevious,
-                                onNext = turnNext,
-                                onWordClick = onWordClick,
-                                markMode = markMode,
-                                onSentenceTap = { paragraphId, sentenceNumber ->
-                                    actionTarget = paragraphId to sentenceNumber
-                                },
-                            )
-                            is ReaderPage.TextScroll -> TextPageView(
-                                strings = strings,
-                                state = state,
-                                page = textPages.firstOrNull(),
-                                onPrevious = turnPrevious,
-                                onNext = turnNext,
-                                onWordClick = onWordClick,
-                                markMode = markMode,
-                                onSentenceTap = { paragraphId, sentenceNumber ->
-                                    actionTarget = paragraphId to sentenceNumber
-                                },
-                            )
-                            is ReaderPage.Quiz -> QuizPageView(
-                                strings = strings,
-                                state = state,
-                                index = page.index,
-                                onSelect = onSelectOption,
-                                onSubmit = onSubmitQuiz,
-                                onNextUnit = onNextUnit,
-                            )
-                            is ReaderPage.Grammar -> GrammarPageView(
-                                strings = strings,
-                                grammar = state.grammar,
-                                hasNextUnit = state.hasNextUnit,
-                                onNextUnit = onNextUnit,
-                            )
-                            is ReaderPage.NextUnit -> BridgePage(
-                                label = strings.nextUnitGuide,
-                                onOpen = onNextUnit,
+                                quote = sentence.text,
+                                mark = sentence.mark,
+                                onToggleBookmark = { onToggleBookmark(paragraphId, sentenceNumber) },
+                                onToggleHighlight = { onToggleHighlight(paragraphId, sentenceNumber) },
+                                onSaveNote = { note -> onSaveNote(paragraphId, sentenceNumber, note) },
+                                onDeleteNote = { onDeleteNote(paragraphId, sentenceNumber) },
+                                onClose = { actionTarget = null },
                             )
                         }
                     }
                 }
-                InkPageFooter(
-                    left = "${state.unitPosition} / ${state.unitCount}",
-                    center = pageLabel(strings, pages.getOrNull(cursor), cursor, pages, state),
-                    right = if (markMode) strings.markSentences else "←  →",
-                )
             }
         }
-            actionTarget?.let { (paragraphId, sentenceNumber) ->
-                val sentence = state.paragraphs
-                    .firstOrNull { it.id == paragraphId }
-                    ?.sentences
-                    ?.firstOrNull { it.number == sentenceNumber }
-                if (sentence != null) {
-                    Box(Modifier.fillMaxSize().background(colors.paper)) {
-                        EinkSentenceActionsPage(
-                            strings = strings,
-                            quote = sentence.text,
-                            mark = sentence.mark,
-                            onToggleBookmark = { onToggleBookmark(paragraphId, sentenceNumber) },
-                            onToggleHighlight = { onToggleHighlight(paragraphId, sentenceNumber) },
-                            onSaveNote = { note -> onSaveNote(paragraphId, sentenceNumber, note) },
-                            onDeleteNote = { onDeleteNote(paragraphId, sentenceNumber) },
-                            onClose = { actionTarget = null },
-                        )
-                    }
-                }
-            }
+
+        if (dockVisible) {
+            EinkReaderDock(
+                strings = strings,
+                preference = state.preference,
+                annotationCount = state.annotations.size,
+                cardsCount = state.cardsCount,
+                settingsOpen = settingsOpen,
+                onOpenToc = {
+                    dockVisible = false
+                    settingsOpen = false
+                    showToc = true
+                },
+                onOpenAnnotations = {
+                    dockVisible = false
+                    settingsOpen = false
+                    showAnnotations = true
+                },
+                onToggleSettings = { settingsOpen = !settingsOpen },
+                onOpenCards = {
+                    dockVisible = false
+                    settingsOpen = false
+                    onOpenCards()
+                },
+                onOpenSettings = {
+                    dockVisible = false
+                    settingsOpen = false
+                    onOpenSettings()
+                },
+                onFontSize = onFontSize,
+                onLineSpacing = onLineSpacing,
+                onPageMargin = onPageMargin,
+                modifier = Modifier.align(Alignment.BottomCenter),
+            )
+        }
+        if (showToc) {
+            EinkTocPage(
+                strings = strings,
+                toc = state.toc,
+                onOpen = { unitId ->
+                    showToc = false
+                    onOpenUnit(unitId)
+                },
+                onBack = { showToc = false },
+            )
+        }
+        if (showAnnotations) {
+            EinkAnnotationListPage(
+                strings = strings,
+                bookTitle = state.bookTitle,
+                annotations = state.annotations,
+                onOpen = { annotation ->
+                    showAnnotations = false
+                    onOpenAnnotation(annotation)
+                },
+                onBack = { showAnnotations = false },
+            )
         }
     }
 }
@@ -340,11 +486,18 @@ private fun GuidePage(
     strings: Strings,
     state: ReaderUiState,
     guide: GuideCopy?,
+    onBlankTap: () -> Unit,
     onStart: () -> Unit,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+    val interaction = remember { MutableInteractionSource() }
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .clickable(interactionSource = interaction, indication = null, onClick = onBlankTap),
+    ) {
         InkText(strings.readingGuide, style = typography.caption, color = colors.inkMuted)
         Spacer(Modifier.height(6.dp))
         InkText(state.unitTitle, style = typography.title)
@@ -369,14 +522,17 @@ private fun TextPageView(
     strings: Strings,
     state: ReaderUiState,
     page: SentencePage?,
+    margin: Dp,
     onPrevious: () -> Unit,
     onNext: () -> Unit,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     markMode: Boolean,
     onSentenceTap: (String, Int) -> Unit,
+    onBlankTap: () -> Unit,
 ) {
     val typography = LocalInkTypography.current
     val colors = LocalInkColors.current
+    val readingStyle = einkReadingStyle(state.preference)
     if (page == null) {
         InkText(
             strings.loading,
@@ -387,11 +543,19 @@ private fun TextPageView(
         return
     }
     Box(Modifier.fillMaxSize()) {
+        // 菜单挂在滚动列的空白处：句子与按钮先消费自己的点击，剩下的空白落到
+        // 列本身，呼出底部菜单。拖动仍由 verticalScroll 处理。
+        val blankInteraction = remember { MutableInteractionSource() }
         Column(
             Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 24.dp),
+                .clickable(
+                    interactionSource = blankInteraction,
+                    indication = null,
+                    onClick = onBlankTap,
+                )
+                .padding(horizontal = margin),
         ) {
             page.chunks.forEach { chunk ->
                 val paragraph = state.paragraphs.firstOrNull { it.id == chunk.paragraphId } ?: return@forEach
@@ -401,11 +565,12 @@ private fun TextPageView(
                 if (start == end) return@forEach
                 paragraph.sentences.subList(start, end).forEachIndexed { index, sentence ->
                     // 段首留白与分页测量里的 22dp 对应，段内句子之间 4dp。
-                    Spacer(Modifier.height(if (index == 0) 20.dp else 4.dp))
+                    Spacer(Modifier.height(if (index == 0) 22.dp else 4.dp))
                     InkSentence(
                         sentence = sentence,
                         paragraphId = paragraph.id,
                         selected = state.selectedWord,
+                        style = readingStyle,
                         onWordClick = onWordClick,
                         markMode = markMode,
                         onSentenceTap = onSentenceTap,
@@ -434,12 +599,12 @@ private fun InkSentence(
     sentence: SentenceUi,
     paragraphId: String,
     selected: SelectedWordUi?,
+    style: TextStyle,
     onWordClick: (String, Int, String, Int, Int) -> Unit,
     markMode: Boolean,
     onSentenceTap: (String, Int) -> Unit,
     showTranslation: Boolean,
 ) {
-    val typography = LocalInkTypography.current
     val colors = LocalInkColors.current
     var layout by remember(sentence.text) { mutableStateOf<TextLayoutResult?>(null) }
     val mark = sentence.mark
@@ -483,12 +648,19 @@ private fun InkSentence(
                         }
                     }
                 },
-            style = typography.body.merge(TextStyle(color = colors.ink)),
+            style = style.merge(TextStyle(color = colors.ink)),
             onTextLayout = { layout = it },
         )
         val zh = sentence.zh
         if (showTranslation && !zh.isNullOrBlank()) {
-            InkText(zh, style = typography.bodySmall, color = colors.inkSecondary)
+            InkText(
+                zh,
+                style = style.copy(
+                    fontSize = style.fontSize * 0.9f,
+                    lineHeight = style.lineHeight * 0.9f,
+                ),
+                color = colors.inkSecondary,
+            )
         }
     }
 }
@@ -536,6 +708,7 @@ private fun QuizPageView(
     onSelect: (Int, Int) -> Unit,
     onSubmit: () -> Unit,
     onNextUnit: () -> Unit,
+    onBlankTap: () -> Unit,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
@@ -543,7 +716,13 @@ private fun QuizPageView(
     val submitted = state.quizSubmitted
     val allAnswered = state.quiz.all { it.selected != null }
     val isLastQuiz = index == state.quiz.lastIndex
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+    val interaction = remember { MutableInteractionSource() }
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .clickable(interactionSource = interaction, indication = null, onClick = onBlankTap),
+    ) {
         InkText(
             strings.pageQuiz.format(index + 1, state.quiz.size),
             style = typography.caption,
@@ -598,11 +777,18 @@ private fun GrammarPageView(
     grammar: GrammarUi?,
     hasNextUnit: Boolean,
     onNextUnit: () -> Unit,
+    onBlankTap: () -> Unit,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
     if (grammar == null) return
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+    val interaction = remember { MutableInteractionSource() }
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .clickable(interactionSource = interaction, indication = null, onClick = onBlankTap),
+    ) {
         InkText(strings.grammar, style = typography.caption, color = colors.inkMuted)
         Spacer(Modifier.height(6.dp))
         grammar.pointName?.let {

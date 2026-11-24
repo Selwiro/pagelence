@@ -27,6 +27,8 @@ dependencies {
     api(project(":core"))
     api(project(":presentation"))
     implementation(libs.androidx.core.ktx)
+    // 返回键分层（阅读页覆盖层先于退出阅读消费返回）。
+    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.foundation)

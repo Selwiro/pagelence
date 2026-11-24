@@ -166,6 +166,8 @@ object EnStrings : Strings {
     override val typography: String get() = "Typography"
     override val typographySummary: String get() = "%1\$s · %2\$s"
     override val typographyPreview: String get() = "Live preview"
+    override val einkTypographyHint: String get() =
+        "Size, line spacing and margins only change the body and its translations; progress, marks and quizzes stay as they are."
     override val typographyHint: String get() =
         "These four change body text and sentence translations only, not progress, notes or quizzes."
     override val typographySample: String get() =

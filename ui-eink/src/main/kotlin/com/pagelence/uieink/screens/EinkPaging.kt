@@ -21,17 +21,17 @@ import com.pagelence.presentation.pagination.PaginationFingerprint
 import com.pagelence.presentation.pagination.PaginationKey
 import com.pagelence.uim3.model.ParagraphUi
 import com.pagelence.uim3.model.ReaderUiState
-import com.pagelence.uieink.theme.LocalInkTypography
+import com.pagelence.uieink.theme.einkReadingStyle
 
 /** 最近翻过的单元，避免来回换单元时重新测量（与普通版同口径）。 */
 private const val CacheEntries = 8
 private val pageCache = PaginationCache<List<SentencePage>>(CacheEntries)
 
 /**
- * 墨水屏正文分页：与普通版同一套 [:core] 分页器，只换成墨水屏的字号与衬线字体。
+ * 墨水屏正文分页：与普通版同一套 [:core] 分页器与同一份 `preferences`。
  *
- * 墨水屏固定 19sp 衬线、行高 1.74，不跟普通版的字号/行距/页边距设置走——那些
- * 是为手机小屏准备的档位；墨屏只保留「刷新强度」这类设备相关设置。
+ * 字号、行距、页边距跟普通版同步（T169），字体固定衬线；默认仍是 19sp /
+ * 行高 1.74 / 左右各 22dp。分页缓存键带上这三项，改设置后按新档位重新测量。
  */
 @Composable
 internal fun rememberEinkTextPages(
@@ -42,16 +42,17 @@ internal fun rememberEinkTextPages(
 ): List<SentencePage> {
     val measurer = rememberTextMeasurer()
     val density = LocalDensity.current
-    val readingStyle = LocalInkTypography.current.body
+    val preference = state.preference
+    val readingStyle = einkReadingStyle(preference)
     val key = PaginationKey(
         bookId = state.bookId,
         unitId = state.unitId,
         contentWidthPx = contentWidthPx,
         pageHeightPx = pageHeightPx,
-        fontSize = FontSize.MEDIUM,
+        fontSize = preference.fontSize,
         readingFont = ReadingFont.SERIF,
-        lineSpacing = LineSpacing.NORMAL,
-        pageMargin = PageMargin.NORMAL,
+        lineSpacing = preference.lineSpacing,
+        pageMargin = preference.pageMargin,
         showAllTranslations = showAllTranslations,
         language = state.language,
         density = density.density,

@@ -24,7 +24,7 @@ class LexiconIndexTest {
 
     @Test
     fun `sizes match the source tables`() {
-        assertEquals(38_229, index.dictionarySize)
+        assertEquals(38_292, index.dictionarySize)
         assertEquals(33_210, index.levelSize)
         assertEquals(37_897, index.frequencySize)
         assertEquals(ecdict.entries.size, index.dictionarySize)

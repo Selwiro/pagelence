@@ -312,6 +312,7 @@ fun InkSelectRow(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     description: String? = null,
+    alignTop: Boolean = false,
 ) {
     val colors = LocalInkColors.current
     val typography = LocalInkTypography.current
@@ -321,12 +322,12 @@ fun InkSelectRow(
             .fillMaxWidth()
             .clickable(interactionSource = interaction, indication = null, onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = if (alignTop) Alignment.Top else Alignment.CenterVertically,
     ) {
         InkText(
             if (selected) "■" else "□",
             style = typography.uiStrong,
-            modifier = Modifier.width(24.dp),
+            modifier = Modifier.width(24.dp).then(if (alignTop) Modifier.padding(top = 2.dp) else Modifier),
         )
         Column(Modifier.weight(1f)) {
             InkText(label, style = if (selected) typography.uiStrong else typography.ui)
@@ -484,6 +485,55 @@ fun InkConfirmPage(
         if (cancelLabel != null && onCancel != null) {
             Spacer(Modifier.height(10.dp))
             InkButton(cancelLabel, onClick = onCancel)
+        }
+    }
+}
+
+/**
+ * 一行等分选项（T169）：字号、行距、页边距等档位。选中用 2dp 描边 + 加粗，
+ * 不反色；每格最小 44dp，整行与上方标签一起读。
+ */
+@Composable
+fun <T> InkOptionRow(
+    label: String,
+    options: List<Pair<T, String>>,
+    selected: T,
+    onSelect: (T) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val colors = LocalInkColors.current
+    val typography = LocalInkTypography.current
+    Column(modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+        InkText(label, style = typography.ui, color = colors.inkSecondary)
+        Row(Modifier.fillMaxWidth().padding(top = 6.dp)) {
+            options.forEach { (value, text) ->
+                val isSelected = value == selected
+                val interaction = remember { MutableInteractionSource() }
+                Box(
+                    Modifier
+                        .weight(1f)
+                        .padding(horizontal = 2.dp)
+                        .defaultMinSize(minHeight = 44.dp)
+                        .border(
+                            width = if (isSelected) 2.dp else 1.dp,
+                            color = if (isSelected) colors.ink else colors.rule,
+                        )
+                        .clickable(
+                            interactionSource = interaction,
+                            indication = null,
+                            onClick = { onSelect(value) },
+                        )
+                        .padding(horizontal = 2.dp, vertical = 10.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    InkText(
+                        text,
+                        style = if (isSelected) typography.uiStrong else typography.ui,
+                        maxLines = 1,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
         }
     }
 }

@@ -169,6 +169,8 @@ interface Strings {
     val typographySummary: String
     val typographyPreview: String
     val typographyHint: String
+    /** 墨水屏阅读设置：只有字号与行距，正文固定衬线。 */
+    val einkTypographyHint: String
     val typographySample: String
     val typographySampleZh: String
     val dictionaryNotInstalled: String

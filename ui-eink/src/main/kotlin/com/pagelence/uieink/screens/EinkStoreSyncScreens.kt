@@ -151,12 +151,17 @@ private fun BuiltInRow(
             book.level,
             strings.unitCount.format(book.unitCount),
             if (book.available) null else strings.storeComingSoon,
+            if (book.finished) strings.shelfFinished else null,
         ).joinToString(" · ")
         InkText(meta, style = typography.caption, color = colors.inkMuted)
         Spacer(Modifier.height(8.dp))
         if (book.available) {
             Row {
-                InkButton(strings.readNow, onClick = { onOpenBook(book.id) }, primary = true)
+                InkButton(
+                    label = if (book.finished) strings.readAgain else strings.readNow,
+                    onClick = { onOpenBook(book.id) },
+                    primary = true,
+                )
                 InkTextButton(strings.details, onClick = { onOpenDetail(book.id) })
             }
         } else {
@@ -181,7 +186,12 @@ private fun RemoteBookRow(
         InkText(book.title, style = typography.title, maxLines = 2)
         Spacer(Modifier.height(4.dp))
         InkText(
-            listOfNotNull(book.level, book.sizeLabel, book.sourceNames.joinToString("/"))
+            listOfNotNull(
+                book.level,
+                book.sizeLabel,
+                book.sourceNames.joinToString("/"),
+                if (book.finished) strings.shelfFinished else null,
+            )
                 .filter { it.isNotBlank() }
                 .joinToString(" · "),
             style = typography.caption,
@@ -191,7 +201,11 @@ private fun RemoteBookRow(
         Row {
             when {
                 downloading -> InkText(strings.loading, style = typography.ui, color = colors.inkMuted)
-                book.installed -> InkButton(strings.readNow, onClick = { onOpenBook(book.id) }, primary = true)
+                book.installed -> InkButton(
+                    label = if (book.finished) strings.readAgain else strings.readNow,
+                    onClick = { onOpenBook(book.id) },
+                    primary = true,
+                )
                 else -> InkButton(
                     label = strings.download,
                     onClick = { onDownload(book.id, book.sourceIds.firstOrNull()) },
