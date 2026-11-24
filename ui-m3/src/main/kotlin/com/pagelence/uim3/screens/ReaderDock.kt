@@ -13,8 +13,9 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,14 +39,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.PointerInputChange
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -69,7 +72,7 @@ import kotlin.math.roundToInt
  * The panel above the icons takes at most this share of the screen and scrolls
  * above that, so the four actions never get pushed off a short screen.
  */
-private const val SettingsPanelHeightFraction = 0.72f
+private const val SettingsPanelHeightFraction = 0.88f
 private val SettingsPanelMaxHeight = 520.dp
 
 /**
@@ -133,9 +136,9 @@ internal fun ReaderDockOverlay(
                         color = MaterialTheme.colorScheme.surface,
                         shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
                     )
-                    .padding(bottom = 4.dp),
+                    .padding(bottom = 2.dp),
             ) {
-                Spacer(Modifier.height(8.dp))
+                Spacer(Modifier.height(6.dp))
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -243,7 +246,9 @@ private fun RowScope.DockAction(
             label,
             style = MaterialTheme.typography.labelSmall,
             color = tint,
-            maxLines = 1,
+            // English labels such as "Bookmarks & notes" need a second line at
+            // this width; Chinese ones stay on one.
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
         )
@@ -277,9 +282,15 @@ private fun ReaderSettingsPanel(
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.weight(1f),
             )
-            TextButton(onClick = onOpenSettings) {
-                Text(strings.readerSettingsMore, style = MaterialTheme.typography.labelLarge)
-            }
+            Text(
+                strings.readerSettingsMore,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable(role = Role.Button, onClick = onOpenSettings)
+                    .padding(horizontal = 8.dp, vertical = 6.dp),
+            )
         }
         StepSlider(
             label = strings.fontSize,
@@ -395,7 +406,8 @@ private fun <T> StepSlider(
     }
 }
 
-/** Label on the left, single-choice chips on the right; wraps when needed. */
+/** A labelled row of single-choice chips. The label sits above the chips so
+ * "Meaning language" and "双语带读" both fit without squeezing the chips. */
 @Composable
 private fun <T> ChoiceLine(
     label: String,
@@ -403,22 +415,48 @@ private fun <T> ChoiceLine(
     selected: T,
     onSelect: (T) -> Unit,
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
+    Column(Modifier.fillMaxWidth().padding(top = 3.dp)) {
         Text(
             label,
             style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.width(64.dp),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        Box(Modifier.weight(1f)) {
-            ChoiceRow(
-                options = options,
-                selected = selected,
-                onSelect = onSelect,
-            )
+        Spacer(Modifier.height(2.dp))
+        ChoiceRow(
+            options = options,
+            selected = selected,
+            onSelect = onSelect,
+        )
+    }
+}
+
+/**
+ * Fires [onTap] when a tap on the reading surface was not handled by anything
+ * inside it — no word, sentence icon or button consumed the up event.
+ *
+ * Consumption is checked on the Main pass: by the time this node sees the up,
+ * its descendants (the word spans, icons, buttons) have already had their turn,
+ * while ancestors such as the pager and `verticalScroll` have not consumed it
+ * yet. A plain `detectTapGestures` cannot be used here because those ancestors
+ * swallow the tap on a scrollable page.
+ */
+@Composable
+internal fun Modifier.readerBlankTap(onTap: () -> Unit): Modifier {
+    val current = rememberUpdatedState(onTap)
+    return pointerInput(Unit) {
+        awaitEachGesture {
+            val down = awaitFirstDown(requireUnconsumed = false)
+            val start = down.position
+            val slop = viewConfiguration.touchSlop
+            var moved = false
+            var up: PointerInputChange? = null
+            while (up == null) {
+                val event = awaitPointerEvent(PointerEventPass.Main)
+                val change = event.changes.firstOrNull { it.id == down.id } ?: break
+                if ((change.position - start).getDistance() > slop) moved = true
+                if (!change.pressed) up = change
+            }
+            if (up != null && !moved && !up.isConsumed) current.value()
         }
     }
 }

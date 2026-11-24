@@ -6,7 +6,6 @@ package com.pagelence.uim3.screens
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -50,7 +49,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
@@ -551,18 +549,20 @@ fun ReaderScreen(
 
                         // A tap that no word, icon or button consumed lands here and
                         // opens the bottom menu; the scrim closes it again.
-                        Box(
-                            Modifier
-                                .fillMaxSize()
-                                .pointerInput(Unit) {
-                                    detectTapGestures(onTap = { dockVisible = true })
-                                },
-                        ) {
+                        Box(Modifier.fillMaxSize()) {
                             HorizontalPager(
                                 state = pagerState,
                                 userScrollEnabled = paged,
                                 modifier = Modifier.fillMaxSize(),
                             ) { index ->
+                                // The detector sits inside the pager page so a
+                                // tap the page did not handle reaches it before
+                                // the pager or the page's scroll consumes it.
+                                Box(
+                                    Modifier
+                                        .fillMaxSize()
+                                        .readerBlankTap { dockVisible = true },
+                                ) {
                                 when (val page = pages[index]) {
                                     ReaderPage.PreviousUnit -> UnitBridgePage(
                                         label = strings.previousUnitGrammar,
@@ -585,6 +585,7 @@ fun ReaderScreen(
                                             goTo(textStart)
                                         },
                                         onPreview = onStartPreview,
+                                        onBlankTap = { dockVisible = true },
                                     )
 
                                     is ReaderPage.Text -> TextPageView(
@@ -614,6 +615,7 @@ fun ReaderScreen(
                                                 sentence.text,
                                             )
                                         },
+                                        onBlankTap = { dockVisible = true },
                                     )
 
                                     ReaderPage.TextScroll -> key(textSession) {
@@ -661,6 +663,7 @@ fun ReaderScreen(
                                                 textScrollProgress = it
                                                 onTextProgress(it)
                                             },
+                                            onBlankTap = { dockVisible = true },
                                         )
                                     }
 
@@ -679,11 +682,13 @@ fun ReaderScreen(
                                                 goTo(index + 1)
                                             }
                                         },
+                                        onBlankTap = { dockVisible = true },
                                     )
 
                                     ReaderPage.Grammar -> Column(
                                         Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-                                            .padding(horizontal = 20.dp, vertical = 10.dp),
+                                            .padding(horizontal = 20.dp, vertical = 10.dp)
+                                            .readerBlankTap { dockVisible = true },
                                     ) {
                                         state.grammar?.let {
                                             GrammarCard(strings, it, onOpenPoint = onOpenGrammarPoint)
@@ -697,6 +702,7 @@ fun ReaderScreen(
                                         }
                                         Spacer(Modifier.height(24.dp))
                                     }
+                                }
                                 }
                             }
 

@@ -6,6 +6,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -259,12 +261,14 @@ internal fun GuidePageView(
     copy: GuideCopy,
     onStart: () -> Unit,
     onPreview: () -> Unit,
+    onBlankTap: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 24.dp, vertical = 20.dp),
+            .padding(horizontal = 24.dp, vertical = 20.dp)
+            .readerBlankTap(onBlankTap),
     ) {
         Text(
             state.chapterTitle,
@@ -335,12 +339,16 @@ internal fun TextPageView(
     focus: SentenceFocus?,
     onTranslate: (String, SentenceUi) -> Unit,
     onSentenceLongPress: (String, SentenceUi) -> Unit,
+    onBlankTap: () -> Unit,
 ) {
     val scroll = rememberScrollState()
     val horizontalPadding = state.preference.pageMargin.horizontalPadding()
     val atEnd by remember { derivedStateOf { scroll.value >= scroll.maxValue - 8 } }
     val scrollable = page.scrollable || expandedTranslation != null
-    Box(Modifier.fillMaxSize()) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        // The tap layer has to sit inside the scrolling column: a scrollable
+        // page swallows taps before a page-level handler can see them.
+        val columnMinHeight = (maxHeight - 38.dp).coerceAtLeast(0.dp)
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -352,7 +360,9 @@ internal fun TextPageView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .widthIn(max = 760.dp)
-                    .padding(horizontal = horizontalPadding, vertical = 10.dp),
+                    .heightIn(min = columnMinHeight)
+                    .padding(horizontal = horizontalPadding, vertical = 10.dp)
+                    .readerBlankTap(onBlankTap),
             ) {
                 page.chunks.forEach { chunk ->
                     ParagraphChunkView(
@@ -510,6 +520,7 @@ internal fun TextScrollView(
     onSentenceLongPress: (String, SentenceUi) -> Unit,
     onEnterQuiz: () -> Unit,
     onProgress: (Float) -> Unit,
+    onBlankTap: () -> Unit,
     scrollToParagraphId: String? = null,
     onScrollHandled: () -> Unit = {},
 ) {
@@ -557,7 +568,8 @@ internal fun TextScrollView(
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .verticalScroll(scroll)
-                .padding(horizontal = horizontalPadding, vertical = 10.dp),
+                .padding(horizontal = horizontalPadding, vertical = 10.dp)
+                .readerBlankTap(onBlankTap),
         ) {
             state.paragraphs.forEach { paragraph ->
             Box(
@@ -603,6 +615,7 @@ internal fun QuizPageView(
     unansweredCount: Int,
     onSelect: (Int) -> Unit,
     onNext: () -> Unit,
+    onBlankTap: () -> Unit,
 ) {
     var showSentence by rememberSaveable(index, question.selected) { mutableStateOf(false) }
     val answered = question.selected != null
@@ -611,7 +624,8 @@ internal fun QuizPageView(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 14.dp),
+            .padding(horizontal = 20.dp, vertical = 14.dp)
+            .readerBlankTap(onBlankTap),
     ) {
         Text(
             strings.pageQuiz.format(index + 1, total),
