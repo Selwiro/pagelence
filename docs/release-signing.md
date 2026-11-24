@@ -74,4 +74,4 @@ python3 tools/bump_version.py patch     # 或 minor / major
 
 ## 轮换（暂不需要）
 
-已有 v3 签名且 `targetSdk ≥ 33` 时可以用 `apksigner rotate` 轮换密钥并保留升级能力，但目前只有 0.1.0 开发版通过 GitHub Releases 分发，没有需要轮换的理由。真要换之前先补这一节的操作步骤，别直接生成新密钥库。
+已有 v3 签名且 `targetSdk ≥ 33` 时可以用 `apksigner rotate` 轮换密钥并保留升级能力，但目前只有 0.2.0 开发版通过 GitHub Releases 分发，没有需要轮换的理由。真要换之前先补这一节的操作步骤，别直接生成新密钥库。

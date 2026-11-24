@@ -4,7 +4,7 @@
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.4.21-7F52FF?logo=kotlin&logoColor=white)
 ![Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=jetpackcompose&logoColor=white)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
-![Status](https://img.shields.io/badge/status-0.1.0%20dev-orange)
+![Status](https://img.shields.io/badge/status-0.2.0%20dev-orange)
 
 **简体中文** · English（待补）
 
@@ -14,7 +14,7 @@
 
 内置书只选全球公版作品：当前随包分发两本——《怪医杜立德》（*The Story of Doctor Dolittle*，1920 年版，21 章 103 单元，A2，全书完整）与《爱丽丝漫游仙境记》（*Alice's Adventures in Wonderland*，1866 Macmillan 版，12 章 104 单元，B1，全书完整）。
 
-当前为 **0.1.0 开发版**：普通版（Material 3）已可安装运行，墨水屏版尚未开工。官网与下载页在 <https://selwiro.github.io/pagelence/>，签名 release 包随 GitHub Releases 提供；网站源文件在 [`site/`](site/README.md)。
+当前为 **0.2.0 开发版**：普通版（Material 3）与墨水屏版（Compose foundation 自建设计系统）都可安装运行，两个 APK 随 GitHub Releases 提供。官网与下载页在 <https://selwiro.github.io/pagelence/>，网站源文件在 `gh-pages` 分支。
 
 ## 应用特点
 
@@ -70,7 +70,7 @@
 
 ## 界面预览
 
-截图取自 0.1.0 开发版（API 34 模拟器）。截图不随默认分支提交：只有书架、正文与点词三张必要图随官网一起放在
+截图取自 0.1.0 / 0.2.0 开发版（API 34 模拟器）。截图不随默认分支提交：只有书架、正文与点词三张必要图随官网一起放在
 `gh-pages` 分支根目录，由 GitHub Pages 输出，README 用完整 URL 引用。
 
 | 书架 | 正文分页 | 点词词义 |
@@ -219,7 +219,7 @@
 
 界面语言与词义语言互相独立：切界面语言只改文案与书名/单元名，词义仍按词义语言过滤。
 
-设置底部的「关于」进入独立页面：上方是应用图标、名称、`v0.1.0 (1)` 与一句话简介，下方依次是
+设置底部的「关于」进入独立页面：上方是应用图标、名称、`v0.2.0 (2)` 与一句话简介，下方依次是
 检查更新、官网、GitHub 仓库、隐私与数据、开源许可。官网指向 GitHub Pages，检查更新打开
 GitHub Releases，两者都走系统浏览器，不在应用内发网络请求；隐私与数据、开源许可是应用内
 可读的长页，摘要与 [LICENSE-CONTENT](LICENSE-CONTENT)、[第三方说明](THIRD_PARTY_NOTICES.md) 一致。
@@ -253,7 +253,7 @@ GitHub Releases，两者都走系统浏览器，不在应用内发网络请求�
 ## 下载
 
 - 官网：<https://selwiro.github.io/pagelence/>
-- 最新开发版（0.1.0，签名 release）：<https://github.com/Selwiro/pagelence/releases/tag/v0.1.0>
+- 最新开发版（0.2.0，签名 release）：<https://github.com/Selwiro/pagelence/releases/tag/v0.2.0>
   - 大小 13,050,047 字节（12.4 MB）
   - SHA-256 `d211466ff60e3ebf79a5256580a589fccc2d295a740d861f7c901638552177c2`
 - 官网源文件只在 [`gh-pages` 分支](https://github.com/Selwiro/pagelence/tree/gh-pages) 维护，不放进 `main`；GitHub Pages 从该分支根目录输出。
@@ -262,7 +262,7 @@ GitHub Releases，两者都走系统浏览器，不在应用内发网络请求�
 
 ## 构建与安装
 
-当前发布形态为**开发版 0.1.0（versionCode 1）**：签名 release 包由 GitHub Releases 提供，debug 包由本地构建。发布签名已于 2026-11-21 配好；密钥库在仓库外，口令只在本机。
+当前发布形态为**开发版 0.2.0（versionCode 2）**：普通版与墨水屏版两个签名 release 包由 GitHub Releases 提供，debug 包由本地构建。发布签名已于 2026-11-21 配好；密钥库在仓库外，口令只在本机。
 
 ### 系统要求
 
@@ -536,7 +536,7 @@ python3 tools/migrate/record_progress_parity.py    # 重录进度规则对照 fi
 
 ### 版本与发布
 
-- 两个壳共用 `version.properties`（当前 `1` / `0.1.0`），但各自有 `applicationId` 与签名产物，可独立上架。
+- 两个壳共用 `version.properties`（当前 `2` / `0.2.0`），但各自有 `applicationId` 与签名产物，可独立上架。
 - 共享 `:core` 时用单 tag（如 `v1.0.0`）同时产出两个包；发布节奏不同时改用 `phone-v1.2.0`、`eink-v1.0.0` 双 tag。
 - 提交信息带 scope：`feat(core)`、`feat(phone)`、`feat(eink)`、`fix(phone)`、`chore(content)`。
 
@@ -548,7 +548,7 @@ python3 tools/migrate/record_progress_parity.py    # 重录进度规则对照 fi
 
 ## 反馈与贡献
 
-当前为 **0.1.0 开发版**：普通版已可安装运行，墨水屏版尚未开工；签名包通过 [GitHub Releases](https://github.com/Selwiro/pagelence/releases) 分发。问题与建议走 GitHub Issues，附版本号（「设置 → 关于」）、设备与复现步骤；安全问题请走私下的安全报告渠道，不要公开提 Issue。贡献流程、内容规范与截图托管方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+当前为 **0.2.0 开发版**：普通版与墨水屏版都已可安装运行；签名包通过 [GitHub Releases](https://github.com/Selwiro/pagelence/releases) 分发。问题与建议走 GitHub Issues，附版本号（「设置 → 关于」）、设备与复现步骤；安全问题请走私下的安全报告渠道，不要公开提 Issue。贡献流程、内容规范与截图托管方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ### 提交代码
 

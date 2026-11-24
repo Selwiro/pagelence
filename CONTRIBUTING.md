@@ -67,4 +67,4 @@ ECDICT_CSV=/path/to/ecdict.csv tools/ci_check.sh
 
 - 一般问题与建议走 GitHub Issues，附版本号（「设置 → 关于」）、设备与复现步骤。
 - 安全问题不要公开提 Issue，请通过仓库主页的私下渠道联系维护者。
-- 当前为 0.1.0 开发版，签名包通过 [GitHub Releases](https://github.com/Selwiro/pagelence/releases) 分发；从源码构建见 [README](README.md)。
+- 当前为 0.2.0 开发版，签名包通过 [GitHub Releases](https://github.com/Selwiro/pagelence/releases) 分发；从源码构建见 [README](README.md)。

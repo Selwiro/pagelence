@@ -131,7 +131,7 @@ https://github.com/Selwiro/pagelence/releases/download/dict-39cfb96/full-dict.sq
 `HttpURLConnection` 的自动重定向行为；模拟器上用「40 MB 本地分片 + 真实 GitHub 地址续传」
 跑通到 sha256 校验通过。
 
-**为什么标记 pre-release**：App 的 `v0.1.0` 本身是 Pre-release，词表若是普通 Release 会
+**为什么标记 pre-release**：App 的 `v0.2.0` 本身是 Pre-release，词表若是普通 Release 会
 被 GitHub 当成「Latest Release」，把「检查更新」的落点从 App 变成词表。因此词表 Release
 保留 Pre-release 标记，资产地址不受影响。
 
